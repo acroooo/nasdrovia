@@ -1,10 +1,8 @@
-const { DataTypes } = require('sequelize');
-
-
+const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
-
+  // Defino lo que se repite en los modelos:
   const validations = {
     allowNull: false,
     strType: {
@@ -18,32 +16,31 @@ module.exports = (sequelize) => {
     },
   };
   // defino el modelo
-  sequelize.define('user', {
-    name: {
+  sequelize.define("producto", {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: validations.allowNull,
       validate: validations.strType,
     },
-    role:{
-     type:DataTypes.STRING,
-     defaultValue:'Client',
-     allowNull: validations.allowNull,
-     validate: validations.strType,
+    precio: {
+      type: DataTypes.FLOAT,
+      allowNull: validations.allowNull,
+      validate: validations.intType,
     },
-    email:{
-      type:DataTypes.STRING,
+    stock: {
+      type: DataTypes.FLOAT,
+      allowNull: validations.allowNull,
+      validate: validations.intType,
+    },
+    imagen: {
+      type: DataTypes.STRING,
       allowNull: validations.allowNull,
       validate: validations.strType,
-      unique:true,
-      validate:{
-        isEmail:true
-      },
-      password:{
-        type:DataTypes.STRING,
-        allowNull: validations.allowNull,
-        validate: validations.intType,
-      }
-    }
-    
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+      allowNull: validations.allowNull,
+      validate: validations.strType,
+    },
   });
 };
