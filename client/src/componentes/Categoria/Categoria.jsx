@@ -20,23 +20,27 @@ export default function Categoria({ productosArr, categorias }) {
   }, [categoriasDisplay])
   return (
     <div className="Categorias">
-      <div className="categoriaFilter">
+      <div className="categoriaFilter bg-gray-400  flex justify-evenly">
         {categorias.map((categoria, i) => {
           return (
-            <label><input
-              type="checkbox"
-              key={i}
-              value={categoria}
+            <div className=" f">
+              <label className=" inline-block bg-gray-200 rounded-full px-3 py-1 text-3xl font-bold text-gray-700 m-5 p-5"><input
+                type="checkbox"
+                key={i}
+                value={categoria}
 
-              id={i}
-              onChange={(e) => { handleChange(e) }}
-            /> {categoria}</label>
+                id={i}
+                onChange={(e) => { handleChange(e) }}
+              /> {categoria}</label>
+            </div>
           );
         })}
       </div>
-      {categoriasDisplay.map((producto, i) => {
-        return <Producto producto={producto} key={i} />;
-      })}
+      <div className="m-screen flex">
+        {categoriasDisplay.map((producto, i) => {
+          return <Producto producto={producto} key={i} />;
+        })}
+      </div>
     </div>
   );
 }
