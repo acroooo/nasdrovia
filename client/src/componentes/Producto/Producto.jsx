@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Card = ({photo}) => {
+const Card = ({ producto }) => {
+    const { photo } = producto;
     return (
         <div className='card'>
             <img src={photo} alt="" className='w-full' />
