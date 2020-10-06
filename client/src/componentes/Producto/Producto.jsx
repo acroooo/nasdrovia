@@ -4,7 +4,7 @@ const Card = ({ producto }) => {
     const { photo } = producto;
     return (
         <div className='card'>
-            <img src={photo} alt="" className='w-full' />
+            <img src={photo} alt="" className='object-contain m-auto' />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">TailWind Funcionando</div>
                 <p className="text-gray-700 text-base">
