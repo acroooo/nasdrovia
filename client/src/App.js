@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import Categoria from './componentes/Categoria/Categoria'
+
 function App() {
+
+  const src = 'https://cdn.pastemagazine.com/www/articles/ballast%20point%20sculpin.png';
+  const productos = [{ nombre: 'producto1', id: 0, photo: src, asd: "agreguen más cosas", categoria: "lager" }, { nombre: 'producto2', id: 1, photo: src, asd: "agreguen más cosas", categoria: "stout" }];
+  const categorias = ['Lager', 'Stout'];
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Categoria productosArr={productos} categorias={categorias} />
     </div>
   );
 }
