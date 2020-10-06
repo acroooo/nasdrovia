@@ -24,7 +24,7 @@ export default function Categoria({ productosArr, categorias }) {
         {categorias.map((categoria, i) => {
           return (
             <div className=" f">
-              <label className=" inline-block bg-gray-200 rounded-full px-3 py-1 text-3xl font-bold text-gray-700 m-5 p-5"><input
+              <label className=" block shadow-md bg-gray-200 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin"><input
                 type="checkbox"
                 key={i}
                 value={categoria}
@@ -36,7 +36,7 @@ export default function Categoria({ productosArr, categorias }) {
           );
         })}
       </div>
-      <div className="m-screen flex">
+      <div className="w-screen flex mt-5 justify-evenly h-auto">
         {categoriasDisplay.map((producto, i) => {
           return <Producto producto={producto} key={i} />;
         })}
