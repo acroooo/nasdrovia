@@ -1,1 +1,14 @@
 /* @import "tailwindcss/components"; */
+.p{
+    margin-top: 400px;
+}
+.agregar{
+    margin-right: 25px;
+}
+.margen{
+    padding-right:20px;
+}
+.selector{
+    border: 1px solid black;
+    border-radius: 2%;
+}
