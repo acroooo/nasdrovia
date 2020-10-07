@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const app = express();
-const { Product } = require('../db.js');
+const { Producto } = require('../db.js');
 
-router.get('/',(req, res, next) => {
-	Product.findAll()
-		.then(products => {
-			res.send(products);
+router.get('/',(req, res, error) => {
+	Producto.findAll()
+		.then(productos => {
+			res.send('funciona').status(200);
 		})
-		.catch(next);
+		.catch(error.message);
 });
-
-
 
 module.exports = router;
