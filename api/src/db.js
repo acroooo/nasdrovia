@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { checkout } = require('./app');
+
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -33,6 +34,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 
+
 const {Producto, Categories, Checkout, Order, Reviews,User } = sequelize.models;
 // Aca vendrian las relaciones
 
@@ -48,6 +50,7 @@ Checkout.hasMany(Order)
 
 Checkout.belongsToMany(Producto, {through: Order})
 Producto.belongsToMany(Checkout, {through: Order})
+
 
 
 module.exports = {
