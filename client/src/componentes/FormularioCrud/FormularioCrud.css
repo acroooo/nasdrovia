@@ -1,5 +1,8 @@
 .codigo-crud{width: 280px;}
-.sub-header,.encabezado{background-color:#e3e4e5;}
+.header-crud{background:#0074b1;}
+.fa-plus{color:#0074b1;}
+.btn-agregar,.fa-trash,.btn-buscar,.btn-cancelar{background-color: #d30208;}
+.sub-header,.encabezado,.fa-pencil-alt,.btn-nuevo{background-color:#015386;}
 .fas{cursor: pointer;}
 button:focus{outline: none;}
 button{transition: .4s all;}
@@ -7,4 +10,5 @@ button:active{transform:scale(.98);}
 input:focus{outline: none;}
 @media(max-width:768px){.codigo-crud input{width: 120px;}}
 .modal {transition: opacity 0.25s ease;}
-.modal-active {overflow-x: hidden;overflow-y: visible !important;}
+.modal-active {overflow-x: hidden;overflow-y: visible;}
+

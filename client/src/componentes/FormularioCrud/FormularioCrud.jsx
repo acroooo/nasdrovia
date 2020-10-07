@@ -3,48 +3,46 @@ import "./FormularioCrud.css"
 import {productos,toggleModal,editar,nuevoProducto} from './formulario';
 
 const FormularioCrud = () => {
-   let clase;
+   
    const[productoActual,setProductoActual]=useState({});
-
    const handleChange = e=>{setProductoActual({...productoActual,[e.target.name]:e.target.value})}
-
     return (
         <div>
             <div className="container border bg-white-400  px-5 mx-auto mt-5 rounded py-10">
-                <div className="encabezado bg-gray-300 py-3 flex justify-between px-2 rounded-sm mb-1 border items-center">
-                    <h1 className="text-bold text-2xl font-bold">Listado de productos</h1>
-                    <button className="bg-blue-400 py-2 px-4 rounded text-white flex items-center" id="agregar-producto" onClick={nuevoProducto}><i className="fas fa-plus bg-white rounded-full text-blue-400 p-1 text-xs mr-1"></i> Nuevo Producto </button>
+                <div className="encabezado bg-gray-300 py-3 flex justify-between px-2 rounded-md mb-1 border items-center">
+                    <h1 className="text-bold text-white text-2xl font-bold">Listado de productos</h1>
+                    <button className="btn-agregar bg-blue-400 py-2 px-4 rounded text-white flex items-center" id="agregar-producto" onClick={nuevoProducto}><i className="fas fa-plus bg-white rounded-full text-blue-400 p-1 text-xs mr-1"></i> Nuevo Producto </button>
                 </div>
-                <div className="header-crud flex bg-blue-400 py-4 px-2 mb-2 rounded-sm">
+                <div className="header-crud flex bg-blue-400 py-4 px-2 mb-2 rounded-md">
                     <div className="codigo-crud mr-2 flex  items-center ">
                         <p className="text-white text-xs sm:text-base">Código:</p>
                         <input className="sm:py-1 px-2 rounded-sm ml-2 sm:ml-2 text-sm sm:text-base" type="text" placeholder="Código" />
                     </div>
-                    <div className="codigo-crud flex mr-2  items-center ">
+                    <div className="codigo-crud flex mr-2  items-center">
                         <p className="text-white text-xs sm:text-base">Nombre:</p>
                         <input className="sm:py-1 px-2 rounded-sm  sm:ml-2 ml-2 text-sm sm:text-base" type="text" placeholder="Nombre" />
                     </div>
-                    <button className="bg-black text-white px-4 py-1 md:px-6 rounded-sm text-xs md:text-base">Buscar</button>
+                    <button className="btn-buscar bg-black text-white px-4 py-1 md:px-6 rounded-sm text-xs md:text-base">Buscar</button>
                 </div>
 
-                <div className="sub-header grid grid-cols-12 bg-gray-500  p-2 gap-2">
-                    <div className="titulo col-span-4 xl:col-span-1 font-bold">Código</div>
-                    <div className="titulo col-span-4 xl:col-span-1 font-bold">Nombre</div>
-                    <div className="titulo col-span-4 font-bold hidden xl:block">Descripción</div>
-                    <div className="titulo col-span-2 font-bold hidden xl:block">Imagen</div>
-                    <div className="titulo col-span-1 font-bold hidden xl:block">Stock</div>
-                    <div className="titulo col-span-1 font-bold hidden xl:block">Precio</div>
-                    <div className="titulo col-span-4 xl:col-span-2 font-bold ">Acciones</div>
+                <div className="sub-header rounded-t grid grid-cols-12 bg-gray-500  p-2 gap-2">
+                    <div className="titulo text-white col-span-4 xl:col-span-1 font-bold">Código</div>
+                    <div className="titulo text-white col-span-4 xl:col-span-1 font-bold">Nombre</div>
+                    <div className="titulo text-white col-span-4 font-bold hidden xl:block">Descripción</div>
+                    <div className="titulo text-white col-span-2 font-bold hidden xl:block">Imagen</div>
+                    <div className="titulo text-white col-span-1 font-bold hidden xl:block">Stock</div>
+                    <div className="titulo text-white col-span-1 font-bold hidden xl:block">Precio</div>
+                    <div className="titulo text-white col-span-4 xl:col-span-2 font-bold ">Acciones</div>
                 </div>
 
                 {productos.map(producto =>
-                    <div key={producto.id} className={clase = producto.id%2!==0 ? 'fila-tabla grid grid-cols-12  p-2 gap-2 border': 'sub-header grid grid-cols-12  p-2 gap-2 border'}>
+                    <div key={producto.id} className='fila-tabla grid grid-cols-12  p-2 gap-2 border'>
                         <div className="titulo col-span-4 xl:col-span-1">{producto.id}</div>
                         <div className="nombre col-span-4 xl:col-span-1 ">{producto.nombre}</div>
                         <div className="descripcion col-span-4 hidden xl:block">{producto.descripcion} </div>
                         <div className="imagen col-span-2 hidden xl:block">{producto.imagen}</div>
                         <div className="stock col-span-1 hidden xl:block">{producto.stock}</div>
-                        <div className="precio col-span-1 hidden xl:block">{producto.precio}</div>
+                        <div className="precio col-span-1 hidden xl:block">$ {producto.precio.toString()[0]+'.'+producto.precio.toString().slice(1)}</div>
                         <div className="titulo col-span-4 xl:col-span-2 ">
                             <span><i className="fas fa-pencil-alt p-1 bg-blue-600 text-white rounded-sm mr-2" onClick={()=>editar(setProductoActual,producto)}></i></span>
                             <span><i className="fas fa-trash p-1 bg-red-600 text-white rounded-sm"></i></span>
@@ -92,8 +90,8 @@ const FormularioCrud = () => {
                         </form>
 
                         <div className="flex justify-end pt-2">
-                            <button className="px-4 bg-blue-500 py-1 text-white rounded-md hover:bg-blue-400  mr-2">Agregar</button>
-                            <button className="modal-close px-4 bg-indigo-500  rounded-md text-white hover:bg-indigo-400" onClick={toggleModal}>Cancelar</button>
+                            <button className="btn-nuevo px-4 bg-blue-500 py-1 text-white rounded-md hover:opacity-75  mr-2">Agregar</button>
+                            <button className="btn-cancelar modal-close px-4 bg-indigo-500  rounded-md text-white hover:opacity-75" onClick={toggleModal}>Cancelar</button>
                         </div>
 
                     </div>
