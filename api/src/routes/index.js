@@ -2,6 +2,7 @@ const { Router } = require("express");
 // import all routers;
 
 const productRouter = require("./producto.js");
+const categoryRouter = require("./categoria.js");
 
 const router = Router();
 
@@ -10,5 +11,6 @@ const router = Router();
 // router.use('/auth', authRouter);
 
 router.use("/products", productRouter);
+router.use("/category",categoryRouter);
 
 module.exports = router;
