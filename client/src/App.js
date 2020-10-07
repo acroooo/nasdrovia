@@ -4,6 +4,7 @@ import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 import Producto from './componentes/Producto/Producto.jsx';
 import FormularioCrud from './componentes/FormularioCrud/FormularioCrud.jsx';
 
+
 //React Router
 //Ruta producto
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
