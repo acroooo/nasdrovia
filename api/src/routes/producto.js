@@ -1,12 +1,16 @@
-const app = require('express').Router();
-const { Producto } = require('../db.js');
+const express = require('express');
+const router = express.Router();
+const app = express();
+const { Product } = require('../db.js');
 
-app.get('/productos', (req, res, next) => {
-	Producto.findAll()
-		.then(productos => {
-			res.send(productos).status(200);
+router.get('/',(req, res, next) => {
+	Product.findAll()
+		.then(products => {
+			res.send(products);
 		})
 		.catch(next);
 });
 
-module.exports = app;
+
+
+module.exports = router;
