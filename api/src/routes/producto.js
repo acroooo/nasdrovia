@@ -1,12 +1,12 @@
 const app = require('express').Router();
-const { Product } = require('../db.js');
+const { Producto } = require('../db.js');
 
-server.get('/:producto', (req, res, next) => {
-	Product.findAll()
-		.then(products => {
-			res.send(products);
+app.get('/:producto', (req, res, next) => {
+	Producto.findAll()
+		.then(productos => {
+			res.send(productos);
 		})
 		.catch(next);
 });
 
-module.exports = server;
+module.exports = app;
