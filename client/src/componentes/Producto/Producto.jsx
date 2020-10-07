@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import "./Producto.css";
 
 const Card = ({ producto }) => {
     const { photo } = producto;
@@ -20,4 +21,4 @@ const Card = ({ producto }) => {
     )
 }
 
-export default Card
+export default Producto;

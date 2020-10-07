@@ -17,8 +17,8 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
@@ -27,7 +27,14 @@ conn.sync({ force: true }).then(() => {
     console.log('%s listening at 3002'); // eslint-disable-line no-console
 ======= */
   server.listen(3001, () => {
+<<<<<<< HEAD
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
+=======
     console.log('arriba el 3001'); // eslint-disable-line no-console
+<<<<<<< HEAD
+>>>>>>> master
+=======
 
+>>>>>>> master
   });
 });
