@@ -1,10 +1,10 @@
 const app = require('express').Router();
 const { Producto } = require('../db.js');
 
-app.get('/:producto', (req, res, next) => {
+app.get('/productos', (req, res, next) => {
 	Producto.findAll()
 		.then(productos => {
-			res.send(productos);
+			res.send(productos).status(200);
 		})
 		.catch(next);
 });

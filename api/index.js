@@ -22,19 +22,11 @@ const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-/* <<<<<<< HEAD
-  server.listen(3002, () => {
-    console.log('%s listening at 3002'); // eslint-disable-line no-console
-======= */
   server.listen(3001, () => {
-<<<<<<< HEAD
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
-=======
-    console.log('arriba el 3001'); // eslint-disable-line no-console
-<<<<<<< HEAD
->>>>>>> master
-=======
 
->>>>>>> master
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
+
+    console.log('arriba el 3001'); // eslint-disable-line no-console
+
   });
 });
