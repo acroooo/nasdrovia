@@ -3,7 +3,7 @@ const router = express.Router();
 const app = express();
 const { Producto, Categories } = require('../db.js');
 
-app.use
+app.use('/categorias', Categories)
 
 router.get('/',(req, res, error) => {
 	Producto.findAll()
