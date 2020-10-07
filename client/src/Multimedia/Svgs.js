@@ -36,7 +36,7 @@ export const cartButton = (
 
 export const searchButton = (
   <svg
-    width="1.5em"
+    width="1em"
     height="1.5em"
     viewBox="0 0 16 16"
     className="bi bi-search"
