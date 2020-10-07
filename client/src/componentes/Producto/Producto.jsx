@@ -80,6 +80,7 @@ const Producto = ({nombre, descripcion, precio, cantidad}) => {
     </div>
   </div>
 </div>
+
   );
 };
 
