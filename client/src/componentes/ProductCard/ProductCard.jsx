@@ -1,4 +1,5 @@
 import React from 'react'
+import {cartButton} from "../../Multimedia/Svgs";
 
 const Card = () => {
     return (
@@ -15,7 +16,7 @@ const Card = () => {
             <div class="prod-info grid gap-10">
               <div class="flex flex-row  justify-around items-center text-gray-900">
                 <p class="font-bold text-xl">$65</p>
-                <button class="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-600 hover:text-white border-2 border-gray-900 focus:outline-none">Add to Cart</button>
+                <button class="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-600 hover:text-white border-2 border-gray-900 focus:outline-none">{cartButton}</button>
               </div>
             </div>
           </div>
