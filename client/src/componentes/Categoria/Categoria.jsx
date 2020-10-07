@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/ProductCard";
 
-import { categorias, productos} from './menu_producto'
-
+import { categorias, productos } from "./menu_producto";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 export default function Categoria() {
@@ -50,40 +50,52 @@ export default function Categoria() {
   }
   if (filtrar) {
     return (
-      <div className="Categorias">
-        <div className="categoriaFilter bg-gray-400  flex justify-evenly">
-          {cat.map((categoria, i) => {
-            return (
-              <div className="f" key={i + "f"}>
-                <label className=" block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin">
-                  <input
-                    type="checkbox"
-                    key={categoria.value + i}
-                    value={categoria.value}
-                    id={i}
-                    checked={categoria.select}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                  />
-                  {categoria.value}
-                </label>
-              </div>
-            );
-          })}
-          <div
-            className="block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin"
-            onClick={() => setFiltrar(!filtrar)}
+      <AnimatePresence>
+        <div className="Categorias">
+          <motion.div
+            className="categoriaFilter bg-gray-400  flex justify-evenly"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            X
+            {cat.map((categoria, i) => {
+              return (
+                <motion.div
+                  initial={{ x: -1000 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: 1000 }}
+                  className="f"
+                  key={i + "f"}
+                >
+                  <label className=" block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin">
+                    <input
+                      type="checkbox"
+                      key={categoria.value + i}
+                      value={categoria.value}
+                      id={i}
+                      checked={categoria.select}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    {categoria.value}
+                  </label>
+                </motion.div>
+              );
+            })}
+            <div
+              className="block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin h-8"
+              onClick={() => setFiltrar(!filtrar)}
+            >
+              X
+            </div>
+          </motion.div>
+          <div className="w-screen flex mt-5 justify-evenly h-auto">
+            {categoriasDisplay.map((producto, i) => {
+              return <Producto producto={producto} key={i + "k"} />;
+            })}
           </div>
         </div>
-        <div className="w-screen flex mt-5 justify-evenly h-auto">
-          {categoriasDisplay.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} />;
-          })}
-        </div>
-      </div>
+      </AnimatePresence>
     );
   }
   return (
