@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+.logo {
+  height: 45px;
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.logo {
+  height: 45px;
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.SearchInput {
+  width: 150%px;
+  background: #374151;
+  border-radius: 3px;
+  box-shadow: 0 0px 10px 0 rgb(0, 0, 0, 0.4);
+  align-items: center;
+  top: 55px;
+}

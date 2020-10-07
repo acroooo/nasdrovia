@@ -1,18 +1,19 @@
-import React from 'react';
-import './App.css';
 
-import Categoria from './componentes/Categoria/Categoria'
+import React from "react";
+import "./App.css";
+import Producto from "./componentes/Producto/Producto";
+import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 
-function App() {
+//React Router
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-  const src = 'https://cdn.pastemagazine.com/www/articles/ballast%20point%20sculpin.png';
-  const productos = [{ nombre: 'producto1', id: 0, photo: src, asd: "agreguen más cosas", categoria: "lager" }, { nombre: 'producto2', id: 1, photo: src, asd: "agreguen más cosas", categoria: "stout" }];
-  const categorias = ['Lager', 'Stout'];
+export default function App() {
   return (
     <div className="App">
-      <Categoria productosArr={productos} categorias={categorias} />
+      <Router>
+        <Route path="/" component={SearchBar} />
+        <Producto />
+      </Router>
     </div>
   );
 }
-
-export default App;

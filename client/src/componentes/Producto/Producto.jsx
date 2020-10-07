@@ -1,10 +1,11 @@
-import React from 'react'
+import React from "react";
+import "./Producto.css";
 
 const Card = ({ producto }) => {
     const { photo } = producto;
     return (
-        <div className='card'>
-            <img src={photo} alt="" className='object-contain m-auto' />
+        <div className='card shadow-xl rounded-md border-2 w-4/12 m-2'>
+            <img src={photo} alt="" className='object-fit m-auto pt-6' />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">TailWind Funcionando</div>
                 <p className="text-gray-700 text-base">
@@ -20,4 +21,4 @@ const Card = ({ producto }) => {
     )
 }
 
-export default Card
+export default Producto;
