@@ -1,14 +1,14 @@
-const { Router } = require("express");
+const express = require("express");
 // import all routers;
+const categorias = require("./categorias.js")
+const producto = require("./producto.js");
 
-const productRouter = require("./producto.js");
-
-const router = Router();
-
+const app = express();
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
 
-router.use("/products", productRouter);
+app.use("/producto", producto);
+app.use("/producto/categorias", categorias);
 
-module.exports = router;
+module.exports = app;
