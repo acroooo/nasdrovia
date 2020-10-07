@@ -27,14 +27,9 @@ conn.sync({ force: true }).then(() => {
     console.log('%s listening at 3002'); // eslint-disable-line no-console
 ======= */
   server.listen(3001, () => {
-<<<<<<< HEAD
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
-=======
-    console.log('arriba el 3001'); // eslint-disable-line no-console
-<<<<<<< HEAD
->>>>>>> master
-=======
 
->>>>>>> master
+
+    console.log('arriba el 3001'); // eslint-disable-line no-console
+
   });
 });
