@@ -4,6 +4,7 @@ import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 import Producto from './componentes/Producto/Producto.jsx';
 
 //React Router
+//Ruta producto
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Categoria from "./componentes/Categoria/Categoria";
 
