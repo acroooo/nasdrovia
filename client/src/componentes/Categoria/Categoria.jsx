@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Producto from "../Producto/Producto";
+import Producto from "../ProductCard/ProductCard";
 
 export default function Categoria({ productosArr, categorias }) {
   const [categoriasDisplay, setCategoriasDisplay] = useState(productosArr);
