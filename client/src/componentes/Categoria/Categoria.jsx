@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/ProductCard";
-import { categorias, productos } from "./menu_producto";
+
+import { categorias, productos} from './menu_producto'
+
+
 
 export default function Categoria() {
   const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
