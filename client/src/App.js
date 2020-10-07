@@ -13,9 +13,10 @@ export default function App() {
     <div className="App">
       <Router>
       <Route path="/" component={SearchBar} />
-        <Categoria />
-        <Route path="/producto" component={Producto} />
+      <Route path="/" component={Categoria} />
+        <Route exact path="/producto" component={Producto} />
       </Router>
+
     </div>
   );
 }

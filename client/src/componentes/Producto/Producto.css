@@ -1,1 +1,16 @@
 /* @import "tailwindcss/components"; */
+.p{
+    margin-top: 400px;
+}
+.agregar{
+    margin-right: 25px;
+}
+.margen{
+    padding-right:20px;
+}
+.poruno{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
