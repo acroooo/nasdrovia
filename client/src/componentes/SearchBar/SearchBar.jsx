@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
 
 export default function SearchBar() {
-  //Hooks
-  const [search, setSearch] = useState({ query: "" });
-
   // ----- Funcionalidad ----
 
-  const handleChange = (event) =>
-    setSearch({ ...search, [event.target.name]: event.target.value });
+  //   const handleChange = (event) =>
+  //     setSearch({ ...search, [event.target.name]: event.target.value });
 
   return (
     <div class="w-screen flex flex-row items-center p-1 justify-between bg-gray-800 shadow-xs">
@@ -24,7 +21,7 @@ export default function SearchBar() {
           type="search"
           name="serch"
           placeholder="Buscar..."
-          onChange={handleChange}
+          // onChange=
           class="flex-grow px-4 rounded-l-full rounded-r-full text-sm focus:outline-none"
         />
         <i class="fas fa-search m-3 mr-5 text-lg text-gray-700 w-4 h-4">
