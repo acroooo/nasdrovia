@@ -1,7 +1,7 @@
 import React from "react";
 import "./Producto.css";
 
-const Producto = () => {
+const Producto = ({nombre, descripcion, precio, cantidad}) => {
   return (
     <div className="text-gray-700 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">
@@ -44,9 +44,9 @@ const Producto = () => {
             <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button> */}
           </div>
           <div className="flex ml-6 cantidades">
-            <span className="mr-3">Cantidad</span>
-            <div className="relative">
-              <select className="rounded selector border appearance-none border-gray-400 py-2 focus:outline-none focus:border-indigo-500 text-base pl-3 pr-10">
+            <span className="mr-56">Cantidad</span>
+            <div className="selector">
+              <select className="rounded selector border border-gray-400 py-2 focus:outline-none focus:border-indigo-500 text-base pl-3 pr-10">
                 <option>x1</option>
                 <option>x6</option>
                 <option>x12</option>
