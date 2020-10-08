@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Nav, Navbar, FormControl, Button, Form, NavDropdown } from "react-bootstrap";
 import './SearchBar.css'
 
 export default function SearchBar() {
@@ -14,7 +14,33 @@ export default function SearchBar() {
 
   return (
     <Container fluid>
-      <div className="contenedor">
+      <Navbar className="navbar-custom" variant="dark">
+      <Navbar.Brand href="#home">
+      <img
+       src="https://i.pinimg.com/originals/0f/72/14/0f721400c190ad9a138cd12d71694cdf.png"
+              alt="Logo"
+              width="90px"
+            />
+      </Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link href="#inicio">Inicio</Nav.Link>
+        <NavDropdown title="Cervezas" id="basic-nav-dropdown">
+        <NavDropdown.Item href="#">Scotch</NavDropdown.Item>
+        <NavDropdown.Item href="#">Honey</NavDropdown.Item>
+        <NavDropdown.Item href="#">Ipa</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
+      </NavDropdown>
+      <Nav.Link href="#ofertas">Ofertas</Nav.Link>
+      </Nav>
+    <Form inline>
+      <FormControl type="text" placeholder="Ale Pale" className="mr-sm-2" />
+      <Button variant="outline-info">Buscar</Button>
+      <div class="carrito">{cartButton}</div>
+      <div class="usuario">{userButton}</div>
+    </Form>
+  </Navbar>
+      {/* <div className="contenedor">
         <Row>
         <Col>
           <div class="logo">
@@ -45,7 +71,7 @@ export default function SearchBar() {
       </div>
         </Col>
       </Row>
-      </div>
+      </div> */}
     </Container>
   );
 }
