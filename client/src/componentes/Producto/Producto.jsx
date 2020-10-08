@@ -1,6 +1,6 @@
 import React from "react";
 import "./Producto.css";
-import { Card, Carousel, Container, Image, Button } from "react-bootstrap";
+import { Card, Carousel, Container, Image, Button, Row, Col } from "react-bootstrap";
 
 const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   const props = {
@@ -14,63 +14,59 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   return (
     <div className="producto">
       <Card border="danger">
-      <Container className="imagen">
-      <Carousel clasName="container">
-  <Carousel.Item>
-    <Image
-      className="d-block w-100"
-      src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-   <Image 
-   src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-    className="d-block w-100"
-
-    />
-
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <Image
-      className="w-100"
-      src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-      alt="Third slide"
-    />
-
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-</Carousel>
-      </Container>
-      <Container className="container2">
-        <h1 className="text-center">Starke</h1>
-        <Card className="card2 text-center">
-          <Card.Header><h2>Blonde Ipa</h2></Card.Header>
-          <Card.Body>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>
-            With supporting text below as a natural lead-in to additional content.
-          </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-          </Card.Body>
-          <Card.Footer className="text-muted">2 days ago</Card.Footer>
+        <Container className="imagen">
+          <Carousel clasName="container">
+            <Carousel.Item>
+              <Image
+                className="d-block w-100"
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                alt="First slide"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <Image
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                className="d-block w-100"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <Image
+                className="w-100"
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                alt="Third slide"
+              />
+            </Carousel.Item>
+          </Carousel>
+        </Container>
+        <Container className="container2">
+          <h1 className="text-center">Starke</h1>
+          <Card className="card2">
+            <Card.Header>
+              <h2>Blonde Ipa</h2>
+            </Card.Header>
+            <Card.Body>
+              <Card.Title>Cerveza Rubia Holandesa</Card.Title>
+              <div className="arribatexto">
+                <Card.Text>Descripcion del producto</Card.Text>
+              </div>
+              <div className="abajotexto">
+                <Card.Text>Cantidad : 100;</Card.Text>
+                <Row>
+                  <div>
+                    <Button className="botonRojo">+</Button>
+                    <Button className="botonRojo">-</Button>
+                  </div>
+                  </Row>
+              </div>
+            </Card.Body>
+            <Card.Footer className="text-muted">
+              <Button className="botonCarrito">Agregar al Carro</Button>
+            </Card.Footer>
           </Card>
-      </Container>
-    </Card>
-
+        </Container>
+      </Card>
     </div>
-    
+
     //     <div className="text-gray-700 body-font overflow-hidden">
     //   <div className="container px-5 py-24 mx-auto">
     //     <div className="lg:w-4/5 mx-auto flex flex-wrap border">
