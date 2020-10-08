@@ -6,11 +6,11 @@ module.exports = (sequelize) => {
   const allowNull = false;
   // defino el modelo
   sequelize.define("categories", {
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: allowNull,
     },
-    description: {
+    descripcion: {
       type: DataTypes.STRING,
       alowNull: allowNull,
     },
