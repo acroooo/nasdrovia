@@ -17,7 +17,6 @@ export default function SearchBar() {
 
   // ----- Funcionalidad ----
 
-
   const handleChange = (event) => { 
     event.preventDefault()
     setSearch({ ...search, [event.target.name]: event.target.value }); 
