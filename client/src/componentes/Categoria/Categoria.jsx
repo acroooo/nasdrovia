@@ -51,11 +51,11 @@ export default function Categoria() {
   if (filtrar) {
     return (
       <div className="Categorias">
-        <div className="categoriaFilter bg-gray-400  flex justify-evenly">
+        <div className="categoriaFilter">
           {cat.map((categoria, i) => {
             return (
               <div className="f" key={i + "f"}>
-                <label className=" block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin">
+                <label className="">
                   <input
                     type="checkbox"
                     key={categoria.value + i}
@@ -72,13 +72,13 @@ export default function Categoria() {
             );
           })}
           <div
-            className="block shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-sm font-bold text-gray-700 mt-4 p-2 mb-4 font-thin"
+            className=""
             onClick={() => setFiltrar(!filtrar)}
           >
             X
           </div>
         </div>
-        <div className="w-screen flex mt-5 justify-evenly h-auto">
+        <div className="">
           {categoriasDisplay.map((producto, i) => {
             return <Producto producto={producto} key={i + "k"} />;
           })}
@@ -88,15 +88,15 @@ export default function Categoria() {
   }
   return (
     <div className="Categorias">
-      <div className="flex justify-end mr-10">
+      <div className="">
         <div
-          className="block w-32 shadow-md bg-gray-300 transition duration-300 hover:bg-gray-100 cursor-pointer  rounded-full px-3 py-1 text-md font-bold text-gray-700 mt-4 p-2 mb-4 font-thin"
+          className=""
           onClick={() => setFiltrar(!filtrar)}
         >
           Filtros
         </div>
       </div>
-      <div className="w-screen flex mt-5 justify-evenly h-auto">
+      <div className="">
         {categoriasDisplay.map((producto, i) => {
           return <Producto producto={producto} key={i + "k"} />;
         })}
