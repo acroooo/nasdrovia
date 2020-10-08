@@ -13,7 +13,7 @@ import "./SearchBar.css";
 
 export default function SearchBar() {
   //Hooks
-  const [search, setSearch] = useState({ query: "" });
+  const [search, setSearch] = useState({ query: '' });
 
   // ----- Funcionalidad ----
 
