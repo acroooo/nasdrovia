@@ -1,0 +1,13 @@
+.card{
+    width: 65%;
+    height: 80vh;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    align-self:center;
+}
+.producto{
+    display:flex !important;
+    justify-content: center;
+
+}
