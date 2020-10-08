@@ -35,7 +35,7 @@ export default function SearchBar() {
       </Nav>
     <Form inline>
       <FormControl type="text" placeholder="Ale Pale" className="mr-sm-2" />
-      <Button variant="outline-info">Buscar</Button>
+      <Button variant="outline-info">{searchButton}</Button>
       <div class="carrito">{cartButton}</div>
       <div class="usuario">{userButton}</div>
     </Form>
