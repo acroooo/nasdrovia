@@ -12,6 +12,9 @@ import {
 import "./SearchBar.css";
 
 export default function SearchBar() {
+  //Hooks
+  const [search, setSearch] = useState({ query: '' });
+
   // ----- Funcionalidad ----
 
 
@@ -53,5 +56,6 @@ export default function SearchBar() {
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>
+      </Container>
   );
 }
