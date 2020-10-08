@@ -25,12 +25,6 @@ server.use((req, res, next) => {
 });
 
 server.use("/", routes);
-<<<<<<< HEAD
-=======
-//<h1>Hola</h1>;a
-// Error catching endware.
->>>>>>> S21_routeAPI_all_products
-
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;

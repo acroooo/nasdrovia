@@ -22,20 +22,7 @@ const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-<<<<<<< HEAD
- 
   server.listen(3001, () => {
-
-    console.log("%s listening at 3001"); // eslint-disable-line no-console   
-
-
-=======
-  server.listen(3001, () => {
-
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
->>>>>>> S21_routeAPI_all_products
-
-    console.log('arriba el 3001'); // eslint-disable-line no-console
-
+    console.log(" listening at 3001"); // eslint-disable-line no-console
   });
 });
