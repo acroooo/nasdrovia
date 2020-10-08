@@ -16,7 +16,6 @@ export default function SearchBar() {
   const [search, setSearch] = useState({ query: '' });
 
   // ----- Funcionalidad ----
-  const [search, setSearch] = useState({})
 
   const handleChange = (event) => { 
     event.preventDefault()
