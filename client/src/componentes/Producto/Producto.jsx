@@ -2,7 +2,16 @@ import React, {useState, useEffect} from "react";
 import "./Producto.css";
 import { Card, Carousel, Container, Image, Button, Row, Col } from "react-bootstrap";
 
-const Producto = ({ nombre, descripcion, precio, cantidad }) => {
+const props = {
+  nombre: "Starke",
+  tipo: "Blonde Ipa",
+  subtitulo: "Cerveza Rubia Holandesa",
+  descripcion: "Ámbar, notas cítricas con la combinación justa entre el amargor de los lúpulos y el dulzor delicado de la combinación de 4 maltas seleccionadas.",
+  precio: "$59",
+}
+
+
+const Producto = () => {
   const [agregar, setAgregar] = useState();
   const [cant, setCant] = useState(0);
   const [stock, setStock] = useState(100);
@@ -35,28 +44,28 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
           </Carousel>
         </Container>
         <Container className="container2">
-          <h1 className="titulo text-center">STARKE</h1>
+          <h1 className="titulo text-center">{props.nombre}</h1>
           <Card className="card2">
             <Card.Header>
-              <h2>Blonde Ipa</h2>
+              <h2>{props.tipo}</h2>
             </Card.Header>
             <Card.Body>
-              <Card.Title>Cerveza Rubia Holandesa</Card.Title>
+              <Card.Title>{props.subtitulo}</Card.Title>
               <div className="arribatexto">
-                <Card.Text>Ámbar, notas cítricas con la combinación justa entre el amargor de los lúpulos y el dulzor delicado de la combinación de 4 maltas seleccionadas.</Card.Text>
+                <Card.Text>{props.descripcion}</Card.Text>
               </div>
               <div className="abajotexto">
-                <Card.Text>CANTIDAD</Card.Text>
                 <Row>
                   <div>
-                    <Button className="botonRojo">+</Button>
-                    <Button className="botonRojo">-</Button>
+                  <Card.Text>CANTIDAD: {cant}</Card.Text>
+                    <Button className="botonCant" onClick={() => setCant(cant + 1)}>+</Button>
+                    <Button className="botonCant" onClick={() => setCant(cant - 1)}>-</Button>
                   </div>
                   </Row>
               </div>
             </Card.Body>
             <Card.Footer className="text-muted">
-              <Button className="botonCarrito">Agregar al Carro</Button>
+              <Button className="botonRojo">Agregar al Carro</Button>
             </Card.Footer>
           </Card>
         </Container>

@@ -58,16 +58,22 @@ p{
     background-color: #0074b1 !important;
 }
 
-.botonCarrito{
-    width:100%;
-}
-
 .botonRojo{
     background-color: #d30208 !important;
     margin-left:10px;
+    width: 100%;
+    text-transform: uppercase;
 }
-
+.botonCant{
+    font-weight: 400;
+}
 .titulo{
     color: #015386;
     text-shadow: 0.5px 0.5px 0.5px black; 
+    text-transform: uppercase;
 }
+
+.card-text{
+    font-weight: 800;
+}
+
