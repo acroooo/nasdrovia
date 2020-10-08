@@ -1,19 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./Producto.css";
 import { Card, Carousel, Container, Image, Button, Row, Col } from "react-bootstrap";
 
 const Producto = ({ nombre, descripcion, precio, cantidad }) => {
-  const props = {
-    nombre: "Belgian Blonde Ale",
-    descripcion:
-      "Linea Starke, cerveza de tonos rubios, sabores intensos, lista y fresca para disparar el lupulo de su cepa. Desde los alpes alemanes a la puerta de tu casa.",
-    precio: "$59",
-    cantidad: [1, 6, 12, 24],
-  };
+  const [agregar, setAgregar] = useState();
+  const [cant, setCant] = useState(0);
+  const [stock, setStock] = useState(100);
 
   return (
     <div className="producto">
-      <Card border="danger">
+      <Card>
         <Container className="imagen">
           <Carousel clasName="container">
             <Carousel.Item>
@@ -39,7 +35,7 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
           </Carousel>
         </Container>
         <Container className="container2">
-          <h1 className="text-center">Starke</h1>
+          <h1 className="titulo text-center">STARKE</h1>
           <Card className="card2">
             <Card.Header>
               <h2>Blonde Ipa</h2>
@@ -47,10 +43,10 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
             <Card.Body>
               <Card.Title>Cerveza Rubia Holandesa</Card.Title>
               <div className="arribatexto">
-                <Card.Text>Descripcion del producto</Card.Text>
+                <Card.Text>Ámbar, notas cítricas con la combinación justa entre el amargor de los lúpulos y el dulzor delicado de la combinación de 4 maltas seleccionadas.</Card.Text>
               </div>
               <div className="abajotexto">
-                <Card.Text>Cantidad : 100;</Card.Text>
+                <Card.Text>CANTIDAD</Card.Text>
                 <Row>
                   <div>
                     <Button className="botonRojo">+</Button>
