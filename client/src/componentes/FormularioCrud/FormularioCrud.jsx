@@ -1,306 +1,88 @@
-import React, { useState } from "react";
-import "./FormularioCrud.css";
-import { productos, toggleModal, editar, nuevoProducto } from "./formulario";
+import React, { useState } from 'react'
+import "./FormularioCrud.css"
+import { productos, ocultarFormulario, motrarFormulario,editarProducto } from './formulario';
 
 const FormularioCrud = () => {
-<<<<<<< HEAD
-  const [productoActual, setProductoActual] = useState({});
-  const handleChange = (e) => {
-    setProductoActual({ ...productoActual, [e.target.name]: e.target.value });
-  };
-  return (
-    <div>
-      <div className="container border bg-white-400  px-5 mx-auto mt-5 rounded py-10">
-        <div className="encabezado bg-gray-300 py-3 flex justify-between px-2 rounded-md mb-1 border items-center">
-          <h1 className="text-bold text-white text-2xl font-bold">
-            Listado de productos
-          </h1>
-          <button
-            className="btn-agregar bg-blue-400 py-2 px-4 rounded text-white flex items-center"
-            id="agregar-producto"
-            onClick={nuevoProducto}
-          >
-            <i className="fas fa-plus bg-white rounded-full text-blue-400 p-1 text-xs mr-1"></i>{" "}
-            Nuevo Producto{" "}
-          </button>
-        </div>
-        <div className="header-crud flex bg-blue-400 py-4 px-2 mb-2 rounded-md">
-          <div className="codigo-crud mr-2 flex  items-center ">
-            <p className="text-white text-xs sm:text-base">Código:</p>
-            <input
-              className="sm:py-1 px-2 rounded-sm ml-2 sm:ml-2 text-sm sm:text-base"
-              type="text"
-              placeholder="Código"
-            />
-          </div>
-          <div className="codigo-crud flex mr-2  items-center">
-            <p className="text-white text-xs sm:text-base">Nombre:</p>
-            <input
-              className="sm:py-1 px-2 rounded-sm  sm:ml-2 ml-2 text-sm sm:text-base"
-              type="text"
-              placeholder="Nombre"
-            />
-          </div>
-          <button className="btn-buscar bg-black text-white px-4 py-1 md:px-6 rounded-sm text-xs md:text-base">
-            Buscar
-          </button>
-        </div>
 
-        <div className="sub-header rounded-t grid grid-cols-12 bg-gray-500  p-2 gap-2">
-          <div className="titulo text-white col-span-4 xl:col-span-1 font-bold">
-            Código
-          </div>
-          <div className="titulo text-white col-span-4 xl:col-span-1 font-bold">
-            Nombre
-          </div>
-          <div className="titulo text-white col-span-4 font-bold hidden xl:block">
-            Descripción
-          </div>
-          <div className="titulo text-white col-span-2 font-bold hidden xl:block">
-            Imagen
-          </div>
-          <div className="titulo text-white col-span-1 font-bold hidden xl:block">
-            Stock
-          </div>
-          <div className="titulo text-white col-span-1 font-bold hidden xl:block">
-            Precio
-          </div>
-          <div className="titulo text-white col-span-4 xl:col-span-2 font-bold ">
-            Acciones
-          </div>
-        </div>
+    const [productoActual, setProductoActual] = useState({});
+    const [productoEditar,setProductoEditar] = useState({});
+    const [error,setError]=useState(false);
+    const handleChange = e => { setProductoActual({ ...productoActual, [e.target.name]: e.target.value }) }
 
-        {productos.map((producto) => (
-          <div
-            key={producto.id}
-            className="fila-tabla grid grid-cols-12  p-2 gap-2 border"
-          >
-            <div className="titulo col-span-4 xl:col-span-1">{producto.id}</div>
-            <div className="nombre col-span-4 xl:col-span-1 ">
-              {producto.nombre}
-            </div>
-            <div className="descripcion col-span-4 hidden xl:block">
-              {producto.descripcion}{" "}
-            </div>
-            <div className="imagen col-span-2 hidden xl:block">
-              {producto.imagen}
-            </div>
-            <div className="stock col-span-1 hidden xl:block">
-              {producto.stock}
-            </div>
-            <div className="precio col-span-1 hidden xl:block">
-              ${" "}
-              {producto.precio.toString()[0] +
-                "." +
-                producto.precio.toString().slice(1)}
-            </div>
-            <div className="titulo col-span-4 xl:col-span-2 ">
-              <span>
-                <i
-                  className="fas fa-pencil-alt p-1 bg-blue-600 text-white rounded-sm mr-2"
-                  onClick={() => editar(setProductoActual, producto)}
-                ></i>
-              </span>
-              <span>
-                <i className="fas fa-trash p-1 bg-red-600 text-white rounded-sm"></i>
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
 
-      <div className="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-        <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-
-        <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-          <div className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
-            <svg
-              className="fill-current text-white"
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              onClick={toggleModal}
-            >
-              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-            </svg>
-            <span className="text-sm">(Esc)</span>
-          </div>
-
-          <div className="modal-content py-4 text-left px-6">
-            <div className="flex justify-between items-center pb-3">
-              <p className="text-2xl font-bold mx-4">Agregar Producto</p>
-              <div className="modal-close cursor-pointer z-50">
-                <svg
-                  className="fill-current text-black"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  onClick={toggleModal}
-                >
-                  <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                </svg>
-              </div>
-            </div>
-
-            <form className="grid grid-cols-12">
-              <label className="col-span-12 mb-1 mx-4">Código</label>
-              <input
-                name="id"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="id"
-                onChange={handleChange}
-              />
-              <label className="col-span-12 mb-1 mx-4">Nombre</label>
-              <input
-                name="nombre"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="nombre"
-                onChange={handleChange}
-              />
-              <label className="col-span-12 mb-1 mx-4">Descripción</label>
-              <input
-                name="descripcion"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="descripcion"
-                onChange={handleChange}
-              />
-              <label className="col-span-12 mb-1 mx-4">Imagen</label>
-              <input
-                name="imagen"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="imagen"
-                onChange={handleChange}
-              />
-              <label className="col-span-12 mb-1 mx-4">Stock</label>
-              <input
-                name="stock"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="stock"
-                onChange={handleChange}
-              />
-              <label className="col-span-12 mb-1 mx-4">Precio</label>
-              <input
-                name="precio"
-                className="col-span-12 border mx-4 px-2 py-1"
-                type="text"
-                id="precio"
-                onChange={handleChange}
-              />
-            </form>
-=======
-   
-   const[productoActual,setProductoActual]=useState({});
-   const handleChange = e=>{setProductoActual({...productoActual,[e.target.name]:e.target.value})}
     return (
         <div>
-            <div className="container">
-                <div className="encabezado">
-                    <h1 className="lista_productos">Listado de productos</h1>
-                    <button className="btn-agregar" id="agregar-producto" onClick={nuevoProducto}><i className="fas fa-plus"></i> Nuevo Producto </button>
-                </div>
-                <div className="header-crud">
-                    <div className="codigo-crud">
-                        <p className="codigo">Código:</p>
-                        <input className="input_codigo" type="text" placeholder="Código" />
+            <div className="container  mt-5 general p-4 p-md-5">
+
+                <div className="row align-items-center ">
+                    <div
+                        className="encabezado col-12  d-flex justify-content-between m-0  align-items-center py-2 mb-1 mx-auto">
+                        <h4 className="titulo-lista text-white m-0 pb-1">Listado de productos</h4>
+                        <button className="btn-nuevo text-white" onClick={motrarFormulario}><i className="fas fa-plus bg-white mr-1 mr-1 mr-md-2"></i> Nuevo Producto</button>
                     </div>
-                    <div className="codigo-crud">
-                        <p className="nombre">Nombre:</p>
-                        <input className="input_nombre" type="text" placeholder="Nombre" />
+
+                    <div className="encabezado col-12 d-flex align-items-center py-2 mb-1 mx-auto">
+                        <div className="grupo-header d-flex align-items-center mr-2 mr-md-4">
+                            <p className="titulo-pro m-0 text-white mr-2">Código:</p>
+                            <input type="text" placeholder="Código" />
+
+                        </div>
+                        <div className="grupo-header d-flex align-items-center  mr-2 mr-md-4">
+                            <p className="titulo-pro m-0 text-white mr-2">Nombre:</p>
+                            <input type="text" placeholder="Nombre" />
+                        </div>
+                        <button className="btn-buscar text-white py-0 py-md-1 px-2  px-md-2"><i className="fas fa-search mr-1 mr-md-2"></i>Buscar</button>
                     </div>
-                    <button className="btn-buscar">Buscar</button>
                 </div>
 
-                <div className="sub-header">
-                    <div className="titulo">Código</div>
-                    <div className="titulo">Nombre</div>
-                    <div className="titulo">Descripción</div>
-                    <div className="titulo">Imagen</div>
-                    <div className="titulo">Stock</div>
-                    <div className="titulo">Precio</div>
-                    <div className="titulo">Acciones</div>
-                </div>
+
+                <section className="titulos row py-1 py-md-2 text-white font-weight-bold mb-1">
+                    <div className="col-4 col-md-1 text-center text-md-left">Código</div>
+                    <div className="col-4 col-md-1 text-center text-md-left">Nombre</div>
+                    <div className="d-none d-md-block col-md-4">Descripción</div>
+                    <div className="d-none d-md-block col-md-3 ">Imagen</div>
+                    <div className="d-none d-md-block col-md-1">Stock</div>
+                    <div className="d-none d-md-block col-1">Precio</div>
+                    <div className="col-4 col-md-1 text-center text-md-left">Acciones</div>
+                </section>
 
                 {productos.map(producto =>
-                    <div key={producto.id} className='fila-tabla'>
-                        <div className="titulo">{producto.id}</div>
-                        <div className="nombre">{producto.nombre}</div>
-                        <div className="descripcion">{producto.descripcion} </div>
-                        <div className="imagen">{producto.imagen}</div>
-                        <div className="stock">{producto.stock}</div>
-                        <div className="precio">$ {producto.precio.toString()[0]+'.'+producto.precio.toString().slice(1)}</div>
-                        <div className="titulo">
-                            <span><i className="fas" onClick={()=>editar(setProductoActual,producto)}></i></span>
-                            <span><i className="fas"></i></span>
+                    <section className="productos row py-1 py-md-2 mb-1" key={producto.id}>
+                        <div className="col-4 col-md-1 text-center text-md-left">{producto.id}</div>
+                        <div className="col-4 col-md-1 text-center text-md-left">{producto.nombre}</div>
+                        <div className="d-none d-md-block col-md-4">{producto.descripcion}</div>
+                        <div className="d-none d-md-block col-md-3 pl-3">{producto.imagen}</div>
+                        <div className="d-none d-md-block col-md-1">{producto.stock}</div>
+                        <div className="d-none d-md-block col-1">$ {producto.precio.toString()[0] + '.' + producto.precio.toString().slice(1)}</div>
+                        <div className="col-4 col-md-1 text-center text-md-left">
+                            <i className="fas fa-pencil-alt p-1 mr-1 text-white" onClick={()=>editarProducto(setProductoEditar,producto)}></i>
+                            <i className="fas fa-trash p-1 text-white"></i>
                         </div>
-                    </div>
-                )}
+                    </section>)
+                }
+
             </div>
-            <div className="modal ">
-                <div className=""></div>
 
-                <div className="modal-container">
+            <form className="formulario-producto  flex-column mx-auto" id='form-crud'>
 
-                    <div className="modal-close">
-                        <svg className="" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" onClick={toggleModal}>
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
-                        <span className="texto">(Esc)</span>
-                    </div>
-
-                    <div className="modal-contenido">
-
-                        <div className="">
-                            <p className="agregar_producto" >Agregar Producto</p>
-                            <div className="modal-close">
-                                <svg className="" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" onClick={toggleModal}>
-                                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <form className="grid">
-                            <label className="">Código</label>
-                            <input name='id' className="" type="text" id='id' onChange={handleChange}/>
-                            <label className="">Nombre</label>
-                            <input name='nombre' className="" type="text" id='nombre' onChange={handleChange}/>
-                            <label className="">Descripción</label>
-                            <input name='descripcion' className="" type="text" id='descripcion' onChange={handleChange} />
-                            <label className="">Imagen</label>
-                            <input name='imagen' className="" type="text" id='imagen' onChange={handleChange}/>
-                            <label className="">Stock</label>
-                            <input name='stock' className="" type="text" id='stock'  onChange={handleChange}/>
-                            <label className="">Precio</label>
-                            <input name='precio' className="" type="text" id='precio' onChange={handleChange} />
-                        </form>
-
-                        <div className="">
-                            <button className="btn-nuevo">Agregar</button>
-                            <button className="btn-cancelar" onClick={toggleModal}>Cancelar</button>
-                        </div>
->>>>>>> 010ca44acc3590053cf941bc6640b05700121fc5
-
-            <div className="flex justify-end pt-2">
-              <button className="btn-nuevo px-4 bg-blue-500 py-1 text-white rounded-md hover:opacity-75  mr-2">
-                Agregar
-              </button>
-              <button
-                className="btn-cancelar modal-close px-4 bg-indigo-500  rounded-md text-white hover:opacity-75"
-                onClick={toggleModal}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
+                <h4 className="d-flex align-items-center justify-content-between mb-3">Agregar producto <p id="cerrar" className="font-weight-bold" onClick={ocultarFormulario}>X</p> </h4>
+               {error && <p class="error-producto text-white text-center" id='error-producto'> Todos los campos son obligatorios </p>}
+                <label className="mb-1">Código</label>
+                <input name='id' type="number" onChange={handleChange} id='id' />
+                <label className="mb-1">Nombre</label>
+                <input name='nombre' type="text" onChange={handleChange} id='nombre' />
+                <label className="mb-1">Descripción</label>
+                <textarea name='descripcion' onChange={handleChange} id='descripcion'></textarea>
+                <label className="mb-1">Imagen</label>
+                <input name='imagen' type="text" onChange={handleChange} id='imagen'/>
+                <label className="mb-1">Stock</label>
+                <input name='stock' type="number" onChange={handleChange} id='stock'/>
+                <label className="mb-1">Precio</label>
+                <input name='precio' type="number" onChange={handleChange} id='precio'/>
+                <button className='btn-gproducto text-white'>Guardar</button>
+            </form>
         </div>
-      </div>
-    </div>
-  );
-};
+    );
+}
 
 export default FormularioCrud;
