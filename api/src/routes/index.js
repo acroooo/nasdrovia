@@ -6,6 +6,7 @@ const { Op } = require("sequelize");
 
 const app = express();
 
+
 app.use("/producto", producto);
 app.use("/producto/categorias", categorias);
 

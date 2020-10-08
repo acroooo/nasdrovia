@@ -1,12 +1,32 @@
-const server = require('express').Router();
-const { Product } = require('../db.js');
+const express = require('express');
+const router = express.Router();
+const app = express();
+const { Producto, Categories, Checkout, Order, Reviews, User } = require('../db.js');
 
-server.get('/', (req, res, next) => {
-	Product.findAll()
-		.then(products => {
-			res.send(products);
+app.use('/categorias', Categories)
+
+router.get('/', async (req, res, error) => {
+	Producto.findAll()
+		.then(productos => {
+			res.send(productos).status(200);
 		})
-		.catch(next);
+		.catch(error.message);
 });
 
-module.exports = server;
+router.post('/', async (req, res, next) => {
+	const {nombre, precio, stock, imagen, descripcion} = req.body;
+	console.log(req.body)
+	if(nombre && precio && stock && imagen && descripcion){
+		const nproduct = await Producto.create({
+			nombre: nombre,
+			precio: precio,
+			stock: stock,
+			imagen: imagen,
+			descripcion: descripcion
+		})
+		res.status(201).json(nproduct)
+	}else {
+		res.status(400).json({"Error":"Faltan parametros"})
+	}
+});
+module.exports = router;
