@@ -12,10 +12,14 @@ import {
 import "./SearchBar.css";
 
 export default function SearchBar() {
+<<<<<<< HEAD
   //Hooks
   const [search, setSearch] = useState({ query: '' });
 
+=======
+>>>>>>> c73978440f98affecbaddc7e5cdf57c6d3695a1c
   // ----- Funcionalidad ----
+
 
   const handleChange = (event) => { 
     event.preventDefault()
@@ -55,6 +59,5 @@ export default function SearchBar() {
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>
-    </Container>
   );
 }
