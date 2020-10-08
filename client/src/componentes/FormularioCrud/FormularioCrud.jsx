@@ -50,7 +50,6 @@ const FormularioCrud = () => {
                     </div>
                 )}
             </div>
-
             <div className="modal ">
                 <div className=""></div>
 
@@ -73,7 +72,6 @@ const FormularioCrud = () => {
                                 </svg>
                             </div>
                         </div>
-
                         <form className="grid">
                             <label className="">Código</label>
                             <input name='id' className="" type="text" id='id' onChange={handleChange}/>
