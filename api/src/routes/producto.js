@@ -1,14 +1,14 @@
-const server = require("express").Router();
+const router = require("express").Router();
 const { Producto } = require("../db.js");
 
-server.get("/", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Producto.findAll()
     .then((products) => {
       res.send(products);
     })
     .catch(next);
 });
-server.post("/", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   const { nombre, precio, stock, imagen, descripcion } = req.body;
 
   if (nombre && precio && stock && imagen && descripcion) {

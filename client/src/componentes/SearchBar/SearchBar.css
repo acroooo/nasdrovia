@@ -3,35 +3,13 @@
 .container-fluid{
   padding: 0 !important;
 }
-.contenedor{
-  margin-top: -24px;
-  width: 100vw;
-  background-color:#015386;
-  margin-left: 0px;
-  position:fixed;
-}
-.row{
-  display:flex;
-  justify-content: space-between;
-  width: 100vw;
-}
-.col{
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.logo {
-  height: 45px;
-  margin-top: 5px;
-  margin-left: 15px;
-  margin-bottom: 5px;
-  display: inline-block;
+.navbar-custom{
+  background-color: #015386;
 }
 
-.SearchInput {
-  width: 150%px;
-  background: #374151;
-  border-radius: 3px;
-  box-shadow: 0 0px 10px 0 rgb(0, 0, 0, 0.4);
-  align-items: center;
-  top: 55px;
+.carrito{
+  margin-left: 20px;
+}
+.button:hover{
+  background-color:red;
 }
