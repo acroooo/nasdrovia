@@ -1,15 +1,17 @@
-const server = require('express').Router();
+const express = require('express');
+const router = express.Router();
+const app = express();
 const { Producto } = require('../db.js');
 
-server.get('/', (req, res, next) => {
-	
+router.get('/',(req, res, error) => {
 	Producto.findAll()
-		.then(products => {
-			res.send(products);
+		.then(productos => {
+			res.send('funciona').status(200);
 		})
-		.catch(next);
+		.catch(error.message);
 });
-server.post('/', async (req, res, next) => {
+
+router.post('/', async (req, res, next) => {
 	const {nombre, precio, stock, imagen, descripcion} = req.body;
 	console.log(req.body)
 	if(nombre && precio && stock && imagen && descripcion){
@@ -25,4 +27,4 @@ server.post('/', async (req, res, next) => {
 		res.status(400).json({"Error":"Faltan parametros"})
 	}
 });
-module.exports = server;
+module.exports = router;
