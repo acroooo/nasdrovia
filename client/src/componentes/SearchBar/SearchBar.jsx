@@ -13,7 +13,7 @@ import "./SearchBar.css";
 
 export default function SearchBar() {
   // ----- Funcionalidad ----
-
+  const [search, setSearch] = useState({})
 
   const handleChange = (event) => { 
     event.preventDefault()
@@ -53,5 +53,6 @@ export default function SearchBar() {
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>
+      </Container>
   );
 }
