@@ -1,6 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { Categories, Producto } = require("../db.js");
+
+const e = require('express')
+const express = require('express')
+const router = express.Router()
+const { Categories, Producto } = require("../db.js")
+
 
 router.get("/", (req, res) => {
   Categories.findAll()
@@ -30,6 +33,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
+
   let id = req.params.id;
   Categories.destroy({ where: { id } }).then((response) => {
     if (response === 0) return res.status(400);
@@ -38,3 +42,4 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
+

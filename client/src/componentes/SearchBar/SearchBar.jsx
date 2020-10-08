@@ -14,7 +14,9 @@ import "./SearchBar.css";
 
 export default function SearchBar() {
   //Hooks
+
   const [search, setSearch] = useState({ query: "" });
+
 
   // ----- Funcionalidad ----
 
@@ -63,5 +65,6 @@ export default function SearchBar() {
         </Form>
       </Navbar>
     </Container>
+
   );
 }
