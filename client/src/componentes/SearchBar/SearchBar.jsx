@@ -7,7 +7,8 @@ import {
   Button,
   Form,
   FormControl,
-  NavDropdown
+  NavDropdown,
+  Badge
 } from "react-bootstrap";
 import "./SearchBar.css";
 
@@ -51,7 +52,7 @@ export default function SearchBar() {
             className="mr-sm-2"
           /><FormControl.Feedback />
           <Button onClick={handleChange} variant="outline-info">{searchButton}</Button>
-          <div class="carrito">{cartButton}</div>
+          <div class="carrito">{cartButton}<Badge variant="light">9</Badge></div>
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>

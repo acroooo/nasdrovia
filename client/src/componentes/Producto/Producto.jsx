@@ -1,6 +1,6 @@
 import React from "react";
 import "./Producto.css";
-import { Card, Container } from "react-bootstrap";
+import { Card, Carousel, Container, Image } from "react-bootstrap";
 
 const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   const props = {
@@ -14,18 +14,47 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   return (
     <div className="producto">
       <Card border="danger">
-      <Container>
-        <Card.Header>Header</Card.Header>
-        <Card.Body>
-          <Card.Title>Danger Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-        </Card.Body>
+      <Container className="imagen">
+      <Carousel clasName="container">
+  <Carousel.Item>
+    <Image
+      className="d-block w-100"
+      src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+      alt="First slide"
+    />
+    <Carousel.Caption>
+      <h3>First slide label</h3>
+      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item>
+   <Image 
+   src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+    className="d-block w-100"
+
+    />
+
+    <Carousel.Caption>
+      <h3>Second slide label</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+  <Carousel.Item>
+    <Image
+      className="w-100"
+      src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+      alt="Third slide"
+    />
+
+    <Carousel.Caption>
+      <h3>Third slide label</h3>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
+</Carousel>
       </Container>
       <Container>
-        <Card.Header>Header</Card.Header>
+        <h1>Starke</h1>
         <Card.Body>
           <Card.Title>Danger Card Title</Card.Title>
           <Card.Text>
