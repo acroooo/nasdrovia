@@ -15,7 +15,6 @@ app.use("/categorias", Categorias);
 //prettier-ignore
 app.get("/search", (req, res) => {
   const query = req.query;
- console.log(query)
     Producto.findAll({
       where: {
         [Op.or]: [
