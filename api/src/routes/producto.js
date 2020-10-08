@@ -24,4 +24,4 @@ server.post("/", async (req, res, next) => {
     res.status(400).json({ Error: "Faltan parametros" });
   }
 });
-module.exports = server;
+module.exports = router;
