@@ -9,6 +9,8 @@ import {
   Form,
   FormControl,
   NavDropdown,
+  Badge
+
 } from "react-bootstrap";
 import "./SearchBar.css";
 
@@ -16,6 +18,7 @@ export default function SearchBar() {
   //Hooks
 
   const [search, setSearch] = useState({ query: "" });
+
 
 
   // ----- Funcionalidad ----
@@ -52,6 +55,7 @@ export default function SearchBar() {
             placeholder="Buscar..."
             onChange={handleChange}
             className="mr-sm-2"
+
           />
           <FormControl.Feedback />
           <Link to={`/search?query=${search.query}`}>
@@ -61,6 +65,7 @@ export default function SearchBar() {
             {redirect && <Redirect to={`/search?query=${search.query}`} />}{" "}
           </Link>
           <div class="carrito">{cartButton}</div>
+
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>
