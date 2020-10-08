@@ -2,7 +2,8 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { userInfo } = require('os');
+const { checkout } = require('./app');
+
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -31,6 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
+
 
 const { Producto, Categories, Checkout, Order, Reviews, User } = sequelize.models;
 
