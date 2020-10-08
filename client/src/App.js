@@ -14,10 +14,10 @@ export default function App() {
   return (
     <div className="App">
       <Router>
-      <Route exact path="/" component={SearchBar} />
-      <Route exact path="/" component={Categoria} />
-      <Route exact path="/producto" component={Producto} />
-      <Route exact path="/formulario-crud" component={FormularioCrud} />
+        <Route exact path="/" component={SearchBar} />
+        <Route exact path="/" component={Categoria} />
+        <Route exact path="/producto" component={Producto} />
+        <Route exact path="/formulario-crud" component={FormularioCrud} />
       </Router>
 
     </div>
