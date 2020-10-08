@@ -5,11 +5,9 @@ const ProductoRuta = require("./producto.js");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
 const app = express();
-
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
-
 app.use("/producto", ProductoRuta);
 app.use("/categorias", Categorias);
 //prettier-ignore
@@ -18,8 +16,8 @@ app.get("/search", (req, res) => {
     Producto.findAll({
       where: {
         [Op.or]: [
-          { nombre: { [Op.iLike]: `%${query.nombre}%` } },
-          { descripcion: { [Op.iLike]: `%${query.descripcion}%` } },
+          { nombre: { [Op.iLike]: `%${query.busqueda}%` } },
+          { descripcion: { [Op.iLike]: `%${query.busqueda}%` } },
         ],
       },
     }).then((response) => {
@@ -30,5 +28,4 @@ app.get("/search", (req, res) => {
       }
     }).catch(() => res.status(400).send("Algo salió mal"));
 });
-
 module.exports = app;
