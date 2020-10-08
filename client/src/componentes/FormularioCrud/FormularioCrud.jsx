@@ -10,8 +10,6 @@ const FormularioCrud = () => {
     const handleChange = e => { setProductoActual({ ...productoActual, [e.target.name]: e.target.value }) }
 
 
-
-
     return (
         <div>
             <div className="container  mt-5 general p-4 p-md-5">
