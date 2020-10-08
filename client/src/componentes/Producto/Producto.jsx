@@ -1,6 +1,6 @@
 import React from "react";
 import "./Producto.css";
-import { Card, Carousel, Container, Image } from "react-bootstrap";
+import { Card, Carousel, Container, Image, Button } from "react-bootstrap";
 
 const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   const props = {
@@ -53,15 +53,19 @@ const Producto = ({ nombre, descripcion, precio, cantidad }) => {
   </Carousel.Item>
 </Carousel>
       </Container>
-      <Container>
-        <h1>Starke</h1>
-        <Card.Body>
-          <Card.Title>Danger Card Title</Card.Title>
+      <Container className="container2">
+        <h1 className="text-center">Starke</h1>
+        <Card className="card2 text-center">
+          <Card.Header><h2>Blonde Ipa</h2></Card.Header>
+          <Card.Body>
+          <Card.Title>Special title treatment</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            With supporting text below as a natural lead-in to additional content.
           </Card.Text>
-        </Card.Body>
+          <Button variant="primary">Go somewhere</Button>
+          </Card.Body>
+          <Card.Footer className="text-muted">2 days ago</Card.Footer>
+          </Card>
       </Container>
     </Card>
 
