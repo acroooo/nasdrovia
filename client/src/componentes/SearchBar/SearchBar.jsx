@@ -18,6 +18,7 @@ export default function SearchBar() {
   //Hooks
 
   const [search, setSearch] = useState({ query: "" });
+  const [redirect, setRedirect] = useState(false);
 
 
 
