@@ -1,13 +1,15 @@
 
-require("dotenv").config();
-const { Sequelize } = require("sequelize");
-const fs = require("fs");
-const path = require("path");
-const { userInfo } = require("os");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+require('dotenv').config();
+const { Sequelize } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const { checkout } = require('./app');
+
+const {
+  DB_USER, DB_PASSWORD, DB_HOST,
+} = process.env;
 
 
-const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/development`,
   {
     logging: false, // set to console.log to see the raw SQL queries
@@ -66,6 +68,7 @@ Checkout.hasMany(Order);
 //relacion carrito-producto
 Checkout.belongsToMany(Producto, { through: Order });
 Producto.belongsToMany(Checkout, { through: Order });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

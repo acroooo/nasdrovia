@@ -7,6 +7,10 @@ const { Op } = require("sequelize");
 const app = express();
 
 
+router.use("/producto", productRouter);
+router.use("/category",categoryRouter);
+
+
 app.use("/producto", producto);
 app.use("/producto/categorias", categorias);
 
