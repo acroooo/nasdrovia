@@ -4,13 +4,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import './SearchBar.css'
 
 export default function SearchBar() {
-  //Hooks
-  const [search, setSearch] = useState({ query: "" });
-
   // ----- Funcionalidad ----
 
-  const handleChange = (event) =>
-    setSearch({ ...search, [event.target.name]: event.target.value });
+  //   const handleChange = (event) =>
+  //     setSearch({ ...search, [event.target.name]: event.target.value });
 
   return (
     <Container fluid>
@@ -29,8 +26,7 @@ export default function SearchBar() {
           type="search"
           name="serch"
           placeholder="Buscar..."
-          onChange={handleChange}
-          class=""
+
         />
         <i class="fas">{searchButton}</i>
       </span>
