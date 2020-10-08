@@ -45,7 +45,7 @@ Reviews.belongsTo(User, { as: "usuario_creador" });
 // relacion carrito-usuario
 User.hasMany(Checkout);
 Checkout.belongsTo(User, { as: "usuario_carrito" });
-Order.hasMany(Checkout);
+Checkout.hasMany(Order);
 //relacion carrito-producto
 Checkout.belongsToMany(Producto, { through: Order });
 Producto.belongsToMany(Checkout, { through: Order });
