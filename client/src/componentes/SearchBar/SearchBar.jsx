@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
 import {
   Container,
@@ -7,20 +8,32 @@ import {
   Button,
   Form,
   FormControl,
-  NavDropdown
+  NavDropdown,
+  Badge
+
 } from "react-bootstrap";
 import "./SearchBar.css";
 
 export default function SearchBar() {
   //Hooks
-  const [search, setSearch] = useState({ query: '' });
 
-  // ----- Funcionalidad ----
+  const [search, setSearch] = useState({ query: "" });
 
+
+<<<<<<< HEAD
   const handleChange = (event) => { 
     event.preventDefault()
     setSearch({ ...search, [event.target.name]: event.target.value }); 
   }
+=======
+
+  // ----- Funcionalidad ----
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setSearch({ ...search, [event.target.name]: event.target.value });
+  };
+>>>>>>> 92bf2fbdd062da28f6413a956c1db23931cbd2c8
 
   return (
     <Container fluid>
@@ -49,12 +62,21 @@ export default function SearchBar() {
             placeholder="Buscar..."
             onChange={handleChange}
             className="mr-sm-2"
-          /><FormControl.Feedback />
-          <Button onClick={handleChange} variant="outline-info">{searchButton}</Button>
+
+          />
+          <FormControl.Feedback />
+          <Link to={`/search?query=${search.query}`}>
+            <Button onClick={handleChange} variant="outline-info">
+              {searchButton}
+            </Button>
+            {redirect && <Redirect to={`/search?query=${search.query}`} />}{" "}
+          </Link>
           <div class="carrito">{cartButton}</div>
+
           <div class="usuario">{userButton}</div>
         </Form>
       </Navbar>
-      </Container>
+    </Container>
+
   );
 }
