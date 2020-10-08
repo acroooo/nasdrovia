@@ -13,6 +13,8 @@ export default function App() {
   return (
     <div className="App">
       <Router>
+
+        <Route exact path="/" component={SearchBar} />
         <Route path="/" component={SearchBar} />
         <Route exact path="/productos" component={Categoria} />
         <Route exact path="/producto" component={Producto} />
