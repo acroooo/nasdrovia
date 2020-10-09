@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/ProductCard";
-
 import { categorias, productos } from "./menu_producto";
-import { motion, AnimatePresence } from "framer-motion";
-
 
 export default function Categoria() {
   const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
@@ -54,7 +51,7 @@ export default function Categoria() {
         <div className="categoriaFilter">
           {cat.map((categoria, i) => {
             return (
-              <div className="f" key={i + "f"}>
+              <div className="" key={i + "f"}>
                 <label className="">
                   <input
                     type="checkbox"
@@ -71,10 +68,7 @@ export default function Categoria() {
               </div>
             );
           })}
-          <div
-            className=""
-            onClick={() => setFiltrar(!filtrar)}
-          >
+          <div className="" onClick={() => setFiltrar(!filtrar)}>
             X
           </div>
         </div>
@@ -87,12 +81,9 @@ export default function Categoria() {
     );
   }
   return (
-    <div className="Categorias">
+    <div className="">
       <div className="">
-        <div
-          className=""
-          onClick={() => setFiltrar(!filtrar)}
-        >
+        <div className="" onClick={() => setFiltrar(!filtrar)}>
           Filtros
         </div>
       </div>
