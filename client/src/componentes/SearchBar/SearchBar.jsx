@@ -9,8 +9,7 @@ import {
   Form,
   FormControl,
   NavDropdown,
-  Badge
-
+  Badge,
 } from "react-bootstrap";
 import "./SearchBar.css";
 
@@ -20,6 +19,7 @@ export default function SearchBar() {
   const [search, setSearch] = useState({ query: "" });
   const [redirect, setRedirect] = useState(false);
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
   const handleChange = (event) => { 
@@ -28,6 +28,8 @@ export default function SearchBar() {
   }
 =======
 
+=======
+>>>>>>> 7c8229776004126222cc8a930412fe7357aacab8
   // ----- Funcionalidad ----
 
   const handleChange = (event) => {
@@ -55,7 +57,7 @@ export default function SearchBar() {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="#ofertas">Ofertas</Nav.Link>
+          <Nav.Link href="http://localhost:3000/productos">Tienda</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
@@ -63,14 +65,12 @@ export default function SearchBar() {
             placeholder="Buscar..."
             onChange={handleChange}
             className="mr-sm-2"
-
           />
           <FormControl.Feedback />
           <Link to={`/search?query=${search.query}`}>
             <Button onClick={handleChange} variant="outline-info">
               {searchButton}
             </Button>
-            {redirect && <Redirect to={`/search?query=${search.query}`} />}{" "}
           </Link>
           <div class="carrito">{cartButton}</div>
 
@@ -78,6 +78,5 @@ export default function SearchBar() {
         </Form>
       </Navbar>
     </Container>
-
   );
 }
