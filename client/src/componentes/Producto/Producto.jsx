@@ -6,21 +6,18 @@ import Axios from 'axios';
 
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
-  const [datos, setDatos] = useState({res: null, isLoaded: false});
+  const [productoActual, setProductoActual] = useState({res:null, isLoaded:false}); //estado actual
 
-    useEffect((res) => {
-      Axios({
-        method: "GET",
-        url: "http://localhost:3001/producto/1",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(res => {
-        setDatos({res: res.data, isLoaded: true})
-      })
-  }, []);
 
-  const {nombre} = datos.res
+//axios para un producto especifico
+  useEffect(()=>{
+    Axios.get('http://localhost:3001/producto/1').then(data =>{setProductoActual({res:data, isLoaded:true});
+        }).catch(error => 
+        console.log(error));
+    },[]);
+
+    console.log(productoActual.res)
+
 
   return (
     <div className="producto">
