@@ -24,8 +24,20 @@ function motrarFormulario(setCategorias,setAccion){
   setAccion('crear');
 
 }
-
-function editarProducto(setProductoEditar,producto,setCategorias,setAccion){
+function editarProducto(setProductoEditar,producto,setAccion){
+  const {id,nombre,descripcion,imagen,stock,precio} = producto;
+  const formulario = document.getElementById('form-crud');
+   setProductoEditar({id,nombre,descripcion,imagen,stock,precio});
+   document.getElementById('id').value=id;
+   document.getElementById('nombre').value=nombre;
+   document.getElementById('descripcion').value=descripcion;
+   document.getElementById('imagen').value=imagen;
+   document.getElementById('stock').value=stock;
+   document.getElementById('precio').value=precio;
+   formulario.style.display='flex';
+   setAccion('editar');
+}
+/* function editarProducto(setProductoEditar,producto,setCategorias,setAccion){
   const {id,nombre,descripcion,imagen,stock,precio,categorias} = producto;
   const formulario = document.getElementById('form-crud');
    setProductoEditar({id,nombre,descripcion,imagen,stock,precio});
@@ -39,7 +51,7 @@ function editarProducto(setProductoEditar,producto,setCategorias,setAccion){
    setCategorias(categorias);
    setAccion('editar');
 
-}
+} */
 
 export {productos,ocultarFormulario,motrarFormulario,editarProducto};
 
