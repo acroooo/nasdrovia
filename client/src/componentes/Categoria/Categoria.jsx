@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/card";
 import { categorias } from "./menu_producto";
 import Axios from 'axios';
-
+import "./Categoria.css";
 
 export default function Categoria() {
   const [productos, setProductos] = useState({res:null, isLoaded:false})
@@ -37,7 +37,7 @@ export default function Categoria() {
         });
       } 
       if (arr.length !== 0) {
-        setProductos0(arr);
+        setProductos(arr);
       }
     });
   }, [cat]);
@@ -57,12 +57,13 @@ export default function Categoria() {
   if (filtrar) {
     return (
       <div className="Categorias">
-        <div className="categoriaFilter">
+        <div className="categoriasFilter">
           {cat.map((categoria, i) => {
             return (
               <div className="" key={i + "f"}>
-                <label className="">
+                <label className="check">
                   <input
+                    className="checkboxes"
                     type="checkbox"
                     key={categoria.value + i}
                     value={categoria.value}
@@ -77,11 +78,11 @@ export default function Categoria() {
               </div>
             );
           })}
-          <div className="" onClick={() => setFiltrar(!filtrar)}>
+          <div className="x" onClick={() => setFiltrar(!filtrar)}>
             X
           </div>
         </div>
-        <div className="">
+        <div className="listaProductos">
           {productos.res.map((producto, i) => {
             return <Producto producto={producto} key={i + "k"} />;
           })}
@@ -90,13 +91,13 @@ export default function Categoria() {
     );
   }
   return (
-    <div className="">
-      <div className="">
-        <div className="" onClick={() => setFiltrar(!filtrar)}>
+    <div className="categorias">
+      <div className="categoriasFilter">
+        <div className="botonFiltro" onClick={() => setFiltrar(!filtrar)}>
           Filtros
         </div>
       </div>
-     <div className="">
+        <div className="listaProductos">
         {productos.res.map((producto, i) => {
           return <Producto producto={producto} key={i + "k"} />;
         })}

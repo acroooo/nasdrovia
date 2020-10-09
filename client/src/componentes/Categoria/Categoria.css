@@ -1,0 +1,30 @@
+.categorias {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+.categoriasFilter {
+  display: flex;
+}
+.listaProductos {
+  display: flex;
+  flex-wrap: wrap;
+}
+.botonFiltro,
+.checkboxex,
+.x,
+.check {
+  margin: 5px;
+  padding: 5px 12px;
+  background-color: #fff;
+  border: solid 2px #e6e6e6;
+  border-radius: 5px;
+  color: #3c3c3c !important;
+  transition: 250ms;
+}
+.botonFiltro:hover,
+.x:hover {
+  cursor: pointer;
+  color: #e6e6e6 !important;
+  background-color: #3c3c3c;
+}
