@@ -45,7 +45,7 @@ export default function SearchBar() {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="#ofertas">Ofertas</Nav.Link>
+          <Nav.Link href="http://localhost:3000/productos">Tienda</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
