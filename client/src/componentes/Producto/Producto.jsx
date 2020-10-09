@@ -1,20 +1,28 @@
 import React, {useState, useEffect} from "react";
 import "./Producto.css";
 import { Card, Carousel, Container, Image, Button, Row, Col } from "react-bootstrap";
-
-const props = {
-  nombre: "Starke",
-  tipo: "Blonde Ipa",
-  subtitulo: "Cerveza Rubia Holandesa",
-  descripcion: "Ámbar, notas cítricas con la combinación justa entre el amargor de los lúpulos y el dulzor delicado de la combinación de 4 maltas seleccionadas.",
-  precio: "$59",
-}
+import Axios from 'axios';
 
 
-const Producto = () => {
+const Producto = (props) => {
   const [agregar, setAgregar] = useState();
   const [cant, setCant] = useState(0);
   const [stock, setStock] = useState(100);
+  const [datos, setDatos] = useState({});
+
+  Axios({
+    method: "GET",
+    url: "http://localhost:3001/producto/1",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(res => {
+    setDatos(res.data)
+  })
+
+
+  const {nombre} = datos;
+
 
   return (
     <div className="producto">
@@ -44,7 +52,7 @@ const Producto = () => {
           </Carousel>
         </Container>
         <Container className="container2">
-          <h1 className="titulo text-center">{props.nombre}</h1>
+          <h1 className="titulo text-center">{nombre}</h1>
           <Card className="card2">
             <Card.Header>
               <h2>{props.tipo}</h2>
