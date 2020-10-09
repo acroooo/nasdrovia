@@ -58,7 +58,7 @@ const Producto = (props) => {
               <h2>{props.tipo}</h2>
             </Card.Header>
             <Card.Body>
-              <Card.Title>{props.subtitulo}</Card.Title>
+              <Card.Title>{props.categorias}</Card.Title>
               <div className="arribatexto">
                 <Card.Text>{props.descripcion}</Card.Text>
               </div>
