@@ -8,19 +8,19 @@ const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
 
-
-//axios para un producto especifico
+//axios para un producto especifico con verificacion de ID
   useEffect(()=>{
-    Axios.get('http://localhost:3001/producto/1')
-      .then(data =>{
-        setProducto({res:data, isLoaded:true}
-          );
-        })
-        .catch(error => 
-        console.log(error));
-    },[]);
-
-    console.log(producto.res.data.nombre)
+    Axios.get(`http://localhost:3001/producto/${props.match.params.id}`)
+    .then(data =>{
+      if(props.match.params.id && data.data.id){
+        setProducto({res:data.data, isLoaded:true});
+      }
+      })
+      .catch(error => 
+      console.log(error));
+  },[]);
+  //uso de datos de forma legible
+  const data = producto.res;
 
   return (
     <div className="producto">
@@ -50,20 +50,20 @@ const Producto = (props) => {
           </Carousel>
         </Container>
         <Container className="container2">
-          <h1 className="titulo text-center">{}</h1>
           <Card className="card2">
             <Card.Header>
-              <h2>{props.tipo}</h2>
+              <h1>{data.nombre}</h1>
             </Card.Header>
             <Card.Body>
               <Card.Title>{props.categorias}</Card.Title>
+              <Card.Text>{data.precio}</Card.Text>
               <div className="arribatexto">
-                <Card.Text>{}</Card.Text>
+                <Card.Text>{data.descripcion}</Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
                   <div>
-                  <Card.Text>CANTIDAD: {cant}</Card.Text>
+                  <Card.Text>CANTIDAD: {data.stock}</Card.Text>
                     <Button className="botonCant" onClick={() => setCant(cant + 1)}>+</Button>
                     <Button className="botonCant" onClick={() => setCant(cant - 1)}>-</Button>
                   </div>
