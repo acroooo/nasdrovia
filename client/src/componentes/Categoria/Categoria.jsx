@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/card";
-import { categorias, productos } from "./menu_producto";
+import { categorias } from "./menu_producto";
+import Axios from 'axios';
+
 
 export default function Categoria() {
+  const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
   const [cat, setCat] = useState([]);
   const [filtrar, setFiltrar] = useState(false);
   useEffect(() => {
+    Axios.get('http://localhost:3001/producto').then(data =>{
+      setProductos({
+        res:data.data,
+        isLoaded:true,
+      });
+        }).catch(error => 
+        console.log(error));
     setCat(
       categorias.map((elemento) => {
         return {
@@ -25,11 +35,9 @@ export default function Categoria() {
             arr.push(e);
           }
         });
-      } else {
-        setCategoriasDisplay(productos);
-      }
+      } 
       if (arr.length !== 0) {
-        setCategoriasDisplay(arr);
+        setProductos0(arr);
       }
     });
   }, [cat]);
@@ -45,6 +53,7 @@ export default function Categoria() {
       })
     );
   }
+  if(productos.isLoaded){
   if (filtrar) {
     return (
       <div className="Categorias">
@@ -73,7 +82,7 @@ export default function Categoria() {
           </div>
         </div>
         <div className="">
-          {categoriasDisplay.map((producto, i) => {
+          {productos.res.map((producto, i) => {
             return <Producto producto={producto} key={i + "k"} />;
           })}
         </div>
@@ -87,11 +96,15 @@ export default function Categoria() {
           Filtros
         </div>
       </div>
-      <div className="">
-        {categoriasDisplay.map((producto, i) => {
+     <div className="">
+        {productos.res.map((producto, i) => {
           return <Producto producto={producto} key={i + "k"} />;
         })}
       </div>
     </div>
   );
+} else{
+  return <div>cargando</div>
+}
+
 }
