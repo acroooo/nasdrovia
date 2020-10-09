@@ -3,14 +3,15 @@ import AgregarEditarProducto from './ListaProductos';
 
 export default function  ListaProducto({lista, isLoaded}) {
    
-    if(isLoaded){
-        console.log(lista)
+    // if(isLoaded){
+        console.log(lista, isLoaded)
     return(
         <div>
-            {lista.map(element =>{
+            {lista.data.map(element =>{
+                const{nombre}=element
                 return( 
                      <div> 
-                    {element}
+                    {nombre}
                     </div>
                     )
             }
@@ -18,7 +19,5 @@ export default function  ListaProducto({lista, isLoaded}) {
         {AgregarEditarProducto}      
         </div>
     )
-}else {
-    return <div> Cargando</div>
-}
+
 }

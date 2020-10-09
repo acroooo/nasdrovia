@@ -21,11 +21,9 @@ const FormularioCrud = () => {
     });
 
     useEffect(()=>{
-    Axios.get('http://localhost:3001/producto')
-        .then(data =>{setProductoActual({res:data, isLoaded:true});
-        })
-        .catch(error => 
-        console.log(error.respuesta.data));
+    Axios.get('http://localhost:3001/producto').then(data =>{setProductoActual({res:data, isLoaded:true});
+        }).catch(error => 
+        console.log(error));
     },[]);
 
 
@@ -46,15 +44,22 @@ const FormularioCrud = () => {
      let nuevas = categorias.filter(categoria=>categoria!==nombre);
      setCategorias(nuevas);
     }
-
+if(productoActual.isLoaded){
      return (
 
          <div>
          <SearchBar/>
-         <ListaProductos lista={productoActual.res} isLoaded={productoActual.isLoaded} />
+         <ListaProductos lista={productoActual.res} isLoaded={productoActual.isLoaded}/>
          </div>
 
                     )
+                }else {
+                    return (
+                        <div>
+                            Cargando
+                        </div>
+                    )
+                }
 
 }
 export default FormularioCrud;
