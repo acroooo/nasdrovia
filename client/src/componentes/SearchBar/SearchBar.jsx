@@ -21,12 +21,6 @@ export default function SearchBar() {
   const [redirect, setRedirect] = useState(false);
 
 
-<<<<<<< HEAD
-  const handleChange = (event) => { 
-    event.preventDefault()
-    setSearch({ ...search, [event.target.name]: event.target.value }); 
-  }
-=======
 
   // ----- Funcionalidad ----
 
@@ -34,7 +28,6 @@ export default function SearchBar() {
     event.preventDefault();
     setSearch({ ...search, [event.target.name]: event.target.value });
   };
->>>>>>> 92bf2fbdd062da28f6413a956c1db23931cbd2c8
 
   return (
     <Container fluid>
