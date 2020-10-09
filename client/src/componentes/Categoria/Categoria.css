@@ -1,13 +1,14 @@
 .categorias {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 99vw;
 }
 .categoriasFilter {
   display: flex;
 }
 .listaProductos {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .botonFiltro,

@@ -3,7 +3,8 @@ import "./card.css"
 import { cartButton } from "../../Multimedia/Svgs";
 import { Carousel } from 'react-bootstrap';
 
-const card = (props) => {
+const card = ({producto}) => {
+    const {nombre, precio, imagen, stock}=producto;
     return (
         <div class="card">
             <a class="botoncontainer">
@@ -37,12 +38,11 @@ const card = (props) => {
             <div className="card-body">
                 <div class="boton">
                     <div class="titulo">
-                        <h2>IMPERIAL AMBER LAGER</h2>
+                        <h2>{nombre}</h2>
                     </div>
                 </div>
-                <h2>$150</h2>
-                <p></p>
-                <h5></h5>
+                <h3>${precio}</h3>
+                <h5>Stock:{stock}</h5>
             </div>
         </div>
     )
