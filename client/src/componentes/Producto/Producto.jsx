@@ -6,18 +6,21 @@ import Axios from 'axios';
 
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
-  const [productoActual, setProductoActual] = useState({res:null, isLoaded:false}); //estado actual
+  const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
 
 
 //axios para un producto especifico
   useEffect(()=>{
-    Axios.get('http://localhost:3001/producto/1').then(data =>{setProductoActual({res:data, isLoaded:true});
-        }).catch(error => 
+    Axios.get('http://localhost:3001/producto/1')
+      .then(data =>{
+        setProducto({res:data, isLoaded:true}
+          );
+        })
+        .catch(error => 
         console.log(error));
     },[]);
 
-    console.log(productoActual.res)
-
+    console.log(producto.res.data.nombre)
 
   return (
     <div className="producto">
@@ -55,7 +58,7 @@ const Producto = (props) => {
             <Card.Body>
               <Card.Title>{props.categorias}</Card.Title>
               <div className="arribatexto">
-                <Card.Text>{props.descripcion}</Card.Text>
+                <Card.Text>{}</Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
