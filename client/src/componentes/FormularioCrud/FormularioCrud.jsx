@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import "./FormularioCrud.css"
 import { productos, ocultarFormulario, motrarFormulario, editarProducto } from './formulario';
 import Axios from 'axios';
-import SearchBar from '../SearchBar/SearchBar';
+
 import ListaProductos from './ListaProductos/ListaProductos'
 
 const FormularioCrud = () => {
@@ -48,7 +48,7 @@ if(productoActual.isLoaded){
      return (
 
          <div>
-         <SearchBar/>
+        
          <ListaProductos lista={productoActual.res} isLoaded={productoActual.isLoaded}/>
          </div>
 

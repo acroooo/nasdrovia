@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Producto from "../ProductCard/ProductCard";
+import Producto from "../ProductCard/card";
 import { categorias, productos } from "./menu_producto";
 
 export default function Categoria() {
