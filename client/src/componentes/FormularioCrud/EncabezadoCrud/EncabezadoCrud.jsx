@@ -1,14 +1,16 @@
 import React from 'react'
-import {motrarFormulario} from '../formulario';
 
-const EncabezadoCrud = ({setCategorias,setAccion}) => {
+
+const EncabezadoCrud = ({setAccion}) => {
+
+    //Almacena el producto creado en el state
+  
     return (  
-        
         <div className="row align-items-center ">
         <div
             className="encabezado col-12  d-flex justify-content-between m-0  align-items-center py-2 mb-1 mx-auto">
             <h4 className="titulo-lista text-white m-0 pb-1">Listado de productos</h4>
-            <button className="btn-nuevo text-white" onClick={()=>motrarFormulario(setCategorias,setAccion)}><i className="fas fa-plus bg-white mr-1 mr-1 mr-md-2"></i>Nuevo Producto</button>
+            <button className="btn-nuevo text-white"onClick={()=>setAccion('crear')} ><i className="fas fa-plus bg-white mr-1 mr-1 mr-md-2"></i>Nuevo Producto</button>
         </div>
 
         <div className="encabezado col-12 d-flex align-items-center py-2 mb-1 mx-auto">
