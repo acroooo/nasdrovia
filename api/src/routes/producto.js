@@ -21,6 +21,7 @@ router.get("/:id", (req, res, next) => {
     })
     .catch(next);
 });
+
 router.post("/", async (req, res, next) => {
   const { nombre, precio, stock, imagen, descripcion } = req.body;
   if (nombre && precio && stock && imagen && descripcion) {
