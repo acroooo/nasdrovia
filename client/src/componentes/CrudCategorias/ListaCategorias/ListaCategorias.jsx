@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 
-const ListaCategorias = ({accion,categorias,editar,eliminar}) => {
+const ListaCategorias = ({accion,categorias,editar,eliminar,setSolicitud}) => {
 
 
     //Alamacena la categoria que toca editar en el state
@@ -16,7 +16,9 @@ const ListaCategorias = ({accion,categorias,editar,eliminar}) => {
         accion('eliminar');
         eliminar(id);
         axios.delete(`http://localhost:3001/categorias/${id}`)
-        .then(() =>console.log('elimnada')).catch((err) =>console.log(err)) 
+        .then(() =>console.log('Eliminado')).catch((err) =>console.log(err)) 
+        setSolicitud(true);
+
     }
     
     return categorias.length ? (
@@ -32,7 +34,7 @@ const ListaCategorias = ({accion,categorias,editar,eliminar}) => {
             </section>
          )  
     ):<div className='productos-vacios row justify-content-center py-2  align-items-center'>
-    <i class="fas fa-exclamation-circle mx-2"></i>  No hay categorías <i class="fas fa-database mx-2"></i>
+    <i className="fas fa-exclamation-circle mx-2"></i>  No hay categorías <i className="fas fa-database mx-2"></i>
    </div>;
 };
 

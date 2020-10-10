@@ -32,7 +32,7 @@ const CrudCategoria = () => {
              <div className='container general'>
                  <EncabezadoCategoria setAccion={setAccionCategorias}/>
                  <TitulosCategorias/>
-                 <ListaCategorias accion={setAccionCategorias} categorias={listadoCategorias} editar={setCategoriaEditar} eliminar={setCategoriaEliminar}/>
+                 <ListaCategorias setSolicitud={setSolicitud} accion={setAccionCategorias} categorias={listadoCategorias} editar={setCategoriaEditar} eliminar={setCategoriaEliminar}/>
                  <SubformularioCategorias catCrear={categoriaCrear} catEditar={categoriaEditar} setSolicitud={setSolicitud} n={listadoCategorias.length}
                  accion={accionCategorias} setAccion={setAccionCategorias} editar={setCategoriaEditar} crear={setCategoriaCrear} eliminar={setCategoriaEliminar
                  }/>

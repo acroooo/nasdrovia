@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 
-export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEditar,setProductoEliminar}) {
+export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEditar,setProductoEliminar,setSolicitud}) {
  
     //Almacena el producto que toca editar en el state
     const editadoEnState = (element)=>{
@@ -11,13 +11,12 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
          setProductoEditar({id,nombre,imagen,descripcion,stock,precio});
     }
     //Almacena el id del producto que toca eliminar en el state
-    const eliminarProducto = id=>{
+    const eliminarProducto = (id)=>{
       
-        axios.delete(`http://localhost:3001/producto/3`)
-        .then(()=>console.log('eliminado'))
-        .catch((err)=>console.log(err))
-        setAccion('eliminar');
-        setProductoEliminar(id); 
+        setAccion('eliminar');setProductoEliminar(id); 
+        axios.delete(`http://localhost:3001/producto/${id}`)
+        .then(()=>setSolicitud(true)).catch((err)=>console.log(err))
+        setSolicitud(false);
     }
     
     return lista.data.length ?(
@@ -41,6 +40,6 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
                 </section>)
         })
     ):<div className='productos-vacios row justify-content-center py-2  align-items-center'>
-      <i class="fas fa-exclamation-circle mx-2"></i>  No hay productos <i class="fas fa-database mx-2"></i>
+      <i className="fas fa-exclamation-circle mx-2"></i>  No hay productos <i className="fas fa-database mx-2"></i>
      </div>;
 }

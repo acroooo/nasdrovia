@@ -45,8 +45,7 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
         switch (accion) {
             case 'crear': axios.post('http://localhost:3001/categorias', { nombre, descripcion })
                 .then(() => console.log('Categoria creada')).catch(() => console.log('error'))
-                break;
-
+                break; 
             case 'editar': axios.put(`http://localhost:3001/categorias/${id}`, { nombre, descripcion })
                 .then(() => console.log('cambiada')).catch((err) => console.log(err))
                 break;
@@ -59,7 +58,8 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
         setTimeout(() => {
             setSpinner(false); setExito(true);
             setTimeout(() => { setExito(false); cerrarFormulario() }, 3000)
-            setTimeout(() => setSolicitud(true), 3100)
+            setTimeout(() => setSolicitud(true), 3100);
+
         }, 2000)
     }
 
@@ -90,8 +90,8 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
             <textarea name='descripcion' id='descripcion-categoria' onChange={almacenarCategoriaState} value={descripcion}>
             </textarea>
             {exito && <p className="exito-categoria  text-center mt-1 mb-0" id='exito-categoria'>{accion === 'editar'
-                ? (<span>La categoria se ha modificado  <i class="fas fa-check"></i></span>)
-                : (<span>La categoria se ha guardado  <i class="fas fa-check"></i></span>)} </p>}
+                ? (<span>La categoria se ha modificado  <i className="fas fa-check"></i></span>)
+                : (<span>La categoria se ha guardado  <i className="fas fa-check"></i></span>)} </p>}
             {spinner && <Spinner />}
             <button className='btn-gproducto text-white mt-2' >Guardar</button>
         </form>

@@ -28,6 +28,7 @@ const FormularioCrud = () => {
     }
     useEffect(() => {
       consultarProductos();
+      setSolicitud(false);
        }, [solicitud]);
    
   
@@ -38,7 +39,7 @@ const FormularioCrud = () => {
                 <div className='container general'>
                     <EncabezadoCrud setAccion={setAccion} />
                     <TitulosFiltros />
-                    <ListaProductos  lista={listadoProductos.res} isLoaded={listadoProductos.isLoaded} setAccion={setAccion} setProductoEditar={setProductoEditar} setProductoEliminar={setProductoEliminar} />
+                    <ListaProductos setSolicitud={setSolicitud} lista={listadoProductos.res} isLoaded={listadoProductos.isLoaded} setAccion={setAccion} setProductoEditar={setProductoEditar} setProductoEliminar={setProductoEliminar} />
                     <Crud n={n} accion={accion} setAccion={setAccion} setProductoEditar={setProductoEditar} productoEditar={productoEditar} setProductoCrear={setProductoCrear} productoCrear={productoCrear} setSolicitud={setSolicitud} />
                 </div>
             </div>
