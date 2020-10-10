@@ -23,8 +23,8 @@ const [inputMessageError, setInputMessageError] =useState('')
        const {nombre, descripcion}=inputValue;
        event.preventDefault();
 
-       if (!nombre || !descripcion)
-       Axios.post('http://localhost:3001/categorias', {...inputValue, id: null})
+       if (!nombre || !descripcion){ return}
+       Axios.post('http://localhost:3001/categorias', {nombre, descripcion})
        .then(() =>{
             setInputMessage('Su categoria se ha agregado con exito!')
        })
@@ -43,7 +43,7 @@ const [inputMessageError, setInputMessageError] =useState('')
 
     return (
         <div class="container">
-            <form>
+            <form onSubmit={handleSend}>
                 <div class="form-group">
                     <label for="Categoria">Nombre:</label>
                     <input 
@@ -52,7 +52,7 @@ const [inputMessageError, setInputMessageError] =useState('')
                     name="nombre"
                     id="exampleFormControlInput1" 
                     placeholder="Ingrese un nombre para su categoria" 
-                    value={input.nombre}
+                    value={inputValue.nombre}
                     onChange={handleInput}
                     />
                 </div>
@@ -70,12 +70,12 @@ const [inputMessageError, setInputMessageError] =useState('')
 
                     </textarea>
                 </div>
-            </form>
-            <div>
-                <button type="submit" class="btn btn-outline-danger" onClick={handleSend}>Enviar</button>
-                <button type="button" class="btn btn-outline-danger" onClick={handleEdit}>Editar</button>
-                <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Eliminar</button>
+                <div>
+                <button type="submit" class="btn btn-outline-danger" >Enviar</button>
+             {/*   <button type="button" class="btn btn-outline-danger" onClick={handleEdit}>Editar</button>
+                <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Eliminar</button>*/}
             </div>
+            </form>
         </div>)
 };
 
