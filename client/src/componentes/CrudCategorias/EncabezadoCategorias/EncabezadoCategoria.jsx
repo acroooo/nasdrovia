@@ -3,13 +3,14 @@ import React from 'react'
 
 
 
-const EncabezadoCategoria = () => {
+const EncabezadoCategoria = ({setAccion}) => {
+
     return ( 
         <div className="row align-items-center ">
         <div
             className="encabezado col-12  d-flex justify-content-between m-0  align-items-center py-2 mb-1 mx-auto">
             <h4 className="titulo-lista text-white m-0 pb-1">Listado de Categorias</h4>
-            <button className="btn-nuevo text-white"><i className="fas fa-plus bg-white mr-1 mr-1 mr-md-2"></i>Nueva Categoria</button>
+            <button className="btn-nuevo text-white" onClick={()=>setAccion('crear')}><i className="fas fa-plus bg-white mr-1 mr-1 mr-md-2" ></i>Nueva Categoria</button>
         </div>
 
         <div className="encabezado col-12 d-flex align-items-center py-2 mb-1 mx-auto">
