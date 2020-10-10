@@ -1,16 +1,6 @@
 const router = require("express").Router();
 const { Producto, Categories, producto_categoria } = require("../db.js");
 
-<<<<<<< HEAD
-app.use('/categorias', Categories)
-
-router.get('/', async (req, res, error) => {
-	Producto.findAll()
-		.then(products => {
-			res.send(products);
-		})
-		.catch(error.message);
-=======
 router.get("/", (req, res, next) => {
   Producto.findAll({
     includes: [Categories],
@@ -57,7 +47,6 @@ router.put("/:id", (req, res) => {
       .then((producto) => res.status(200).send(producto))
       .catch((err) => res.status(400).json(err));
   }
->>>>>>> 92bf2fbdd062da28f6413a956c1db23931cbd2c8
 });
 
 router.delete("/:id", (req, res) => {
@@ -68,8 +57,4 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> 92bf2fbdd062da28f6413a956c1db23931cbd2c8
