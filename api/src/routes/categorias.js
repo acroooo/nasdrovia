@@ -32,7 +32,7 @@ router.put("/:id", (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
-router.delete("/:id", (req, res) => {
+ router.delete("/:id", (req, res) => {
 
   let id = req.params.id;
   Categories.destroy({ where: { id } }).then((response) => {
@@ -40,6 +40,7 @@ router.delete("/:id", (req, res) => {
     else return res.status(201);
   });
 });
+ 
 
 module.exports = router;
 

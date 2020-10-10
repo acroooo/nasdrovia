@@ -52,13 +52,14 @@ input[type=number]::-webkit-inner-spin-button {-webkit-appearance: none;}
     border-radius: 3px;
     padding: 2px;
 }
-.exito-producto{background-color: green;display: none;border-radius: 2px;}
+.exito-producto{background-color: green;border-radius: 2px;}
 .cat-btn{
     background-color:#015386;
     padding: 2px 4px;
     border-radius: 2px;
     transition: .4s all;
 }
+#mensaje-exito{background-color: green;}
 /* -------------MEDIAQUERIES---------- */
 @media(max-width:768px){
     .titulo-lista{font-size: 20px;}
