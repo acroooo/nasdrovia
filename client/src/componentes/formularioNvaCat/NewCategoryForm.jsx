@@ -19,17 +19,16 @@ const [inputMessageError, setInputMessageError] =useState('')
    }
 
    //----Enviar Formulario ----
-   const handleSend = event =>{
-       const {nombre, descripcion}=inputValue;
-       event.preventDefault();
+   const handleSend = e =>{
+    e.preventDefault();
+     const {nombre, descripcion}=inputValue;
 
-       if (!nombre || !descripcion)
-       Axios.post('http://localhost:3001/categorias', {...inputValue, id: null})
-       .then(() =>{
-            setInputMessage('Su categoria se ha agregado con exito!')
-       })
-       .catch(error =>setInputMessageError('Su categoria no ha sido creada!' + error)
-       )
+     if(!nombre || !descripcion){
+         return;
+     }
+    Axios.post('http://localhost:3001/categorias', {nombre,descripcion})
+    .then(() =>console.log('envido'))
+    .catch(() =>console.log('error')) 
    }
 
    //-------Editar Formulario------
@@ -43,36 +42,37 @@ const [inputMessageError, setInputMessageError] =useState('')
 
     return (
         <div class="container">
-            <form>
+            <form onSubmit={handleSend}>
                 <div class="form-group">
-                    <label for="Categoria">Nombre:</label>
+                    <label htmlFor="Categoria">Nombre:</label>
                     <input 
                     type="text" 
                     class="form-control" 
                     name="nombre"
                     id="exampleFormControlInput1" 
                     placeholder="Ingrese un nombre para su categoria" 
-                    value={input.nombre}
+                    
                     onChange={handleInput}
                     />
                 </div>
                 <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
+                    <label htmlFor="descripcion">Descripción:</label>
                     <textarea 
                     class="form-control" 
                     id="descripcion" 
                     rows="2" 
                     name="descripcion"
-                    value={inputValue.descripcion}
+                   
                     placeholder="Ingrese una descripción breve"
                     onChange={handleInput}
                     >
 
                     </textarea>
                 </div>
+                <button type="submit" class="btn btn-outline-danger" >Enviar</button>
             </form>
             <div>
-                <button type="submit" class="btn btn-outline-danger" onClick={handleSend}>Enviar</button>
+             
                 <button type="button" class="btn btn-outline-danger" onClick={handleEdit}>Editar</button>
                 <button type="button" class="btn btn-outline-danger" onClick={handleDelete}>Eliminar</button>
             </div>
