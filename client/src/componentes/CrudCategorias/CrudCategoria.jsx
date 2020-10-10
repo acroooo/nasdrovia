@@ -1,12 +1,10 @@
-import React,
-{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './CrudCategoria.css';
 import EncabezadoCategoria from './EncabezadoCategorias/EncabezadoCategoria';
 import SubformularioCategorias from './Subformularioategorias/SubformularioCategorias';
 import ListaCategorias from './ListaCategorias/ListaCategorias';
 import TitulosCategorias from './TitulosCategorias/TitulosCategorias';
-
-
+import axios from 'axios';
 
 
 const CrudCategoria = () => {
@@ -16,6 +14,18 @@ const CrudCategoria = () => {
     const [categoriaEditar,setCategoriaEditar]=useState({});
     const [categoriaCrear,setCategoriaCrear]=useState({});
     const [categoriaEliminar,setCategoriaEliminar]=useState(0);
+    const [solicitud,setSolicitud]=useState(false);
+
+    const consultarCategorias = ()=>{
+        axios.get('http://localhost:3001/categorias').
+        then(data =>setListadoCategorias(data.data)).
+        catch(error => console.log(error));
+    }
+   
+    useEffect(()=>{
+        consultarCategorias();
+        setSolicitud(false);
+    },[solicitud]);
 
     return (  
         <div className='total'>
@@ -23,7 +33,9 @@ const CrudCategoria = () => {
                  <EncabezadoCategoria setAccion={setAccionCategorias}/>
                  <TitulosCategorias/>
                  <ListaCategorias accion={setAccionCategorias} categorias={listadoCategorias} editar={setCategoriaEditar} eliminar={setCategoriaEliminar}/>
-                 <SubformularioCategorias catCrear={categoriaCrear} catEditar={categoriaEditar} accion={accionCategorias} setAccion={setAccionCategorias} editar={setCategoriaEditar} crear={setCategoriaCrear} eliminar={setCategoriaEliminar}/>
+                 <SubformularioCategorias catCrear={categoriaCrear} catEditar={categoriaEditar} setSolicitud={setSolicitud} n={listadoCategorias.length}
+                 accion={accionCategorias} setAccion={setAccionCategorias} editar={setCategoriaEditar} crear={setCategoriaCrear} eliminar={setCategoriaEliminar
+                 }/>
              </div>
          </div>
     );
