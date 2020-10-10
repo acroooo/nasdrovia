@@ -3,6 +3,7 @@ import Producto from "../ProductCard/card";
 import { categorias } from "./menu_producto";
 import Axios from 'axios';
 import "./Categoria.css";
+import Loader from "../Loader/Loader";
 
 export default function Categoria() {
   const [productos, setProductos] = useState({res:null, isLoaded:false})
@@ -105,7 +106,7 @@ export default function Categoria() {
     </div>
   );
 } else{
-  return <div>cargando</div>
+  return  <Loader/>
 }
 
 }

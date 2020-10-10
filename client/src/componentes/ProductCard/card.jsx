@@ -1,5 +1,6 @@
 import React from "react";
 import "./card.css"
+
 import { cartButton } from "../../Multimedia/Svgs";
 import { Carousel } from 'react-bootstrap';
 
