@@ -54,7 +54,7 @@ const Crud = ({accion,setAccion,setProductoEditar,productoEditar,setProductoCrea
     return accion ==='editar' || accion==='crear' ?(  
        <form className="formulario-producto-crud  flex-column mx-auto" id='form-crud' onSubmit={handleSubmit}>
            <h4 className="d-flex align-items-center justify-content-between mb-3">
-            Agregar producto <small id="cerrar" className="font-weight-bold" onClick={cerrarFormulario}>X</small> </h4>
+            {accion ==='editar' ? 'Crear':'Editar'} Producto <small id="cerrar" className="font-weight-bold" onClick={cerrarFormulario}>X</small> </h4>
              {error && <p className="error-producto text-white text-center" id='error-producto'> Todos los campos son obligatorios </p>} 
            <label className="mb-1" >Código</label>
            <input

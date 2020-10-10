@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/card";
-import { categorias, productos } from "./menu_producto";
+import { categorias } from "./menu_producto";
+import Axios from 'axios';
+import "./Categoria.css";
+import Loader from "../Loader/Loader";
 
 export default function Categoria() {
+  const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
   const [cat, setCat] = useState([]);
   const [filtrar, setFiltrar] = useState(false);
   useEffect(() => {
+    Axios.get('http://localhost:3001/producto').then(data =>{
+      setProductos({
+        res:data.data,
+        isLoaded:true,
+      });
+        }).catch(error => 
+        console.log(error));
     setCat(
       categorias.map((elemento) => {
         return {
@@ -25,11 +36,9 @@ export default function Categoria() {
             arr.push(e);
           }
         });
-      } else {
-        setCategoriasDisplay(productos);
-      }
+      } 
       if (arr.length !== 0) {
-        setCategoriasDisplay(arr);
+        setProductos(arr);
       }
     });
   }, [cat]);
@@ -45,15 +54,17 @@ export default function Categoria() {
       })
     );
   }
+  if(productos.isLoaded){
   if (filtrar) {
     return (
       <div className="Categorias">
-        <div className="categoriaFilter">
+        <div className="categoriasFilter">
           {cat.map((categoria, i) => {
             return (
               <div className="" key={i + "f"}>
-                <label className="">
+                <label className="check">
                   <input
+                    className="checkboxes"
                     type="checkbox"
                     key={categoria.value + i}
                     value={categoria.value}
@@ -68,12 +79,12 @@ export default function Categoria() {
               </div>
             );
           })}
-          <div className="" onClick={() => setFiltrar(!filtrar)}>
+          <div className="x" onClick={() => setFiltrar(!filtrar)}>
             X
           </div>
         </div>
-        <div className="">
-          {categoriasDisplay.map((producto, i) => {
+        <div className="listaProductos">
+          {productos.res.map((producto, i) => {
             return <Producto producto={producto} key={i + "k"} />;
           })}
         </div>
@@ -81,17 +92,21 @@ export default function Categoria() {
     );
   }
   return (
-    <div className="">
-      <div className="">
-        <div className="" onClick={() => setFiltrar(!filtrar)}>
+    <div className="categorias">
+      <div className="categoriasFilter">
+        <div className="botonFiltro" onClick={() => setFiltrar(!filtrar)}>
           Filtros
         </div>
       </div>
-      <div className="">
-        {categoriasDisplay.map((producto, i) => {
+        <div className="listaProductos">
+        {productos.res.map((producto, i) => {
           return <Producto producto={producto} key={i + "k"} />;
         })}
       </div>
     </div>
   );
+} else{
+  return  <Loader/>
+}
+
 }
