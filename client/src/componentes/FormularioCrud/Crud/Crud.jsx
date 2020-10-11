@@ -12,12 +12,14 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
 
     //Datos del producto que se va a editar
     const { id, nombre, descripcion, precio, stock, imagen } = productoEditar;
-
+   
+ 
     //Guarda el producto editado o creado en el state según sea el caso
     const almacenarProductoEditado = e => {
         accion === 'editar' && setProductoEditar({ ...productoEditar, [e.target.name]: e.target.value });
         accion === 'crear' && setProductoCrear({ ...productoCrear, [e.target.name]: e.target.value });
     }
+    
 
     //Cierra el formulario y borrar el producto editado O creado del state
     const cerrarFormulario = () => {
@@ -32,18 +34,23 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         const { id, nombre, descripcion, precio, stock, imagen } = accion === 'editar' ? productoEditar : productoCrear;
 
         //Validar si los campos están vacios
-        if (!nombre || !descripcion || !precio || !stock || !imagen) {
+         if (!nombre || !descripcion || !precio || !stock || !imagen) {
             setError(true);
             return;
         }
-        setError(false);
+        setError(false); 
 
         //Ejecutar  axios
         switch (accion) {
-            case 'crear': case 'crear': axios.post('http://localhost:3001/producto', { nombre, descripcion, precio, stock, imagen })
+           case 'crear': axios.post('http://localhost:3001/producto', { nombre, descripcion, precio, stock, imagen })
                 .then(() => console.log('publicado')).catch(() => console.log('error'))
-                break;
-        }
+            break; 
+            
+            case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
+                 .then(() => console.log('editado')).catch(() => console.log('error'))
+              break;
+        } 
+
         //Mostrar spinner de carga
         setSpinner(true);
 
@@ -51,11 +58,13 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         setTimeout(() => {
             setSpinner(false);
             setExito(true);
-            setTimeout(() => { setExito(false); cerrarFormulario() }, 3000)
+            setTimeout(() => { setExito(false);setAccion('')}, 3000)
             setTimeout(() => setSolicitud(true), 3100)
+        
         }, 2000)
 
     }
+    
 
 
     return accion === 'editar' || accion === 'crear' ? (
@@ -67,8 +76,6 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             <input
                 name='id'
                 type="number"
-                id='id'
-                onChange={almacenarProductoEditado}
                 value={accion === 'editar' ? id : n + 1}
                 disabled
             />
@@ -127,8 +134,8 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             <label className="mb-1" >Precio</label>
             <input name='precio' name='precio' type="number" id='precio' onChange={almacenarProductoEditado} value={precio} />
             {exito && <p className="exito-categoria  text-center mt-1 mb-0" id='exito-categoria'>{accion === 'editar'
-                ? (<span>El produco se ha modificado  <i class="fas fa-check"></i></span>)
-                : (<span>El producto se ha guardado  <i class="fas fa-check"></i></span>)} </p>}
+                ? (<span>El produco se ha modificado  <i className="fas fa-check"></i></span>)
+                : (<span>El producto se ha guardado  <i className="fas fa-check"></i></span>)} </p>}
             {spinner && <Spinner />}
             <button className='btn-gproducto text-white mt-2' >Guardar</button>
 
