@@ -1,56 +1,30 @@
 import React from "react";
+import { SimpleImg } from 'react-simple-img';
 import "./card.css"
-import { cartButton } from "../../Multimedia/Svgs";
-import { motion, AnimatePresence } from "framer-motion";
 
-const card = ({producto}) => {
-    const animation ={
-        initial:{
-        opacity:0,
-        x:-135
-        },
-        animate:{
-        opacity:1,
-        x:0,
-        }, 
-        exit:{
-        opacity:0,
-        x:135,
-        }}
-    const {initial,animate,exit}= animation;
+
+const card = ({producto, importance}) => {
     const {nombre, precio, imagen, stock}=producto;
     return (
-        <AnimatePresence>
+        
         <div class="card">
-            <a class="botoncontainer">
-                <button class="carro">{cartButton}</button>
-            </a>
+                <button class="carro"><i className="fas fa-shopping-bag icono-carro"></i></button>
             <div>
-            <motion.img className="img"
-            initial={initial}
-            animate={animate}
-            exit={exit}
-            transition={{delay:0.8}}
-            src="https://distribuidorahideal.com.br/509-tm_thickbox_default/cerv-stella-artois-275ml-c-24.jpg"
-            alt="First slide"
+            <SimpleImg className="img"
+            placeholder={false}
+            animationDuration={0.25}
+            importance={importance}
+            src={imagen}
+            alt={nombre}
             />
-                
             </div>
-            <motion.div className= "decorativa"
-            initial={initial}
-            animate={animate}
-            exit={exit}
-            transition={{delay:0.25}}
-            ></motion.div>
+            <div className= {`decorativa ${nombre.replace(" ", "_")}`}
+            ></div>
             <div className="card-body">
                 <div class="boton">
                     <div class="titulo">
-                        <motion.h2
-                        initial={initial}
-                        animate={animate}
-                        exit={exit}
-                        transition={{delay:0.6}}
-                        >{nombre}</motion.h2>
+                        <h2 className={`${nombre.replace(" ", "_")}`}
+                        >{nombre}</h2>
                     </div>
                 </div>
                 <h4 className="precio">precio:</h4>
@@ -58,7 +32,6 @@ const card = ({producto}) => {
                 <h5>Stock:{stock}</h5>
             </div>
         </div>
-        </AnimatePresence>
     )
 }
 
