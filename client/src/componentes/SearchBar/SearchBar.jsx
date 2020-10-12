@@ -74,9 +74,9 @@ export default function SearchBar() {
               {searchButton}
             </Button>
           </Link>
-          <div class="carrito">{cartButton}</div>
+          <div className="carrito">{cartButton}</div>
 
-          <div class="usuario">{userButton}</div>
+          <div className="usuario">{userButton}</div>
         </Form>
       </Navbar>
     </Container>

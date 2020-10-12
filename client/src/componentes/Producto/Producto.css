@@ -6,7 +6,12 @@
     align-self:center !important;
     margin-left: 0 !important;
 }
+<<<<<<< HEAD
 .producto2{
+=======
+
+.producto{
+>>>>>>> ab62021db938d3fe5a65669783184f3f2a91ff23
     display:flex !important;
     justify-content: center !important;
     flex-direction: row !important;
@@ -41,7 +46,11 @@ p{
     margin-left: 0 !important;
 }
 
+<<<<<<< HEAD
 .body-tarjeta{
+=======
+.card-bodyb{
+>>>>>>> ab62021db938d3fe5a65669783184f3f2a91ff23
     background-color: #e6e6e6;
     display:flex !important;
     flex-direction: column !important;

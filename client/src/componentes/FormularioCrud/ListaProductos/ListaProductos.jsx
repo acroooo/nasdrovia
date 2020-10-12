@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {editarProducto}from '../formulario';
+import React from 'react';
+import axios from 'axios';
 
 
-export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEditar,setProductoEliminar }) {
+export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEditar,setProductoEliminar,setSolicitud}) {
  
     //Almacena el producto que toca editar en el state
     const editadoEnState = (element)=>{
@@ -11,13 +11,15 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
          setProductoEditar({id,nombre,imagen,descripcion,stock,precio});
     }
     //Almacena el id del producto que toca eliminar en el state
-    const eliminarProducto = id=>{
-        setAccion('eliminar');
-        setProductoEliminar(id);
+    const eliminarProducto = (id)=>{
+      
+        setAccion('eliminar');setProductoEliminar(id); 
+        axios.delete(`http://localhost:3001/producto/${id}`)
+        .then(()=>setSolicitud(true)).catch((err)=>console.log(err))
+        setSolicitud(false);
     }
     
-
-    return (
+    return lista.data.length ?(
         lista.data.map(element => {
             const { nombre, stock, imagen, precio, descripcion, id } = element
             return (
@@ -35,9 +37,9 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
                         <i className="fas fa-pencil-alt p-1 mr-1 text-white" onClick={()=>editadoEnState(element)} ></i>
                         <i className="fas fa-trash p-1 text-white" onClick={()=>eliminarProducto(id)}></i>
                     </div>
-                </section>
-            )
-        }
-        )
-    )
+                </section>)
+        })
+    ):<div className='productos-vacios row justify-content-center py-2  align-items-center'>
+      <i className="fas fa-exclamation-circle mx-2"></i>  No hay productos <i className="fas fa-database mx-2"></i>
+     </div>;
 }
