@@ -1,10 +1,9 @@
 const router = require("express").Router();
-const { Producto, Categories, producto_categoria , Images} = require("../db.js");
+const { Producto, Categories, producto_categoria } = require("../db.js");
 
 router.get("/", (req, res, next) => {
   Producto.findAll({
-    includes: [Categories],
-    include: Images
+    include: Categories,
   })
     .then((products) => {
       res.send(products);
@@ -15,8 +14,7 @@ router.get("/:id", (req, res, next) => {
   const id = req.params.id;
   Producto.findOne({
     where: { id },
-    includes: [Categories],
-    include: Images
+    include: Categories,
   })
     .then((products) => {
       res.status(200).send(products);
@@ -25,23 +23,16 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { nombre, precio, stock, img, img1, img2, descripcion, } = req.body;
-  if (nombre && precio && stock && descripcion && img) {
-   
+  const { nombre, precio, stock, imagen, descripcion } = req.body;
+  if (nombre && precio && stock && imagen && descripcion) {
     const nproduct = await Producto.create({
       nombre: nombre,
       precio: precio,
       stock: stock,
+      imagen: imagen,
       descripcion: descripcion,
-      images: {
-        0: img, 
-        1: img1, 
-        2: img2
-      }},
-      {
-        include: Images
-      });
-    res.status(201).json(nproduct)
+    });
+    res.status(201).json(nproduct);
   } else {
     res.status(400).json({ Error: "Faltan parametros" });
   }
@@ -49,14 +40,12 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", (req, res) => {
   let id = req.params.id;
   let { nombre, precio, stock, imagen, descripcion } = req.body;
-  if (!nombre || !precio || !stock || !imagen || !descripcion) {
-    Producto.update(
-      { nombre, precio, stock, imagen, descripcion },
-      { where: { id } }
-    )
-      .then((producto) => res.status(200).send(producto))
-      .catch((err) => res.status(400).json(err));
-  }
+  Producto.update(
+    { nombre, precio, stock, imagen, descripcion },
+    { where: { id } }
+  )
+    .then((producto) => res.status(200).send(producto))
+    .catch((err) => res.status(400).json(err));
 });
 
 router.delete("/:id", (req, res) => {
@@ -67,4 +56,26 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+router.post("/:idProd/categoria/:idCat", async(req, res) =>{
+  const { idProd, idCat } = req.params;
+    const producto = await Producto.findOne({ where: { id: idProd } });
+    const categoria = await Categories.findOne({ where: { id: idCat } })
+    //asociando
+    await producto.addCategories(categoria);
+    const result = await Producto.findOne(
+      { where: { id: idProd },
+      include: Categories
+    });
+    res.json(result)
+}
+)
+router.delete("/:idProd/categoria/:idCat", (req, res)=>{
+  const { idProd, idCat } = req.params;
+
+  producto_categoria
+    .destroy({ where: { productoId: idProd, categoryId: idCat } })
+    .then(() => res.sendStatus(200));
+});
+  
 module.exports = router;
+Categories

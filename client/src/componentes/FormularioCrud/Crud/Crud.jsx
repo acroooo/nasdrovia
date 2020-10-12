@@ -4,11 +4,24 @@ import './Crud.css';
 import Spinner from './Spinner';
 import axios from 'axios';
 
-const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProductoCrear, productoCrear, setSolicitud, n }) => {
+const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProductoCrear, productoCrear, setSolicitud, n, categorias }) => {
 
     const [error, setError] = useState(false);
     const [exito, setExito] = useState(false);
     const [spinner, setSpinner] = useState(false);
+    const [cats,setCats]=useState([]);
+
+   
+    //almacenar categorias del productos
+    const almacenarCategoria = categoria=>{
+        let buscarCategoria = cats.find(c=>c===categoria);
+        let id = categorias.res.find(element=>element.nombre===categoria).id;
+        if(!buscarCategoria){
+            setCats([...cats,{categoria,id}]);
+        }
+        console.log(cats);
+    }
+    
 
     //Datos del producto que se va a editar
     const { id, nombre, descripcion, precio, stock, imagen } = productoEditar;
@@ -17,7 +30,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     //Guarda el producto editado o creado en el state según sea el caso
     const almacenarProductoEditado = e => {
         accion === 'editar' && setProductoEditar({ ...productoEditar, [e.target.name]: e.target.value });
-        accion === 'crear' && setProductoCrear({ ...productoCrear, [e.target.name]: e.target.value });
+        accion === 'crear' && setProductoCrear({ ...productoCrear,id:n+1, [e.target.name]: e.target.value });
     }
     
 
@@ -32,6 +45,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         e.preventDefault();
         //Obtener los datos del producto del state dependiendo de la accion a ejecutar
         const { id, nombre, descripcion, precio, stock, imagen } = accion === 'editar' ? productoEditar : productoCrear;
+        console.log(id)
 
         //Validar si los campos están vacios
          if (!nombre || !descripcion || !precio || !stock || !imagen) {
@@ -43,7 +57,16 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         //Ejecutar  axios
         switch (accion) {
            case 'crear': axios.post('http://localhost:3001/producto', { nombre, descripcion, precio, stock, imagen })
-                .then(() => console.log('publicado')).catch(() => console.log('error'))
+                .then(()=>cats.forEach((cat)=>{
+                    axios.post(`http://localhost:3001/producto/${id}/categoria/${cat.id}`)
+                    setCats([]);
+                }
+                  
+                ))
+                
+                
+                .then(() => console.log('publicado'))
+                .catch((err) => console.log(err))
             break; 
             
             case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
@@ -65,7 +88,6 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
 
     }
     
-
 
     return accion === 'editar' || accion === 'crear' ? (
         <form className="formulario-producto-crud  flex-column mx-auto" id='form-crud' onSubmit={handleSubmit}>
@@ -117,16 +139,21 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             <label className="mb-1">Categoria </label>
             <select
                 id="select-categorias"
+                onChange={(e)=>almacenarCategoria(e.target.value)}
             >
                 <option value="" id="primer">
-                    {/* {categorias.length ? 'Selecciona otra categoria' : 'Selecciona una categoria'} */}
+                    
                 Selecciona una categoria
             </option>
+            {categorias.res.map((el,i)=>
+                        <option 
+                        value={el.nombre}
+                        key={`categorias${i}`}
+                        >
+                        {el.nombre}
+                        </option>
+             )}
 
-                <option value="artesanal">Artesanal</option>
-                <option value="argentina">Argentina</option>
-                <option value="colombiana">Colombiana</option>
-                <option value="chilena">Chilena</option>
             </select>
             <div className="categorias d-flex flex-wrap" id='cont-categorias'>
                 {/*  {categorias.length>0 && categorias.map(categoria => <small className="cat-btn mr-1 text-white mb-1 mt-2" key={Math.random()}>{categoria}<i className="fas fa-times ml-1" onClick={() => eliminarCategoria(categoria)}></i></small>)}  */}

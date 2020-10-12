@@ -13,7 +13,7 @@ const FormularioCrud = () => {
     const [productoEditar, setProductoEditar] = useState({});//producto que se va a editar
     const [productoEliminar, setProductoEliminar] = useState(0)//producto que se va a eliminar, almacena el id
     const [accion, setAccion] = useState('');//acción que realiza el crud
-    const [categorias, setCategorias] = useState([]);//categorias del producto que se está creando o editando
+    const [categorias, setCategorias] = useState({res:null, onLoad:false});//categorias del producto que se está creando o editando
     const [solicitud, setSolicitud] = useState(false);//Dependencia que activa recarga el componente con los productos cada vez que cambia
     const [n,setN]=useState(0)//Id del proximo producto creado
  
@@ -25,6 +25,10 @@ const FormularioCrud = () => {
             setListadoProductos({ res: data, isLoaded: true });
             setN(data.data.length)
         }).catch(error => console.log(error));
+        Axios.get('http://localhost:3001/categorias').then(data=>{
+            setCategorias({res:data.data, onLoad: true})
+        }).catch(error => console.log(error));
+   
     }
     useEffect(() => {
       consultarProductos();
@@ -40,7 +44,7 @@ const FormularioCrud = () => {
                     <EncabezadoCrud setAccion={setAccion} />
                     <TitulosFiltros />
                     <ListaProductos setSolicitud={setSolicitud} lista={listadoProductos.res} isLoaded={listadoProductos.isLoaded} setAccion={setAccion} setProductoEditar={setProductoEditar} setProductoEliminar={setProductoEliminar} />
-                    <Crud n={n} accion={accion} setAccion={setAccion} setProductoEditar={setProductoEditar} productoEditar={productoEditar} setProductoCrear={setProductoCrear} productoCrear={productoCrear} setSolicitud={setSolicitud} />
+                    <Crud n={n} accion={accion} setAccion={setAccion} setProductoEditar={setProductoEditar} productoEditar={productoEditar} setProductoCrear={setProductoCrear} productoCrear={productoCrear} setSolicitud={setSolicitud} categorias={categorias}/>
                 </div>
             </div>
         )

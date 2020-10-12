@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
-import Formulario_Crud from '../FormularioCrud/FormularioCrud.jsx';
-import Formulario_categoria from '../CrudCategorias/CrudCategoria.jsx';
-
 import {
   Container,
   Nav,
@@ -20,15 +17,14 @@ export default function SearchBar() {
   //Hooks
 
   const [search, setSearch] = useState({ query: "" });
-  
+  const [redirect, setRedirect] = useState(false);
+
   // ----- Funcionalidad ----
 
   const handleChange = (event) => {
     event.preventDefault();
     setSearch({ ...search, [event.target.name]: event.target.value });
   };
-
- 
 
   return (
     <Container fluid>
@@ -66,14 +62,14 @@ export default function SearchBar() {
             </Button>
           </Link>
           <div className="carrito">{cartButton}</div>
+          
           <NavDropdown title={userButton} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
           </NavDropdown>
           <div className="usuario"></div>
-          
         </Form>
       </Navbar>
-    </Container>                                                                                       
+    </Container>
   );
 }
