@@ -31,7 +31,7 @@ export default function SearchBar() {
       <Navbar className="navbar-custom" variant="dark">
         <Navbar.Brand href="#home">
           <img
-            src="https://i.pinimg.com/originals/0f/72/14/0f721400c190ad9a138cd12d71694cdf.png"
+            src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
             width="90px"
           />
@@ -61,7 +61,6 @@ export default function SearchBar() {
             </Button>
           </Link>
           <div className="carrito">{cartButton}</div>
-
           <div className="usuario">{userButton}</div>
         </Form>
       </Navbar>
