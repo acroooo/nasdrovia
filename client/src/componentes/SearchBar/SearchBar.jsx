@@ -12,6 +12,7 @@ import {
   Badge,
 } from "react-bootstrap";
 import "./SearchBar.css";
+import Axios from 'axios';
 
 export default function SearchBar() {
   //Hooks
@@ -19,11 +20,14 @@ export default function SearchBar() {
   const [search, setSearch] = useState({ query: "" });
   const [redirect, setRedirect] = useState(false);
 
+  
+
   // ----- Funcionalidad ----
 
   const handleChange = (event) => {
     event.preventDefault();
     setSearch({ ...search, [event.target.name]: event.target.value });
+    
   };
 
   return (
@@ -31,9 +35,10 @@ export default function SearchBar() {
       <Navbar className="navbar-custom" variant="dark">
         <Navbar.Brand href="#home">
           <img
-            src="https://i.pinimg.com/originals/0f/72/14/0f721400c190ad9a138cd12d71694cdf.png"
+            src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
             width="90px"
+            height="90px"
           />
         </Navbar.Brand>
         <Nav className="mr-auto">
@@ -55,14 +60,19 @@ export default function SearchBar() {
             className="mr-sm-2"
           />
           <FormControl.Feedback />
-          <Link to={`/search?query=${search.query}`}>
+          <Link to={`/search?busqueda=${search.query}`}>
             <Button onClick={handleChange} variant="outline-info">
               {searchButton}
             </Button>
           </Link>
+          {redirect && <Redirect to={`/search?busqueda=${search.query}`} />}
           <div className="carrito">{cartButton}</div>
-
-          <div className="usuario">{userButton}</div>
+          
+          <NavDropdown title={userButton} id="basic-nav-dropdown">
+            <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
+            <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
+          </NavDropdown>
+          <div className="usuario"></div>
         </Form>
       </Navbar>
     </Container>
