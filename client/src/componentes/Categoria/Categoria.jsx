@@ -5,6 +5,8 @@ import Axios from 'axios';
 import "./Categoria.css";
 import Loader from "../Loader/Loader";
 
+
+
 export default function Categoria() {
   const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [cat, setCat] = useState([]);
@@ -25,6 +27,7 @@ export default function Categoria() {
         };
       })
     );
+  
   }, []);
   useEffect(() => {
     let arr = [];

@@ -8,14 +8,13 @@
   border-radius: 55px;
   margin: 50px 70px;
   cursor: pointer;
-  box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25);
+  border: none !important;
   transition: 500ms;
-}
-.boton .titulo {
-  margin: auto;
+  opacity: 0;
 }
 
-.card h2 {
+.cerveza_nombre {
+  display: block;
   text-align: left;
   padding: 5px 13px;
   margin-top: -5px;
@@ -24,7 +23,7 @@
   font-weight: 1000;
   font-family: "Ubuntu", sans-serif;
   transition: all ease-in 100ms;
-  background-color: #e6e6e6;
+  background-color: #e6e6e6 !important;
   width: 178px;
   line-height: 95%;
   box-shadow: 0px 3px 35px #000;
@@ -67,6 +66,7 @@
   width: 380px;
   object-fit: contain;
   left: -155px;
+  opacity: 0;
   rotate: -7deg;
   top: -25px;
   max-width: 135%;
@@ -84,11 +84,11 @@
   align-self: flex-end;
   box-shadow: 10px 10px 55px #015386;
   z-index: 1;
-  opacity: 0.85;
+  opacity: 0;
 }
 .carro {
   position: absolute;
-  margin: 265px 0px 0px 205px;
+  margin: 265px 0px 0px 185px;
   background-color: #015386;
   padding: 10px 22px;
   border: none;
