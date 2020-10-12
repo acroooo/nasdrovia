@@ -61,9 +61,9 @@ const Producto = (props) => {
     event.preventDefault();
   }
 
-  // const removeCarro = (event) => {
-  //   event.preventDefault();
-  // }
+  const removeCarro = (event) => {
+    event.preventDefault();
+  }
   
   return (
     <div className="producto">
@@ -116,7 +116,7 @@ const Producto = (props) => {
             <Card.Footer className="text-muted">
               {/* Funcion de agregar producto al carro */}
               <Button className="botonRojo" onClick={addCarro}>Agregar al Carro</Button>
-              {/* <Button className="botonRojo" onClick={removeCarro}>Quitar del Carro</Button> */}
+              <Button className="botonRojo" onClick={removeCarro}>Quitar del Carro</Button>
             </Card.Footer>
           </Card>
         </Container>
