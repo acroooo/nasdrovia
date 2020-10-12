@@ -3,7 +3,7 @@ const { Producto, Categories, producto_categoria } = require("../db.js");
 
 router.get("/", (req, res, next) => {
   Producto.findAll({
-    includes: [Categories],
+    include: Categories,
   })
     .then((products) => {
       res.send(products);
@@ -14,7 +14,7 @@ router.get("/:id", (req, res, next) => {
   const id = req.params.id;
   Producto.findOne({
     where: { id },
-    includes: [Categories],
+    include: Categories,
   })
     .then((products) => {
       res.status(200).send(products);
@@ -56,4 +56,26 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+router.post("/:idProd/categoria/:idCat", async(req, res) =>{
+  const { idProd, idCat } = req.params;
+    const producto = await Producto.findOne({ where: { id: idProd } });
+    const categoria = await Categories.findOne({ where: { id: idCat } })
+    //asociando
+    await producto.addCategories(categoria);
+    const result = await Producto.findOne(
+      { where: { id: idProd },
+      include: Categories
+    });
+    res.json(result)
+}
+)
+router.delete("/:idProd/categoria/:idCat", (req, res)=>{
+  const { idProd, idCat } = req.params;
+
+  producto_categoria
+    .destroy({ where: { productoId: idProd, categoryId: idCat } })
+    .then(() => res.sendStatus(200));
+});
+  
 module.exports = router;
+Categories
