@@ -27,6 +27,7 @@ import Axios from 'axios';
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
+  
 
 //axios para un producto especifico con verificacion de ID
   useEffect(()=>{
@@ -38,7 +39,17 @@ const Producto = (props) => {
       })
       .catch(error => 
       console.log(error));
-  },[]);
+  },[]
+  
+  //axios para categorias del producto
+  Axios.get(`http://localhost:3001/categorias/${props.match.params.id}`
+  .then(res => {
+    //ver como viene el objeto categorias en res
+    if(props.match.params.id && res.data.id){ 
+      setCategorias({res:res.data, isLoaded:true})
+    }
+  }))
+  );
   //uso de datos de forma legible
   const data = producto.res;
 
