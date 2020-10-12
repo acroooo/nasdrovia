@@ -20,7 +20,6 @@ import Axios from "axios";
 - ¿Falta algo más?
 - Ver lo que hay que implementar esta semana
 
-
 */
 
 const Producto = (props) => {
