@@ -47,7 +47,7 @@
   object-fit: contain;
   left: -155px;
   opacity: 0;
-  rotate: -7deg;
+  rotate: -20deg !important;
   top: -25px;
   max-width: 135%;
   filter: drop-shadow(1px 20px 10px rgba(0, 0, 0, 0.5));

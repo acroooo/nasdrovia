@@ -2,11 +2,12 @@ import React from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import Categoria from '../Categoria/Categoria';
 
-function Home (){
-    return(
+function Home() {
+    return (
         <div>
-           
-            <Categoria/>
+
+
         </div>
-    )}
+    )
+}
 export default Home; 

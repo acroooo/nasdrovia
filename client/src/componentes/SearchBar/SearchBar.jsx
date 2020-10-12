@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
+import React from "react";
 import {
   Container,
   Nav,
   Navbar,
-  Button,
-  Form,
-  FormControl,
-  NavDropdown,
-  Badge,
 } from "react-bootstrap";
+import Icons from "./icons.jsx"
+import Search from "./search.jsx"
 import "./SearchBar.css";
 
 export default function SearchBar() {
-  //Hooks
 
-  const [search, setSearch] = useState({ query: "" });
-  const [redirect, setRedirect] = useState(false);
-
-  // ----- Funcionalidad ----
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    setSearch({ ...search, [event.target.nombre]: event.target.value });
-  };
 
   return (
     <Container fluid>
@@ -41,29 +26,10 @@ export default function SearchBar() {
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/productos">Tienda</Nav.Link>
         </Nav>
-        <Form inline>
-          <FormControl
-            type="search"
-            placeholder="Buscar..."
-            onChange={handleChange}
-            className="mr-sm-2"
-          />
-          <FormControl.Feedback />
-          <Link to={`/search?query=${search.query}`}>
-            <Button onClick={handleChange} variant="outline-info">
-              {searchButton}
-            </Button>
-          </Link>
-          <div className="carrito">{cartButton}</div>
-          
-          <NavDropdown title={userButton} id="basic-nav-dropdown">
-            <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
-            <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
-          </NavDropdown>
-          <div className="usuario"></div>
-        </Form>
+        <Search />
+        <Icons />
       </Navbar>
     </Container>
-    
+
   );
 }
