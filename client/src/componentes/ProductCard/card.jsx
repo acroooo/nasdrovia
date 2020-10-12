@@ -6,6 +6,7 @@ import anime from 'animejs/lib/anime.es.js';
 export default function Card ({producto, importance}) {
     const {nombre, precio, imagen, stock}=producto;
     const nombreR=nombre.replace(" ", "_");
+
     useEffect(() => {
             anime({
                 targets: '.card',
@@ -45,9 +46,9 @@ export default function Card ({producto, importance}) {
     }
     return (
         
-        <div  class="card" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
+        <div  className="card" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
 
-            <button id={`carro${nombreR}`} class="carro">
+            <button id={`carro${nombreR}`} className="carro">
             <i className="fas fa-shopping-bag icono-carro"/>
             </button>
 
@@ -66,11 +67,11 @@ export default function Card ({producto, importance}) {
             <div id={nombreR} className= {`decorativa ${nombreR}`}
             ></div>
             <div className="card-body">
-            <div class="boton">
+            <div className="boton">
 
             
 
-            <div class="info">
+            <div className="info">
             <h2 
             className={`${nombreR} cerveza_nombre`}
             >{nombre}</h2>

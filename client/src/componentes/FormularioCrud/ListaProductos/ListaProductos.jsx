@@ -18,6 +18,7 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
         .then(()=>setSolicitud(true)).catch((err)=>console.log(err))
         setSolicitud(false);
     }
+    console.log(lista.data)
     
     return lista.data.length ?(
         lista.data.map(element => {
@@ -30,7 +31,8 @@ export default function ListaProducto({ lista, isLoaded,setAccion,setProductoEdi
                     <div className="d-none d-md-block col-md-2">{imagen}</div>
                     <div className="d-none d-md-block col-md-1">{stock}</div>
                     <div className="d-none d-md-flex col-md-2 align-items-center flex-wrap">
-                        {/* {producto.categorias.map(categoria => <small className="mr-1 text-center" key={Math.random()}>{categoria}</small>)} */}
+                          {element.categories.map(cat => <small className="mr-1 text-center" key={Math.random()}>{cat.nombre}</small>)}  
+                    
                     </div>
                     <div className="d-none d-md-block col-md-1">$ {precio.toString()[0] + '.' + precio.toString().slice(1)} </div>
                     <div className="col-4 col-md-1 text-center text-md-left">
