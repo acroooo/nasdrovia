@@ -66,7 +66,6 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     }
     
 
-
     return accion === 'editar' || accion === 'crear' ? (
         <form className="formulario-producto-crud  flex-column mx-auto" id='form-crud' onSubmit={handleSubmit}>
             <h4 className="d-flex align-items-center justify-content-between mb-3">
