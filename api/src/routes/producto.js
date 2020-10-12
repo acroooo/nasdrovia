@@ -79,4 +79,3 @@ router.delete("/:idProd/categoria/:idCat", (req, res)=>{
 });
   
 module.exports = router;
-

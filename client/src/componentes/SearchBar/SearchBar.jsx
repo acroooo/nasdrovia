@@ -23,13 +23,13 @@ export default function SearchBar() {
 
   const handleChange = (event) => {
     event.preventDefault();
-    setSearch({ ...search, [event.target.name]: event.target.value });
+    setSearch({ ...search, [event.target.nombre]: event.target.value });
   };
 
   return (
     <Container fluid>
       <Navbar className="navbar-custom" variant="dark">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
@@ -38,15 +38,8 @@ export default function SearchBar() {
           />
         </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#inicio">Inicio</Nav.Link>
-          <NavDropdown title="Cervezas" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#">Scotch</NavDropdown.Item>
-            <NavDropdown.Item href="#">Honey</NavDropdown.Item>
-            <NavDropdown.Item href="#">Ipa</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link href="http://localhost:3000/productos">Tienda</Nav.Link>
+          <Nav.Link href="/">Inicio</Nav.Link>
+          <Nav.Link href="/productos">Tienda</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl
@@ -71,5 +64,6 @@ export default function SearchBar() {
         </Form>
       </Navbar>
     </Container>
+    
   );
 }
