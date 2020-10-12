@@ -5,9 +5,10 @@ import Axios from 'axios';
 import "./Categoria.css";
 import Loader from "../Loader/Loader";
 
+
+
 export default function Categoria() {
   const [productos, setProductos] = useState({res:null, isLoaded:false})
-  const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
   const [cat, setCat] = useState([]);
   const [filtrar, setFiltrar] = useState(false);
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function Categoria() {
         };
       })
     );
+  
   }, []);
   useEffect(() => {
     let arr = [];
@@ -54,10 +56,9 @@ export default function Categoria() {
       })
     );
   }
-  if(productos.isLoaded){
-  if (filtrar) {
-    return (
+  return (
       <div className="Categorias">
+      {filtrar ? 
         <div className="categoriasFilter">
           {cat.map((categoria, i) => {
             return (
@@ -78,35 +79,23 @@ export default function Categoria() {
                 </label>
               </div>
             );
-          })}
+          }) }
           <div className="x" onClick={() => setFiltrar(!filtrar)}>
-            X
+          <i className="fas fa-window-close"></i>
           </div>
-        </div>
-        <div className="listaProductos">
-          {productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} />;
-          })}
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="categorias">
-      <div className="categoriasFilter">
+        </div> : <div className="categoriasFilter">
         <div className="botonFiltro" onClick={() => setFiltrar(!filtrar)}>
           Filtros
         </div>
       </div>
+      }
         <div className="listaProductos">
-        {productos.res.map((producto, i) => {
-          return <Producto producto={producto} key={i + "k"} />;
-        })}
+          {productos.isLoaded ? productos.res.map((producto, i) => {
+            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+          }):<Loader/>}
+        </div>
       </div>
-    </div>
-  );
-} else{
-  return  <Loader/>
-}
+    );
+  }
 
-}
+
