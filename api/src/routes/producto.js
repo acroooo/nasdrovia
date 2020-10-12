@@ -56,7 +56,7 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-router.post("/:idProducto/categoria/:idCategoria", async(req, res) =>{
+router.post("/:idProd/categoria/:idCat", async(req, res) =>{
   const { idProd, idCat } = req.params;
     const producto = await Producto.findOne({ where: { id: idProd } });
     const categoria = await Categories.findOne({ where: { id: idCat } })
