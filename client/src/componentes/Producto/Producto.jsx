@@ -15,6 +15,7 @@ import Axios from "axios";
 [] - Infinite Scroll
 [] - PRIORIDAD! - Flechas Carrousel
 [] - Arreglar CSS Card
+[] - Buenas practicas CSS
 
 - ¿Falta algo más?
 - Ver lo que hay que implementar esta semana
@@ -51,6 +52,7 @@ const Producto = (props) => {
       .catch((error) => console.log(error.message));
   }, []);
 
+  // faltan funcionalidades
   const addCarro = (event) => {
     event.preventDefault();
   };
@@ -72,6 +74,7 @@ const Producto = (props) => {
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
+            {/* Colocar flechas al carrousel */}
               <Image
                 className="d-block w-100"
                 src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
