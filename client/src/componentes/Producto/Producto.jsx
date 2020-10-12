@@ -6,7 +6,7 @@ import Axios from 'axios';
 
 /* TODO LIST
 
-[] - PRIORIDAD! - Función para agregar producto al carro.
+[Listo / No funcional] - PRIORIDAD! - Función para agregar producto al carro.
 [] - PRIORIDAD! - Función para quitar producto del carro.
 [] - Sector Categorías
 [] - PRIORIDAD! - Diseño => ¿ Como podrían quedar mejor los colores?
@@ -27,6 +27,7 @@ import Axios from 'axios';
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
+  const [categoria, setCategoria] = useState({res: {}, isLoaded: false});
 
   const id = props.match.params.id;
 //axios para un producto especifico con verificacion de ID
@@ -56,6 +57,14 @@ const Producto = (props) => {
   //uso de datos de forma legible
   const data = producto.res;
 
+  const addCarro = (event) => {
+    event.preventDefault();
+  }
+
+  // const removeCarro = (event) => {
+  //   event.preventDefault();
+  // }
+  
   return (
     <div className="producto">
       <Card>
@@ -105,7 +114,9 @@ const Producto = (props) => {
               </div>
             </Card.Body>
             <Card.Footer className="text-muted">
-              <Button className="botonRojo">Agregar al Carro</Button>
+              {/* Funcion de agregar producto al carro */}
+              <Button className="botonRojo" onClick={addCarro}>Agregar al Carro</Button>
+              {/* <Button className="botonRojo" onClick={removeCarro}>Quitar del Carro</Button> */}
             </Card.Footer>
           </Card>
         </Container>
