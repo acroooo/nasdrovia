@@ -28,10 +28,10 @@ const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
 
-
+  const id = props.match.params.id;
 //axios para un producto especifico con verificacion de ID
   useEffect(()=>{
-    Axios.get(`http://localhost:3001/producto/${props.match.params.id}`)
+    Axios.get(`http://localhost:3001/producto/${id}`)
     .then(data =>{
       if(props.match.params.id && data.data.id){
         setProducto({res:data.data, isLoaded:true});
@@ -41,8 +41,9 @@ const Producto = (props) => {
       console.log(error.message));
   },[]);
 
+  //traer categorias en base al producto
   useEffect(() => {
-    Axios.get(`http://localhost:3001/categorias/${props.match.params.id}`)
+    Axios.get(`http://localhost:3001/categorias/${id}`)
   .then(res => {
     //ver como viene el objeto categorias en res
     if(props.match.params.id && res.data.id){ 
