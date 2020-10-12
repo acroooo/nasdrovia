@@ -5,8 +5,7 @@ import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
 import Categoria from "./componentes/Categoria/Categoria";
-import FormularioCategoria from './componentes/formularioNvaCat/NewCategoryForm.jsx';
-import CrudCategoria from './componentes/CrudCategorias/CrudCategoria';
+import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 //React Router
 
 export default function App() {
@@ -15,11 +14,9 @@ export default function App() {
       <Router>
         <Route path="/" component={SearchBar} />
         <Route exact path="/productos" component={Categoria} />
-        <Route exact path="/formulario-categoria" component={FormularioCategoria}/>
-        <Route exact path="/formulario-categoria2" component={CrudCategoria}/>
+        <Route exact path="/formulario-categoria" component={CrudCategoria} />
         <Route exact path="/producto/:id" component={Producto} />
         <Route exact path="/formulario-crud" component={FormularioCrud} />
-
       </Router>
     </div>
   );

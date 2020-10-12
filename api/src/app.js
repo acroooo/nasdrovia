@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-
+const cors = require("cors");
 require("./db.js");
 
 const server = express();
@@ -24,6 +24,7 @@ server.use((req, res, next) => {
   next();
 });
 
+server.use(cors());
 server.use("/", routes);
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars

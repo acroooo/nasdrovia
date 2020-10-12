@@ -32,6 +32,11 @@ module.exports = (sequelize) => {
       allowNull: validations.allowNull,
       validate: validations.intType,
     },
+    imagen: {
+      type: DataTypes.STRING,
+      allowNull: validations.allowNull,
+      validate: validations.strType,
+    },
     descripcion: {
       type: DataTypes.TEXT,
       allowNull: validations.allowNull,

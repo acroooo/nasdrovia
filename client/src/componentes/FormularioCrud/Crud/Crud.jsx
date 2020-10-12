@@ -4,12 +4,12 @@ import './Crud.css';
 import Spinner from './Spinner';
 import axios from 'axios';
 
-const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProductoCrear, productoCrear, setSolicitud, n }) => {
+const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProductoCrear, productoCrear, setSolicitud, n, categorias }) => {
 
     const [error, setError] = useState(false);
     const [exito, setExito] = useState(false);
     const [spinner, setSpinner] = useState(false);
-
+    console.log(categorias.res)
     //Datos del producto que se va a editar
     const { id, nombre, descripcion, precio, stock, imagen } = productoEditar;
    
@@ -119,14 +119,17 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 id="select-categorias"
             >
                 <option value="" id="primer">
-                    {/* {categorias.length ? 'Selecciona otra categoria' : 'Selecciona una categoria'} */}
+                    
                 Selecciona una categoria
             </option>
-
-                <option value="artesanal">Artesanal</option>
-                <option value="argentina">Argentina</option>
-                <option value="colombiana">Colombiana</option>
-                <option value="chilena">Chilena</option>
+                    { categorias.res.map((el,i)=>
+                        <option 
+                        value={el.nombre}
+                        key={`categorias${i}`}
+                        >
+                        {el.nombre}
+                        </option>
+                    )}
             </select>
             <div className="categorias d-flex flex-wrap" id='cont-categorias'>
                 {/*  {categorias.length>0 && categorias.map(categoria => <small className="cat-btn mr-1 text-white mb-1 mt-2" key={Math.random()}>{categoria}<i className="fas fa-times ml-1" onClick={() => eliminarCategoria(categoria)}></i></small>)}  */}
