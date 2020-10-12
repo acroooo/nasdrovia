@@ -21,12 +21,12 @@ const card = ({producto}) => {
     const {nombre, precio, imagen, stock}=producto;
     return (
         <AnimatePresence>
-        <div class="card">
+        <div class="card2">
             <a class="botoncontainer">
                 <button class="carro">{cartButton}</button>
             </a>
             <div>
-            <motion.img className="img"
+            <motion.img className="img2"
             initial={initial}
             animate={animate}
             exit={exit}
@@ -42,7 +42,7 @@ const card = ({producto}) => {
             exit={exit}
             transition={{delay:0.25}}
             ></motion.div>
-            <div className="card-body">
+            <div className="card-body2">
                 <div class="boton">
                     <div class="titulo">
                         <motion.h2

@@ -1,4 +1,4 @@
-.card {
+.card2 {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start;
@@ -22,7 +22,7 @@
   width: 60px;
   z-index: 110;
 }
-.card h2 {
+.card2 h2 {
   color: #d30208;
   text-align: left;
   padding-left: 12px;
@@ -38,8 +38,8 @@
   border-radius: 4px;
 }
 
-.card p,
-.card h3 {
+.card2 p,
+.card2 h3 {
   color: #fff;
   font-size: 20px;
   font-weight: 300;
@@ -47,7 +47,7 @@
   margin-top: 100px;
 }
 
-.card h5 {
+.card2 h5 {
   margin-bottom: 10px;
   text-align: right;
   color: #fff;
@@ -57,7 +57,7 @@
   text-transform: uppercase;
 }
 
-.card-body {
+.card-body2 {
   z-index: 10;
   position: absolute;
   border-radius: 5px;
@@ -68,7 +68,7 @@
   text-align: left;
   box-shadow: 10px 10px 30px #3c3c3c;
 }
-.img {
+.img2 {
   position: absolute;
   left: -155px;
   rotate: -7deg;
