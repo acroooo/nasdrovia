@@ -65,9 +65,9 @@ const Producto = (props) => {
   const cat = categoria.res;
 
   return (
-    <div className="producto">
+    <div className="producto2">
     {/* Seccion tarjeta producto */}
-      <Card>
+      <Card className="tarjeta">
       {/* Ordenar CSS con nombre segun buenas practicas */}
         <Container className="imagen">
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
@@ -97,11 +97,11 @@ const Producto = (props) => {
         </Container>
         {/* Mejorar diseño container */}
         <Container className="container2">
-          <Card className="card2">
+          <Card className="card3">
             <Card.Header>
               <h1>{data.nombre}</h1>
             </Card.Header>
-            <Card.Body>
+            <Card.Body className="body-tarjeta">
             {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>Categorías</Card.Title>
               <div className="categorias"></div>
@@ -112,7 +112,7 @@ const Producto = (props) => {
               <div className="abajotexto">
                 <Row>
                   <div>
-                    <Card.Text>CANTIDAD: {data.stock}</Card.Text>
+                    <Card.Text className="stock-tarjeta">CANTIDAD: {data.stock}</Card.Text>
                     <Button
                       className="botonCant"
                       onClick={() => setCant(cant + 1)}

@@ -11,10 +11,10 @@
   box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25);
   transition: 500ms;
 }
-.boton .titulo {
+.boton2 .titulo {
   margin: auto;
 }
-.botoncontainer {
+.botoncontainer2 {
   position: absolute;
   margin-top: 220px;
   margin-left: 180px;
