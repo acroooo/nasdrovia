@@ -28,6 +28,7 @@ const FormularioCrud = () => {
         Axios.get('http://localhost:3001/categorias').then(data=>{
             setCategorias({res:data.data, onLoad: true})
         }).catch(error => console.log(error));
+   
     }
     useEffect(() => {
       consultarProductos();
