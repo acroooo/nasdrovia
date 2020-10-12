@@ -65,8 +65,11 @@ const Producto = (props) => {
 
   return (
     <div className="producto">
+    {/* Seccion tarjeta producto */}
       <Card>
+      {/* Ordenar CSS con nombre segun buenas practicas */}
         <Container className="imagen">
+        {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
               <Image
@@ -98,7 +101,7 @@ const Producto = (props) => {
             </Card.Header>
             <Card.Body>
             {/* Añadir conexion a categorias segun id Producto */}
-              <Card.Title>categorías</Card.Title>
+              <Card.Title>Categorías</Card.Title>
               <div className="categorias"></div>
               <Card.Text>{data.precio}</Card.Text>
               <div className="arribatexto">
@@ -124,7 +127,7 @@ const Producto = (props) => {
                 </Row>
               </div>
             </Card.Body>
-            <Card.Footer className="text-muted">
+            <Card.Footer className="pie">
               {/* Funcion de agregar y remover producto del carro */}
               <Button className="botonRojo" onClick={addCarro}>
                 Agregar al Carro
@@ -136,8 +139,8 @@ const Producto = (props) => {
           </Card>
         </Container>
       </Card>
-      <div class="producto">
-
+      {/* seccion productos similares*/}
+      <div class="producto_similares">
       </div>
     </div>
   );
