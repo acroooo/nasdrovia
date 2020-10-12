@@ -4,6 +4,26 @@ import { Card, Carousel, Container, Image, Button, Row} from "react-bootstrap";
 import Axios from 'axios';
 
 
+/* TODO LIST
+
+[] - PRIORIDAD! - Función para agregar producto al carro.
+[] - PRIORIDAD! - Función para quitar producto del carro.
+[] - Sector Categorías
+[] - PRIORIDAD! - Diseño => ¿ Como podrían quedar mejor los colores?
+[] - Framer Motion
+[] - Compartir Producto redes sociales => En base a elecciones de usuarios?
+[] - Seccion "Productos similares"
+[] - Infinite Scroll
+[] - PRIORIDAD! - Flechas Carrousel
+[] - Arreglar CSS Card
+
+- ¿Falta algo más?
+- Ver lo que hay que implementar esta semana
+
+
+*/
+
+
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
