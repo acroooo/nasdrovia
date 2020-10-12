@@ -10,6 +10,7 @@
     "animejs": "^3.2.0",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "cors": "^2.8.5",
     "framer-motion": "^2.7.7",
     "jquery": "^3.5.1",
     "postcss": "^8.1.1",

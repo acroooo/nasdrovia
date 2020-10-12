@@ -67,15 +67,20 @@ export default function Card ({producto, importance}) {
             ></div>
             <div className="card-body">
             <div class="boton">
-            <div class="titulo">
+
+            
+
+            <div class="info">
             <h2 
             className={`${nombreR} cerveza_nombre`}
             >{nombre}</h2>
             </div>
             </div>
-            <h4 className="precio">precio:</h4>
-            <h3>${precio}</h3>
-            <h5>Stock:{stock}</h5>
+
+            <h4 className="precio_nombre">precio:</h4>
+            <h3 className="precio">${precio}</h3>
+            <h5 className="stock">Stock:{stock}</h5>
+
             </div>
         </div>
     )

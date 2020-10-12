@@ -29,26 +29,6 @@
   box-shadow: 0px 3px 35px #000;
   border-radius: 4px;
 }
-
-.card p,
-.card h3 {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 300;
-  text-align: right;
-  margin-top: 100px;
-}
-
-.card h5 {
-  margin-bottom: 10px;
-  text-align: right;
-  color: #fff;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .card-body {
   z-index: 10;
   position: absolute;
@@ -106,13 +86,49 @@
   background-color: #0074b1;
   box-shadow: -7px -5px 15px #0074b1;
 }
-.precio {
+.precio_nombre {
   font-size: small;
   text-align: right;
   color: #e6e6e6;
   font-weight: 300;
   position: absolute;
-  margin: 128px 0px 0px 97px;
+  margin: 88px 0px 0px 102px;
+}
+.precio {
+  position: absolute;
+  font-size: x-large;
+  text-align: right;
+  color: #e6e6e6;
+  font-weight: 600;
+  margin: 100px 0px 0px 70px;
+}
+.stock {
+  position: absolute;
+  font-size: small;
+  text-align: right;
+  color: #e6e6e6;
+  font-weight: 100;
+  margin: 130px 0px 0px 88px;
+}
+.Heiniken {
+  background-color: #006900;
+  color: #006900;
+}
+.Budwiser {
+  background-color: #e40613;
+  color: #e40613;
+}
+.Ballast_Point {
+  background-color: #ec6922;
+  color: #ec6922;
+}
+.Corona {
+  background-color: #fdd300;
+  color: #fdd300;
+}
+.Stella_Artois {
+  background-color: #ff0000;
+  color: #ff0000;
 }
 .Heiniken {
   background-color: #006900;

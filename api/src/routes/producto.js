@@ -40,14 +40,12 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", (req, res) => {
   let id = req.params.id;
   let { nombre, precio, stock, imagen, descripcion } = req.body;
-  if (!nombre || !precio || !stock || !imagen || !descripcion) {
-    Producto.update(
-      { nombre, precio, stock, imagen, descripcion },
-      { where: { id } }
-    )
-      .then((producto) => res.status(200).send(producto))
-      .catch((err) => res.status(400).json(err));
-  }
+  Producto.update(
+    { nombre, precio, stock, imagen, descripcion },
+    { where: { id } }
+  )
+    .then((producto) => res.status(200).send(producto))
+    .catch((err) => res.status(400).json(err));
 });
 
 router.delete("/:id", (req, res) => {
