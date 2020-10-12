@@ -56,26 +56,25 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-router.post("/:idProducto/categoria/:idCategoria", async(req, res) =>{
+router.post("/:idProd/categoria/:idCat", async (req, res) => {
   const { idProd, idCat } = req.params;
-    const producto = await Producto.findOne({ where: { id: idProd } });
-    const categoria = await Categories.findOne({ where: { id: idCat } })
-    //asociando
-    await producto.addCategories(categoria);
-    const result = await Producto.findOne(
-      { where: { id: idProd },
-      include: Categories
-    });
-    res.json(result)
-}
-)
-router.delete("/:idProd/categoria/:idCat", (req, res)=>{
+  const producto = await Producto.findOne({ where: { id: idProd } });
+  const categoria = await Categories.findOne({ where: { id: idCat } });
+  //asociando
+  await producto.addCategories(categoria);
+  const result = await Producto.findOne({
+    where: { id: idProd },
+    include: Categories,
+  });
+  res.json(result);
+});
+router.delete("/:idProd/categoria/:idCat", (req, res) => {
   const { idProd, idCat } = req.params;
 
   producto_categoria
     .destroy({ where: { productoId: idProd, categoryId: idCat } })
     .then(() => res.sendStatus(200));
 });
-  
+
 module.exports = router;
-Categories
+Categories;

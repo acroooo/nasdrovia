@@ -9,7 +9,7 @@ import Loader from "../Loader/Loader";
 
 export default function Categoria() {
   const [productos, setProductos] = useState({res:null, isLoaded:false})
-  const [cat, setCat] = useState([]);
+  const [cat, setCat] = useState({res:[], onLoad:false});
   const [filtrar, setFiltrar] = useState(false);
   useEffect(() => {
     Axios.get('http://localhost:3001/producto').then(data =>{
@@ -19,19 +19,13 @@ export default function Categoria() {
       });
         }).catch(error => 
         console.log(error));
-    setCat(
-      categorias.map((elemento) => {
-        return {
-          value: elemento,
-          select: false,
-        };
-      })
-    );
-  
+    Axios.get('http://localhost:3001/categorias').then(data=>{
+      setCat(data.data)
+    })
   }, []);
   useEffect(() => {
     let arr = [];
-    cat.forEach((element) => {
+    cat.res.forEach((element) => {
       if (element.select) {
         productos.forEach((e) => {
           if (e.categoria.toLowerCase() === element.value.toLowerCase()) {
