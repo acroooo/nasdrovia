@@ -54,8 +54,6 @@ const Producto = (props) => {
   .catch(error => 
     console.log(error.message));
   }, []);
-  //uso de datos de forma legible
-  const data = producto.res;
 
   const addCarro = (event) => {
     event.preventDefault();
@@ -64,6 +62,10 @@ const Producto = (props) => {
   const removeCarro = (event) => {
     event.preventDefault();
   }
+
+  //uso de datos de forma legible
+  const data = producto.res;
+  const cat = categoria.res;
   
   return (
     <div className="producto">
@@ -98,7 +100,10 @@ const Producto = (props) => {
               <h1>{data.nombre}</h1>
             </Card.Header>
             <Card.Body>
-              <Card.Title>{props.categorias}</Card.Title>
+              <Card.Title>categorías</Card.Title>
+              <div className="categorias">
+                
+              </div>
               <Card.Text>{data.precio}</Card.Text>
               <div className="arribatexto">
                 <Card.Text>{data.descripcion}</Card.Text>
