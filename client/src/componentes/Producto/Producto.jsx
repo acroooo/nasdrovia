@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Producto.css";
-import { Card, Carousel, Container, Image, Button, Row} from "react-bootstrap";
-import Axios from 'axios';
-
+import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
+import Axios from "axios";
 
 /* TODO LIST
 
 [Listo / No funcional] - PRIORIDAD! - Función para agregar producto al carro.
-[] - PRIORIDAD! - Función para quitar producto del carro.
-[] - Sector Categorías
+[Listo / No funcional] - PRIORIDAD! - Función para quitar producto del carro.
+[X] - Sector Categorías
 [] - PRIORIDAD! - Diseño => ¿ Como podrían quedar mejor los colores?
 [] - Framer Motion
 [] - Compartir Producto redes sociales => En base a elecciones de usuarios?
@@ -23,50 +22,47 @@ import Axios from 'axios';
 
 */
 
-
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
-  const [producto, setProducto] = useState({res: {}, isLoaded:false}); //estado actual
-  const [categoria, setCategoria] = useState({res: {}, isLoaded: false});
+  const [producto, setProducto] = useState({ res: {}, isLoaded: false }); //estado actual
+  const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-//axios para un producto especifico con verificacion de ID
-  useEffect(()=>{
+  //axios para un producto especifico con verificacion de ID
+  useEffect(() => {
     Axios.get(`http://localhost:3001/producto/${id}`)
-    .then(data =>{
-      if(props.match.params.id && data.data.id){
-        setProducto({res:data.data, isLoaded:true});
-      }
+      .then((data) => {
+        if (props.match.params.id && data.data.id) {
+          setProducto({ res: data.data, isLoaded: true });
+        }
       })
-      .catch(error => 
-      console.log(error.message));
-  },[]);
+      .catch((error) => console.log(error.message));
+  }, []);
 
   //traer categorias en base al producto
   useEffect(() => {
     Axios.get(`http://localhost:3001/categorias/${id}`)
-  .then(res => {
-    //ver como viene el objeto categorias en res
-    if(props.match.params.id && res.data.id){ 
-      setCategorias({res:res.data, isLoaded:true})
-    }
-  })
-  .catch(error => 
-    console.log(error.message));
+      .then((res) => {
+        //ver como viene el objeto categorias en res
+        if (props.match.params.id && res.data.id) {
+          setCategoria({ res: res.data, isLoaded: true });
+        }
+      })
+      .catch((error) => console.log(error.message));
   }, []);
 
   const addCarro = (event) => {
     event.preventDefault();
-  }
+  };
 
   const removeCarro = (event) => {
     event.preventDefault();
-  }
+  };
 
   //uso de datos de forma legible
   const data = producto.res;
   const cat = categoria.res;
-  
+
   return (
     <div className="producto">
       <Card>
@@ -94,16 +90,16 @@ const Producto = (props) => {
             </Carousel.Item>
           </Carousel>
         </Container>
+        {/* Mejorar diseño container */}
         <Container className="container2">
           <Card className="card2">
             <Card.Header>
               <h1>{data.nombre}</h1>
             </Card.Header>
             <Card.Body>
+            {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>categorías</Card.Title>
-              <div className="categorias">
-                
-              </div>
+              <div className="categorias"></div>
               <Card.Text>{data.precio}</Card.Text>
               <div className="arribatexto">
                 <Card.Text>{data.descripcion}</Card.Text>
@@ -111,21 +107,38 @@ const Producto = (props) => {
               <div className="abajotexto">
                 <Row>
                   <div>
-                  <Card.Text>CANTIDAD: {data.stock}</Card.Text>
-                    <Button className="botonCant" onClick={() => setCant(cant + 1)}>+</Button>
-                    <Button className="botonCant" onClick={() => setCant(cant - 1)}>-</Button>
+                    <Card.Text>CANTIDAD: {data.stock}</Card.Text>
+                    <Button
+                      className="botonCant"
+                      onClick={() => setCant(cant + 1)}
+                    >
+                      +
+                    </Button>
+                    <Button
+                      className="botonCant"
+                      onClick={() => setCant(cant - 1)}
+                    >
+                      -
+                    </Button>
                   </div>
-                  </Row>
+                </Row>
               </div>
             </Card.Body>
             <Card.Footer className="text-muted">
-              {/* Funcion de agregar producto al carro */}
-              <Button className="botonRojo" onClick={addCarro}>Agregar al Carro</Button>
-              <Button className="botonRojo" onClick={removeCarro}>Quitar del Carro</Button>
+              {/* Funcion de agregar y remover producto del carro */}
+              <Button className="botonRojo" onClick={addCarro}>
+                Agregar al Carro
+              </Button>
+              <Button className="botonRojo" onClick={removeCarro}>
+                Quitar del Carro
+              </Button>
             </Card.Footer>
           </Card>
         </Container>
       </Card>
+      <div class="producto">
+
+      </div>
     </div>
   );
 };
