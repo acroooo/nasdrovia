@@ -12,7 +12,6 @@ import {
   Badge,
 } from "react-bootstrap";
 import "./SearchBar.css";
-import Axios from 'axios';
 
 export default function SearchBar() {
   //Hooks
@@ -20,14 +19,11 @@ export default function SearchBar() {
   const [search, setSearch] = useState({ query: "" });
   const [redirect, setRedirect] = useState(false);
 
-  
-
   // ----- Funcionalidad ----
 
   const handleChange = (event) => {
     event.preventDefault();
     setSearch({ ...search, [event.target.name]: event.target.value });
-    
   };
 
   return (
@@ -60,12 +56,11 @@ export default function SearchBar() {
             className="mr-sm-2"
           />
           <FormControl.Feedback />
-          <Link to={`/search?busqueda=${search.query}`}>
+          <Link to={`/search?query=${search.query}`}>
             <Button onClick={handleChange} variant="outline-info">
               {searchButton}
             </Button>
           </Link>
-          {redirect && <Redirect to={`/search?busqueda=${search.query}`} />}
           <div className="carrito">{cartButton}</div>
           
           <NavDropdown title={userButton} id="basic-nav-dropdown">
