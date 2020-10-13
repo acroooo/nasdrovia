@@ -45,7 +45,7 @@ const {
   Checkout,
   Order,
   Reviews,
-  User,
+  Usuario,
 } = sequelize.models;
 
 // relacion producto-categoria
@@ -54,11 +54,11 @@ Categories.belongsToMany(Producto, { through: "producto_categoria" });
 // relacion producto-review
 Producto.hasMany(Reviews);
 //relacion usuario-review
-User.hasMany(Reviews);
-Reviews.belongsTo(User, { as: "usuario_creador" });
+Usuario.hasMany(Reviews);
+Reviews.belongsTo(Usuario, { as: "usuario_creador" });
 // relacion carrito-usuario
-User.hasMany(Checkout);
-Checkout.belongsTo(User, { as: "usuario_carrito" });
+Usuario.hasMany(Checkout);
+Checkout.belongsTo(Usuario, { as: "usuario_carrito" });
 Checkout.hasMany(Order);
 //relacion carrito-producto
 Checkout.belongsToMany(Producto, { through: Order });

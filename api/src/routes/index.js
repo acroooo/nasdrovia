@@ -2,6 +2,7 @@ const express = require("express");
 // import all routers;
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
+const Usuarios = require("./usuarios");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 // router.use('/auth', authRouter);
 app.use("/producto", ProductoRuta);
 app.use("/categorias", Categorias);
+app.use("/usuarios", Usuarios)
 //prettier-ignore
 app.get("/search", (req, res) => {
   const query = req.query;

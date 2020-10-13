@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
     },
   };
   // defino el modelo
-  sequelize.define('user', {
+  sequelize.define('usuario', {
     name: {
       type: DataTypes.STRING,
       allowNull: validations.allowNull,
