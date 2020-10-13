@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
 import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 import Shop from "./componentes/Categoria/Shop";
 import Producto from "./componentes/Producto/Producto.jsx";
