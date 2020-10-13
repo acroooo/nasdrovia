@@ -1,20 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { cartButton, userButton, searchButton } from "../../Multimedia/Svgs";
 import {
   Container,
   Nav,
   Navbar,
+  Button,
+  Form,
+  FormControl,
+  NavDropdown,
+  Badge,
 } from "react-bootstrap";
-import Icons from "./icons.jsx"
-import Search from "./search.jsx"
 import "./SearchBar.css";
+import Results from "../Categoria/Categoria";
+import Axios from "axios";
 
 export default function SearchBar() {
+  //Hooks
 
+  const [search, setSearch] = useState({ query: "" });
+  const [productos, setProductos] = useState({res:null, isLoaded:false})
+  const [cat, setCat] = useState({res:null, isLoaded:false});
+
+  // ----- Funcionalidad ----
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    setSearch({ ...search, query: event.target.value });
+  };
+  const handleClick =() =>{
+    Axios.get(`http://localhost:3001/search?busqueda=${search.query}`).then(data=>{
+      setProductos({res:data.data, isLoaded:true});
+    })
+    Axios.get('http://localhost:3001/categorias').then(data=>{
+      setCat({
+      res:data.data.map(e=>{
+          e.select=false;
+          return e
+      }),
+      isLoaded:true,
+      })
+  })
+  }
 
   return (
     <Container fluid>
       <Navbar className="navbar-custom" variant="dark">
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="#home">
           <img
             src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
@@ -22,14 +54,33 @@ export default function SearchBar() {
             height="90px"
           />
         </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Inicio</Nav.Link>
-          <Nav.Link href="/productos">Tienda</Nav.Link>
-        </Nav>
-        <Search />
-        <Icons />
+        <Form inline>
+          <FormControl
+            type="search"
+            placeholder="Buscar..."
+            onChange={handleChange}
+            className="mr-sm-2"
+          />
+          <FormControl.Feedback />
+            <Button onClick={handleClick} variant="outline-info">
+              {searchButton}
+            </Button>
+          <div className="carrito">{cartButton}</div>
+          
+          <NavDropdown title={userButton} id="basic-nav-dropdown">
+            <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
+            <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
+          </NavDropdown>
+          <div className="usuario"></div>
+        </Form>
       </Navbar>
+      {productos.isLoaded?
+    <Results productos={productos}
+    cat={cat}
+    setCat={setCat}
+    setProductos={setProductos}/>
+    : <> </>
+      }
     </Container>
-
   );
 }
