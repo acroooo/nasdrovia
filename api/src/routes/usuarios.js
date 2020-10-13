@@ -4,14 +4,14 @@ const { Usuario} = require("../db.js");
 
 
 router.post("/", async (req, res, next) => {
-  const { nombre, rol, email, contrasena} = req.body;
+  let { nombre, rol, email, contrasena} = req.body;
   if(email){
-    const emailExistente = await Usuario.findOne({ where: { email: email } });
+    let emailExistente = await Usuario.findOne({ where: { email: email } });
     if(emailExistente){
       res.status(400).json({ Error: "Email ya registrado" });
     }else{
       if (nombre  && email  && contrasena) {
-        const nuevo_usuario = await Usuario.create({
+        let nuevo_usuario = await Usuario.create({
           name: nombre,
           rol: rol,
           email: email,
