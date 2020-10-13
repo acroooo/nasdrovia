@@ -48,7 +48,7 @@ export default function SearchBar() {
   return (
     <Container fluid>
       <Navbar className="navbar-custom" variant="dark">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/productos">
           <img
             src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
@@ -67,13 +67,15 @@ export default function SearchBar() {
             <Button onClick={handleClick} variant="outline-info">
               {searchButton}
             </Button>
-          <div className="carrito">{cartButton}</div>
+        
+          <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
           
-          <NavDropdown title={userButton} id="basic-nav-dropdown">
+          <NavDropdown title={<i class="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
           </NavDropdown>
           <div className="usuario"></div>
+      
         </Form>
       </Navbar>
       {productos.isLoaded?

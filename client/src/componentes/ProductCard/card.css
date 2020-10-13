@@ -10,12 +10,15 @@
   transition: 500ms;
   opacity: 1;
 }
+.link:hover {
+  text-decoration: none;
+}
 
 .cerveza_nombre {
   display: absolute;
   text-align: left;
-  padding: 12px 125px;
-  margin: -45px -85px;
+  padding: 12px 30px;
+  margin: -45px -125px;
   line-height: 1.4;
   font-size: 28px;
   -webkit-text-stroke-width: 1px;
@@ -116,7 +119,7 @@
   background-color: #006900;
   color: #006900;
 }
-.Budwiser {
+.Budweiser {
   background-color: #e40613;
   color: #e40613;
 }
@@ -132,23 +135,7 @@
   background-color: #ff0000;
   color: #ff0000;
 }
-.Heiniken {
-  background-color: #006900;
-  color: #006900;
-}
-.Budwiser {
-  background-color: #e40613;
-  color: #e40613;
-}
-.Ballast_Point {
-  background-color: #ec6922;
-  color: #ec6922;
-}
-.Corona {
-  background-color: #fdd300;
-  color: #fdd300;
-}
-.Stella_Artois {
-  background-color: #ff0000;
-  color: #ff0000;
+.Leffe {
+  background-color: #c15a21;
+  color: #c15a21;
 }

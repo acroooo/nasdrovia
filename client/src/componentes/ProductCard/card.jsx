@@ -2,24 +2,24 @@ import React, {useEffect} from "react";
 import { SimpleImg } from 'react-simple-img';
 import "./card.css"
 import anime from 'animejs/lib/anime.es.js';
-
+import {Link} from "react-router-dom";
 
 export default function Card ({producto, importance}) {
-    const {nombre, precio, imagen, stock}=producto;
+    const {nombre, precio, imagen, stock, id}=producto;
     const nombreR=nombre.replace(" ", "_");
 
     useEffect(() => {
             anime({
                 targets: '.card-css',
                 opacity:1 ,
-                duration: 200,
-                delay: anime.stagger(250),          
+                duration: 1000,
+                delay: anime.stagger(550),          
             })   
             
     }, [])
     function mouseEnterHandle(){
         const tl = anime.timeline({
-            duration:600,
+            duration:800,
         });
         tl.add({
             targets:`#${nombreR}`,
@@ -49,7 +49,7 @@ export default function Card ({producto, importance}) {
         })
     }
     return (
-        
+        <Link to={`/producto/${id}`} className="link">
         <div  className="card-css" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
 
             <button id={`carro${nombreR}`} className="carro">
@@ -88,6 +88,7 @@ export default function Card ({producto, importance}) {
 
             </div>
         </div>
+        </Link>
     )
 }
 

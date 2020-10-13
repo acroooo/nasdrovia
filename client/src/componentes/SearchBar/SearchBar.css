@@ -1,11 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
-.container-fluid{
+.container-fluid {
   padding: 0 !important;
 }
-.navbar-custom{
+.navbar-custom {
   background-color: #015386;
 }
-.button:hover{
-  background-color:red;
+
+.carrito {
+  margin-left: 20px;
+  font-size: x-large;
+  color: #e6e6e6;
+}
+#basic-nav-dropdown {
+  font-size: x-large;
+  color: #e6e6e6;
+}
+#basic-nav-dropdown:hover {
+  color: #d3d3d3;
+}
+.carrito:hover {
+  color: #d3d3d3;
+}
+.button:hover {
+  background-color: red;
+}
+.usuario {
+  margin-left: 15px;
 }
