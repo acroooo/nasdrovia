@@ -24,12 +24,6 @@ export default function Shop(){
             })
         })
     }, []);
-    useEffect(() => {
-        if(productos.isLoaded){
-            setData(productos);
-        }
-        
-    }, [productos])
     return (
         <Productos productos={productos} cat={cat} setCat={setCat} setProductos={setProductos} data={data}/>
     )

@@ -17,12 +17,14 @@ import Axios from "axios";
 
 export default function SearchBar() {
   //Hooks
+  const [redirect, setRedirect] = useState(false);
 
   const [search, setSearch] = useState({ query: "" });
   const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [cat, setCat] = useState({res:null, isLoaded:false});
 
   // ----- Funcionalidad ----
+  useEffect(() => setRedirect(false), [redirect]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -79,6 +81,7 @@ export default function SearchBar() {
     cat={cat}
     setCat={setCat}
     setProductos={setProductos}/>
+    
     : <> </>
       }
     </Container>
