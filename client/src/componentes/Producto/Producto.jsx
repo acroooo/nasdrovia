@@ -3,25 +3,6 @@ import "./Producto.css";
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import Axios from "axios";
 
-/* TODO LIST
-
-[Listo / No funcional] - PRIORIDAD! - Función para agregar producto al carro.
-[Listo / No funcional] - PRIORIDAD! - Función para quitar producto del carro.
-[X] - Sector Categorías
-[] - PRIORIDAD! - Diseño => ¿ Como podrían quedar mejor los colores?
-[] - Framer Motion
-[] - Compartir Producto redes sociales => En base a elecciones de usuarios?
-[] - Seccion "Productos similares"
-[] - Infinite Scroll
-[] - PRIORIDAD! - Flechas Carrousel
-[] - Arreglar CSS Card
-[] - Buenas practicas CSS
-
-- ¿Falta algo más?
-- Ver lo que hay que implementar esta semana
-
-*/
-
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({ res: {}, isLoaded: false }); //estado actual
@@ -62,19 +43,27 @@ const Producto = (props) => {
 
   //uso de datos de forma legible
   const data = producto.res;
+  console.log(data.images)
   const cat = categoria.res;
 
   return (
-    <div className="producto2">
+    <div className="producto__marco">
     {/* Seccion tarjeta producto */}
-      <Card className="tarjeta">
+      <Card className="producto__tarjeta">
       {/* Ordenar CSS con nombre segun buenas practicas */}
         <Container className="imagen">
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
-            {/* Colocar flechas al carrousel */}
+            {data.images.map((imagen) => (
               <Image
+              class="imagen"
+              src={imagen}
+              alt="Slide"
+              />
+            ))}
+            {/* Colocar flechas al carrousel */}
+              {/* <Image
                 className="d-block w-100"
                 src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
                 alt="First slide"
@@ -91,28 +80,28 @@ const Producto = (props) => {
                 className="w-100"
                 src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
                 alt="Third slide"
-              />
+              /> */}
             </Carousel.Item>
           </Carousel>
         </Container>
         {/* Mejorar diseño container */}
         <Container className="container2">
           <Card className="card3">
-            <Card.Header>
+            <Card.Header className="body-cabecera">
               <h1>{data.nombre}</h1>
+              <Card.Text className="body-precio">${data.precio}</Card.Text>
             </Card.Header>
             <Card.Body className="body-tarjeta">
             {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>Categorías</Card.Title>
-              <div className="categorias"></div>
-              <Card.Text>{data.precio}</Card.Text>
-              <div className="arribatexto">
-                <Card.Text>{data.descripcion}</Card.Text>
+              <div className="body-descripcion">
+                <Card.Text className="texto-descripcion">{data.descripcion}</Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
-                  <div>
-                    <Card.Text className="stock-tarjeta">CANTIDAD: {data.stock}</Card.Text>
+                  <div className="stock-tarjeta">
+                    <Card.Text>STOCK: {data.stock}</Card.Text>
+                    <Card.Text>CANTIDAD A COMPRAR : {cant}</Card.Text>
                     <Button
                       className="botonCant"
                       onClick={() => setCant(cant + 1)}
@@ -129,6 +118,7 @@ const Producto = (props) => {
                 </Row>
               </div>
             </Card.Body>
+
             <Card.Footer className="pie">
               {/* Funcion de agregar y remover producto del carro */}
               <Button className="botonRojo" onClick={addCarro}>

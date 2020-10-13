@@ -1,4 +1,4 @@
-.tarjeta{
+.producto__tarjeta{
     width: 100% !important;
     height: 100% !important;
     display: flex !important;
@@ -6,9 +6,8 @@
     align-self:center !important;
     margin-left: 0 !important;
 }
-.producto2{
+.producto__marco{
     display:flex !important;
-    justify-content: center !important;
     flex-direction: row !important;
     margin:100px !important;
 }
@@ -16,6 +15,7 @@
 .imagen{
     object-fit: contain !important;
     border: 1px solid black;
+    height: 100%;
 }
 
 h3{
@@ -36,7 +36,7 @@ p{
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    height: 90% !important;
+    height: 98% !important;
     align-items: unset !important;
     margin-left: 0 !important;
 }
@@ -55,10 +55,13 @@ p{
     color: #e6e6e6;
     text-shadow: 1px 1px 1px black;
     text-transform: uppercase;
+    display:flex;
+    justify-content: space-between;
 }
 
 .pie{
     background-color: #0074b1 !important;
+    display:flex;
 }
 
 .botonRojo{
@@ -81,5 +84,22 @@ p{
 }
 
 .stock-tarjeta{
-    
+    padding-left: 15px;
+}
+
+.body-precio{
+    color: #e6e6e6;
+    font-weight: 800 !important;
+    font-size: 30px;
+}
+
+.body-descripcion{
+    background-color: #0074b1;
+    height: 70.5vh;
+    padding: 10px;
+    text-transform: capitalize;
+}
+
+.texto-descripcion{
+    color: #e6e6e6;
 }
