@@ -16,7 +16,7 @@ const FormularioCrud = () => {
     const [cats,setCats]=useState([]); //Categorías que se asignan a un elemento al editar o crear
     const [solicitud, setSolicitud] = useState(false);//Dependencia que  recarga el componente con los productos cada vez que cambia
     const [n,setN]=useState(0)//Id del proximo producto creado
-
+   
    
     //Trae todo el listado de productos
    
