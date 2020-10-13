@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
@@ -8,6 +9,8 @@ import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 //React Router
+//Faltan actions
+//Pasar todo mediante un UseEffect
 
 export default function App() {
   return (
