@@ -21,16 +21,16 @@ const Producto = (props) => {
   }, []);
 
   //traer categorias en base al producto
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/categorias/${id}`)
-      .then((res) => {
-        //ver como viene el objeto categorias en res
-        if (props.match.params.id && res.data.id) {
-          setCategoria({ res: res.data, isLoaded: true });
-        }
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
+  // useEffect(() => {
+  //   Axios.get(`http://localhost:3001/categorias/${id}`)
+  //     .then((res) => {
+  //       //ver como viene el objeto categorias en res
+  //       if (props.match.params.id && res.data.id) {
+  //         setCategoria({ res: res.data, isLoaded: true });
+  //       }
+  //     })
+  //     .catch((error) => console.log(error.message));
+  // }, []);
 
   // faltan funcionalidades
   const addCarro = (event) => {
@@ -43,8 +43,7 @@ const Producto = (props) => {
 
   //uso de datos de forma legible
   const data = producto.res;
-  console.log(data.images)
-  const cat = categoria.res;
+  // const cat = categoria.res;
 
   return (
     <div className="producto__marco">
