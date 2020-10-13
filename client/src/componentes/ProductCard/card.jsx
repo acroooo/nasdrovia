@@ -3,13 +3,14 @@ import { SimpleImg } from 'react-simple-img';
 import "./card.css"
 import anime from 'animejs/lib/anime.es.js';
 
+
 export default function Card ({producto, importance}) {
     const {nombre, precio, imagen, stock}=producto;
     const nombreR=nombre.replace(" ", "_");
 
     useEffect(() => {
             anime({
-                targets: '.card',
+                targets: '.card-css',
                 opacity:1 ,
                 duration: 200,
                 delay: anime.stagger(250),          
@@ -17,21 +18,23 @@ export default function Card ({producto, importance}) {
             
     }, [])
     function mouseEnterHandle(){
-        const tl = anime.timeline();
+        const tl = anime.timeline({
+            duration:600,
+        });
         tl.add({
             targets:`#${nombreR}`,
-            translateY:150,
-            translateX:-95,
+            translateY:[-150, -55],
+            translateX:-220,
             opacity:1,
         })
         tl.add({
             targets:`#img${nombreR}`,
-            rotate:-5,            
+            translateY:[55,-45],        
         })
     }
     function mouseLeaveHandle(){
         const tl = anime.timeline({
-            duration:1000,
+            duration:100,
         })
         tl.add({
             targets:`#${nombreR}`,
@@ -41,19 +44,20 @@ export default function Card ({producto, importance}) {
         })
         tl.add({
             targets:`#img${nombreR}`,
-            rotate:0,
+            translateY:0,
+            
         })
     }
     return (
         
-        <div  className="card" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
+        <div  className="card-css" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
 
             <button id={`carro${nombreR}`} className="carro">
             <i className="fas fa-shopping-bag icono-carro"/>
             </button>
 
             <div>
-            <SimpleImg className="img"
+            <SimpleImg className="img-product-card"
             id={`img${nombreR}`}
             placeholder={false}
             animationDuration={0.25}
@@ -66,7 +70,7 @@ export default function Card ({producto, importance}) {
             
             <div id={nombreR} className= {`decorativa ${nombreR}`}
             ></div>
-            <div className="card-body">
+            <div className="card-body-css">
             <div className="boton">
 
             

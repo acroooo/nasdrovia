@@ -12,19 +12,36 @@ import {
   Badge,
 } from "react-bootstrap";
 import "./SearchBar.css";
+import Results from "../Categoria/Categoria";
+import Axios from "axios";
 
 export default function SearchBar() {
   //Hooks
 
   const [search, setSearch] = useState({ query: "" });
-  const [redirect, setRedirect] = useState(false);
+  const [productos, setProductos] = useState({res:null, isLoaded:false})
+  const [cat, setCat] = useState({res:null, isLoaded:false});
 
   // ----- Funcionalidad ----
 
   const handleChange = (event) => {
     event.preventDefault();
-    setSearch({ ...search, [event.target.name]: event.target.value });
+    setSearch({ ...search, query: event.target.value });
   };
+  const handleClick =() =>{
+    Axios.get(`http://localhost:3001/search?busqueda=${search.query}`).then(data=>{
+      setProductos({res:data.data, isLoaded:true});
+    })
+    Axios.get('http://localhost:3001/categorias').then(data=>{
+      setCat({
+      res:data.data.map(e=>{
+          e.select=false;
+          return e
+      }),
+      isLoaded:true,
+      })
+  })
+  }
 
   return (
     <Container fluid>
@@ -37,17 +54,6 @@ export default function SearchBar() {
             height="90px"
           />
         </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="#inicio">Inicio</Nav.Link>
-          <NavDropdown title="Cervezas" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#">Scotch</NavDropdown.Item>
-            <NavDropdown.Item href="#">Honey</NavDropdown.Item>
-            <NavDropdown.Item href="#">Ipa</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link href="http://localhost:3000/productos">Tienda</Nav.Link>
-        </Nav>
         <Form inline>
           <FormControl
             type="search"
@@ -56,11 +62,9 @@ export default function SearchBar() {
             className="mr-sm-2"
           />
           <FormControl.Feedback />
-          <Link to={`/search?query=${search.query}`}>
-            <Button onClick={handleChange} variant="outline-info">
+            <Button onClick={handleClick} variant="outline-info">
               {searchButton}
             </Button>
-          </Link>
           <div className="carrito">{cartButton}</div>
           
           <NavDropdown title={userButton} id="basic-nav-dropdown">
@@ -70,6 +74,13 @@ export default function SearchBar() {
           <div className="usuario"></div>
         </Form>
       </Navbar>
+      {productos.isLoaded?
+    <Results productos={productos}
+    cat={cat}
+    setCat={setCat}
+    setProductos={setProductos}/>
+    : <> </>
+      }
     </Container>
   );
 }

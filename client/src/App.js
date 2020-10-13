@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
 import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
-import Categoria from "./componentes/Categoria/Categoria";
+import Categoria from "./componentes/Categoria/Shop";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 //React Router
 

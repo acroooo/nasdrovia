@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Producto from "../ProductCard/card";
-import Axios from 'axios';
 import "./Categoria.css";
 import Loader from "../Loader/Loader";
+import produce from "immer";
 
 
-
-export default function Categoria() {
-  const [productos, setProductos] = useState({res:null, isLoaded:false})
-  const [cat, setCat] = useState({res:null, onLoad:false});
+export default function Categoria({
+  productos,
+  cat,
+  setCat,
+  setProductos,
+}) {
   const [filtrar, setFiltrar] = useState(false);
-  useEffect(() => {
-    Axios.get('http://localhost:3001/producto').then(data =>{
-      setProductos({
-        res:data.data,
-        isLoaded:true,
-      })
-        }).catch(error => 
-        console.log(error));
-      Axios.get('http://localhost:3001/categorias').then(data=>{
-        setCat({
-          res:data.data.map(e=>{
-            e.select=false;
-            return e
-          }),
-          isLoaded:true,
-        })
-      })
-  }, []);
+
   function handleChange(event) {
     let checked = event.target.checked;
     setCat({res:cat.res.map((e) => {
@@ -50,11 +35,14 @@ export default function Categoria() {
       }
     });
     if(arr.length!==0){
-    setProductos({res:arr, onLoad:true})
-    console.log({res:arr, onLoad:true})
-    }
+      setProductos((p)=>{
+        return produce(p,(productosCopy)=>{
+          productosCopy.res= arr;
+        })
+      })
     
   }
+}
   return (
       <div className="Categorias">
       {filtrar ? 
