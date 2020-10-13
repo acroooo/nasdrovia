@@ -54,13 +54,12 @@ const Producto = (props) => {
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
-            {data.images.map((imagen) => (
-              <Image
-              class="imagen"
-              src={imagen}
+            {/*data.imagen.map((imagen) => (
+              */}<Image
+              className="imagen-asd"
+              src={data.imagen}
               alt="Slide"
               />
-            ))}
             {/* Colocar flechas al carrousel */}
               {/* <Image
                 className="d-block w-100"
