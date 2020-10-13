@@ -1,112 +1,90 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Producto from "../ProductCard/card";
-import { categorias } from "./menu_producto";
-import Axios from 'axios';
 import "./Categoria.css";
 import Loader from "../Loader/Loader";
+import produce from "immer";
 
-export default function Categoria() {
-  const [productos, setProductos] = useState({res:null, isLoaded:false})
-  const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
-  const [cat, setCat] = useState([]);
+
+export default function Categoria({
+  productos,
+  cat,
+  setCat,
+  setProductos,
+}) {
   const [filtrar, setFiltrar] = useState(false);
-  useEffect(() => {
-    Axios.get('http://localhost:3001/producto').then(data =>{
-      setProductos({
-        res:data.data,
-        isLoaded:true,
-      });
-        }).catch(error => 
-        console.log(error));
-    setCat(
-      categorias.map((elemento) => {
-        return {
-          value: elemento,
-          select: false,
-        };
-      })
-    );
-  }, []);
-  useEffect(() => {
-    let arr = [];
-    cat.forEach((element) => {
-      if (element.select) {
-        productos.forEach((e) => {
-          if (e.categoria.toLowerCase() === element.value.toLowerCase()) {
-            arr.push(e);
-          }
-        });
-      } 
-      if (arr.length !== 0) {
-        setProductos(arr);
-      }
-    });
-  }, [cat]);
 
   function handleChange(event) {
     let checked = event.target.checked;
-    setCat(
-      cat.map((e) => {
-        if (e.value.toLowerCase() === event.target.value.toLowerCase()) {
-          e.select = checked;
-        }
-        return e;
-      })
-    );
+    setCat({res:cat.res.map((e) => {
+      if (e.nombre.toLowerCase() === event.target.value.toLowerCase()) {
+        e.select = checked;
+      }
+      return e;
+    }),isLoaded:true})
   }
-  if(productos.isLoaded){
-  if (filtrar) {
-    return (
+
+  function handleClick(){
+    let arr = [];
+    cat.res.forEach(e => {
+      if (e.select){
+        productos.res.forEach(prod => {
+          if(prod.categories[0].nombre === e.nombre){
+            arr.push(prod)
+          }
+        });
+      }
+    });
+    if(arr.length!==0){
+      setProductos((p)=>{
+        return produce(p,(productosCopy)=>{
+          productosCopy.res= arr;
+        })
+      })
+    
+  }
+}
+  return (
       <div className="Categorias">
+      {filtrar ? 
         <div className="categoriasFilter">
-          {cat.map((categoria, i) => {
+          { cat.isLoaded ?
+            cat.res.map((categoria, i) => {
             return (
               <div className="" key={i + "f"}>
                 <label className="check">
                   <input
                     className="checkboxes"
                     type="checkbox"
-                    key={categoria.value + i}
-                    value={categoria.value}
+                    key={categoria.nombre + i}
+                    value={categoria.nombre}
                     id={i}
                     checked={categoria.select}
                     onChange={(e) => {
                       handleChange(e);
                     }}
                   />
-                  {categoria.value}
+                  {categoria.nombre}
                 </label>
               </div>
             );
-          })}
+          }):<Loader/> }
+          <div className="x" onClick={handleClick}>Aplicar</div>
           <div className="x" onClick={() => setFiltrar(!filtrar)}>
-            X
+          <i className="fas fa-window-close"></i>
           </div>
-        </div>
-        <div className="listaProductos">
-          {productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} />;
-          })}
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="categorias">
-      <div className="categoriasFilter">
+        </div> : <div className="categoriasFilter">
         <div className="botonFiltro" onClick={() => setFiltrar(!filtrar)}>
           Filtros
         </div>
       </div>
+      }
         <div className="listaProductos">
-        {productos.res.map((producto, i) => {
-          return <Producto producto={producto} key={i + "k"} />;
-        })}
+          {productos.isLoaded ? productos.res.map((producto, i) => {
+            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+          }):<Loader/>}
+        </div>
       </div>
-    </div>
-  );
-} else{
-  return  <Loader/>
-}
+    );
+  }
 
-}
+

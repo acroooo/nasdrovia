@@ -1,26 +1,37 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
-import Producto from "./componentes/Producto/Producto.jsx";
-import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
-import Categoria from "./componentes/Categoria/Categoria";
-import FormularioCategoria from './componentes/formularioNvaCat/NewCategoryForm.jsx';
-import CrudCategoria from './componentes/CrudCategorias/CrudCategoria';
-//React Router
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const routes = require("./routes/index.js");
+const cors = require("cors");
+require("./db.js");
 
-export default function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Route path="/" component={SearchBar} />
-        <Route exact path="/productos" component={Categoria} />
-        <Route exact path="/formulario-categoria" component={FormularioCategoria}/>
-        <Route exact path="/formulario-categoria2" component={CrudCategoria}/>
-        <Route exact path="/producto/:id" component={Producto} />
-        <Route exact path="/formulario-crud" component={FormularioCrud} />
+const server = express();
 
-      </Router>
-    </div>
+server.name = "API";
+
+server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+server.use(bodyParser.json({ limit: "50mb" }));
+server.use(cookieParser());
+server.use(morgan("dev"));
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
-}
+  next();
+});
+
+server.use(cors());
+server.use("/", routes);
+server.use((err, req, res, next) => {
+  // eslint-disable-line no-unused-vars
+  const status = err.status || 500;
+  const message = err.message || err;
+  console.error(err);
+  res.status(status).send(message);
+});
+
+module.exports = server;

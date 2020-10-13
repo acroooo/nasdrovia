@@ -5,11 +5,13 @@
 }
 .categoriasFilter {
   display: flex;
+  width: 99vw;
 }
 .listaProductos {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  width: 99vw;
 }
 .botonFiltro,
 .checkboxex,

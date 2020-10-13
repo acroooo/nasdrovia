@@ -6,13 +6,6 @@
 .navbar-custom{
   background-color: #015386;
 }
-
-.carrito{
-  margin-left: 20px;
-}
 .button:hover{
   background-color:red;
-}
-.usuario{
-  margin-left: 15px;
 }
