@@ -30,5 +30,44 @@ router.post("/", async (req, res, next) => {
 });
 
 
+router.put("/:id", async (req, res, next) => {
+  let id  = req.params.id
+  let { nombre, rol, email, contrasena} = req.body;
+  if (nombre  || email  || contrasena || rol){
+      if(email){
+          let emailExistente = await Usuario.findOne({ where: { email: email } });
+          if (emailExistente.id == id || null) {
+              await Usuario.update({
+                  name: nombre,
+                  rol,
+                  email,
+                  password: contrasena,
+                }, {
+                  where: {
+                    id: id
+                  }
+                })
+                res.status(201).send("Actualizado con exito");
+              }else{
+                  res.status(400).json({ Error: "Email ya en uso por otro usuario" })
+              }
+      }else{
+          await Usuario.update({
+              name: nombre,
+              rol,
+              email,
+              password: contrasena,
+            }, {
+              where: {
+                id: id
+              }
+            });
+            res.status(201).send("Actualizado con exito");
+      }
+  }else{
+      res.status(400).json({ Error: "Faltan parametros envia almenos uno" });
+  }
+});
+
 module.exports = router;
 
