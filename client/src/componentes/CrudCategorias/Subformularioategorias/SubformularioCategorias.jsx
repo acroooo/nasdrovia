@@ -4,7 +4,7 @@ import axios from 'axios';
 import Spinner from '../../FormularioCrud/Crud/Spinner';
 
 
-const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, catCrear, catEditar, setSolicitud, n }) => {
+const SubformularioCategoria = ({ accion, setAccion, editar, crear,  catCrear, catEditar, setSolicitud, n }) => {
 
     //Error al validar el formulario
     const [error, setError] = useState(false);
@@ -17,8 +17,7 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
     //Cierra el formulario y reinicia los states de crear,editar,eliminar y acción (catCrear es la categoria que se pretende crear y crear la accion que la guarda en el state)
     const cerrarFormulario = () => {
         editar({}); crear({});
-        eliminar({}); setAccion('')
-        setError(false);
+        setAccion('');setError(false);
     }
 
     //Almacena la categoria en el state en el state correspondiente según la acción seleccionada
@@ -49,6 +48,7 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
             case 'editar': axios.put(`http://localhost:3001/categorias/${id}`, { nombre, descripcion })
                 .then(() => console.log('cambiada')).catch((err) => console.log(err))
                 break;
+           default:return;
         }
 
         //Mostrar spinner de carga
@@ -57,10 +57,9 @@ const SubformularioCategoria = ({ accion, setAccion, editar, crear, eliminar, ca
         //Cerrar formulario y recargar el componente lista de categorías
         setTimeout(() => {
             setSpinner(false); setExito(true);
-            setTimeout(() => { setExito(false); cerrarFormulario() }, 3000)
-            setTimeout(() => setSolicitud(true), 3100);
-
-        }, 2000)
+            setTimeout(() => { setExito(false); cerrarFormulario() }, 1000)
+            setTimeout(() => setSolicitud(true), 1100);
+        }, 1400)
     }
 
 
