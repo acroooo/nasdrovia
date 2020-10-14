@@ -11,7 +11,8 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 99vw;
+  margin-left: 4vw;
+  width: 90vw;
 }
 .botonFiltro,
 .checkboxex,
@@ -22,13 +23,13 @@
   background-color: #fff;
   border: solid 2px #e6e6e6;
   border-radius: 5px;
-  color: #3c3c3c !important;
+  color: #015386 !important;
   transition: 250ms;
 }
 .botonFiltro:hover,
 .checkboxex:hover,
 .x:hover {
   cursor: pointer;
-  color: #e6e6e6 !important;
-  background-color: #3c3c3c;
+  color: #0074b1 !important;
+  background-color: #f0f0ff;
 }

@@ -8,7 +8,7 @@ export default function Shop(){
     const [cat, setCat] = useState({res:null, onLoad:false});
     useEffect(() => {
         Axios.get('http://localhost:3001/producto').then(data =>{
-        setProductos({
+        setData({
             res:data.data,
             isLoaded:true,
         })
@@ -24,7 +24,17 @@ export default function Shop(){
             })
         })
     }, []);
+    useEffect(()=>{
+        if(data.isLoaded){
+            setProductos(data);
+        }
+    },[data])
     return (
-        <Productos productos={productos} cat={cat} setCat={setCat} setProductos={setProductos} data={data}/>
+        <Productos
+        productos={productos}
+        cat={cat}
+        setCat={setCat}
+        setProductos={setProductos}
+        data={data}/>
     )
 }
