@@ -27,8 +27,9 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     const eliminarCategoria= (nombre,id)=>{
       const cate = cats.filter(c=>c.categoria!==nombre);
       setCats(cate);
-      setCatsEliminar([...catsEliminar,id])
-
+      setCatsEliminar([...catsEliminar,id]);
+      let select = document.getElementById('select-categorias');
+      select.value= cats.length===0 && 'Selecciona una categoría' ; 
     }
     
     //Datos del producto que se va a editar
@@ -71,9 +72,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                  .then(() => console.log('publicado'))
                  .catch((err) => console.log(err))
             break; 
-       /*      case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
-                 .then(() => console.log('editado')).catch(() => console.log('error'))
-            break;  */
+            
              case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
             .then(()=>{
                 catsEliminar.length>0 && catsEliminar.forEach(n=>axios.delete((`http://localhost:3001/producto/${id}/categoria/${n}`)));
@@ -145,7 +144,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             />
             <label className="mb-1">Categoria </label>
             <select id="select-categorias" onChange={(e)=>almacenarCategoria(e.target.value)}>
-            <option value='' id='actual'>Selecciona {cats.length>0 ? 'otra':'una'} categoria</option>
+            <option value='' id='actual' >Selecciona {cats.length>0 ? 'otra':'una'} categoria</option>
               {categorias.res.map((el,i)=>
             <option value={el.nombre}key={`categorias${i}`}> {mayuscula(el.nombre)}</option>
              )}
