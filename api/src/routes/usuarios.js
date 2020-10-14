@@ -30,7 +30,7 @@ router.put("/:id", async (req, res, next) => {
   if (nombre  || email  || contrasena || rol){
       if(email){
           let emailExistente = await Usuario.findOne({ where: { email: email } });
-          if (emailExistente.id == id || null) {
+          if (emailExistente !== null && emailExistente.id == id) {
               await Usuario.update({
                   name: nombre,
                   rol,
