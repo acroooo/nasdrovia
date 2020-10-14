@@ -1,6 +1,9 @@
 const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
+
+//El carrito está en estado inicial en proceso
+
 module.exports = (sequelize) => {
 
     const validations = {
@@ -17,39 +20,44 @@ module.exports = (sequelize) => {
       };
       
     // defino el modelo
-    sequelize.define('checkout', {
-        name: {
+    sequelize.define('carrito', {
+        nombre: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
         },
-        lastName: {
+        apellido: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
         },
-        country: {
+        pais: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
         },
-        city: {
+        ciudad: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
         },
-        direction: {
+        direccion: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
         },
-        postalCode: {
+        codigoPostal: {
             type: DataTypes.INTEGER,
             validate: validations.intType,
         },
-        phone: {
+        telefono: {
             type: DataTypes.INTEGER,
             validate: validations.intType,
         },
-        //tipo de envio
-        shipping: {
+        tipoEnvio: {
             type: DataTypes.STRING,
         allowNull: validations.allowNull,
         },
+        estado:{
+            type:DataTypes.STRING,
+            allowNull: validations.allowNull,
+            defaultValue:'En proceso'
+        },
+        
     });
 };
