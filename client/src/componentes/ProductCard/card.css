@@ -5,6 +5,18 @@
   width: 240px;
   height: 300px;
   border-radius: 55px;
+  margin: 0px 120px 175px 0px;
+  cursor: pointer;
+  transition: 500ms;
+  opacity: 1;
+}
+.link {
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 80px);
+  width: 240px;
+  height: 300px;
+  border-radius: 55px;
   margin: 50px 70px;
   cursor: pointer;
   transition: 500ms;
@@ -15,6 +27,7 @@
 }
 
 .cerveza_nombre {
+  color: #e6e6e6 !important;
   display: absolute;
   text-align: left;
   padding: 12px 30px;
@@ -26,11 +39,10 @@
   font-weight: 1000;
   font-family: "Ubuntu", sans-serif;
   transition: all ease-in 100ms;
-  background-color: #e6e6e6 !important;
   width: 178px;
   line-height: 95%;
   box-shadow: 0px 3px 35px #000;
-  border-radius: 25px;
+  border-radius: 0px 0px 15px 0px;
 }
 .card-body-css {
   display: flex;
@@ -39,8 +51,8 @@
   grid-column: 1/4;
   z-index: -1;
   border-radius: 5px;
-  background-color: #015386;
-  margin: 15px 10px 15px 52px;
+  background-color: #d0d0ff;
+  margin: 15px 10px 25px 52px;
   text-align: left;
   box-shadow: 10px 10px 30px #3c3c3c;
 }
@@ -71,28 +83,18 @@
 }
 .carro {
   position: absolute;
-  margin: 285px 0px 0px 225px;
-  background-color: #015386;
-  padding: 10px 22px;
+  margin: 340px 0px 0px 215px;
   border: none;
-  border-radius: 4px;
-  box-shadow: -7px -5px 15px #015386;
   transition: 500ms;
   font-size: 40px;
   z-index: 500;
-  color: #e6e6e6;
+  perspective: 1400px;
 }
-.carro:hover {
-  padding: 4px 35px;
-  font-size: 50px;
-  color: #fff;
-  background-color: #0074b1;
-  box-shadow: -7px -5px 15px #0074b1;
-}
+
 .precio_nombre {
   font-size: small;
   text-align: right;
-  color: #e6e6e6;
+  color: #015386;
   font-weight: 300;
   margin: 85px 8px;
 }
@@ -100,7 +102,7 @@
   position: absolute;
   font-size: x-large;
   text-align: right;
-  color: #e6e6e6;
+  color: #015386;
   font-weight: 600;
   margin: 100px 8px;
 }
@@ -111,8 +113,8 @@
   position: absolute;
   font-size: small;
   text-align: right;
-  color: #e6e6e6;
-  font-weight: 100;
+  color: #015386;
+  font-weight: 300;
   margin: 130px 8px;
 }
 .Heiniken {

@@ -1,0 +1,11 @@
+.carroBoton {
+  background-color: #d0d0ff;
+  padding: 10px 22px;
+  color: #015386;
+  border: none;
+  border-radius: 42px 0px 0px 0px;
+  box-shadow: -7px -5px 15px #015386;
+}
+.carroBoton:hover {
+  background-color: #ddf;
+}

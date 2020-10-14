@@ -19,7 +19,7 @@ const FormularioCrud = () => {
    
    
     //Trae todo el listado de productos
-   
+
     const consultarProductos = () => {
         Axios.get('http://localhost:3001/producto').then(data => {
             //listado de productos ordenado de forma ascedente por id
