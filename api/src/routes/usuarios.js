@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Usuario} = require("../db.js");
+const { Usuario, Order} = require("../db.js");
 
 
 
@@ -86,6 +86,18 @@ router.put("/:id", async (req, res, next) => {
       res.status(400).json({ Error: "Faltan parametros envia almenos uno" });
     }
 });
+
+router.get("/:id/orders", async(req, res) =>{
+  let user_id  = req.params.id
+  const todas_las_ordenes = await Order.findAll({
+    where: { id: user_id },
+  });
+  if(todas_las_ordenes){
+    res.status(200).json(todas_las_ordenes)
+  }else{
+    res.status(200).json({error: "El usuario no posee ordenes"})
+  }
+})
 
 module.exports = router;
 
