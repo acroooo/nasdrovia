@@ -12,6 +12,7 @@ import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 //Faltan actions
 //Pasar todo mediante un UseEffect
 
+
 export default function App() {
   return (
     <div className="App">
