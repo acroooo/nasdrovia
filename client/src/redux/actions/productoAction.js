@@ -12,12 +12,32 @@ import axios from 'axios';
 
 export const getProductos = () => dispatch => {
     axios.get(`http://localhost:3001/producto`)
-    .then(res => {
+    .then((res) => {
         const cargaUtil = {
-            
+            products: res.data,
         }
+        dispatch({type: GET_PRODUCTOS, payload: cargaUtil})
     })
+    .catch(err => console.log(err));
 }
+export const getAllProducts = (pag) => dispatch => {
+	axios
+		.get(`${urlBack}/products/pag/?p=${pag}`)
+		.then(res => {
+			const payload = {
+				products: res.data.data,
+				currentPage: res.data.currentPage,
+				more: res.data.more
+			};
+			dispatch({type: actionTypes.GET_ALL_PRODUCTS, payload: payload});
+			dispatch({type: actionTypes.CLEAN_MESSAGES});
+		})
+		.catch(err => console.log(err));
+};
+
+export const cleanProduct = () => dispatch => {
+	dispatch({type: actionTypes.CLEAN_PRODUCTS});
+};
 //todos los productos
 // export function getProducts() {
 //     return function(dispatch) {
