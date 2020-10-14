@@ -29,11 +29,11 @@ export default function Categoria({
     cat.res.forEach(e => {
       if (e.select){
         data.res.forEach(prod => {
-         prod.categories.forEach(categorie => {
+        prod.categories.forEach(categorie => {
           if(categorie.nombre === e.nombre){
             arr.push(prod)
           }
-         });
+        });
         });
       }
     });
