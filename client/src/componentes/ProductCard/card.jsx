@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import { SimpleImg } from 'react-simple-img';
 import "./card.css"
 import anime from 'animejs/lib/anime.es.js';
 import {Link} from "react-router-dom";
+import CarroBoton from "../CarritoBoton/CarritoBoton";
 
 export default function Card ({producto, importance}) {
     const {nombre, precio, imagen, stock, id}=producto;
@@ -10,10 +10,10 @@ export default function Card ({producto, importance}) {
 
     useEffect(() => {
             anime({
-                targets: '.card-css',
+                targets: '.card-css .img-product-card',
                 opacity:1 ,
-                duration: 1000,
-                delay: anime.stagger(550),          
+                duration: 500,
+                delay: anime.stagger(500,{start:250}),          
             })   
             
     }, [])
@@ -31,10 +31,17 @@ export default function Card ({producto, importance}) {
             targets:`#img${nombreR}`,
             translateY:[55,-45],        
         })
+        tl.add({
+            targets:`#icono${nombreR}`,
+            delay: 800,
+        });           
+        
     }
     function mouseLeaveHandle(){
+        anime.remove(`#${nombreR}`);
+        anime.remove(`#img${nombreR}`)
         const tl = anime.timeline({
-            duration:100,
+            duration:300,
         })
         tl.add({
             targets:`#${nombreR}`,
@@ -44,24 +51,46 @@ export default function Card ({producto, importance}) {
         })
         tl.add({
             targets:`#img${nombreR}`,
-            translateY:0,
-            
+            translateY:0,  
         })
     }
+    function handleClick(){
+    const tl = anime.timeline();
+        tl.add(
+            {
+            targets:`#carro${nombreR}`,
+            scale: [{value: 1}, {value: 1.4}, {value: 0.6, delay: 250}],
+            rotateY: 4320,
+            translateY:-350,
+            opacity:[{value:1},{value:0, delay:250}],
+            easing: 'easeInOutSine',
+            duration: 200,
+        }
+        );
+        tl.add({
+        targets:`#carro${nombreR}`,
+        rotateY:0,
+        translateY:0,
+        scale:1,
+        opacity:{value:1,delay:400},
+        easing: 'easeInOutSine',
+        duration:200,
+    })
+    
+    }
     return (
-        <Link to={`/producto/${id}`} className="link">
+        
         <div  className="card-css" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
-
-            <button id={`carro${nombreR}`} className="carro">
-            <i className="fas fa-shopping-bag icono-carro"/>
-            </button>
-
+            <div id={`carro${nombreR}`} className="carro">
+            <CarroBoton
+            handleClick={handleClick}
+                nombreR={nombreR}
+            />
+            </div>
+            <Link to={`/producto/${id}`} className="link">
             <div>
-            <SimpleImg className="img-product-card"
+            <img className="img-product-card"
             id={`img${nombreR}`}
-            placeholder={false}
-            animationDuration={0.25}
-            importance={importance}
             src={imagen}
             alt={nombre}
             />
@@ -72,23 +101,20 @@ export default function Card ({producto, importance}) {
             ></div>
             <div className="card-body-css">
             <div className="boton">
-
-            
-
             <div className="info">
             <h2 
             className={`${nombreR} cerveza_nombre`}
             >{nombre}</h2>
             </div>
             </div>
-
             <h4 className="precio_nombre">precio:</h4>
             <h3 className="precio">${precio}</h3>
             <h5 className="stock">Stock:{stock}</h5>
-
             </div>
+            </Link>
         </div>
-        </Link>
+        
+        
     )
 }
 
