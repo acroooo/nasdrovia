@@ -25,42 +25,66 @@ router.post("/", async (req, res, next) => {
 
 
 router.put("/:id", async (req, res, next) => {
+  // To-Do:  Mejorar ni riot se animo a tanto, pero funciona
   let id  = req.params.id
   let { nombre, rol, email, contrasena} = req.body;
   if (nombre  || email  || contrasena || rol){
-      if(email){
-          let emailExistente = await Usuario.findOne({ where: { email: email } });
-          if (emailExistente !== null && emailExistente.id == id) {
-              await Usuario.update({
-                  name: nombre,
-                  rol,
-                  email,
-                  password: contrasena,
-                }, {
-                  where: {
-                    id: id
-                  }
-                })
-                res.status(201).send("Actualizado con exito");
-              }else{
-                  res.status(400).json({ Error: "Email ya en uso por otro usuario" })
-              }
-      }else{
+    //Almenos un dato me mandan
+    if(email){
+      //Quieren actualizar el campo email
+      //Busco el email
+      let emailExistente = await Usuario.findOne({ where: { email: email } });
+      if (emailExistente){
+        //El email existe en la db
+        if(emailExistente.id == id){
+          //El email era el mismo del usuario a actualizar 
           await Usuario.update({
-              name: nombre,
-              rol,
-              email,
-              password: contrasena,
-            }, {
-              where: {
-                id: id
-              }
-            });
-            res.status(201).send("Actualizado con exito");
+            name: nombre,
+            rol,
+            email,
+            password: contrasena,
+          }, {
+            where: {
+              id: id
+            }
+          })
+          res.status(201).send("Actualizado con exito");
+        }else{
+          //El email existe y no es el mio
+          res.status(400).json({ Error: "Email ya en uso" })
+        }
+      }else{
+        //El email no existia en la db
+        await Usuario.update({
+          name: nombre,
+          rol,
+          email,
+          password: contrasena,
+        }, {
+          where: {
+            id: id
+          }
+        });
+        res.status(201).send("Actualizado con exito");
       }
+    }else{
+      //No enviaron el campo email no hago ningun checkeo y actualizo
+      await Usuario.update({
+        name: nombre,
+        rol,
+        email,
+        password: contrasena,
+      }, {
+        where: {
+          id: id
+        }
+      });
+      res.status(201).send("Actualizado con exito");
+    }
   }else{
+    //Por si no se envia ningun parametro a actualizar
       res.status(400).json({ Error: "Faltan parametros envia almenos uno" });
-  }
+    }
 });
 
 module.exports = router;
