@@ -85,7 +85,7 @@ export default function Categoria({
       }
         <div className="listaProductos">
           {productos.isLoaded ? productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+            return <Producto producto={producto} key={i + "k"}/>;
           }):<Loader/>}
         </div>
       </div>

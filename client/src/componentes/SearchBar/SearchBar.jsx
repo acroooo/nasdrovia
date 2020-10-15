@@ -72,7 +72,7 @@ export default function SearchBar() {
             <Button onClick={handleClick} variant="outline-info">
               {searchButton}
             </Button>
-        
+            </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
           
           <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
@@ -81,7 +81,7 @@ export default function SearchBar() {
           </NavDropdown>
           <div className="usuario"></div>
       
-        </Form>
+        
       </Navbar>
       {productos.isLoaded?
       <Redirect exact path={`/search/${search.query}`}>
