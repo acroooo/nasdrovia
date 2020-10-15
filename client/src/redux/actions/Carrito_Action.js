@@ -11,6 +11,8 @@ import axios from "axios";
 
 //NO TOCAR - MODIFICANDO EN BASE A RUTAS
 
+
+//Esta esta totalmente incompleta, 
 export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
   axios
     .get(`http://localhost:3001/usuarios/${idUser}/cart`, body) //falta url
@@ -31,6 +33,7 @@ export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
 };
 
 //post a usuario
+//revisar que este bien igual que las demas.
 export const postUsuarioCarrito = (idUser, body) => (dispatch) => {
   axios
     .post(`http://localhost:3001/usuarios/${idUser}/cart`, body)
