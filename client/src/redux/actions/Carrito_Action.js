@@ -12,7 +12,7 @@ import axios from 'axios';
 //NO TOCAR - MODIFICANDO EN BASE A RUTAS
 
 export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
-    axios.get(`http://localhost:3001/${idUser}/cart`, body) //falta url
+    axios.get(`http://localhost:3001/usuarios/${idUser}/cart`, body) //falta url
     .then((res) => {
         const payload = {
             //payload => esperando rutas funcionales
@@ -30,25 +30,25 @@ export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
     })
 }
 
-// //post a usuario
-// export const addProducto = (id, body) => (dispatch) => {
-//     axios.post(`http://localhost:3001/producto/${id}`, body)
-//     .then((res) => {
-//         const añadirProd = res.data;
+//post a usuario
+export const postUsuarioCarrito = (id, body) => (dispatch) => {
+    axios.post(`http://localhost:3001/usuarios/${id}/cart`, body)
+    .then((res) => {
+        const postCarrito = res.data;
 
-//         dispatch({
-//             type: ADD_PRODUCT,
-//             payload: añadirProd,
-//         })
+        dispatch({
+            type: POST_USUARIO_CARRITO,
+            payload: postCarrito,
+        })
 
-//         dispatch(getProductos());
-//     })
+        dispatch(postUsuarioCarrito());
+    })
 
-//     .catch((err) => {
-//         const error = err.respuesta.data;
-//         dispatch(error);
-//     })
-// }
+    .catch((err) => {
+        const error = err.res.data;
+        dispatch(error);
+    })
+}
 
 // //get a visitante
 // export const getProductoDetalle = (id) => (dispatch) => {
