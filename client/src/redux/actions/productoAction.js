@@ -79,22 +79,44 @@ export const buscarProducto = (producto) => (dispatch) => {
     })
 }
 
-export function modifyProducto(producto, id) {
-    return function (dispatch) {
-        return fetch(`http://localhost:3001/producto/${id}`, {
-            headers: {
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            },
-            method: 'PUT',
-            body: JSON.stringify(producto),
-            credentials: 'include'
-        })
-        .then(res) => {
-            if(res.status === 200){
-                // agregar categoria
-                fetch()
-            }
-        }
-    }
+//MODIFICAR PRODUCTO
+export const modificarProducto = (id, body) => (dispatch) => {
+    axios.put(`http://localhost:3001/producto/${id}`, body)
+    .then((res) => {
+        const modificarProd = res.data;
+    
+        dispatch({
+            type: MODIFY_PRODUCTO,
+            payload: modificarProd,
+            })
+    
+            dispatch(getProductos());
+    })
+    
+    .catch((err) => {
+        const error = err.respuesta.data;
+        dispatch(error);
+    })
 }
+
+// export function modifyProducto(producto, id) {
+//     return function (dispatch) {
+//         return fetch(`http://localhost:3001/producto/${id}`, {
+//             headers: {
+//                 'Accept': '*/*',
+//                 'Content-Type': 'application/json'
+//             },
+//             method: 'PUT',
+//             body: JSON.stringify(producto),
+//             credentials: 'include'
+//         })
+//         .then(res) => {
+//             if(res.status === 200){
+//                 // agregar categoria
+//                 fetch()
+//             }
+//         }
+//     }
+// }
+
+//remover producto
