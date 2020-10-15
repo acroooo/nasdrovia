@@ -34,6 +34,16 @@ export default function productoReducer(state = initialState, action) {
                     ...state,
                     Res: action.payload,
                 };
-            case 
+            case SEARCH_PRODUCTO:
+                return;
+            case MODIFY_PRODUCTO:
+                return {
+                    ...state,
+                    Res: action.payload,
+                }
+            case REMOVE_PRODUCTO:
+                return;
+            default:
+                return state;
     }
 }
