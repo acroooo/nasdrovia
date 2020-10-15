@@ -44,7 +44,7 @@ export const getProductoDetalle = (id) => (dispatch) => {
 
 //añadir producto
 export const addProducto = (id, body) => (dispatch) => {
-    axios.put(`http://localhost:3001/producto/${id}, body`)
+    axios.put(`http://localhost:3001/producto/${id}`, body)
     .then((res) => {
         const añadirProd = res.data;
 
@@ -63,14 +63,20 @@ export const addProducto = (id, body) => (dispatch) => {
 }
 
 
-export function searchProducto(producto){
-    return function(dispatch) {
-        return fetch(`http://localhost:3001/search?busqueda=${producto}`)
-        .then(response => response.json())
-        .then(json => {
-            dispatch({ type: SEARCH_PRODUCTO, payload: json})
-        })
-    }
+//Buscar producto
+export const buscarProducto = (producto) => (dispatch) => {
+    axios.get(`http://localhost:3001/search?busqueda=${producto}`)
+    .then((res) => {
+        const search = res.data;
+
+        dispatch({
+            type: SEARCH_PRODUCTO,
+            payload: search,
+        });
+    })
+    .catch((err) => {
+        dispatch(err);
+    })
 }
 
 export function modifyProducto(producto, id) {
