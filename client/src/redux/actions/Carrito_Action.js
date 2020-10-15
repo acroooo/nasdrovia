@@ -31,8 +31,8 @@ export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
 }
 
 //post a usuario
-export const postUsuarioCarrito = (id, body) => (dispatch) => {
-    axios.post(`http://localhost:3001/usuarios/${id}/cart`, body)
+export const postUsuarioCarrito = (idUser, body) => (dispatch) => {
+    axios.post(`http://localhost:3001/usuarios/${idUser}/cart`, body)
     .then((res) => {
         const postCarrito = res.data;
 
@@ -50,24 +50,24 @@ export const postUsuarioCarrito = (id, body) => (dispatch) => {
     })
 }
 
-// //get a visitante
-// export const getProductoDetalle = (id) => (dispatch) => {
-//     axios.get(`http://localhost:3001/producto/${id}`)
-//     .then((res) => {
-//         const productoId = res.data;
+//get a visitante
+export const getVisCarrito = (idUser) => (dispatch) => {
+    axios.get(`http://localhost:3001/usuarios/${idUser}`)
+    .then((res) => {
+        const getVisCarro = res.data;
         
-//         dispatch({
-//             type: GET_PRODUCTO_DETALLE,
-//             payload: productoId,
-//     })
+        dispatch({
+            type: GET_VISITANTE_CARRITO,
+            payload: getVisCarro,
+    })
 
-//     dispatch(getProductos());
-//     })
-//     .catch((err) => {
-//         const error = err.res.data;
-//         dispatch(error);
-//     });
-// }
+    dispatch(getVisCarrito());
+    })
+    .catch((err) => {
+        const error = err.res.data;
+        dispatch(error);
+    });
+}
 
 // //post a carrito
 // export const addProducto = (id, body) => (dispatch) => {
