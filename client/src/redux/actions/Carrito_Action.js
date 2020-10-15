@@ -27,25 +27,25 @@ export const getProductoDetalle = (id) => (dispatch) => {
     });
 }
 
-// //post a usuario
-// export const addProducto = (id, body) => (dispatch) => {
-//     axios.post(`http://localhost:3001/producto/${id}`, body)
-//     .then((res) => {
-//         const añadirProd = res.data;
+//post a usuario
+export const addProducto = (id, body) => (dispatch) => {
+    axios.post(`http://localhost:3001/producto/${id}`, body)
+    .then((res) => {
+        const añadirProd = res.data;
 
-//         dispatch({
-//             type: ADD_PRODUCT,
-//             payload: añadirProd,
-//         })
+        dispatch({
+            type: ADD_PRODUCT,
+            payload: añadirProd,
+        })
 
-//         dispatch(getProductos());
-//     })
+        dispatch(getProductos());
+    })
 
-//     .catch((err) => {
-//         const error = err.respuesta.data;
-//         dispatch(error);
-//     })
-// }
+    .catch((err) => {
+        const error = err.respuesta.data;
+        dispatch(error);
+    })
+}
 
 // //get a visitante
 // export const getProductoDetalle = (id) => (dispatch) => {
