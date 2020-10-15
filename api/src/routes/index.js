@@ -3,8 +3,10 @@ const express = require("express");
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
 const Usuarios = require("./usuarios");
+const Carrito = require("./carrito");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
+const Ordenes = require("./ordenes")
 const app = express();
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
@@ -12,6 +14,8 @@ const app = express();
 app.use("/producto", ProductoRuta);
 app.use("/categorias", Categorias);
 app.use("/usuarios", Usuarios)
+app.use("/ordenes", Ordenes)
+
 //prettier-ignore
 app.get("/search", (req, res) => {
   const query = req.query;

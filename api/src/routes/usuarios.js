@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Usuario,Carrito,LineaDeOrden} = require("../db.js");
+const { Usuario,Carrito,Producto,LineaDeOrden} = require("../db.js");
 
 
 
@@ -90,21 +90,32 @@ router.put("/:id", async (req, res, next) => {
 
 /* -------------------CARRITO------------------ */
 
-
 //AÚN ESTÁN EN PROCESO
 //Agregar al carrito
-router.post('/:idUser/cart',(req,res)=>{
+
+router.post('/:idUser/cart', async (req,res)=>{
   const id  = req.params.idUser;
   const {nombre,apellido,pais,ciudad,direccion,codigoPostal,telefono,tipoEnvio,estado} = req.body;
-  Carrito.create({where:{id,nombre,apellido,pais,ciudad,direccion,codigoPostal,telefono,tipoEnvio,estado:'carrito'},include:LineaDeOrden})
-  .then(item=>res.status(201).json(item))
-  .catch(err=>res.status(400).json({Error:'Hubo un error',err}))
+
+  const item = await Carrito.findOne({where:{usuario_carritoId:id,estado:'En proceso'}})
+
+    if(item) return res.status(400).send('El usuario tiene un carrito');
+   
+    Carrito.create({usuario_carritoId:id,nombre,apellido,pais,ciudad,direccion,codigoPostal,telefono,tipoEnvio,estado},{include: [{model:Usuario, as:'usuario_carrito' }]})
+ 
+    .then(respuesta => {
+      respuesta.productos = [];
+      respuesta.lineaDeOrdens = [];
+      return respuesta;
+    })
+    .catch(err=>res.status(400).json({Error:'Hubo un error'+err.message}))
+  
 })
 
 //Obtener items del carrito
 router.get('/:idUser/cart',(req,res)=>{
   const id  = req.params.idUser;
-  Carrito.findAll({where:{id,estado:'carrito'}})
+  Carrito.findAll({where:{id,estado:'En proceso'}})
   .then(items=>res.status(201).json(items))
   .catch(err=>res.status(400).json({Error:'Hubo un error',err}))
 })
@@ -112,10 +123,11 @@ router.get('/:idUser/cart',(req,res)=>{
 //Vaciar carrito
 router.delete('/:idUser/cart',(req,res)=>{
   const id  = req.params.idUser;
-  Carrito.destroy({where:{id,estado:'carrito'}})
+  Carrito.destroy({where:{id,estado:'En proceso'}})
   .then(items=>res.status(200).send('Se vacio el carrito'))
   .catch(err=>res.status(200).json({Error:'Hubo un error',err}))
 })
+
 
 
 module.exports = router;
