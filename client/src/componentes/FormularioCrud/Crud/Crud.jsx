@@ -10,8 +10,17 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     const [exito, setExito] = useState(false);//Se activa si hay exito en la validación del formulario
     const [spinner, setSpinner] = useState(false);//Spinner que se muestra después de ejecutar con exito el método axios
     const [catsEliminar,setCatsEliminar]=useState([]);//Ids con las categorias que toca eliminar de un producto
-    
-    
+    const [imagenes,setImagenes]=useState([])
+
+    // const almacenarImagenes = num=>{
+    //     /* setImagenes({...imagenes,imagenes:num}) */
+    //     let arrImagenes=[];
+    //     for(let i=0;i<num;i++){arrImagenes.push(i+1)}
+    //     setImagenes(arrImagenes)
+    // }
+   
+     
+
     //almacenar categorias del producto en el state para luego postearlas o editarlas
     const almacenarCategoria = categoria=>{
         if(categoria){
@@ -22,7 +31,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             }
         }
     }
-
+    
     //eliminar categorias de un producto del state antes de postearlo o editarlo
     const eliminarCategoria= (nombre,id)=>{
       const cate = cats.filter(c=>c.categoria!==nombre);
@@ -41,7 +50,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         accion === 'crear' && setProductoCrear({ ...productoCrear,id:n+1, [e.target.name]: e.target.value });
     }
     
-
+  let j=3;
     //Cierra el formulario y borrar el producto editado O creado del state
     const cerrarFormulario = () => {
         setProductoEditar({}); setProductoCrear({});
@@ -126,14 +135,22 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 value={descripcion}
             >
             </textarea>
-            <label className="mb-1">Imagen</label>
+          {/*   <select onChange={e=>almacenarImagenes(e.target.value)}>
+                <option value="">Selecciona el numero de imagenes</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select> */}
+           
+             <label className="mb-1">Imagen</label>
             <input
                 name='imagen'
                 type="text"
                 id='imagen'
                 onChange={almacenarProductoEditado}
                 value={imagen}
-            />
+            /> 
+
             <label className="mb-1">Stock</label>
             <input
                 name='stock'
