@@ -42,6 +42,26 @@ export const getProductoDetalle = (id) => (dispatch) => {
     });
 }
 
+//añadir producto
+export const addProducto = (id, body) => (dispatch) => {
+    axios.put(`http://localhost:3001/producto/${id}, body`)
+    .then((res) => {
+        const añadirProd = res.data;
+
+        dispatch({
+            type: ADD_PRODUCT,
+            payload: añadirProd,
+        })
+
+        dispatch(getProductos());
+    })
+
+    .catch((err) => {
+        const error = err.respuesta.data;
+        dispatch(error);
+    })
+}
+
 
 export function searchProducto(producto){
     return function(dispatch) {
