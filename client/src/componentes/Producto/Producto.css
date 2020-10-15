@@ -3,7 +3,6 @@
     height: 100%;
     display: flex !important;
     flex-direction: row !important;
-    align-items: center;
     align-self:center;
 }
 .producto{
@@ -18,11 +17,63 @@
 }
 
 h3{
-    color:black;
-    background-color: red;
+    color:#171714;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 1px #9b8963;
 }
 
 p{
     color:black;
-    background-color:red;
+    background-color:;
 }
+
+.container2{
+    margin-top: 20px;
+}
+
+.card2{
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100%;
+    height: 90%;
+    align-items: unset;
+}
+
+.card-body{
+    background-color: #e6e6e6;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header{
+    background-color:#015386 !important;
+    opacity: 0.98;
+    color: #e6e6e6;
+    text-shadow: 1px 1px 1px black;
+    text-transform: uppercase;
+}
+
+.card-footer{
+    background-color: #0074b1 !important;
+}
+
+.botonRojo{
+    background-color: #d30208 !important;
+    margin-left:10px;
+    width: 100%;
+    text-transform: uppercase;
+}
+.botonCant{
+    font-weight: 400;
+}
+.titulo{
+    color: #015386;
+    text-shadow: 0.5px 0.5px 0.5px black; 
+    text-transform: uppercase;
+}
+
+.card-text{
+    font-weight: 800;
+}
+
