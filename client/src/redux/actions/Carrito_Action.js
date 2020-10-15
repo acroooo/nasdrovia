@@ -1,11 +1,11 @@
 import {
-  GET_USUARIO_CARRITO,
-  POST_USUARIO_CARRITO,
-  GET_VISITANTE_CARRITO,
-  POST_VISITANTE_CARRITO,
-  EDITAR_VISITANTE_CARRITO,
-  DELETE_CARRITO,
-  PUT_CATEGORIA,
+    GET_USUARIO_CARRITO,
+    POST_USUARIO_CARRITO,
+    GET_VISITANTE_CARRITO,
+    POST_VISITANTE_CARRITO,
+    EDITAR_VISITANTE_CARRITO,
+    DELETE_CARRITO,
+    PUT_CATEGORIA,
 } from "./ActionTypes";
 import axios from "axios";
 
@@ -14,21 +14,20 @@ import axios from "axios";
 
 //Esta esta totalmente incompleta, 
 export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
-  axios
-    .get(`http://localhost:3001/usuarios/${idUser}/cart`, body) //falta url
+  axios.get(`http://localhost:3001/usuarios/${idUser}/cart`, body) //falta url
     .then((res) => {
-      const payload = {
+        const payload = {
         //payload => esperando rutas funcionales
-      };
-      dispatch({
-        type: GET_USUARIO_CARRITO,
-        payload: payload,
-      });
+    };
+        dispatch({
+            type: GET_USUARIO_CARRITO,
+            payload: payload,
+    });
       //Dispatch?
     })
     .catch((err) => {
-      const error = err.res.data;
-      dispatch(error);
+        const error = err.res.data;
+        dispatch(error);
     });
 };
 
