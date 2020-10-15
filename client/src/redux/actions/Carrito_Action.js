@@ -86,28 +86,28 @@ export const addProducto = (id, body) => (dispatch) => {
     })
 }
 
-// //put a visitante
-// axios.put(`http://localhost:3001/producto/${id}`, body)
-// .then((res) => {
-//     const modificarProd = res.data;
+//put a visitante
+axios.put(`http://localhost:3001/producto/${id}`, body)
+.then((res) => {
+    const modificarProd = res.data;
 
-//     dispatch({
-//         type: MODIFY_PRODUCTO,
-//         payload: modificarProd,
-//         })
+    dispatch({
+        type: MODIFY_PRODUCTO,
+        payload: modificarProd,
+        })
 
-//         dispatch(getProductos());
-// })
+        dispatch(getProductos());
+})
 
-// .catch((err) => {
-//     const error = err.respuesta.data;
-//     dispatch(error);
-// })
+.catch((err) => {
+    const error = err.respuesta.data;
+    dispatch(error);
+})
 
-// //delete carrito
-// export const deleteProducto = () => (dispatch) => {
-//     dispatch({
-//         type: REMOVE_PRODUCTO,
-//         payload: null,
-//     });
-// };
+//delete carrito
+export const deleteProducto = () => (dispatch) => {
+    dispatch({
+        type: REMOVE_PRODUCTO,
+        payload: null,
+    });
+};
