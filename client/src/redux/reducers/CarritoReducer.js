@@ -29,7 +29,13 @@ export default function carritoReducer(state = initialState, action) {
                     ...state,
                     Res: action.payload,
                 };
+            case GET_VISITANTE_CARRITO:
+                //falta construir
 
+            case DELETE_CARRITO:
+                return;
+            default:
+                return state;
 
     }
 }
