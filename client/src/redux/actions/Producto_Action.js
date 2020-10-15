@@ -46,7 +46,7 @@ export const getProductoDetalle = (id) => (dispatch) => {
 
 //añadir producto
 export const addProducto = (id, body) => (dispatch) => {
-    axios.put(`http://localhost:3001/producto/${id}`, body)
+    axios.post(`http://localhost:3001/producto/${id}`, body)
     .then((res) => {
         const añadirProd = res.data;
 
