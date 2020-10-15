@@ -8,106 +8,108 @@ import {
 } from './ActionTypes';
 import axios from 'axios';
 
-//get a Usuario
-export const getProductoDetalle = (id) => (dispatch) => {
-    axios.get(`http://localhost:3001/producto/${id}`)
-    .then((res) => {
-        const productoId = res.data;
+
+//NO TOCAR - MODIFICANDO EN BASE A RUTAS
+// //get a Usuario
+// export const getProductoDetalle = (id) => (dispatch) => {
+//     axios.get(`http://localhost:3001/producto/${id}`)
+//     .then((res) => {
+//         const productoId = res.data;
         
-        dispatch({
-            type: GET_PRODUCTO_DETALLE,
-            payload: productoId,
-    })
+//         dispatch({
+//             type: GET_PRODUCTO_DETALLE,
+//             payload: productoId,
+//     })
 
-    dispatch(getProductos());
-    })
-    .catch((err) => {
-        const error = err.res.data;
-        dispatch(error);
-    });
-}
+//     dispatch(getProductos());
+//     })
+//     .catch((err) => {
+//         const error = err.res.data;
+//         dispatch(error);
+//     });
+// }
 
-//post a usuario
-export const addProducto = (id, body) => (dispatch) => {
-    axios.post(`http://localhost:3001/producto/${id}`, body)
-    .then((res) => {
-        const añadirProd = res.data;
+// //post a usuario
+// export const addProducto = (id, body) => (dispatch) => {
+//     axios.post(`http://localhost:3001/producto/${id}`, body)
+//     .then((res) => {
+//         const añadirProd = res.data;
 
-        dispatch({
-            type: ADD_PRODUCT,
-            payload: añadirProd,
-        })
+//         dispatch({
+//             type: ADD_PRODUCT,
+//             payload: añadirProd,
+//         })
 
-        dispatch(getProductos());
-    })
+//         dispatch(getProductos());
+//     })
 
-    .catch((err) => {
-        const error = err.respuesta.data;
-        dispatch(error);
-    })
-}
+//     .catch((err) => {
+//         const error = err.respuesta.data;
+//         dispatch(error);
+//     })
+// }
 
-//get a visitante
-export const getProductoDetalle = (id) => (dispatch) => {
-    axios.get(`http://localhost:3001/producto/${id}`)
-    .then((res) => {
-        const productoId = res.data;
+// //get a visitante
+// export const getProductoDetalle = (id) => (dispatch) => {
+//     axios.get(`http://localhost:3001/producto/${id}`)
+//     .then((res) => {
+//         const productoId = res.data;
         
-        dispatch({
-            type: GET_PRODUCTO_DETALLE,
-            payload: productoId,
-    })
+//         dispatch({
+//             type: GET_PRODUCTO_DETALLE,
+//             payload: productoId,
+//     })
 
-    dispatch(getProductos());
-    })
-    .catch((err) => {
-        const error = err.res.data;
-        dispatch(error);
-    });
-}
+//     dispatch(getProductos());
+//     })
+//     .catch((err) => {
+//         const error = err.res.data;
+//         dispatch(error);
+//     });
+// }
 
-//post a carrito
-export const addProducto = (id, body) => (dispatch) => {
-    axios.post(`http://localhost:3001/producto/${id}`, body)
-    .then((res) => {
-        const añadirProd = res.data;
+// //post a carrito
+// export const addProducto = (id, body) => (dispatch) => {
+//     axios.post(`http://localhost:3001/producto/${id}`, body)
+//     .then((res) => {
+//         const añadirProd = res.data;
 
-        dispatch({
-            type: ADD_PRODUCT,
-            payload: añadirProd,
-        })
+//         dispatch({
+//             type: ADD_PRODUCT,
+//             payload: añadirProd,
+//         })
 
-        dispatch(getProductos());
-    })
+//         dispatch(getProductos());
+//     })
 
-    .catch((err) => {
-        const error = err.respuesta.data;
-        dispatch(error);
-    })
-}
+//     .catch((err) => {
+//         const error = err.respuesta.data;
+//         dispatch(error);
+//     })
+// }
 
-//put a visitante
-axios.put(`http://localhost:3001/producto/${id}`, body)
-.then((res) => {
-    const modificarProd = res.data;
+// //put a visitante
+// axios.put(`http://localhost:3001/producto/${id}`, body)
+// .then((res) => {
+//     const modificarProd = res.data;
 
-    dispatch({
-        type: MODIFY_PRODUCTO,
-        payload: modificarProd,
-        })
+//     dispatch({
+//         type: MODIFY_PRODUCTO,
+//         payload: modificarProd,
+//         })
 
-        dispatch(getProductos());
-})
+//         dispatch(getProductos());
+// })
 
-.catch((err) => {
-    const error = err.respuesta.data;
-    dispatch(error);
-})
+// .catch((err) => {
+//     const error = err.respuesta.data;
+//     dispatch(error);
+// })
 
 //delete carrito
 export const deleteProducto = () => (dispatch) => {
     dispatch({
-        type: REMOVE_PRODUCTO,
+        type: DELETE_CARRITO,
         payload: null,
     });
 };
