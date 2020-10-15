@@ -7,3 +7,7 @@ import {
     REMOVE_PRODUCTO
 } from '../actions/ActionTypes';
 
+const initialState = {
+    TodosLosProductos: [],
+    Res: {}
+}
