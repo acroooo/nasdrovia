@@ -24,6 +24,12 @@ export default function carritoReducer(state = initialState, action) {
                 CarritoCompleto: carrito
             };
 
+            case POST_USUARIO_CARRITO:
+                return {
+                    ...state,
+                    Res: action.payload,
+                };
+
 
     }
 }
