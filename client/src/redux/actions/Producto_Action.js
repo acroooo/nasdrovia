@@ -18,7 +18,9 @@ export const getProductos = () => dispatch => {
         const cargaUtil = {
             productos: res.data,
         }
-        dispatch({type: GET_PRODUCTOS, payload: cargaUtil})
+        dispatch({
+            type: GET_PRODUCTOS, 
+            payload: cargaUtil})
     })
     .catch(err => console.log(err));
 }
