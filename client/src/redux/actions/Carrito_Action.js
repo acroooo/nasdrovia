@@ -47,24 +47,24 @@ export const addProducto = (id, body) => (dispatch) => {
     })
 }
 
-// //get a visitante
-// export const getProductoDetalle = (id) => (dispatch) => {
-//     axios.get(`http://localhost:3001/producto/${id}`)
-//     .then((res) => {
-//         const productoId = res.data;
+//get a visitante
+export const getProductoDetalle = (id) => (dispatch) => {
+    axios.get(`http://localhost:3001/producto/${id}`)
+    .then((res) => {
+        const productoId = res.data;
         
-//         dispatch({
-//             type: GET_PRODUCTO_DETALLE,
-//             payload: productoId,
-//     })
+        dispatch({
+            type: GET_PRODUCTO_DETALLE,
+            payload: productoId,
+    })
 
-//     dispatch(getProductos());
-//     })
-//     .catch((err) => {
-//         const error = err.res.data;
-//         dispatch(error);
-//     });
-// }
+    dispatch(getProductos());
+    })
+    .catch((err) => {
+        const error = err.res.data;
+        dispatch(error);
+    });
+}
 
 // //post a carrito
 // export const addProducto = (id, body) => (dispatch) => {
