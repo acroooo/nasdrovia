@@ -2,22 +2,21 @@ const express = require("express");
 // import all routers;
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
-const Usuarios = require("./usuarios");
+const Usuario = require("./usuarios");
 const Carrito = require("./carrito");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
-const Ordenes = require("./ordenes")
-const app = express();
+const router = express();
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
-app.use("/producto", ProductoRuta);
-app.use("/categorias", Categorias);
-app.use("/usuarios", Usuarios)
-app.use("/ordenes", Ordenes)
+router.use("/producto", ProductoRuta);
+router.use("/categorias", Categorias);
+router.use("/usuario", Usuario);
+router.use("/ordenes", Carrito);
 
 //prettier-ignore
-app.get("/search", (req, res) => {
+router.get("/search", (req, res) => {
   const query = req.query;
     Producto.findAll({
       where: {
@@ -34,4 +33,4 @@ app.get("/search", (req, res) => {
       }
     }).catch(() => res.status(400).send("Algo salió mal"));
 });
-module.exports = app;
+module.exports = router;
