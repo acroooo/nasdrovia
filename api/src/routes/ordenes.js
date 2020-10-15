@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const {Carrito, LineaDeOrden} = require("../db.js");
 
-router.get("/:id", (req, res)=>{
+router.get("/:id", async (req, res)=>{
     let order_id  = req.params.id;
     const orden_unica = await Carrito.findOne({
       where: { id: order_id },
@@ -15,3 +15,5 @@ router.get("/:id", (req, res)=>{
       res.status(200).json({error: "Orden no encontrada"})
     }
   })
+
+module.exports = router;
