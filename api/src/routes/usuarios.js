@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Usuario, Order} = require("../db.js");
+const { Usuario, LineaDeOrden, Carrito} = require("../db.js");
 
 
 
@@ -87,10 +87,12 @@ router.put("/:id", async (req, res, next) => {
     }
 });
 
-router.get("/:id/orders", async(req, res) =>{
+router.get("/:id/ordenes", async(req, res) =>{
   let user_id  = req.params.id
-  const todas_las_ordenes = await Order.findAll({
+  //todas las ordenes del usuario
+  const todas_las_ordenes = await Carrito.findAll({
     where: { id: user_id },
+    include: LineaDeOrden,
   });
   if(todas_las_ordenes){
     res.status(200).json(todas_las_ordenes)
