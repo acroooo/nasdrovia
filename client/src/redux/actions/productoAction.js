@@ -99,24 +99,11 @@ export const modificarProducto = (id, body) => (dispatch) => {
     })
 }
 
-// export function modifyProducto(producto, id) {
-//     return function (dispatch) {
-//         return fetch(`http://localhost:3001/producto/${id}`, {
-//             headers: {
-//                 'Accept': '*/*',
-//                 'Content-Type': 'application/json'
-//             },
-//             method: 'PUT',
-//             body: JSON.stringify(producto),
-//             credentials: 'include'
-//         })
-//         .then(res) => {
-//             if(res.status === 200){
-//                 // agregar categoria
-//                 fetch()
-//             }
-//         }
-//     }
-// }
 
 //remover producto
+export const deleteProducto = () => (dispatch) => {
+    dispatch({
+        type: REMOVE_PRODUCTO,
+        payload: null,
+    });
+};
