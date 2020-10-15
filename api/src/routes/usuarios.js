@@ -115,14 +115,14 @@ router.post("/:idUser/cart", async (req, res) => {
   } = req.body;
 
   const item = await Carrito.findOne({
-    where: { comprador: idUser, estado: "En proceso" },
+    where: { id: idUser, estado: "En proceso" },
   });
 
   if (item) return res.status(400).send("El usuario tiene un carrito");
 
   Carrito.create(
     {
-      comprador: idUser,
+      id: idUser,
       nombre,
       apellido,
       pais,
@@ -133,12 +133,12 @@ router.post("/:idUser/cart", async (req, res) => {
       tipoEnvio,
       estado,
     },
-    { include: [{ model: Usuario, as: "comprador" }] }
+    { include: [{ model: Usuario }] }
   )
     .then((respuesta) => {
       respuesta.productos = [];
       respuesta.lineaDeOrden = [];
-      return respuesta;
+      res.send(respuesta);
     })
     .catch((err) =>
       res.status(400).json({ Error: "Hubo un error" + err.message })
@@ -150,11 +150,11 @@ router.get("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
-    where: { comprador: idUser, estado: "En proceso" },
+    where: { id: idUser, estado: "En proceso" },
     include: [{ model: LineaDeOrden }, { model: Producto }],
-  }).then((items) => {
-    if (!item) return res.status(400).json("Hubo un error");
-    else return res.send(items);
+  }).then((item) => {
+    if (!item) return res.status(400).json("El carrito se encuentra vacio");
+    else return res.send(item);
   });
 });
 
@@ -165,5 +165,8 @@ router.delete("/:idUser/cart", (req, res) => {
     .then((items) => res.status(200).send("Se vacio el carrito"))
     .catch((err) => res.status(200).json({ Error: "Hubo un error", err }));
 });
+
+//Editar carrito
+router.put();
 
 module.exports = router;

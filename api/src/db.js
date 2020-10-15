@@ -55,10 +55,10 @@ Categories.belongsToMany(Producto, { through: "producto_categoria" });
 Producto.hasMany(Reviews);
 //relacion usuario-review
 Usuario.hasMany(Reviews);
-Reviews.belongsTo(Usuario, { as: "creador" });
+Reviews.belongsTo(Usuario);
 // relacion carrito-usuario
 Usuario.hasMany(Carrito);
-Carrito.belongsTo(Usuario, { as: "comprador" });
+Carrito.belongsTo(Usuario);
 Carrito.hasMany(LineaDeOrden);
 //relacion carrito-producto
 Carrito.belongsToMany(Producto, { through: LineaDeOrden });
