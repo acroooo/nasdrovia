@@ -10,24 +10,25 @@ import axios from 'axios';
 
 
 //NO TOCAR - MODIFICANDO EN BASE A RUTAS
-// //get a Usuario
-// export const getProductoDetalle = (id) => (dispatch) => {
-//     axios.get(`http://localhost:3001/producto/${id}`)
-//     .then((res) => {
-//         const productoId = res.data;
-        
-//         dispatch({
-//             type: GET_PRODUCTO_DETALLE,
-//             payload: productoId,
-//     })
 
-//     dispatch(getProductos());
-//     })
-//     .catch((err) => {
-//         const error = err.res.data;
-//         dispatch(error);
-//     });
-// }
+export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
+    axios.get(`http://localhost:3001/${idUser}/cart`, body) //falta url
+    .then((res) => {
+        const payload = {
+            //payload => esperando rutas funcionales
+        }
+            dispatch({
+                type: GET_USUARIO_CARRITO,
+                payload: payload,
+            })
+            //Dispatch?
+    })
+    .catch(err => {
+        const error = err.res.data;
+        dispatch(error);
+        
+    })
+}
 
 // //post a usuario
 // export const addProducto = (id, body) => (dispatch) => {
