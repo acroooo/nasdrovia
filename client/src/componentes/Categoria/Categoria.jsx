@@ -29,11 +29,11 @@ export default function Categoria({
     cat.res.forEach(e => {
       if (e.select){
         data.res.forEach(prod => {
-         prod.categories.forEach(categorie => {
+        prod.categories.forEach(categorie => {
           if(categorie.nombre === e.nombre){
             arr.push(prod)
           }
-         });
+        });
         });
       }
     });
@@ -85,7 +85,7 @@ export default function Categoria({
       }
         <div className="listaProductos">
           {productos.isLoaded ? productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+            return <Producto producto={producto} key={i + "k"}/>;
           }):<Loader/>}
         </div>
       </div>

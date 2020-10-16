@@ -33,4 +33,6 @@ router.get("/search", (req, res) => {
       }
     }).catch(() => res.status(400).send("Algo salió mal"));
 });
+
 module.exports = router;
+
