@@ -1,53 +1,122 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./card.css"
-import { cartButton } from "../../Multimedia/Svgs";
-import { Carousel } from 'react-bootstrap';
+import anime from 'animejs/lib/anime.es.js';
+import {Link} from "react-router-dom";
+import CarroBoton from "../CarritoBoton/CarritoBoton";
 
+export default function Card ({producto, importance}) {
+    const {nombre, precio, imagen, stock, id}=producto;
+    const nombreR=nombre.replace(" ", "_");
 
-const Card = (props) => {
-
+    useEffect(() => {
+            anime({
+                targets: '.card-css .img-product-card',
+                opacity:1 ,
+                duration: 500,
+                delay: anime.stagger(500,{start:250}),          
+            })   
+            
+    }, [])
+    function mouseEnterHandle(){
+        const tl = anime.timeline({
+            duration:800,
+        });
+        tl.add({
+            targets:`#${nombreR}`,
+            translateY:[-150, -55],
+            translateX:-220,
+            opacity:1,
+        })
+        tl.add({
+            targets:`#img${nombreR}`,
+            translateY:[55,-45],        
+        })
+        tl.add({
+            targets:`#icono${nombreR}`,
+            delay: 800,
+        });           
+        
+    }
+    function mouseLeaveHandle(){
+        anime.remove(`#${nombreR}`);
+        anime.remove(`#img${nombreR}`)
+        const tl = anime.timeline({
+            duration:300,
+        })
+        tl.add({
+            targets:`#${nombreR}`,
+            translateX:0,
+            translateY: 0,
+            opacity:0,
+        })
+        tl.add({
+            targets:`#img${nombreR}`,
+            translateY:0,  
+        })
+    }
+    function handleClick(){
+    const tl = anime.timeline();
+        tl.add(
+            {
+            targets:`#carro${nombreR}`,
+            scale: [{value: 1}, {value: 1.4}, {value: 0.6, delay: 250}],
+            rotateY: 4320,
+            translateY:-350,
+            opacity:[{value:1},{value:0, delay:250}],
+            easing: 'easeInOutSine',
+            duration: 200,
+        }
+        );
+        tl.add({
+        targets:`#carro${nombreR}`,
+        rotateY:0,
+        translateY:0,
+        scale:1,
+        opacity:{value:1,delay:400},
+        easing: 'easeInOutSine',
+        duration:200,
+    })
+    
+    }
     return (
-        <div class="card">
-            <a class="botoncontainer">
-                <button class="btn btn-danger">{cartButton}</button>
-            </a>
+        
+        <div  className="card-css" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
+            <div id={`carro${nombreR}`} className="carro">
+            <CarroBoton
+            handleClick={handleClick}
+                nombreR={nombreR}
+            />
+            </div>
+            <Link to={`/producto/${id}`} className="link">
             <div>
-                <Carousel>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={props.imagen}
-                            alt="First slide"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={props.imagen}
-                            alt="second slide"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={props.imagen}
-                            alt="Third slide"
-                        />
-                    </Carousel.Item>
-                </Carousel>
+            <img className="img-product-card"
+            id={`img${nombreR}`}
+            src={imagen}
+            alt={nombre}
+            />
+            
             </div>
-            <div className="card-body">
-                <div class="boton">
-                    <div class="titulo">
-                        <h2>{props.nombre}</h2>
-                    </div>
-                </div>
-                <h2>{props.precio}</h2>
-                <p></p>
-                <h5></h5>
+            
+            <div id={nombreR} className= {`decorativa ${nombreR}`}
+            ></div>
+            <div className="card-body-css">
+            <div className="boton">
+            <div className="info">
+            <h2 
+            className={`${nombreR} cerveza_nombre`}
+            >{nombre}</h2>
             </div>
+            </div>
+            <h4 className="precio_nombre">precio:</h4>
+            <h3 className="precio">${precio}</h3>
+            <h5 className="stock">Stock:{stock}</h5>
+            </div>
+            </Link>
         </div>
+        
+        
     )
 }
 
-export default Card
+
+

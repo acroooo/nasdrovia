@@ -22,19 +22,20 @@ module.exports = (sequelize) => {
           },
       };
   // defino el modelo
-  sequelize.define('order', {
-    qualification:{
+  sequelize.define('lineaDeOrden', {
+    cantidad:{
         type:DataTypes.INTEGER,
         allowNull: validations.allowNull,
         validate: validations.strType,
 
       },
-      price:{
+      precio:{
         type:DataTypes.FLOAT,
         allowNull: validations.allowNull,
         validate: validations.floatType,
       }
+     
    
-    
+
   });
 };

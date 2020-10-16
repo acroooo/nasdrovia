@@ -1,98 +1,102 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Producto from "../ProductCard/card";
 import "./Categoria.css";
 import { categorias, productos } from "./menu_producto";
+=======
+import React, { useState } from "react";
+import Producto from "../ProductCard/card";
+import "./Categoria.css";
+import Loader from "../Loader/Loader";
+import produce from "immer";
+>>>>>>> e3e28816082eb23bec8664f2d67bf11aa956e718
 
-export default function Categoria() {
-  const [categoriasDisplay, setCategoriasDisplay] = useState(productos);
-  const [cat, setCat] = useState([]);
+
+export default function Categoria({
+  productos,
+  cat,
+  setCat,
+  setProductos,
+  data
+}) {
   const [filtrar, setFiltrar] = useState(false);
-  useEffect(() => {
-    setCat(
-      categorias.map((elemento) => {
-        return {
-          value: elemento,
-          select: false,
-        };
-      })
-    );
-  }, []);
-  useEffect(() => {
-    let arr = [];
-    cat.forEach((element) => {
-      if (element.select) {
-        productos.forEach((e) => {
-          if (e.categoria.toLowerCase() === element.value.toLowerCase()) {
-            arr.push(e);
-          }
-        });
-      } else {
-        setCategoriasDisplay(productos);
-      }
-      if (arr.length !== 0) {
-        setCategoriasDisplay(arr);
-      }
-    });
-  }, [cat]);
 
   function handleChange(event) {
     let checked = event.target.checked;
-    setCat(
-      cat.map((e) => {
-        if (e.value.toLowerCase() === event.target.value.toLowerCase()) {
-          e.select = checked;
-        }
-        return e;
-      })
-    );
+    setCat({res:cat.res.map((e) => {
+      if (e.nombre.toLowerCase() === event.target.value.toLowerCase()) {
+        e.select = checked;
+      }
+      return e;
+    }),isLoaded:true})
   }
-  if (filtrar) {
-    return (
+
+  function handleClick(){
+    let arr = [];
+    cat.res.forEach(e => {
+      if (e.select){
+        data.res.forEach(prod => {
+         prod.categories.forEach(categorie => {
+          if(categorie.nombre === e.nombre){
+            arr.push(prod)
+          }
+         });
+        });
+      }
+    });
+    if(arr.length!==0){
+      setProductos((p)=>{
+        return produce(p,(productosCopy)=>{
+          productosCopy.res= arr;
+        })
+      })
+    
+  }else{
+    setProductos(data);
+  }
+}
+  return (
       <div className="Categorias">
-        <div className="categoriaFilter">
-          {cat.map((categoria, i) => {
+      {filtrar ? 
+        <div className="categoriasFilter">
+          { cat.isLoaded ?
+            cat.res.map((categoria, i) => {
             return (
               <div className="" key={i + "f"}>
-                <label className="">
+                <label className="check">
                   <input
+                    className="checkboxes"
                     type="checkbox"
-                    key={categoria.value + i}
-                    value={categoria.value}
+                    key={categoria.nombre + i}
+                    value={categoria.nombre}
                     id={i}
                     checked={categoria.select}
                     onChange={(e) => {
                       handleChange(e);
                     }}
                   />
-                  {categoria.value}
+                  {categoria.nombre}
                 </label>
               </div>
             );
-          })}
-          <div className="" onClick={() => setFiltrar(!filtrar)}>
-            X
+          }):<Loader/> }
+          <div className="x" onClick={handleClick}>Aplicar</div>
+          <div className="x" onClick={() => setFiltrar(!filtrar)}>
+          <i className="fas fa-window-close"></i>
           </div>
+        </div> : <div className="categoriasFilter">
+        <div className="botonFiltro" onClick={() => setFiltrar(!filtrar)}>
+          Filtros
         </div>
-        <div className="">
-          {categoriasDisplay.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} />;
-          })}
+      </div>
+      }
+        <div className="listaProductos">
+          {productos.isLoaded ? productos.res.map((producto, i) => {
+            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+          }):<Loader/>}
         </div>
       </div>
     );
   }
-  return (
-    <div className="">
-      <div className="">
-        <div className="" onClick={() => setFiltrar(!filtrar)}>
-          Filtros
-        </div>
-      </div>
-      <div className="">
-        {categoriasDisplay.map((producto, i) => {
-          return <Producto producto={producto} key={i + "k"} />;
-        })}
-      </div>
-    </div>
-  );
-}
+
+

@@ -42,10 +42,10 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Producto,
   Categories,
-  Checkout,
-  Order,
+  Carrito,
+  LineaDeOrden,
   Reviews,
-  User,
+  Usuario,
 } = sequelize.models;
 
 // relacion producto-categoria
@@ -54,15 +54,15 @@ Categories.belongsToMany(Producto, { through: "producto_categoria" });
 // relacion producto-review
 Producto.hasMany(Reviews);
 //relacion usuario-review
-User.hasMany(Reviews);
-Reviews.belongsTo(User, { as: "usuario_creador" });
+Usuario.hasMany(Reviews);
+Reviews.belongsTo(Usuario, { as: "usuario_creador" });
 // relacion carrito-usuario
-User.hasMany(Checkout);
-Checkout.belongsTo(User, { as: "usuario_carrito" });
-Checkout.hasMany(Order);
+Usuario.hasMany(Carrito);
+Carrito.belongsTo(Usuario, { as: "usuario_carrito" });
+Carrito.hasMany(LineaDeOrden);
 //relacion carrito-producto
-Checkout.belongsToMany(Producto, { through: Order });
-Producto.belongsToMany(Checkout, { through: Order });
+Carrito.belongsToMany(Producto, { through: LineaDeOrden });
+Producto.belongsToMany(Carrito, { through: LineaDeOrden });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
