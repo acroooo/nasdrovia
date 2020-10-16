@@ -18,16 +18,16 @@ import FormulariosIngreso from '../FormulariosIngreso/FormulariosIngreso';
 
 export default function SearchBar() {
   //Hooks
-  const [redirect, setRedirect] = useState(false);
+
 
   const [search, setSearch] = useState({ query: "" });
   const [productos, setProductos] = useState({res:null, isLoaded:false})
+  const [data, setData] = useState({res:null, isLoaded:false})
   const [cat, setCat] = useState({res:null, isLoaded:false});
   const [formulario,setFormulario]=useState('inactivo');
   const [tipo,setTipo]=useState('');
 
   // ----- Funcionalidad ----
-  useEffect(() => setRedirect(false), [redirect]);
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -35,7 +35,7 @@ export default function SearchBar() {
   };
   const handleClick =() =>{
     Axios.get(`http://localhost:3001/search?busqueda=${search.query}`).then(data=>{
-      setProductos({res:data.data, isLoaded:true});
+      setData({res:data.data, isLoaded:true});
     })
     Axios.get('http://localhost:3001/categorias').then(data=>{
       setCat({
@@ -47,6 +47,11 @@ export default function SearchBar() {
       })
   })
   }
+  useEffect(()=>{
+    if(data.isLoaded){
+      setProductos(data);
+    }
+  },[data])
 
   return (
     <Container fluid>
@@ -71,31 +76,32 @@ export default function SearchBar() {
             <Button onClick={handleClick} variant="outline-info">
               {searchButton}
             </Button>
-        
+            </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
           
-          {/* <NavDropdown title={<i class="fas fa-user-circle"></i>} id="basic-nav-dropdown"> */}
+
+   
           <NavDropdown title={<i className="fas fa-user-cog"></i>} id="basic-nav-dropdown">
+          <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
           </NavDropdown>
-          
+      
           <div className='usuario-login d-flex align-items-center mt-1'>
           <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
            <p className='m-0 p-0 ml-2 text-white' >Log In</p>
           </div>
       
-        </Form>
+        
       </Navbar>
       <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
       {productos.isLoaded?
     <Results productos={productos}
     cat={cat}
     setCat={setCat}
-    setProductos={setProductos}/>
-    
-    
-    : <> </>
+    setProductos={setProductos}
+    data={data}
+    />: <> </>
       }
     </Container>
   );

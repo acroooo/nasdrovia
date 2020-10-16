@@ -10,8 +10,17 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     const [exito, setExito] = useState(false);//Se activa si hay exito en la validación del formulario
     const [spinner, setSpinner] = useState(false);//Spinner que se muestra después de ejecutar con exito el método axios
     const [catsEliminar,setCatsEliminar]=useState([]);//Ids con las categorias que toca eliminar de un producto
-    
-    
+    const [imagenes,setImagenes]=useState([])
+
+    // const almacenarImagenes = num=>{
+    //     /* setImagenes({...imagenes,imagenes:num}) */
+    //     let arrImagenes=[];
+    //     for(let i=0;i<num;i++){arrImagenes.push(i+1)}
+    //     setImagenes(arrImagenes)
+    // }
+   
+     
+
     //almacenar categorias del producto en el state para luego postearlas o editarlas
     const almacenarCategoria = categoria=>{
         if(categoria){
@@ -22,13 +31,14 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             }
         }
     }
-
+    
     //eliminar categorias de un producto del state antes de postearlo o editarlo
     const eliminarCategoria= (nombre,id)=>{
       const cate = cats.filter(c=>c.categoria!==nombre);
       setCats(cate);
-      setCatsEliminar([...catsEliminar,id])
-
+      setCatsEliminar([...catsEliminar,id]);
+      let select = document.getElementById('select-categorias');
+      select.value= cats.length===0 && 'Selecciona una categoría' ; 
     }
     
     //Datos del producto que se va a editar
@@ -40,7 +50,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
         accion === 'crear' && setProductoCrear({ ...productoCrear,id:n+1, [e.target.name]: e.target.value });
     }
     
-
+  let j=3;
     //Cierra el formulario y borrar el producto editado O creado del state
     const cerrarFormulario = () => {
         setProductoEditar({}); setProductoCrear({});
@@ -71,9 +81,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                  .then(() => console.log('publicado'))
                  .catch((err) => console.log(err))
             break; 
-       /*      case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
-                 .then(() => console.log('editado')).catch(() => console.log('error'))
-            break;  */
+            
              case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
             .then(()=>{
                 catsEliminar.length>0 && catsEliminar.forEach(n=>axios.delete((`http://localhost:3001/producto/${id}/categoria/${n}`)));
@@ -127,14 +135,22 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 value={descripcion}
             >
             </textarea>
-            <label className="mb-1">Imagen</label>
+          {/*   <select onChange={e=>almacenarImagenes(e.target.value)}>
+                <option value="">Selecciona el numero de imagenes</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select> */}
+           
+             <label className="mb-1">Imagen</label>
             <input
                 name='imagen'
                 type="text"
                 id='imagen'
                 onChange={almacenarProductoEditado}
                 value={imagen}
-            />
+            /> 
+
             <label className="mb-1">Stock</label>
             <input
                 name='stock'
@@ -145,7 +161,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             />
             <label className="mb-1">Categoria </label>
             <select id="select-categorias" onChange={(e)=>almacenarCategoria(e.target.value)}>
-            <option value='' id='actual'>Selecciona {cats.length>0 ? 'otra':'una'} categoria</option>
+            <option value='' id='actual' >Selecciona {cats.length>0 ? 'otra':'una'} categoria</option>
               {categorias.res.map((el,i)=>
             <option value={el.nombre}key={`categorias${i}`}> {mayuscula(el.nombre)}</option>
              )}

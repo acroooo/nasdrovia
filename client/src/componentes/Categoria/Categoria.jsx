@@ -10,6 +10,7 @@ export default function Categoria({
   cat,
   setCat,
   setProductos,
+  data
 }) {
   const [filtrar, setFiltrar] = useState(false);
 
@@ -27,10 +28,12 @@ export default function Categoria({
     let arr = [];
     cat.res.forEach(e => {
       if (e.select){
-        productos.res.forEach(prod => {
-          if(prod.categories[0].nombre === e.nombre){
+        data.res.forEach(prod => {
+        prod.categories.forEach(categorie => {
+          if(categorie.nombre === e.nombre){
             arr.push(prod)
           }
+        });
         });
       }
     });
@@ -41,6 +44,8 @@ export default function Categoria({
         })
       })
     
+  }else{
+    setProductos(data);
   }
 }
   return (
@@ -80,7 +85,7 @@ export default function Categoria({
       }
         <div className="listaProductos">
           {productos.isLoaded ? productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+            return <Producto producto={producto} key={i + "k"}/>;
           }):<Loader/>}
         </div>
       </div>
