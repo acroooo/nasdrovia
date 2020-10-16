@@ -5,6 +5,7 @@
     border: 1px solid #dad9d9;
     padding: 20px ;
     border-radius: 4px;
+    background-color: #fff;
 }
 .formulario-registro>.mensaje-bienvenida>h2{
     font-weight: normal;
@@ -61,7 +62,7 @@
     margin: auto;
     padding: 10px;
     border: none;
-    background:#015386;
+    background-color: #d30208;
     color: #fff;
     opacity: .8;
     transition: .4s all;

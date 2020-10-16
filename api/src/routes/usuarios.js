@@ -164,6 +164,26 @@ router.delete("/:idUser/cart", (req, res) => {
     .catch((err) => res.status(200).json({ Error: "Hubo un error", err }));
 });
 
+<<<<<<< HEAD
 //Editar carrito
+=======
+
+//Editar cantidad de items del carrito
+router.put("/:idUser/cart", (req, res) => {
+  const id = req.params.idUser;
+  let {cantidad} = req.body;
+
+  Carrito.findOne({ 
+    where: { id, estado: "En proceso" },
+    include: { model: LineaDeOrden }
+  }).then((respuesta) =>{
+    respuesta.lineaDeOrden.cantidad = cantidad;
+    console.log(respuesta);
+    res.send(respuesta)
+  }).catch((err) => res.status(404).json(err))
+});
+
+>>>>>>> 9db3a8b1b4c095dd3e107a7dbfd7b23b6140e743
 
 module.exports = router;
+

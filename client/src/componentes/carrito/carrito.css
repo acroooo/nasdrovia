@@ -1,0 +1,28 @@
+.resumen H3{
+    text-align: center;
+}
+.resumen {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    position: fixed;
+}
+.resumen .price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    float: right;
+}
+.resumen .text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 50%;
+    float: left;
+}
+.header {
+    text-align: center;
+    margin-top: 20px;
+}
+

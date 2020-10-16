@@ -78,6 +78,18 @@ export default function SearchBar() {
             </Button>
             </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
+<<<<<<< HEAD
+=======
+          
+
+   
+         
+          <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
+            <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
+            <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
+          </NavDropdown>
+      
+>>>>>>> 9db3a8b1b4c095dd3e107a7dbfd7b23b6140e743
           <div className='usuario-login d-flex align-items-center mt-1'>
           <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
           <p className='m-0 p-0 ml-2 text-white' >Log In</p>

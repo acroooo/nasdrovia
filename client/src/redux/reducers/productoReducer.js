@@ -1,4 +1,5 @@
 import {
+<<<<<<< HEAD
   GET_PRODUCTOS,
   GET_PRODUCTO_DETALLE,
   ADD_PRODUCTO,
@@ -6,6 +7,15 @@ import {
   MODIFY_PRODUCTO,
   REMOVE_PRODUCTO,
 } from "../actions/ActionTypes";
+=======
+    GET_PRODUCTOS,
+    GET_PRODUCTO_DETALLE,
+    ADD_PRODUCTO,
+    SEARCH_PRODUCTO,
+    MODIFY_PRODUCTO,
+    REMOVE_PRODUCTO
+} from '../actions/ActionTypes';
+>>>>>>> 9db3a8b1b4c095dd3e107a7dbfd7b23b6140e743
 
 const initialState = {
   TodosLosProductos: [],
@@ -27,6 +37,7 @@ export default function productoReducer(state = initialState, action) {
         TodosLosProductos: productos,
       };
 
+<<<<<<< HEAD
     case GET_PRODUCTO_DETALLE:
       return;
     case ADD_PRODUCTO:
@@ -47,3 +58,25 @@ export default function productoReducer(state = initialState, action) {
       return state;
   }
 }
+=======
+            case GET_PRODUCTO_DETALLE:
+                return;
+            case ADD_PRODUCTO:
+                return {
+                    ...state,
+                    Res: action.payload,
+                };
+            case SEARCH_PRODUCTO:
+                return;
+            case MODIFY_PRODUCTO:
+                return {
+                    ...state,
+                    Res: action.payload,
+                }
+            case REMOVE_PRODUCTO:
+                return;
+            default:
+                return state;
+    }
+}
+>>>>>>> 9db3a8b1b4c095dd3e107a7dbfd7b23b6140e743
