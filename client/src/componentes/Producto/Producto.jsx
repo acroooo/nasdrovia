@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Producto.css";
-import {useSelector, useDispatch} from 'react-redux';
+
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import Axios from "axios";
 
-//---------- Redux State
-// const suarioActual = useSelector(state => state.user);
-// const currentCart = useSelector(state => state.cart.currentCart);
-// const productoStore = useSelector(state => state.productos);
-// const dispatch = useDispatch();
+
 
 //--------------React State
 const Producto = (props) => {
