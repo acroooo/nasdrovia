@@ -9,7 +9,7 @@ const FormulariosIngreso = ({formulario,setFormulario,setTipo,tipo})=>{
 
     return formulario==='activo'&&(
           <div className="contenedor-formularios">
-            <p className='salir' onClick={()=>setFormulario('inactivo')}>X</p>
+            <p className='salir text-white' onClick={()=>setFormulario('inactivo')}>X</p>
                {tipo === 'registrar' && <Registro  setTipo={setTipo}/>}
                {tipo === 'ingresar' &&  <Login setTipo={setTipo}/>}
             

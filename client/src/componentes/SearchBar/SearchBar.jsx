@@ -81,7 +81,7 @@ export default function SearchBar() {
           
 
    
-          <NavDropdown title={<i className="fas fa-user-cog"></i>} id="basic-nav-dropdown">
+         
           <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
