@@ -54,37 +54,14 @@ export default function Card ({producto, importance}) {
             translateY:0,  
         })
     }
-    function handleClick(){
-    const tl = anime.timeline();
-        tl.add(
-            {
-            targets:`#carro${nombreR}`,
-            scale: [{value: 1}, {value: 1.4}, {value: 0.6, delay: 250}],
-            rotateY: 4320,
-            translateY:-350,
-            opacity:[{value:1},{value:0, delay:250}],
-            easing: 'easeInOutSine',
-            duration: 200,
-        }
-        );
-        tl.add({
-        targets:`#carro${nombreR}`,
-        rotateY:0,
-        translateY:0,
-        scale:1,
-        opacity:{value:1,delay:400},
-        easing: 'easeInOutSine',
-        duration:200,
-    })
     
-    }
     return (
         
-        <div  className="card-css" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
-            <div id={`carro${nombreR}`} className="carro">
+        <div className="card-css-container" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
+        <div  className="card-css">
+            <div  className="carro" id={`carro-full${nombreR}`}>
             <CarroBoton
-            handleClick={handleClick}
-                nombreR={nombreR}
+            nombreR={nombreR}
             />
             </div>
             <Link to={`/producto/${id}`} className="link">
@@ -112,11 +89,9 @@ export default function Card ({producto, importance}) {
             <h5 className="stock">Stock:{stock}</h5>
             </div>
             </Link>
+            </div>  
         </div>
         
         
     )
 }
-
-
-

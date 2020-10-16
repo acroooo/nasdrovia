@@ -4,112 +4,121 @@ import {
     GET_VISITANTE_CARRITO,
     POST_VISITANTE_CARRITO,
     EDITAR_VISITANTE_CARRITO,
-    DELETE_CARRITO
-} from './ActionTypes';
-import axios from 'axios';
-
+    DELETE_CARRITO,
+    PUT_CATEGORIA,
+} from "./ActionTypes";
+import axios from "axios";
 
 //NO TOCAR - MODIFICANDO EN BASE A RUTAS
-// //get a Usuario
-// export const getProductoDetalle = (id) => (dispatch) => {
-//     axios.get(`http://localhost:3001/producto/${id}`)
-//     .then((res) => {
-//         const productoId = res.data;
-        
-//         dispatch({
-//             type: GET_PRODUCTO_DETALLE,
-//             payload: productoId,
-//     })
 
-//     dispatch(getProductos());
-//     })
-//     .catch((err) => {
-//         const error = err.res.data;
-//         dispatch(error);
-//     });
-// }
 
-// //post a usuario
-// export const addProducto = (id, body) => (dispatch) => {
-//     axios.post(`http://localhost:3001/producto/${id}`, body)
-//     .then((res) => {
-//         const añadirProd = res.data;
+//Esta esta totalmente incompleta, 
+export const getUsuarioCarrito = (idUser, body) => (dispatch) => {
+  axios.get(`http://localhost:3001/usuarios/${idUser}/cart`, body) //falta url
+    .then((res) => {
+        const payload = {
+        //payload => esperando rutas funcionales
+    };
+        dispatch({
+            type: GET_USUARIO_CARRITO,
+            payload: payload,
+    });
+      //Dispatch?
+    })
+    .catch((err) => {
+        const error = err.res.data;
+        dispatch(error);
+    });
+};
 
-//         dispatch({
-//             type: ADD_PRODUCT,
-//             payload: añadirProd,
-//         })
+//post a usuario
+//revisar que este bien igual que las demas.
+export const postUsuarioCarrito = (idUser, body) => (dispatch) => {
+  axios
+    .post(`http://localhost:3001/usuarios/${idUser}/cart`, body)
+    .then((res) => {
+      const postCarrito = res.data;
 
-//         dispatch(getProductos());
-//     })
+      dispatch({
+        type: POST_USUARIO_CARRITO,
+        payload: postCarrito,
+      });
 
-//     .catch((err) => {
-//         const error = err.respuesta.data;
-//         dispatch(error);
-//     })
-// }
+      dispatch(postUsuarioCarrito());
+    })
 
-// //get a visitante
-// export const getProductoDetalle = (id) => (dispatch) => {
-//     axios.get(`http://localhost:3001/producto/${id}`)
-//     .then((res) => {
-//         const productoId = res.data;
-        
-//         dispatch({
-//             type: GET_PRODUCTO_DETALLE,
-//             payload: productoId,
-//     })
+    .catch((err) => {
+      const error = err.res.data;
+      dispatch(error);
+    });
+};
 
-//     dispatch(getProductos());
-//     })
-//     .catch((err) => {
-//         const error = err.res.data;
-//         dispatch(error);
-//     });
-// }
+//get a visitante
+export const getVisCarrito = (idUser) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/usuarios/${idUser}/cart`)
+    .then((res) => {
+      const getVisCarro = res.data;
 
-// //post a carrito
-// export const addProducto = (id, body) => (dispatch) => {
-//     axios.post(`http://localhost:3001/producto/${id}`, body)
-//     .then((res) => {
-//         const añadirProd = res.data;
+      dispatch({
+        type: GET_VISITANTE_CARRITO,
+        payload: getVisCarro,
+      });
 
-//         dispatch({
-//             type: ADD_PRODUCT,
-//             payload: añadirProd,
-//         })
+      dispatch(getVisCarrito());
+    })
+    .catch((err) => {
+      const error = err.res.data;
+      dispatch(error);
+    });
+};
 
-//         dispatch(getProductos());
-//     })
+//post a carrito
+export const postVisCarrito = (idUser, body) => (dispatch) => {
+  axios
+    .post(`http://localhost:3001/usuarios/${idUser}/cart`, body)
+    .then((res) => {
+      const postVisCarro = res.data;
 
-//     .catch((err) => {
-//         const error = err.respuesta.data;
-//         dispatch(error);
-//     })
-// }
+      dispatch({
+        type: POST_VISITANTE_CARRITO,
+        payload: postVisCarro,
+      });
 
-// //put a visitante
-// axios.put(`http://localhost:3001/producto/${id}`, body)
-// .then((res) => {
-//     const modificarProd = res.data;
+      dispatch(postVisCarrito());
+    })
 
-//     dispatch({
-//         type: MODIFY_PRODUCTO,
-//         payload: modificarProd,
-//         })
+    .catch((err) => {
+      const error = err.res.data;
+      dispatch(error);
+    });
+};
 
-//         dispatch(getProductos());
-// })
+//put a visitante
+export const putVisCarrito = (idUser, body) => (dispatch) => {
+  axios
+    .put(`http://localhost:3001/usuarios/${idUser}/cart`, body)
+    .then((res) => {
+      const modificarVisC = res.data;
 
-// .catch((err) => {
-//     const error = err.respuesta.data;
-//     dispatch(error);
-// })
+      dispatch({
+        type: EDITAR_VISITANTE_CARRITO,
+        payload: modificarVisC,
+      });
+
+      dispatch(putVisCarrito());
+    })
+
+    .catch((err) => {
+      const error = err.respuesta.data;
+      dispatch(error);
+    });
+};
 
 //delete carrito
 export const deleteProducto = () => (dispatch) => {
-    dispatch({
-        type: DELETE_CARRITO,
-        payload: null,
-    });
+  dispatch({
+    type: DELETE_CARRITO,
+    payload: null,
+  });
 };

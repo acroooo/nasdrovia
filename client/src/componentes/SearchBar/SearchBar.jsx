@@ -14,20 +14,18 @@ import {
 import "./SearchBar.css";
 import Results from "../Categoria/Categoria";
 import Axios from "axios";
+import FormulariosIngreso from '../FormulariosIngreso/FormulariosIngreso';
 
 export default function SearchBar() {
   //Hooks
 
-<<<<<<< HEAD
-  const [search, setSearch] = useState({ query: "" });
-  const [redirect, setRedirect] = useState(false);
-=======
 
   const [search, setSearch] = useState({ query: "" });
   const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [data, setData] = useState({res:null, isLoaded:false})
   const [cat, setCat] = useState({res:null, isLoaded:false});
->>>>>>> e3e28816082eb23bec8664f2d67bf11aa956e718
+  const [formulario,setFormulario]=useState('inactivo');
+  const [tipo,setTipo]=useState('');
 
   // ----- Funcionalidad ----
 
@@ -57,6 +55,7 @@ export default function SearchBar() {
 
   return (
     <Container fluid>
+      
       <Navbar className="navbar-custom" variant="dark">
         <Navbar.Brand href="/productos">
           <img
@@ -66,20 +65,6 @@ export default function SearchBar() {
             height="90px"
           />
         </Navbar.Brand>
-<<<<<<< HEAD
-        <Nav className="mr-auto">
-          <Nav.Link href="#inicio">Inicio</Nav.Link>
-          <NavDropdown title="Cervezas" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#">Scotch</NavDropdown.Item>
-            <NavDropdown.Item href="#">Honey</NavDropdown.Item>
-            <NavDropdown.Item href="#">Ipa</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#">Ver más</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link href="http://localhost:3000/productos">Tienda</Nav.Link>
-        </Nav>
-=======
->>>>>>> e3e28816082eb23bec8664f2d67bf11aa956e718
         <Form inline>
           <FormControl
             type="search"
@@ -91,33 +76,32 @@ export default function SearchBar() {
             <Button onClick={handleClick} variant="outline-info">
               {searchButton}
             </Button>
-<<<<<<< HEAD
-          </Link>
-          <div class="carrito">{cartButton}</div>
-
-          <div class="usuario">{userButton}</div>
-=======
-        
+            </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
           
+
+   
+          <NavDropdown title={<i className="fas fa-user-cog"></i>} id="basic-nav-dropdown">
           <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
           </NavDropdown>
-          <div className="usuario"></div>
       
->>>>>>> e3e28816082eb23bec8664f2d67bf11aa956e718
-        </Form>
+          <div className='usuario-login d-flex align-items-center mt-1'>
+          <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
+           <p className='m-0 p-0 ml-2 text-white' >Log In</p>
+          </div>
+      
+        
       </Navbar>
+      <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
       {productos.isLoaded?
-      <Redirect exact path={`/search/${search.query}`}>
     <Results productos={productos}
     cat={cat}
     setCat={setCat}
     setProductos={setProductos}
     data={data}
-    />
-    </Redirect>: <> </>
+    />: <> </>
       }
     </Container>
   );

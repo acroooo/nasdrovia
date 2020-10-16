@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import Producto from "../ProductCard/card";
-import "./Categoria.css";
-import { categorias, productos } from "./menu_producto";
-=======
 import React, { useState } from "react";
 import Producto from "../ProductCard/card";
 import "./Categoria.css";
 import Loader from "../Loader/Loader";
 import produce from "immer";
->>>>>>> e3e28816082eb23bec8664f2d67bf11aa956e718
 
 
 export default function Categoria({
@@ -36,11 +29,11 @@ export default function Categoria({
     cat.res.forEach(e => {
       if (e.select){
         data.res.forEach(prod => {
-         prod.categories.forEach(categorie => {
+        prod.categories.forEach(categorie => {
           if(categorie.nombre === e.nombre){
             arr.push(prod)
           }
-         });
+        });
         });
       }
     });
@@ -92,11 +85,9 @@ export default function Categoria({
       }
         <div className="listaProductos">
           {productos.isLoaded ? productos.res.map((producto, i) => {
-            return <Producto producto={producto} key={i + "k"} importance={i}/>;
+            return <Producto producto={producto} key={i + "k"}/>;
           }):<Loader/>}
         </div>
       </div>
     );
   }
-
-
