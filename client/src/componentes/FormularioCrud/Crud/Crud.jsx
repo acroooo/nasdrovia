@@ -10,14 +10,20 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     const [exito, setExito] = useState(false);//Se activa si hay exito en la validación del formulario
     const [spinner, setSpinner] = useState(false);//Spinner que se muestra después de ejecutar con exito el método axios
     const [catsEliminar,setCatsEliminar]=useState([]);//Ids con las categorias que toca eliminar de un producto
-    const [imagenes,setImagenes]=useState([])
+    const [numImagenes,setNumImagenes]=useState(0);
+    const [urls,setUrls]=useState({});
 
-    // const almacenarImagenes = num=>{
-    //     /* setImagenes({...imagenes,imagenes:num}) */
-    //     let arrImagenes=[];
-    //     for(let i=0;i<num;i++){arrImagenes.push(i+1)}
-    //     setImagenes(arrImagenes)
-    // }
+    //Almacena el número de imagnes que va a tener el producto
+    const almacenarImagenes = num=>{
+        setNumImagenes(parseInt(num));
+        setUrls({});
+    }
+
+    //Alamacena las urls de las imagenes con sus respectivo id
+    const almacenarUlrs = e=>{
+        setUrls({...urls,[e.target.name]:e.target.value})
+        console.log(e.target.value)
+    }
    
      
 
@@ -112,7 +118,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
             <h4 className="d-flex align-items-center justify-content-between mb-3">
                 {accion === 'editar' ? 'Editar' : 'Crear'} Producto <small id="cerrar" className="font-weight-bold" onClick={cerrarFormulario}>X</small> </h4>
             {error && <p className="error-producto text-white text-center" id='error-producto'> Todos los campos son obligatorios </p>}
-            <label className="mb-1" >Código</label>
+            <label className="mb-1 " >Código</label>
             <input
                 name='id'
                 type="number"
@@ -135,12 +141,39 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 value={descripcion}
             >
             </textarea>
-          {/*   <select onChange={e=>almacenarImagenes(e.target.value)}>
+          {/*   <select className='mb-2' onChange={e=>almacenarImagenes(e.target.value)}>
                 <option value="">Selecciona el numero de imagenes</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-            </select> */}
+            </select>  */}
+        {/*   {numImagenes===1 && (<div>
+              <label className="mb-1 w-100">Imagen 1</label>
+             <input className='w-100' name='1' onChange={e=>almacenarUlrs(e)}/> 
+             </div>
+          )}
+
+          {numImagenes===2 && (
+              <div>
+                  <label className="mb-1 w-100">Imagen 1</label>
+                   <input className='w-100'name='1' onChange={e=>almacenarUlrs(e)} />
+                   <label className="mb-1 w-100">Imagen 2</label>
+                   <input className='w-100' name='2' onChange={e=>almacenarUlrs(e)}/>
+              </div>
+          )}
+
+          {numImagenes===3 && (
+              <div>
+                   <label className="mb-1 w-100">Imagen 1</label>
+                   <input className='w-100' name='1' onChange={e=>almacenarUlrs(e)}/>
+                   <label className="mb-1 w-100">Imagen 2</label>
+                   <input className='w-100' name='2' onChange={e=>almacenarUlrs(e)}/>
+                   <label className="mb-1 w-100">Imagen 3</label>
+                   <input className='w-100' name='3' onChange={e=>almacenarUlrs(e)}/>
+              </div>
+          )} */}
+
+
            
              <label className="mb-1">Imagen</label>
             <input
@@ -149,7 +182,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 id='imagen'
                 onChange={almacenarProductoEditado}
                 value={imagen}
-            /> 
+            />  
 
             <label className="mb-1">Stock</label>
             <input

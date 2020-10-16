@@ -83,7 +83,10 @@
     width: 95%;
     cursor: pointer;
 }
-
+.error{
+    background-color: #d30208;
+    border-radius: 2px;
+}
 
 
 

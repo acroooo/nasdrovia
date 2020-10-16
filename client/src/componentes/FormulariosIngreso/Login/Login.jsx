@@ -1,28 +1,51 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './Login.css';
 
-const Login = ({setTipo})=>{
+const Login = ({setTipo,setUsuario,setFormulario})=>{
+
+
+    const [datosAdmin,setDatosAdmin]=useState({});
+  
+    
+    const handleChange = e=>{
+        setDatosAdmin({...datosAdmin,[e.target.name]:e.target.value})
+    }
+    const handleSubmit = e=>{
+        e.preventDefault();
+        const{email,contraseña,contraseña2}=datosAdmin;
+        if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia' && contraseña2==='nasdrovia'){
+            setUsuario('admin');
+            e.target.reset();
+            setFormulario('inactivo')
+        }
+    }
+
+ 
+
+
+
     return(
-        <form className='formulario-login'>
+        <form className='formulario-login' onSubmit={handleSubmit}>
                <div className="mensaje-bienvenida mb-5">
                 <h2 className='mb-4'>Iniciar Sesión</h2>
-                <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
+               <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
+             
                 </div>
 
                 <div className="grupo-formulario">
-                    <input type="text" required/>
+                    <input type="text" name='email' required onChange={handleChange}/>
                     <label className='etiqueta' >Email</label>
                     <i className="fas fa-envelope"></i>
                 </div>
                 
                 <div className="grupo-formulario">                 
-                    <input type="password" required/>
+                    <input type="password" name='contraseña' required onChange={handleChange}/>
                     <label className='etiqueta'>Contraseña</label>
                     <i className="fas fa-unlock"></i>
                 </div>
 
                 <div className="grupo-formulario">
-                    <input type="password"  required/>
+                    <input type="password" name='contraseña2'  required onChange={handleChange}/>
                     <label className='etiqueta' >Repetir contraseña</label>
                     <i className="fas fa-lock"></i>
                 </div>
