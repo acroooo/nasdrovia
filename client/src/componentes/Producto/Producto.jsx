@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Producto.css";
+
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import Axios from "axios";
+
 
 const Producto = (props) => {
   const [cant, setCant] = useState(0);

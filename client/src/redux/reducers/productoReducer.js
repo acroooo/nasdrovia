@@ -1,49 +1,50 @@
 import {
-    GET_PRODUCTOS,
-    GET_PRODUCTO_DETALLE,
-    ADD_PRODUCTO,
-    SEARCH_PRODUCTO,
-    MODIFY_PRODUCTO,
-    REMOVE_PRODUCTO
-} from '../actions/ActionTypes';
+  GET_PRODUCTOS,
+  GET_PRODUCTO_DETALLE,
+  ADD_PRODUCTo,
+  SEARCH_PRODUCTO,
+  MODIFY_PRODUCTO,
+  REMOVE_PRODUCTO,
+  ADD_PRODUCTO,
+} from "../actions/ActionTypes";
 
 const initialState = {
-    TodosLosProductos: [],
-    Res: {}
-}
+  TodosLosProductos: [],
+  Res: {},
+};
 export default function productoReducer(state = initialState, action) {
-    switch (action.type){
-        case GET_PRODUCTOS:
-            const productos = action.payload.map((p) => ({
-                id: p.id,
-                nombre: p.nombre,
-                precio: p.precio,
-                stock: p.stock,
-                imagen: p.imagen,
-                descripcion: p.descripcion,
-            }))
-            return {
-                ...state,
-                TodosLosProductos: productos,
-            };
+  switch (action.type) {
+    case GET_PRODUCTOS:
+      const productos = action.payload.map((p) => ({
+        id: p.id,
+        nombre: p.nombre,
+        precio: p.precio,
+        stock: p.stock,
+        imagen: p.imagen,
+        descripcion: p.descripcion,
+      }));
+      return {
+        ...state,
+        TodosLosProductos: productos,
+      };
 
-            case GET_PRODUCTO_DETALLE:
-                return;
-            case ADD_PRODUCTO:
-                return {
-                    ...state,
-                    Res: action.payload,
-                };
-            case SEARCH_PRODUCTO:
-                return;
-            case MODIFY_PRODUCTO:
-                return {
-                    ...state,
-                    Res: action.payload,
-                }
-            case REMOVE_PRODUCTO:
-                return;
-            default:
-                return state;
-    }
+    case GET_PRODUCTO_DETALLE:
+      return;
+    case ADD_PRODUCTO:
+      return {
+        ...state,
+        Res: action.payload,
+      };
+    case SEARCH_PRODUCTO:
+      return;
+    case MODIFY_PRODUCTO:
+      return {
+        ...state,
+        Res: action.payload,
+      };
+    case REMOVE_PRODUCTO:
+      return;
+    default:
+      return state;
+  }
 }
