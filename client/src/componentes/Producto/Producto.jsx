@@ -5,8 +5,6 @@ import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import Axios from "axios";
 
 
-
-//--------------React State
 const Producto = (props) => {
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({ res: {}, isLoaded: false }); //estado actual
