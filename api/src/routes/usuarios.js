@@ -95,6 +95,22 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/", (req, res) => {
+  Usuario.findAll()
+    .then((usuarios) => res.send(usuarios))
+    .catch((err) => {
+      return res.status(400).send(err);
+    })
+})
+
+router.delete("/:id", (req, res) => {
+  let { id } = req.params;
+  Usuario.destroy({ where: { id } }).then((response) => {
+    if (response === 0) res.status(400);
+    else res.status(201).send("borrado");
+  }).catch((err) => res.status(400).send(err.message))
+})
+
 /* -------------------CARRITO------------------ */
 
 //AÚN ESTÁN EN PROCESO
@@ -170,12 +186,12 @@ router.delete("/:idUser/cart", (req, res) => {
 //Editar cantidad de items del carrito
 router.put("/:idUser/cart", (req, res) => {
   const id = req.params.idUser;
-  let {cantidad} = req.body;
+  let { cantidad } = req.body;
 
-  Carrito.findOne({ 
+  Carrito.findOne({
     where: { id, estado: "En proceso" },
     include: { model: LineaDeOrden }
-  }).then((respuesta) =>{
+  }).then((respuesta) => {
     respuesta.lineaDeOrden.cantidad = cantidad;
     console.log(respuesta);
     res.send(respuesta)
@@ -184,4 +200,3 @@ router.put("/:idUser/cart", (req, res) => {
 
 
 module.exports = router;
-
