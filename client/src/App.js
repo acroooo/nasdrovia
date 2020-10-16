@@ -2,16 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import SearchBar from "./componentes/SearchBar/SearchBar.jsx";
+import SearchBar from "./componentes/SearchBar/navBar.jsx";
 import Shop from "./componentes/Categoria/Shop";
 import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
+import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
-
 
 export default function App() {
   return (
@@ -24,8 +24,12 @@ export default function App() {
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
           <Route exact path="/producto/:id" component={Producto} />
           <Route exact path="/formulario-crud" component={FormularioCrud} />
+     <Route exact path="/carrito" component={Carrito} />
         </Switch>
       </Router>
     </div>
   );
 }
+
+         
+
