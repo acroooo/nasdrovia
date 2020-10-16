@@ -9,6 +9,7 @@ export default function Icons() {
 
     const [formulario,setFormulario]=useState('inactivo');
     const [tipo,setTipo]=useState('');
+    const [usuario,setUsuario]=useState('');
 
     return (
         <div className="ui-css">
@@ -18,10 +19,10 @@ export default function Icons() {
         <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
         </NavDropdown>
        <div className='usuario-login d-flex align-items-center mt-1'>
-           <i className="fas fa-user-circle pb-2 mr-4" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
-           
+           <i className="fas fa-user-circle pb-2 mr-2" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
+           <p className='mr-5 text-white mb-2'>{usuario}</p>
        </div> 
-       <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
+       <FormulariosIngreso setUsuario={setUsuario} setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
 
         </div>
     )
