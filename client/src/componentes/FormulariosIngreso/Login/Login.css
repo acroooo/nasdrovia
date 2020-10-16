@@ -76,6 +76,12 @@
 .formulario-login>button:active{
     transform: scale(.98);
 }
+.formulario-login>small{
+    text-align: start;
+    display: inline-block;
+    width: 95%;
+    cursor: pointer;
+}
 
 
 

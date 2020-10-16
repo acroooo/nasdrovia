@@ -1,18 +1,12 @@
 import React from 'react';
 import './Login.css';
 
-const Login = ()=>{
+const Login = ({setTipo})=>{
     return(
         <form className='formulario-login'>
                <div className="mensaje-bienvenida mb-5">
-                <h2>Regístrate</h2>
-                <p>¿Ya tienes un perfil personal? <span>Iniciar sesión</span></p>
-                </div>
-
-                <div className="grupo-formulario">
-                    <input type="text" required/>
-                    <label className='etiqueta'>Nombre</label>
-                    <i className="fas fa-user"></i>
+                <h2 className='mb-4'>Iniciar Sesión</h2>
+                <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
                 </div>
 
                 <div className="grupo-formulario">
@@ -32,10 +26,9 @@ const Login = ()=>{
                     <label className='etiqueta' >Repetir contraseña</label>
                     <i className="fas fa-lock"></i>
                 </div>
+                <small>¿Olvidaste la contraseña?</small>
 
-                <button className='mt-3'>Registrate</button>
-
-        
+                <button className='mt-3'>Iniciar sesión</button>
         </form>
     )
 };

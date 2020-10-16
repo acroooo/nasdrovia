@@ -23,7 +23,8 @@ export default function SearchBar() {
   const [search, setSearch] = useState({ query: "" });
   const [productos, setProductos] = useState({res:null, isLoaded:false})
   const [cat, setCat] = useState({res:null, isLoaded:false});
-  const [formulario,setFormulario]=useState({estado:'inactivo',accion:''});
+  const [formulario,setFormulario]=useState('inactivo');
+  const [tipo,setTipo]=useState('');
 
   // ----- Funcionalidad ----
   useEffect(() => setRedirect(false), [redirect]);
@@ -80,13 +81,13 @@ export default function SearchBar() {
           </NavDropdown>
           
           <div className='usuario-login d-flex align-items-center mt-1'>
-          <i className="fas fa-user-circle" onClick={()=>setFormulario({...formulario,estado:'activo'})}></i>
+          <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
            <p className='m-0 p-0 ml-2 text-white' >Log In</p>
           </div>
       
         </Form>
       </Navbar>
-      <FormulariosIngreso accion={formulario} setAccion={setFormulario}/>
+      <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
       {productos.isLoaded?
     <Results productos={productos}
     cat={cat}
