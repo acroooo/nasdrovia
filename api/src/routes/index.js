@@ -2,9 +2,9 @@ const express = require("express");
 // import all routers;
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
-
 const Usuario = require("./usuarios");
 const Carrito = require("./carrito");
+const Admin = require("./admin");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
 const router = express();
@@ -15,6 +15,7 @@ router.use("/producto", ProductoRuta);
 router.use("/categorias", Categorias);
 router.use("/usuario", Usuario);
 router.use("/ordenes", Carrito);
+router.use("/admin",Admin);
 
 //prettier-ignore
 router.get("/search", (req, res) => {
