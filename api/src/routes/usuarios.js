@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
 
+
 router.post("/", async (req, res, next) => {
   let { nombre, rol, email, contrasena } = req.body;
   if (nombre && email && contrasena) {
@@ -95,78 +96,18 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-/* -------------------CARRITO------------------ */
-
-//AÚN ESTÁN EN PROCESO
-//Agregar al carrito
-
-router.post("/:idUser/cart", async (req, res) => {
-  const { idUser } = req.params;
-  const {
-    nombre,
-    apellido,
-    pais,
-    ciudad,
-    direccion,
-    codigoPostal,
-    telefono,
-    tipoEnvio,
-    estado,
-  } = req.body;
-
-  const item = await Carrito.findOne({
-    where: { id: idUser, estado: "En proceso" },
+router.get("/:id/ordenes", async(req, res) =>{
+  let user_id  = req.params.id
+  //todas las ordenes del usuario
+  const todas_las_ordenes = await Carrito.findAll({
+    where: { id: user_id },
+    include: LineaDeOrden,
   });
-
-  if (item) return res.status(400).send("El usuario tiene un carrito");
-
-  Carrito.create(
-    {
-      id: idUser,
-      nombre,
-      apellido,
-      pais,
-      ciudad,
-      direccion,
-      codigoPostal,
-      telefono,
-      tipoEnvio,
-      estado,
-    },
-    { include: [{ model: Usuario }] }
-  )
-    .then((respuesta) => {
-      respuesta.productos = [];
-      respuesta.lineaDeOrden = [];
-      res.send(respuesta);
-    })
-    .catch((err) =>
-      res.status(400).json({ Error: "Hubo un error" + err.message })
-    );
-});
-
-//Obtener items del carrito
-router.get("/:idUser/cart", (req, res) => {
-  const { idUser } = req.params;
-
-  Carrito.findOne({
-    where: { id: idUser, estado: "En proceso" },
-    include: [{ model: LineaDeOrden }, { model: Producto }],
-  }).then((item) => {
-    if (!item) return res.status(400).json("El carrito se encuentra vacio");
-    else return res.send(item);
-  });
-});
-
-//Vaciar carrito
-router.delete("/:idUser/cart", (req, res) => {
-  const id = req.params.idUser;
-  Carrito.destroy({ where: { id, estado: "En proceso" } })
-    .then((items) => res.status(200).send("Se vacio el carrito"))
-    .catch((err) => res.status(200).json({ Error: "Hubo un error", err }));
-});
-
-//Editar carrito
-router.put();
+  if(todas_las_ordenes){
+    res.status(200).json(todas_las_ordenes)
+  }else{
+    res.status(200).json({error: "El usuario no posee ordenes"})
+  }
+})
 
 module.exports = router;
