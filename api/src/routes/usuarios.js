@@ -176,6 +176,7 @@ router.put("/:idUser/cart", (req, res) => {
     include: { model: LineaDeOrden }
   }).then((respuesta) =>{
     respuesta.lineaDeOrden.cantidad = cantidad;
+    console.log(respuesta);
     res.send(respuesta)
   }).catch((err) => res.status(404).json(err))
 });
