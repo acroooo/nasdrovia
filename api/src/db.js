@@ -58,7 +58,7 @@ Usuario.hasMany(Reviews);
 Reviews.belongsTo(Usuario, { as: "usuario_creador" });
 // relacion carrito-usuario
 Usuario.hasMany(Carrito);
-Carrito.belongsTo(Usuario, { as: "usuario_carrito" });
+Carrito.belongsTo(Usuario);
 Carrito.hasMany(LineaDeOrden);
 //relacion carrito-producto
 Carrito.belongsToMany(Producto, { through: LineaDeOrden });

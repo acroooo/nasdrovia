@@ -6,15 +6,15 @@ const Usuarios = require("./usuarios");
 const Carrito = require("./carrito");
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
-const Ordenes = require("./ordenes")
+const Ordenes = require("./ordenes");
 const app = express();
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
 app.use("/producto", ProductoRuta);
 app.use("/categorias", Categorias);
-app.use("/usuarios", Usuarios)
-app.use("/ordenes", Ordenes)
+app.use("/usuarios", Usuarios);
+app.use("/ordenes", Ordenes);
 
 //prettier-ignore
 app.get("/search", (req, res) => {
