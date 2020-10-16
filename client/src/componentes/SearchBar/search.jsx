@@ -23,3 +23,4 @@ export default function SearchBar({handleClick, handleChange}) {
     </Button>
     </Form>
     );
+}
