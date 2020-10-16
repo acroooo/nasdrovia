@@ -28,3 +28,13 @@
 .usuario {
   margin-left: 15px;
 }
+.usuario-login {
+  color: #e6e6e6;
+}
+
+.fa-user-circle{
+  font-size: 24px;
+  border-radius: 100%;
+  font-size: 28px;
+ 
+}
