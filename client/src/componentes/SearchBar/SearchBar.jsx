@@ -79,9 +79,6 @@ export default function SearchBar() {
             </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
           
-
-   
-          <NavDropdown title={<i className="fas fa-user-cog"></i>} id="basic-nav-dropdown">
           <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
@@ -91,8 +88,7 @@ export default function SearchBar() {
           <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
            <p className='m-0 p-0 ml-2 text-white' >Log In</p>
           </div>
-      
-        
+
       </Navbar>
       <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
       {productos.isLoaded?
