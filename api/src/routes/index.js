@@ -2,6 +2,7 @@ const express = require("express");
 // import all routers;
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
+
 const Usuario = require("./usuarios");
 const Carrito = require("./carrito");
 const { Op } = require("sequelize");
@@ -17,6 +18,7 @@ router.use("/ordenes", Carrito);
 
 //prettier-ignore
 router.get("/search", (req, res) => {
+
   const query = req.query;
     Producto.findAll({
       where: {
@@ -35,4 +37,5 @@ router.get("/search", (req, res) => {
 });
 
 module.exports = router;
+
 

@@ -7,24 +7,28 @@ export default function CarroBoton({nombreR}){
     useEffect(()=>{
         if(cantidad===0){
             const tl = anime.timeline();
+            anime.remove(`#carroBotonMin${nombreR}`)
             tl.add({
                 targets:`#carroBotonMin${nombreR}`,
                 opacity:0,
                 delay:-200,
                 duration:100,
             })
+            anime.remove(`#cantidadCarro${nombreR}`)
             tl.add({
                 targets:`#cantidadCarro${nombreR}`,
                 opacity:0,
                 delay:-200,
                 duration:100
             })
+            anime.remove(`#carro${nombreR}`)
             tl.add({
                 targets:`#carro${nombreR}`,
                 marginLeft:-12,
                 delay:-200,
                 duration:0,
             })
+            anime.remove(`#carro-full${nombreR}`)
             tl.add({
                 targets:`#carro-full${nombreR}`,
                 width:80,
@@ -46,13 +50,14 @@ export default function CarroBoton({nombreR}){
             tl2.add({
                 targets:`#carroBotonMin${nombreR}`,
                 opacity:1,
-                duration:100
+                duration:100,
+                delay:-25,
             })
             tl2.add({
                 targets:`#cantidadCarro${nombreR}`,
                 opacity:1,
                 duration:100,
-                
+                delay:-25,
             })
         }
         if(cantidad<0){

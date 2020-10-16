@@ -95,6 +95,3 @@ export default function Card ({producto, importance}) {
         
     )
 }
-
-
-

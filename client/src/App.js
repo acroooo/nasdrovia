@@ -6,9 +6,9 @@ import SearchBar from "./componentes/SearchBar/navBar.jsx";
 import Shop from "./componentes/Categoria/Shop";
 import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
+import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
-import Carrito from "./componentes/carrito/carrito";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -24,9 +24,12 @@ export default function App() {
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
           <Route exact path="/producto/:id" component={Producto} />
           <Route exact path="/formulario-crud" component={FormularioCrud} />
-          <Route exact path="/carrito" component={Carrito} />
+     <Route exact path="/carrito" component={Carrito} />
         </Switch>
       </Router>
     </div>
   );
 }
+
+         
+
