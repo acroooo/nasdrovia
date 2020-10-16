@@ -1,7 +1,7 @@
 import {
     GET_PRODUCTOS,
     GET_PRODUCTO_DETALLE,
-    ADD_PRODUCT,
+    ADD_PRODUCTO,
     SEARCH_PRODUCTO,
     MODIFY_PRODUCTO,
     REMOVE_PRODUCTO
@@ -29,7 +29,7 @@ export default function productoReducer(state = initialState, action) {
 
             case GET_PRODUCTO_DETALLE:
                 return;
-            case ADD_PRODUCT:
+            case ADD_PRODUCTO:
                 return {
                     ...state,
                     Res: action.payload,
