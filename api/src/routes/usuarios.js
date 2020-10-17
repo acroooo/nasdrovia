@@ -117,48 +117,52 @@ router.delete("/:id", (req, res) => {
 //Agregar al carrito
 
 router.post("/:idUser/cart", async (req, res) => {
-  const { idUser } = req.params;
-  const {
-    nombre,
-    apellido,
-    pais,
-    ciudad,
-    direccion,
-    codigoPostal,
-    telefono,
-    tipoEnvio,
-    estado,
-  } = req.body;
+   //Lista para el bulkCreate
+  let lista = []
+  id = req.params.idUser
+  let productos = JSON.parse(req.body.productos)
+  let {nombre, apellido, pais, ciudad, direccion, codigoPostal, telefono, tipoEnvio, estado} = req.body
+  
 
   const item = await Carrito.findOne({
-    where: { id: idUser, estado: "En proceso" },
+    where: { usuarioId: id , estado: "En proceso" },
   });
 
   if (item) return res.status(400).send("El usuario tiene un carrito");
+  //Se crea el carro
+  let compras = await Carrito.create({
+    usuarioId: id,
+    nombre: nombre,
+    apellido: apellido,
+    pais: pais,
+    ciudad: ciudad,
+    direccion: direccion,
+    codigoPostal: codigoPostal,
+    telefono: telefono,
+    tipoEnvio: tipoEnvio,
+    estado: estado
+  })
+  //Llenamos la lista de productos
+  productos.list.forEach(element => {
+    let producto = {
+      productoId: element.id,
+      carritoId: compras.id,
+      cantidad: element.cantidad,
+      precio: element.precio
+    }
+    lista.push(producto)
+  });
+  //Creamos las lineasDeOrden asociadas al carrito
+  LineaDeOrden.bulkCreate(lista) 
+  .then(
+    Carrito.findOne(
+      {where: { id: compras.id },
+      include: LineaDeOrden,
+    }
+    ).then(
+      (carrito)=> res.json(carrito)
+      ))
 
-  Carrito.create(
-    {
-      id: idUser,
-      nombre,
-      apellido,
-      pais,
-      ciudad,
-      direccion,
-      codigoPostal,
-      telefono,
-      tipoEnvio,
-      estado,
-    },
-    { include: [{ model: Usuario }] }
-  )
-    .then((respuesta) => {
-      respuesta.productos = [];
-      respuesta.lineaDeOrden = [];
-      res.send(respuesta);
-    })
-    .catch((err) =>
-      res.status(400).json({ Error: "Hubo un error" + err.message })
-    );
 });
 
 //Obtener items del carrito
@@ -166,8 +170,8 @@ router.get("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
-    where: { id: idUser, estado: "En proceso" },
-    include: [{ model: LineaDeOrden }, { model: Producto }],
+    where: { usuarioId: idUser, estado: "En proceso" },
+    include: [{ model: LineaDeOrden }],
   }).then((item) => {
     if (!item) return res.status(400).json("El carrito se encuentra vacio");
     else return res.send(item);
