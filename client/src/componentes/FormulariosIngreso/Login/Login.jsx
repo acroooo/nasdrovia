@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
 import './Login.css';
 
-const Login = ({setTipo,setUsuario,setFormulario})=>{
+const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
 
 
     const [datosAdmin,setDatosAdmin]=useState({});
+    const [error,setError]=useState(false);
   
     
     const handleChange = e=>{
@@ -14,9 +15,13 @@ const Login = ({setTipo,setUsuario,setFormulario})=>{
         e.preventDefault();
         const{email,contraseña,contraseña2}=datosAdmin;
         if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia' && contraseña2==='nasdrovia'){
+            setError(false);
             setUsuario('admin');
             e.target.reset();
             setFormulario('inactivo')
+            setLogueado(true);
+        }else{
+              setError(true)
         }
     }
 
@@ -28,8 +33,8 @@ const Login = ({setTipo,setUsuario,setFormulario})=>{
         <form className='formulario-login' onSubmit={handleSubmit}>
                <div className="mensaje-bienvenida mb-5">
                 <h2 className='mb-4'>Iniciar Sesión</h2>
-               <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
-             
+                 <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
+                 {error &&  <p className='error-login text-white'>Datos incorrectos</p>}
                 </div>
 
                 <div className="grupo-formulario">
