@@ -1,8 +1,6 @@
 const router = require("express").Router();
-
-const {Carrito,LineaDeOrden} = require("../db.js");
-
-
+const { Op } = require("sequelize");
+const { Carrito, LineaDeOrden, Producto } = require("../db.js");
 
 /* -------------------Rutas Orden de compra------------------ */
 
@@ -20,5 +18,16 @@ router.get("/:id", (req, res) => {
     res.status(200).json({ error: "Orden no encontrada" });
   }
 });
+router.get("/", (req, res) => {
+  const { estado } = req.query;
+  Carrito.findAll({
+    include: [{ model: LineaDeOrden }, { model: Producto }],
+    where: estado ? { estado: { [Op.iLike]: estado } } : {},
+  }).then((r) => {
+    if (r.length <= 0) {
+      res.status(400).send("no existe su petición");
+    }
+    res.status(200).send(r);
+  });
+});
 module.exports = router;
-
