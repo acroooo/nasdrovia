@@ -22,4 +22,5 @@ export default function SearchBar({handleClick, handleChange}) {
     <i class="fas fa-search"></i>
     </Button>
     </Form>
-    )};
+    );
+}

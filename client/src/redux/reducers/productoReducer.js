@@ -5,6 +5,7 @@ import {
   SEARCH_PRODUCTO,
   MODIFY_PRODUCTO,
   REMOVE_PRODUCTO,
+  ADD_PRODUCTO,
 } from "../actions/ActionTypes";
 
 const initialState = {

@@ -21,8 +21,8 @@
 #cerrar {
   cursor: pointer;
 }
-.formulario-producto-crud > input,
-.formulario-producto-crud > textarea,
+.formulario-producto-crud  input,
+.formulario-producto-crud  textarea,
 select {
   border: none;
   border-radius: 4px;

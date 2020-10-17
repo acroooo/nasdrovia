@@ -95,6 +95,22 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/", (req, res) => {
+  Usuario.findAll()
+    .then((usuarios) => res.send(usuarios))
+    .catch((err) => {
+      return res.status(400).send(err);
+    })
+})
+
+router.delete("/:id", (req, res) => {
+  let { id } = req.params;
+  Usuario.destroy({ where: { id } }).then((response) => {
+    if (response === 0) res.status(400);
+    else res.status(201).send("borrado");
+  }).catch((err) => res.status(400).send(err.message))
+})
+
 /* -------------------CARRITO------------------ */
 
 //AÚN ESTÁN EN PROCESO
@@ -171,14 +187,14 @@ router.put("/:idUser/cart", (req, res) => {
 
   Carrito.findOne({
     where: { id, estado: "En proceso" },
-    include: { model: LineaDeOrden },
-  })
-    .then((respuesta) => {
-      respuesta.lineaDeOrden.cantidad = cantidad;
-      console.log(respuesta);
-      res.send(respuesta);
-    })
-    .catch((err) => res.status(404).json(err));
+
+    include: { model: LineaDeOrden }
+  }).then((respuesta) => {
+    respuesta.lineaDeOrden.cantidad = cantidad;
+    console.log(respuesta);
+    res.send(respuesta)
+  }).catch((err) => res.status(404).json(err))
 });
+
 
 module.exports = router;

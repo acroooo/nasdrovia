@@ -83,7 +83,11 @@
     width: 95%;
     cursor: pointer;
 }
-
+.error-login{
+    background-color: #d30208;
+    border-radius: 2px;
+    padding-top: 1px;
+}
 
 
 

@@ -10,17 +10,27 @@
   display: flex;
   align-items: flex-end;
   margin-bottom: 10px;
+  padding-right: 40px;
 }
 .navbar-custom {
   background-color: #015386;
 }
 
-.carrito {
+.carrito,.contenedor-login,.contenedor-salir {
   margin-bottom: 8px;
   margin-left: 20px;
   font-size: x-large;
   color: #e6e6e6;
+  position: relative;
 }
+.contenedor-login>small,.contenedor-salir>small{
+  position:absolute;
+  top: 28px;
+  font-size: 12px;
+  left: -6px;
+  
+}
+
 #basic-nav-dropdown {
   font-size: x-large;
   color: #e6e6e6;
@@ -42,11 +52,9 @@
   color: #e6e6e6;
 }
 
-.fa-user-circle{
+.login-user{
   font-size: 24px;
   border-radius: 100%;
-  font-size: 28px;
- 
 }
 
 .nav-Bar-css {
@@ -59,4 +67,7 @@
   flex-wrap: nowrap !important;
   align-items: flex-end !important;
   margin-bottom: 20px;
+}
+.usuario-login>p{
+  background-color: red;
 }
