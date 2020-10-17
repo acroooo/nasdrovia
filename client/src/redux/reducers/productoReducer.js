@@ -1,10 +1,18 @@
 import {
   GET_PRODUCTOS,
   GET_PRODUCTO_DETALLE,
+<<<<<<< HEAD
   ADD_PRODUCTO,
   SEARCH_PRODUCTO,
   MODIFY_PRODUCTO,
   REMOVE_PRODUCTO,
+=======
+  ADD_PRODUCTo,
+  SEARCH_PRODUCTO,
+  MODIFY_PRODUCTO,
+  REMOVE_PRODUCTO,
+  ADD_PRODUCTO,
+>>>>>>> dfb88322a006a5a39eb247eb1205e25f0b9e19ef
 } from "../actions/ActionTypes";
 
 const initialState = {

@@ -78,10 +78,6 @@ export default function SearchBar() {
             </Button>
             </Form>
           <div className="carrito"><i className="fas fa-shopping-bag icono-carro"/></div>
-          
-
-   
-         
           <NavDropdown title={<i className="fas fa-user-circle"></i>} id="basic-nav-dropdown">
             <NavDropdown.Item href="/formulario-categoria">Formulario Categoria</NavDropdown.Item>
             <NavDropdown.Item href="/formulario-crud">Formulario Producto</NavDropdown.Item>
