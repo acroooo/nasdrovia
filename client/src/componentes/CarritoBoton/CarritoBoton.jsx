@@ -101,7 +101,12 @@ export default function CarroBoton({nombreR, stock}){
         </div>
         <div id={`cantidadCarro${nombreR}`} className="cantidad-carro">{cantidad}</div>
         <div onClick={handleClick} className="carroBoton" id={`carro${nombreR}`}>
-            <i className="fas fa-cart-plus" id={`icono${nombreR}`}></i>
+            <i 
+            className="fas fa-cart-plus"
+            style={{fontSize:28, marginTop:6,}}
+            id={`icono${nombreR}`}>
+
+            </i>
         </div>
         </div>
     )

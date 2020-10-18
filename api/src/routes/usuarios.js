@@ -187,14 +187,22 @@ router.put("/:idUser/cart", (req, res) => {
 
   Carrito.findOne({
     where: { id, estado: "En proceso" },
+    include: { model: LineaDeOrden },
+  })
+    .then((respuesta) => {
+      respuesta.lineaDeOrden.cantidad = cantidad;
+      res.send(respuesta);
+    })
+    .catch((err) => res.status(404).json(err));
 
+});
     include: { model: LineaDeOrden }
   }).then((respuesta) => {
     respuesta.lineaDeOrden.cantidad = cantidad;
-    console.log(respuesta);
-    res.send(respuesta)
+    res.send(respuesta);
   }).catch((err) => res.status(404).json(err))
 });
 
 
 module.exports = router;
+

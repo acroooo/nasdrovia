@@ -16,6 +16,7 @@
   background-color: #015386;
 }
 
+
 .carrito,.contenedor-login,.contenedor-salir {
   margin-bottom: 8px;
   margin-left: 20px;
@@ -23,6 +24,14 @@
   color: #e6e6e6;
   position: relative;
 }
+
+.contenedor-login > small,
+.contenedor-salir > small {
+  position: absolute;
+  top: 28px;
+  font-size: 12px;
+  left: -6px;
+  
 .contenedor-login>small,.contenedor-salir>small{
   position:absolute;
   top: 28px;
@@ -52,15 +61,18 @@
   color: #e6e6e6;
 }
 
+
 .login-user{
   font-size: 24px;
   border-radius: 100%;
 }
-
+.return-Page-Container {
+  width: 100vw;
+}
 .nav-Bar-css {
   display: flex;
   background-color: #015386;
-  width: 99.1vw !important;
+  width: 100vw !important;
 }
 .form-inline {
   flex-direction: none !important;
@@ -68,6 +80,7 @@
   align-items: flex-end !important;
   margin-bottom: 20px;
 }
-.usuario-login>p{
+.usuario-login > p {
   background-color: red;
 }
+
