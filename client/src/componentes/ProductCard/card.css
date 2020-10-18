@@ -86,7 +86,7 @@
   margin: 330px 0px 0px 215px;
   border: none;
   transition: 500ms;
-  font-size: 25px;
+  font-size: 15px;
   z-index: 500;
   perspective: 1400px;
   background-color: #d0d0ff;
@@ -97,7 +97,7 @@
 }
 
 .precio_nombre {
-  font-size: small;
+  font-size: 14px;
   text-align: right;
   color: #015386;
   font-weight: 300;
