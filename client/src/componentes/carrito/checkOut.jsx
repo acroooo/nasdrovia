@@ -1,8 +1,6 @@
 import React from "react"
 
 export default function CheckOut() {
-
-
     return (
         <div className="container">
             <form className="col-sm-8">
@@ -57,75 +55,6 @@ export default function CheckOut() {
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
-
         </div>
-        // <div className="container">
-        //     <div class="nombre">
-        //         <div className="form-group">
-        //             <h3 class="titulo">Proceder al CheckOut</h3>
-        //             <div class="form-row">
-        //                 <div class="col-sm-3">
-        //                     <div class="form-group"><label for="Nombre">Nombres</label><input class="form-control" type="text"
-        //                         placeholder="Antonio" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-3">
-        //                     <div class="form-group"><label for="Apellido">Apellido</label><input class="form-control" type="text"
-        //                         placeholder="Margheriti" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-3">
-        //                     <div class="form-group"><label for="Pais">Pais</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-3">
-        //                     <div class="form-group"><label for="Provincia">Provincia/Estado</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-3">
-        //                     <div class="form-group"><label for="Ciudad">Ciudad</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-5">
-        //                     <div class="form-group"><label for="Direccion">Direccion</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-1">
-        //                     <div class="form-group"><label for="Codigo postal">Codigo Postal</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-2">
-        //                     <div class="form-group"><label for="nombre">Telefono</label><input class="form-control" type="text"
-        //                         placeholder="" /></div>
-        //                 </div>
-        //             </div>
-        //             <div class="form-row">
-        //                 <div class="col-sm-7">
-        //                     <div class="form-group"><label for="Envio">Tipo de envio</label>
-        //                         <select>
-        //                             <option value="Normal a domicilio">Normal a domicilio</option>
-        //                         </select>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //             <div>
-        //                 <button type="submit" class="btn btn-outline-danger">Enviar</button>
-        //             </div>
-        //         </div>
-
-        //     </div>
-        // </div>
     )
 }
