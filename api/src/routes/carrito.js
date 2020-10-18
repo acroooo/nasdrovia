@@ -6,10 +6,10 @@ const { Carrito, LineaDeOrden, Usuario, Producto } = require("../db.js");
 /* -------------------Rutas Orden de compra------------------ */
 
 router.get("/:id", (req, res) => {
-  let order_id = req.params.id;
+  let id = req.params.id;
 
-  Carrito.findByPk(order_id, {
-    include: [{ model: LineaDeOrden }, { model: Producto }],
+  Carrito.findByPk(id, {
+    include: [{ model: LineaDeOrden }],
   }) //Traemos los datos del producto, precio, cantidad, etc
     .then((respuesta) => {
       if (respuesta) return res.status(200).json(respuesta);
