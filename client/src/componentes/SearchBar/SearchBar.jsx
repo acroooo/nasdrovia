@@ -85,9 +85,8 @@ export default function SearchBar() {
       
           <div className='usuario-login d-flex align-items-center mt-1'>
           <i className="fas fa-user-circle" onClick={()=>{setFormulario('activo');setTipo('registrar')}}></i>
-           <p className='m-0 p-0 ml-2 text-white' >Log In</p>
+          <p className='m-0 p-0 ml-2 text-white' >Log In</p>
           </div>
-      
         
       </Navbar>
       <FormulariosIngreso setTipo={setTipo} tipo={tipo} formulario={formulario}setFormulario={setFormulario}/>
