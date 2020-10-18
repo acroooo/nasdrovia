@@ -187,27 +187,22 @@ router.put("/:idUser/cart", (req, res) => {
 
   Carrito.findOne({
     where: { id, estado: "En proceso" },
-<<<<<<< HEAD
     include: { model: LineaDeOrden },
   })
     .then((respuesta) => {
       respuesta.lineaDeOrden.cantidad = cantidad;
-      console.log(respuesta);
       res.send(respuesta);
     })
     .catch((err) => res.status(404).json(err));
-});
 
-module.exports = router;
-=======
+});
     include: { model: LineaDeOrden }
   }).then((respuesta) => {
     respuesta.lineaDeOrden.cantidad = cantidad;
-    console.log(respuesta);
-    res.send(respuesta)
+    res.send(respuesta);
   }).catch((err) => res.status(404).json(err))
 });
 
 
 module.exports = router;
->>>>>>> dfb88322a006a5a39eb247eb1205e25f0b9e19ef
+

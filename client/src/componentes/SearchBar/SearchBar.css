@@ -16,21 +16,28 @@
   background-color: #015386;
 }
 
-.carrito,
-.contenedor-login,
-.contenedor-salir {
+
+.carrito,.contenedor-login,.contenedor-salir {
   margin-bottom: 8px;
   margin-left: 20px;
   font-size: x-large;
   color: #e6e6e6;
   position: relative;
 }
+
 .contenedor-login > small,
 .contenedor-salir > small {
   position: absolute;
   top: 28px;
   font-size: 12px;
   left: -6px;
+  
+.contenedor-login>small,.contenedor-salir>small{
+  position:absolute;
+  top: 28px;
+  font-size: 12px;
+  left: -6px;
+  
 }
 
 #basic-nav-dropdown {
@@ -54,7 +61,8 @@
   color: #e6e6e6;
 }
 
-.login-user {
+
+.login-user{
   font-size: 24px;
   border-radius: 100%;
 }
@@ -75,3 +83,4 @@
 .usuario-login > p {
   background-color: red;
 }
+
