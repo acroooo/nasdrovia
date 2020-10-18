@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import "./carroBoton.css";
 import anime from 'animejs/lib/anime.es.js';
 
-export default function CarroBoton({nombreR}){
+export default function CarroBoton({nombreR, stock}){
     const [cantidad, setCantidad]= useState(0);
     useEffect(()=>{
         if(cantidad===0){
@@ -63,7 +63,7 @@ export default function CarroBoton({nombreR}){
         if(cantidad<0){
             setCantidad(0)
         }
-    },[cantidad])
+    },[cantidad, stock])
     function handleClick(){
         setCantidad(cantidad+1);
         const tl = anime.timeline();
@@ -92,6 +92,7 @@ export default function CarroBoton({nombreR}){
             setCantidad(cantidad-1);
         }
     return (
+        
         <div className="carroBoton-Container">
         <div onClick={handleClickMin}
         className="carroBotonMin"

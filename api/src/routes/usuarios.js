@@ -115,7 +115,6 @@ router.delete("/:id", (req, res) => {
 
 //AÚN ESTÁN EN PROCESO
 //Agregar al carrito
-
 router.post("/:idUser/cart", async (req, res) => {
   const { idUser } = req.params;
   const {
@@ -129,7 +128,6 @@ router.post("/:idUser/cart", async (req, res) => {
     tipoEnvio,
     estado,
   } = req.body;
-
   const item = await Carrito.findOne({
     where: { id: idUser, estado: "En proceso" },
   });
@@ -154,7 +152,7 @@ router.post("/:idUser/cart", async (req, res) => {
     .then((respuesta) => {
       respuesta.productos = [];
       respuesta.lineaDeOrden = [];
-      res.send(respuesta);
+      res.status(200).send(respuesta);
     })
     .catch((err) =>
       res.status(400).json({ Error: "Hubo un error" + err.message })
@@ -178,10 +176,9 @@ router.get("/:idUser/cart", (req, res) => {
 router.delete("/:idUser/cart", (req, res) => {
   const id = req.params.idUser;
   Carrito.destroy({ where: { id, estado: "En proceso" } })
-    .then((items) => res.status(200).send("Se vacio el carrito"))
+    .then((item) => res.status(200).send("Se vacio el carrito"))
     .catch((err) => res.status(200).json({ Error: "Hubo un error", err }));
 });
-
 
 //Editar cantidad de items del carrito
 router.put("/:idUser/cart", (req, res) => {
@@ -190,6 +187,7 @@ router.put("/:idUser/cart", (req, res) => {
 
   Carrito.findOne({
     where: { id, estado: "En proceso" },
+
     include: { model: LineaDeOrden }
   }).then((respuesta) => {
     respuesta.lineaDeOrden.cantidad = cantidad;
