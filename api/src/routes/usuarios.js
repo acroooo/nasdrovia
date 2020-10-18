@@ -203,6 +203,36 @@ router.put("/:idUser/cart", (req, res) => {
   }).catch((err) => res.status(404).json(err))
 });
 
+router.put("/:idUser/cart", async (req, res) => {
+  var { idUser } = req.params;
+  var { productoId, cantidad, precio } = req.body;
+  if (!productoId) res.status(400).send("falta el producto a editar");
+  const orden = await Carrito.findOne({
+    where: { idUser, estado: "En proceso" }, include: LineaDeOrden
+  })
+  if (!orden) res.status(400).send("no se encuentra el carrito");
+  try {
+    const [ordenAct, creado] = await LineaDeOrden.findOrCreate({ where: { productoId, carritoId: orden.id }, default: { cantidad, precio } })
+    if (!creado) {
+      if (cantidad === 0) {
+        ordenAct.destroy();
+      }
+      else {
+        ordenAct.cantidad = cantidad || ordenAct.cantidad;
+        ordenAct.precio = precio || ordenAct.precio;
+        await ordenAct.save();
+        await ordenAct.reload();
+      }
+    }
+    await orden.save();
+    await orden.reload();
+    return res.status(200).send(orden)
+  }
+  catch (err) {
+    res.status(400).send("ups, algo salio mal")
+  }
+
+})
 
 module.exports = router;
 
