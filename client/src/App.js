@@ -10,6 +10,7 @@ import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 import CheckOut from "./componentes/carrito/checkOut";
+import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -27,11 +28,11 @@ export default function App() {
           <Route exact path="/formulario-crud" component={FormularioCrud} />
           <Route exact path="/carrito" component={Carrito} />
           <Route exact path="/checkout" component={CheckOut} />
+          <Route exact path="/listaordenes" component={OrdenesAdmin} />
+
         </Switch>
       </Router>
     </div>
   );
 }
-
-
 

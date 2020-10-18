@@ -4,7 +4,7 @@ import anime from 'animejs/lib/anime.es.js';
 import {Link} from "react-router-dom";
 import CarroBoton from "../CarritoBoton/CarritoBoton";
 
-export default function Card ({producto, importance}) {
+export default function Card ({producto, stockDisplay}) {
     const {nombre, precio, imagen, stock, id}=producto;
     const nombreR=nombre.replace(" ", "_");
 
@@ -59,11 +59,14 @@ export default function Card ({producto, importance}) {
         
         <div className="card-css-container" onMouseEnter={mouseEnterHandle} onMouseLeave={mouseLeaveHandle}>
         <div  className="card-css">
+            {stockDisplay ?
             <div  className="carro" id={`carro-full${nombreR}`}>
             <CarroBoton
             nombreR={nombreR}
+            stock={stock}
             />
-            </div>
+            </div>: < > </>
+            }
             <Link to={`/producto/${id}`} className="link">
             <div>
             <img className="img-product-card"

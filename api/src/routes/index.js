@@ -15,7 +15,7 @@ router.use("/producto", ProductoRuta);
 router.use("/categorias", Categorias);
 router.use("/usuario", Usuario);
 router.use("/ordenes", Carrito);
-router.use("/admin",Admin);
+router.use("/admin", Admin);
 
 //prettier-ignore
 router.get("/search", (req, res) => {
@@ -30,7 +30,7 @@ router.get("/search", (req, res) => {
       },
     }).then((response) => {
       if (response.length <= 0){
-        return res.status(404).send("No se encontró ningún producto con ese nombre o descripción!");
+        return res.status(404).send("No se encontró ningún producto con ese nombre o descripción!"+ err.message);
       }else{
         return res.status(200).send(response)
       }
@@ -38,5 +38,3 @@ router.get("/search", (req, res) => {
 });
 
 module.exports = router;
-
-

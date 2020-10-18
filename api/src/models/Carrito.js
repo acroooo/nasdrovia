@@ -1,26 +1,26 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
 //El carrito está en estado inicial en proceso
 
 module.exports = (sequelize) => {
+  const validations = {
+    allowNull: false,
+    strType: {
+      isString(value) {
+        if (typeof value !== "string")
+          throw new Error("Error: debe ser una String");
+      },
+    },
+    intType: {
+      isNumeric: true,
+    },
+  };
 
-    const validations = {
-        allowNull: false,
-        strType: {
-          isString(value) {
-            if (typeof value !== "string")
-              throw new Error("Error: debe ser una String");
-          },
-        },
-        intType: {
-          isNumeric: true,
-        },
-      };
-      
-    // defino el modelo
-    sequelize.define('carrito', {
+  // defino el modelo
+  //prettier-ignore
+  sequelize.define('carrito', {
         nombre: {
             type: DataTypes.STRING,
             allowNull: validations.allowNull,
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
             validate: validations.intType,
         },
         telefono: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             validate: validations.intType,
         },
         tipoEnvio: {
