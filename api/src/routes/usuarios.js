@@ -102,7 +102,16 @@ router.get("/", (req, res) => {
       return res.status(400).send(err);
     })
 })
-
+router.get("/:id", (req, res) => {
+  let id = req.params.id
+  Usuario.findOne({where: {id: id}})
+    .then((usuario) => {
+      !!usuario ? res.send(usuario): res.json({Error: "Usuario no existe"})}
+      )
+    .catch((err) => {
+      return res.status(400).send(err);
+    })
+})
 router.delete("/:id", (req, res) => {
   let { id } = req.params;
   Usuario.destroy({ where: { id } }).then((response) => {
@@ -114,53 +123,19 @@ router.delete("/:id", (req, res) => {
 /* -------------------CARRITO------------------ */
 
 //AÚN ESTÁN EN PROCESO
-//Agregar al carrito
+//Crear el carro
 router.post("/:idUser/cart", async (req, res) => {
-
-   //Lista para el bulkCreate
-  let lista = []
-  id = req.params.idUser
-  let productos = JSON.parse(req.body.productos)
-  let {nombre, apellido, pais, ciudad, direccion, codigoPostal, telefono, tipoEnvio, estado} = req.body
-  const { idUser } = req.params;
+  let id = req.params.idUser;
   const item = await Carrito.findOne({
-    where: { usuarioId: id , estado: "En proceso" },
+    where: { usuarioId: id , estado: "carrito" },
   });
 
   if (item) return res.status(400).send("El usuario tiene un carrito");
-  //Se crea el carro
+
   let compras = await Carrito.create({
     usuarioId: id,
-    nombre: nombre,
-    apellido: apellido,
-    pais: pais,
-    ciudad: ciudad,
-    direccion: direccion,
-    codigoPostal: codigoPostal,
-    telefono: telefono,
-    tipoEnvio: tipoEnvio,
-    estado: estado
   })
-  //Llenamos la lista de productos
-  productos.list.forEach(element => {
-    let producto = {
-      productoId: element.id,
-      carritoId: compras.id,
-      cantidad: element.cantidad,
-      precio: element.precio
-    }
-    lista.push(producto)
-  });
-  //Creamos las lineasDeOrden asociadas al carrito
-  LineaDeOrden.bulkCreate(lista) 
-  .then(
-    Carrito.findOne(
-      {where: { id: compras.id },
-      include: LineaDeOrden,
-    }
-    ).then(
-      (carrito)=> res.json(carrito)
-      ))
+  res.status(200).json(compras)
 });
 
 //Obtener items del carrito
@@ -168,7 +143,7 @@ router.get("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
-    where: { usuarioId: idUser, estado: "En proceso" },
+    where: { usuarioId: idUser, estado: "carrito" },
     include: [{ model: LineaDeOrden }],
   }).then((item) => {
     if (!item) return res.status(400).json("El carrito se encuentra vacio");
@@ -179,44 +154,14 @@ router.get("/:idUser/cart", (req, res) => {
 //Vaciar carrito
 router.delete("/:idUser/cart", async (req, res) => {
   const id = req.params.idUser;
- let compras = await Carrito.findOne({ where: { usuarioId: id, estado: "En proceso" } })
+ let compras = await Carrito.findOne({ where: { usuarioId: id, estado: "carrito" } })
  let deleting = await  LineaDeOrden.destroy({ where: { carritoId: compras.id} })
- let borrar = await Carrito.destroy({ where: { usuarioId: id, estado: "En proceso" } })
  res.status(200).json({deleted:"ok"})
-
 });
-//Editar cantidad de items del carrito
 
-router.put("/:idUser/cart", async (req, res) => {
-  var { idUser } = req.params;
-  var { productoId, cantidad, precio } = req.body;
-  if (!productoId) res.status(400).send("falta el producto a editar");
-  const orden = await Carrito.findOne({
-    where: { usuarioId:idUser, estado: "En proceso" }, include: LineaDeOrden
-  })
-  if (!orden) res.status(400).send("no se encuentra el carrito");
-  try {
-    const [ordenAct, creado] = await LineaDeOrden.findOrCreate({ where: { productoId, carritoId: orden.id }, default: { cantidad, precio } })
-    if (!creado) {
-      if (cantidad === 0) {
-        ordenAct.destroy();
-      }
-      else {
-        ordenAct.cantidad = cantidad || ordenAct.cantidad;
-        ordenAct.precio = precio || ordenAct.precio;
-        await ordenAct.save();
-        await ordenAct.reload();
-      }
-    }
-    await orden.save();
-    await orden.reload();
-    return res.status(200).send(orden)
-  }
-  catch (err) {
-    res.status(400).send("ups, algo salio mal")
-  }
 
-})
+
+
 
 module.exports = router;
 
