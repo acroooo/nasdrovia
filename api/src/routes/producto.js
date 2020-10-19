@@ -1,9 +1,10 @@
 const router = require("express").Router();
-const { Producto, Categories, producto_categoria } = require("../db.js");
+const { Producto, Categories, producto_categoria, Images } = require("../db.js");
 
 router.get("/", (req, res, next) => {
   Producto.findAll({
     include: Categories,
+    include: Images
   })
     .then((products) => {
       res.send(products);
@@ -15,6 +16,7 @@ router.get("/:id", (req, res, next) => {
   Producto.findOne({
     where: { id },
     include: Categories,
+    include: Images
   })
     .then((products) => {
       res.status(200).send(products);
@@ -23,29 +25,43 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { nombre, precio, stock, imagen, descripcion } = req.body;
-  if (nombre && precio && stock && imagen && descripcion) {
+  const { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion, } = req.body;
+  if (nombre && precio && stock && descripcion && imagen1) {
+   
     const nproduct = await Producto.create({
       nombre: nombre,
       precio: precio,
       stock: stock,
-      imagen: imagen,
       descripcion: descripcion,
-    });
-    res.status(201).json(nproduct);
+      images: {
+        0: imagen1, 
+        1: imagen2, 
+        2: imagen3
+      }},
+      {
+        include: Images
+      });
+    res.status(201).json(nproduct)
   } else {
     res.status(400).json({ Error: "Faltan parametros" });
   }
 });
+
 router.put("/:id", (req, res) => {
   let id = req.params.id;
-  let { nombre, precio, stock, imagen, descripcion } = req.body;
-  Producto.update(
-    { nombre, precio, stock, imagen, descripcion },
-    { where: { id } }
-  )
-    .then((producto) => res.status(200).send(producto))
-    .catch((err) => res.status(400).json(err));
+  let { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion } = req.body;
+  if(imagen1 || imagen2 || imagen3){
+    Images.update({ 0:imagen1, 1:imagen2, 2:imagen3 },
+      { where: { id } })
+  }
+  if (nombre || precio || stock || descripcion) {
+    Producto.update(
+      { nombre, precio, stock,descripcion },
+      { where: { id } }
+    ) 
+      .then((producto) => res.status(200).send(producto))
+      .catch((err) => res.status(400).json(err));
+  }
 });
 
 router.delete("/:id", (req, res) => {
