@@ -161,31 +161,6 @@ router.post("/:idUser/cart", async (req, res) => {
     ).then(
       (carrito)=> res.json(carrito)
       ))
-
-
-  Carrito.create(
-    {
-      id: idUser,
-      nombre,
-      apellido,
-      pais,
-      ciudad,
-      direccion,
-      codigoPostal,
-      telefono,
-      tipoEnvio,
-      estado,
-    },
-    { include: [{ model: Usuario }] }
-  )
-    .then((respuesta) => {
-      respuesta.productos = [];
-      respuesta.lineaDeOrden = [];
-      res.status(200).send(respuesta);
-    })
-    .catch((err) =>
-      res.status(400).json({ Error: "Hubo un error" + err.message })
-    );
 });
 
 //Obtener items del carrito
@@ -202,42 +177,22 @@ router.get("/:idUser/cart", (req, res) => {
 });
 
 //Vaciar carrito
-router.delete("/:idUser/cart", (req, res) => {
+router.delete("/:idUser/cart", async (req, res) => {
   const id = req.params.idUser;
-  Carrito.destroy({ where: { id, estado: "En proceso" } })
-    .then((item) => res.status(200).send("Se vacio el carrito"))
-    .catch((err) => res.status(200).json({ Error: "Hubo un error", err }));
-});
+ let compras = await Carrito.findOne({ where: { usuarioId: id, estado: "En proceso" } })
+ let deleting = await  LineaDeOrden.destroy({ where: { carritoId: compras.id} })
+ let borrar = await Carrito.destroy({ where: { usuarioId: id, estado: "En proceso" } })
+ res.status(200).json({deleted:"ok"})
 
+});
 //Editar cantidad de items del carrito
-router.put("/:idUser/cart", (req, res) => {
-  const id = req.params.idUser;
-  let { cantidad } = req.body;
-
-  Carrito.findOne({
-    where: { id, estado: "En proceso" },
-    include: { model: LineaDeOrden },
-  })
-    .then((respuesta) => {
-      respuesta.lineaDeOrden.cantidad = cantidad;
-      res.send(respuesta);
-    })
-    .catch((err) => res.status(404).json(err));
-
-});
-    include: { model: LineaDeOrden }
-  }).then((respuesta) => {
-    respuesta.lineaDeOrden.cantidad = cantidad;
-    res.send(respuesta);
-  }).catch((err) => res.status(404).json(err))
-});
 
 router.put("/:idUser/cart", async (req, res) => {
   var { idUser } = req.params;
   var { productoId, cantidad, precio } = req.body;
   if (!productoId) res.status(400).send("falta el producto a editar");
   const orden = await Carrito.findOne({
-    where: { idUser, estado: "En proceso" }, include: LineaDeOrden
+    where: { usuarioId:idUser, estado: "En proceso" }, include: LineaDeOrden
   })
   if (!orden) res.status(400).send("no se encuentra el carrito");
   try {
