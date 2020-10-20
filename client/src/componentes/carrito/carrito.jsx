@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./carrito.css";
 import Miniprod from "./miniproduct"
 import Loader from "../Loader/Loader"
+import { useSelector, useDispatch } from 'react-redux'
+import allActions from '../../redux/actions/allActions'
+import { getUsuarioCarrito } from "../../redux/actions/Carrito_Action";
 
 var producto = [{
     nombre: "Andes Origen IPA",
@@ -58,26 +61,53 @@ var producto = [{
 
 
 export default function Carrito(props) {
+
+
+    // ================== ESTADO REDUX ======================//
+    const usuario = useSelector(state => state.usuario.id)
+    const productosCarrito = useSelector(state => state.carrito.CarritoCompleto.lineaDeOrdens)
+    const dispatch = useDispatch()
+
+    // ================== ESTADO COMOPONENTES ===================== //
     const [total, setTotal] = useState(0);
     const [envio, setEnvio] = useState(0);
     const [subtotal, setSubTotal] = useState(0);
     const [listaproductos, setListaProductos] = useState({ res: null, isLoaded: false });
+    const [user, setUser] = useState(0)
     const descuento = 0.8;
-    useEffect(() => {
-        setListaProductos({
-            res: producto.map(e => {
-                e.cantidad = 1;
-                return e
-            }), isLoaded: true
-        })
-        let res = 0;
-        for (let i = 0; i < producto.length; i++) {
-            res += producto[i].precio;
-        }
-        setSubTotal(res);
-        setTotal((res * descuento) + envio)
-    }, [])
 
+    // ================== USE EFFECT ========================//
+    useEffect(
+            () => {
+          dispatch(allActions.getUsuarioCarrito(usuario))
+          dispatch(allActions.login)
+          const productos = () => {
+            productosCarrito.forEach(element => (
+                dispatch(allActions.getProductoDetalle(element.productoId))
+            ))
+        }
+        },[])
+    
+
+    // useEffect(() => {
+    //     setListaProductos({
+    //         res: producto.map(e => {
+    //             e.cantidad = 1;
+    //             return e
+    //         }), isLoaded: true
+    //     })
+    //     let res = 0;
+    //     for (let i = 0; i < producto.length; i++) {
+    //         res += producto[i].precio;
+    //     }
+    //     setSubTotal(res);
+    //     setTotal((res * descuento) + envio)
+    // }, [])
+
+    useEffect(() => {
+        setListaProductos(dispatch(allActions.getUsuarioCarrito(usuario.id)))
+        // setUser(dispatch(allActions.postUsuarioCarrito(usuario.id)))
+    }, [allActions.getUsuarioCarrito])
 
     return (
         <div>
@@ -91,11 +121,12 @@ export default function Carrito(props) {
                         <div className="row no-gutters">
                             <div className="col-md-12 col-lg-8">
                                 <div className="items">
-                                    {
+                                        
+                                        {/* {
                                         listaproductos.isLoaded ?
                                             listaproductos.res.map((e, i) => {
                                                 return <Miniprod producto={e} setListaProductos={setListaProductos} listaproductos={listaproductos} key={i} />
-                                            }) : <Loader />}
+                                            }) : <Loader />} */}
                                 </div>
                             </div>
                             <div className="col-md-12 col-lg-4">

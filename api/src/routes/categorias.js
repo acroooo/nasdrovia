@@ -23,6 +23,7 @@ router.post("/", (req, res) => {
     return  res.status(404).send(err.message)
   });
 });
+
 router.put("/:id", (req, res) => {
   let id = req.params.id;
   let { nombre, descripcion } = req.body;

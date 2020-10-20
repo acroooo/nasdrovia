@@ -22,15 +22,14 @@ export const getUsuarioCarrito = (usuarioId) => (dispatch) => {
     });
     })
     .catch((err) => {
-        const error = err.res.data;
-        dispatch(error);
+      dispatch(postUsuarioCarrito(usuarioId));
     });
 };
 
 //post a usuario
 //revisar que este bien igual que las demas.
 export const postUsuarioCarrito = (usuarioId) => (dispatch) => {
-  axios
+ axios
     .post(`http://localhost:3001/usuario/${usuarioId}/cart`)
     .then((res) => {
       dispatch({
