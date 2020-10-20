@@ -95,7 +95,7 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
 });
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
-router.put("/:id/rewiew/:idRewiew", (req, res) => {
+router.put("/:id/review/:idRewiew", (req, res) => {
   let { commentary} = req.body;
   let qualification = parseInt(req.body.qualification, 10)
   let productoId = req.params.id;
