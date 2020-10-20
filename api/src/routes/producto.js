@@ -96,13 +96,15 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
 router.put("/:id/rewiew/:idRewiew", (req, res) => {
-  let { commentary, qualification} = req.body;
+  let { commentary} = req.body;
+  let qualification = parseInt(req.body.qualification, 10)
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;
   let largo = commentary.length
-  if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
-  else{
   if(commentary || qualification){
+    if(Number.isNaN(qualification)){return res.status(400).json({"Error":"La calificacion debe ser un numero"})}
+    else if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
+    else if(qualification <1 || qualification >5){return res.status(400).json({"Error":"La calificion debe estar conprendida entre 1 y 5"})}
       Reviews.findOne(
         {where: {productoId: productoId , id: rewiewId}
       })
@@ -117,7 +119,6 @@ router.put("/:id/rewiew/:idRewiew", (req, res) => {
      }else{
         res.status(400).json({"Error": "Envia almenos un parametro"})
      }
-    }
 })
 
 module.exports = router;
