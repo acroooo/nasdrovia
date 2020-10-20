@@ -1,5 +1,5 @@
 const express = require("express");
-// import all routers;
+// import all routers
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
 const Review = require("./review")
