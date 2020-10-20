@@ -12,6 +12,7 @@ import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
 import CheckOut from "./componentes/carrito/checkOut";
 import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 import PanelAdmin from "./componentes/PanelAdmin/PanelAdmin";
+import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -23,6 +24,8 @@ export default function App() {
         <Route path="/" component={SearchBar} />
         <Route exact path="/" component={Home} />
         <Route exact path="/" component={PanelAdmin} />
+        <Route exact path="/ordenes" component={ListaOrdenes2} />
+      
         <Switch>
           <Route exact path="/productos" component={Shop} />
           <Route exact path="/formulario-categoria" component={CrudCategoria} />

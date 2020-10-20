@@ -52,6 +52,7 @@ body{font-family:  Arial, sans-serif;}
  color:#d30208;
  padding: 2px;
 }
+.fa-search{font-size: 14px;}
 .fa-trash{background-color:#d30208;border-radius: 2px;}
 .fa-pencil-alt{background-color:#015386;border-radius: 2px;}
 .fa-pencil-alt:hover,.fa-trash:hover{opacity: .8;}
