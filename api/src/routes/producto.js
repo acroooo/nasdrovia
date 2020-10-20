@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Producto, Categories, producto_categoria, Images } = require("../db.js");
+const Reviews = require("../models/Reviews.js");
 
 router.get("/", (req, res, next) => {
   Producto.findAll({
@@ -94,5 +95,37 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
     .then(() => res.sendStatus(200));
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
+router.get("/:id/review/",(req,res)=>{
+  let productoId = req.params.id;
+  Reviews.findAll()
+})
 module.exports = router;
 
