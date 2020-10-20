@@ -19,10 +19,11 @@ router.get("/:id", (req, res) => {
 
 
 router.get("/", (req, res) => {
-  const query = req.query;
+  let estado = req.query.estado;
+
   Carrito.findAll({
-    include: [{ model: LineaDeOrden }, { model: Producto }],
-    where: estado ? { estado: { [Op.iLike]: query.estado } } : {},
+    include: [{ model: LineaDeOrden }],
+    where: estado ? { estado: { [Op.iLike]: `%${estado}%`} } : {},
   }).then((r) => {
     if (r.length <= 0) {
       res.status(400).send("no existe su petición");
@@ -60,44 +61,31 @@ router.post("/:idCarro/cart", (req, res)=>{
 })
 //Editar las cantidad con el id del carro y el id producto la cantidad 
 router.put("/:id/cart", async (req, res) => {
- let id = req.params;
-  var { productoId, cantidad, precio } = req.body;
-  console.log(req.body)
-  if (!productoId) res.status(400).send("falta el producto a editar");
-  const orden = await Carrito.findOne({
-    where: { id: id, estado: "carrito" }, include: LineaDeOrden
+ let idCarrito = req.params.id;
+ let {producto, cantidad, precio} = req.body
+ if(producto || cantidad || precio){
+  LineaDeOrden.findOne(
+    {where: {carritoId: idCarrito}
   })
-  console.log(orden)
-  if (!orden) res.status(400).send("no se encuentra el carrito");
-  try {
-    const [ordenAct, creado] = await LineaDeOrden.findOrCreate({ where: { productoId, carritoId: orden.id }, default: { cantidad, precio } })
-    if (!creado) {
-      if (cantidad === 0) {
-        ordenAct.destroy();
-      }
-      else {
-        ordenAct.cantidad = cantidad || ordenAct.cantidad;
-        ordenAct.precio = precio || ordenAct.precio;
-        await ordenAct.save();
-        await ordenAct.reload();
-      }
-    }
-    await orden.save();
-    await orden.reload();
-    return res.status(200).send(orden)
-  }
-  catch (err) {
-    res.status(400).send("ups, algo salio mal")
-  }
+  .then((existe) => { 
+    !!existe ?  LineaDeOrden.update({producto: producto, cantidad: cantidad, precio: precio},
+      {where: {carritoId: idCarrito},
+    })
+    .then(res.status(200).json({"OK":"Actualizado correctamente"})):
+     res.status(400).json({"Error":"Linea de orden no existente"})})
+  .catch((err)=>res.status(400).json({"Error":err}))
 
+ }else{
+    res.status(400).json({"Error": "Envia almenos un parametro"})
+ }
 })
 
+//Borrar un producto del carrito
 router.delete("/borrar/:idCarro", async (req, res) => {
   const id = req.params.idCarro;
-  console.log(id)
   let producto = req.body.producto
- let compras = await Carrito.findOne({ where: { id: id} })
  let deleting = await  LineaDeOrden.destroy({ where: { productoId: producto} })
+ let compras = await Carrito.findOne({ where: { id: id} , include: LineaDeOrden})
  res.status(200).json(compras)
 });
 module.exports = router;

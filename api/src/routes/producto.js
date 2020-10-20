@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { Producto, Categories, producto_categoria, Images, Reviews } = require("../db.js");
-
 router.get("/", (req, res, next) => {
   Producto.findAll({
     include: Categories,
@@ -94,6 +93,7 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
     .then(() => res.sendStatus(200));
 });
 
+
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
 router.put("/:id/review/:idRewiew", (req, res) => {
   let { commentary} = req.body;
@@ -121,5 +121,20 @@ router.put("/:id/review/:idRewiew", (req, res) => {
      }
 })
 
+
+/* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
+router.get("/:id/review/",(req,res)=>{
+  let productoId = req.params.id;
+  Producto.findOne({where: {id: productoId}})
+    .then((producto)=>{if(!producto){return res.status(404).json({"Error": "Producto inexistente"})}})
+  Reviews.findAll(
+    {where: {productoId: productoId}
+  })
+  .then((rewiews) => { 
+    rewiews.length >1 ? res.status(200).json(rewiews):
+    res.status(404).json({"Error":"Este producto no tiene rewiews"})})
+  .catch((err)=>res.status(400).json({"Error":err}))
+
+})
 module.exports = router;
 
