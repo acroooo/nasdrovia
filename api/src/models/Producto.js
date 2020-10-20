@@ -21,6 +21,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: validations.allowNull,
       validate: validations.strType,
+      unique:true
     },
     precio: {
       type: DataTypes.FLOAT,

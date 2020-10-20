@@ -20,44 +20,18 @@ module.exports = (sequelize) => {
 
   // defino el modelo
   //prettier-ignore
+  //Estados posibles del carrito: carrito, creada, procesando, cancelada, completa.
+  //El carrito tiene su propio id, pertenece a un usuario mediante usuarioId, posee muchas lineas de orden
   sequelize.define('carrito', {
-        nombre: {
-            type: DataTypes.STRING,
-            allowNull: validations.allowNull,
-        },
-        apellido: {
-            type: DataTypes.STRING,
-            allowNull: validations.allowNull,
-        },
-        pais: {
-            type: DataTypes.STRING,
-            allowNull: validations.allowNull,
-        },
-        ciudad: {
-            type: DataTypes.STRING,
-            allowNull: validations.allowNull,
-        },
-        direccion: {
-            type: DataTypes.STRING,
-            allowNull: validations.allowNull,
-        },
-        codigoPostal: {
-            type: DataTypes.INTEGER,
-            validate: validations.intType,
-        },
-        telefono: {
-            type: DataTypes.STRING,
-            validate: validations.intType,
-        },
-        tipoEnvio: {
-            type: DataTypes.STRING,
-        allowNull: validations.allowNull,
-        },
         estado:{
             type:DataTypes.STRING,
             allowNull: validations.allowNull,
-            defaultValue:'En proceso'
+            defaultValue:'carrito'
         },
+        total:{
+          type:DataTypes.FLOAT,
+          defaultValue: 0
+      }
         
     });
 };
