@@ -1,7 +1,7 @@
 import {
     GET_PRODUCTOS,
     GET_PRODUCTO_DETALLE,
-    ADD_PRODUCT,
+    ADD_PRODUCTO,
     SEARCH_PRODUCTO,
     MODIFY_PRODUCTO,
     REMOVE_PRODUCTO
@@ -10,20 +10,28 @@ import {
 import axios from 'axios';
 // URL Back
 
-
 //Productos
-export const getProductos = () => dispatch => {
-    axios.get(`http://localhost:3001/producto`)
-    .then((res) => {
-        const cargaUtil = {
-            productos: res.data,
-        }
-        dispatch({
-            type: GET_PRODUCTOS, 
-            payload: cargaUtil})
-    })
-    .catch(err => console.log(err));
+export function getProductos(){
+    return function(dispatch) {
+        return fetch('http://localhost:3001/producto')
+        .then((res) => res.json())
+        .then(json => {
+            dispatch({type: GET_PRODUCTOS, payload:json})
+        })
+    }
 }
+// export const getProductos = () => dispatch => {
+//     axios.get(`http://localhost:3001/producto`)
+//     .then((res) => {
+//         const cargaUtil = {
+//             productos: res.data.data,
+//         }
+//         dispatch({
+//             type: GET_PRODUCTOS, 
+//             payload: cargaUtil})
+//     })
+//     .catch(err => console.log(err));
+// };
 
 //productos por ID
 export const getProductoDetalle = (id) => (dispatch) => {
@@ -51,7 +59,7 @@ export const addProducto = (id, body) => (dispatch) => {
         const añadirProd = res.data;
 
         dispatch({
-            type: ADD_PRODUCT,
+            type: ADD_PRODUCTO,
             payload: añadirProd,
         })
 
@@ -109,3 +117,6 @@ export const deleteProducto = () => (dispatch) => {
         payload: null,
     });
 };
+
+// =============== EXPORT DEFAULT FUNCTIONS PRODUCTO ================ //
+export default {getProductos, getProductoDetalle, addProducto, buscarProducto, modificarProducto, deleteProducto};
