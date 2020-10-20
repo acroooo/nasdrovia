@@ -34,22 +34,14 @@ export function getProductos(){
 // };
 
 //productos por ID
-export const getProductoDetalle = (id) => (dispatch) => {
-    axios.get(`http://localhost:3001/producto/${id}`)
-    .then((res) => {
-        const productoId = res.data;
-        
-        dispatch({
-            type: GET_PRODUCTO_DETALLE,
-            payload: productoId,
-    })
-
-    dispatch(getProductos());
-    })
-    .catch((err) => {
-        const error = err.res.data;
-        dispatch(error);
-    });
+export function getProductoDetalle(id){
+    return function(dispatch) {
+        return fetch(`http://localhost:3001/producto/${id}`)
+        .then((res) => res.json())
+        .then(json => {
+            dispatch({type: GET_PRODUCTOS, payload:json})
+        })
+    }
 }
 
 //añadir producto

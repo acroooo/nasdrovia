@@ -10,7 +10,9 @@ import allActions from '../../redux/actions/allActions'
 const Producto = (props) => {
 
   // =============== ESTADO DE REDUX ================ //
-  const productoStore = useSelector(state => state.productos)
+  const productoStore = useSelector(state => state.productos.TodosLosProductos)
+  // Imagen no funciona.
+  // const imagen = useSelector(state => state.productos.TodosLosProductos.images)
   const dispatch = useDispatch();
 
   const [cant, setCant] = useState(0);
@@ -20,7 +22,7 @@ const Producto = (props) => {
   const id = props.match.params.id;
   useEffect(
 		() => {
-      setProducto(dispatch(allActions.getProductos(id)))
+      dispatch(allActions.getProductoDetalle(id))
     },[])
   // axios para un producto especifico con verificacion de ID
   // useEffect(() => {
@@ -53,9 +55,7 @@ const Producto = (props) => {
   const removeCarro = (event) => {
     event.preventDefault();
   };
- 
-  //uso de datos de forma legible
-  console.log(producto)
+  console.log(productoStore.images[0])
   // const cat = categoria.res;
   return (
     <div className="producto__marco">
@@ -67,9 +67,9 @@ const Producto = (props) => {
           <Carousel clasName="container">
             <Carousel.Item>
             {/*data.imagen.map((imagen) => (
-              */}<Image
+              }<Image
               className="imagen-asd"
-              src={productoStore.productos.productos}
+              src={productoStore.images[0]}
               alt="Slide"
               />
             {/* Colocar flechas al carrousel */}
@@ -98,19 +98,19 @@ const Producto = (props) => {
         <Container className="container2">
           <Card className="card3">
             <Card.Header className="body-cabecera">
-              <h1>{productoStore.productos.productos}</h1>
-              <Card.Text className="body-precio">${productoStore.productos.productos}</Card.Text>
+              <h1>{productoStore.nombre}</h1>
+              <Card.Text className="body-precio">${productoStore.precio}</Card.Text>
             </Card.Header>
             <Card.Body className="body-tarjeta">
             {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>Categorías</Card.Title>
               <div className="body-descripcion">
-                <Card.Text className="texto-descripcion">{productoStore.productos.productos}</Card.Text>
+                <Card.Text className="texto-descripcion">{productoStore.descripcion}</Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
                   <div className="stock-tarjeta">
-                    <CarritoBoton  stock={productoStore.productos.productos} id={id}/>
+                    <CarritoBoton  stock={productoStore.stock} id={productoStore.id}/>
                   </div>
                 </Row>
               </div>
