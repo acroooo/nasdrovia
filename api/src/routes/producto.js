@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Producto, Categories, producto_categoria, Images } = require("../db.js");
+const { Producto, Categories, producto_categoria, Images, Reviews } = require("../db.js");
 
 router.get("/", (req, res, next) => {
   Producto.findAll({
@@ -93,6 +93,28 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
     .destroy({ where: { productoId: idProd, categoryId: idCat } })
     .then(() => res.sendStatus(200));
 });
+
+/* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
+router.put("/:id/review/:idRewiew", (req, res) => {
+  let { commentary, qualification} = req.body;
+  let productoId = req.params.id;
+  let rewiewId = req.params.idRewiew;
+  if(commentary || qualification){
+      Reviews.findOne(
+        {where: {productoId: productoId , id: rewiewId}
+      })
+      .then((existe) => { 
+        !!existe ?  Reviews.update({},
+          {where: {productoId: productoId , id: rewiewId},
+        })
+        .then(res.status(200).json({"OK":"Actualizado correctamente"})):
+         res.status(404).json({"Error":"Rewiew no existente"})})
+      .catch((err)=>res.status(400).json({"Error":err}))
+    
+     }else{
+        res.status(400).json({"Error": "Envia almenos un parametro"})
+     }
+})
 
 module.exports = router;
 
