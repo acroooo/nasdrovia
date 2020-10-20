@@ -14,3 +14,5 @@ export const logout = () => (dispatch) => {
     type: LOGOUT,
   });
 };
+
+export default {logout, login};
