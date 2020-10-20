@@ -27,17 +27,18 @@ router.get("/:id", (req, res, next) => {
 router.post("/", async (req, res, next) => {
   const { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion, } = req.body;
   if (nombre && precio && stock && descripcion && imagen1) {
-   
+
     const nproduct = await Producto.create({
       nombre: nombre,
       precio: precio,
       stock: stock,
       descripcion: descripcion,
       images: {
-        0: imagen1, 
-        1: imagen2, 
+        0: imagen1,
+        1: imagen2,
         2: imagen3
-      }},
+      }
+    },
       {
         include: Images
       });
@@ -50,15 +51,15 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", (req, res) => {
   let id = req.params.id;
   let { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion } = req.body;
-  if(imagen1 || imagen2 || imagen3){
-    Images.update({ 0:imagen1, 1:imagen2, 2:imagen3 },
+  if (imagen1 || imagen2 || imagen3) {
+    Images.update({ 0: imagen1, 1: imagen2, 2: imagen3 },
       { where: { id } })
   }
   if (nombre || precio || stock || descripcion) {
     Producto.update(
-      { nombre, precio, stock,descripcion },
+      { nombre, precio, stock, descripcion },
       { where: { id } }
-    ) 
+    )
       .then((producto) => res.status(200).send(producto))
       .catch((err) => res.status(400).json(err));
   }
@@ -93,6 +94,31 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
     .destroy({ where: { productoId: idProd, categoryId: idCat } })
     .then(() => res.sendStatus(200));
 });
+
+// arrancan las rutas de review
+
+router.post("/:id/review", (req, res) => {
+  let { commentary, qualification, usuarioId } = req.body;
+  var productoId = req.params.id;
+  console.log(productoId)
+  if (!commentary || !qualification || !usuarioId) {
+    res.status(400).send("Faltan parametros");
+  }
+  Reviews.create({ commentary, qualification, usuarioId, productoId }).then((respuesta) => {
+    res.status(201).send(respuesta);
+  }).catch((err) => {
+    return res.status(404).send(err.message)
+  });
+})
+
+router.delete("/:id/review/:idReview", async (req, res) => {
+  let id = req.params.idReview;
+  let idprod = req.params.id;
+  const review = await Reviews.findOne({ where: { productoId: idprod, id } });
+  if (!review) return res.status(400).send("no se encontro")
+  await review.destroy()
+  return res.status(200).send("eliminado")
+})
 
 module.exports = router;
 
