@@ -2,6 +2,7 @@ const express = require("express");
 // import all routers;
 const Categorias = require("./categorias.js");
 const ProductoRuta = require("./producto.js");
+const Review = require("./review")
 const Usuario = require("./usuarios");
 const Carrito = require("./carrito");
 const Admin = require("./admin");
@@ -12,6 +13,7 @@ const router = express();
 // i.e: router.use('/auth', authRouter);
 // router.use('/auth', authRouter);
 router.use("/producto", ProductoRuta);
+router.use("/producto", Review)
 router.use("/categorias", Categorias);
 router.use("/usuario", Usuario);
 router.use("/ordenes", Carrito);
