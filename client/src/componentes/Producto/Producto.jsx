@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
 import "./Producto.css";
-
+import {useSelector, useDispatch} from 'react-redux';
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
-import Axios from "axios";
+import CarritoBoton from '../CarritoBoton/CarritoBoton';
+import allActions from '../../redux/actions/allActions'
 
+// =============== FIN IMPORTS ================ //
 
 const Producto = (props) => {
+
+  // =============== ESTADO DE REDUX ================ //
+  const productoStore = useSelector(state => state.productos)
+  const dispatch = useDispatch();
+
   const [cant, setCant] = useState(0);
   const [producto, setProducto] = useState({ res: {}, isLoaded: false }); //estado actual
   const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-  //axios para un producto especifico con verificacion de ID
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/producto/${id}`)
-      .then((data) => {
-        if (props.match.params.id && data.data.id) {
-          setProducto({ res: data.data, isLoaded: true });
-        }
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
+  useEffect(
+		() => {
+      setProducto(dispatch(allActions.getProductos(id)))
+    },[])
+  // axios para un producto especifico con verificacion de ID
+  // useEffect(() => {
+  //   Axios.get(`http://localhost:3001/producto/${id}`)
+  //     .then((data) => {
+  //       if (props.match.params.id && data.data.id) {
+  //         setProducto({ res: data.data, isLoaded: true });
+  //       }
+  //     })
+  //     .catch((error) => console.log(error.message));
+  // }, []);
 
-  //traer categorias en base al producto
+  // traer categorias en base al producto
   // useEffect(() => {
   //   Axios.get(`http://localhost:3001/categorias/${id}`)
   //     .then((res) => {
@@ -42,11 +53,10 @@ const Producto = (props) => {
   const removeCarro = (event) => {
     event.preventDefault();
   };
-
+ 
   //uso de datos de forma legible
-  const data = producto.res;
+  console.log(producto)
   // const cat = categoria.res;
-
   return (
     <div className="producto__marco">
     {/* Seccion tarjeta producto */}
@@ -59,7 +69,7 @@ const Producto = (props) => {
             {/*data.imagen.map((imagen) => (
               */}<Image
               className="imagen-asd"
-              src={data.imagen}
+              src={productoStore.productos.productos}
               alt="Slide"
               />
             {/* Colocar flechas al carrousel */}
@@ -88,32 +98,19 @@ const Producto = (props) => {
         <Container className="container2">
           <Card className="card3">
             <Card.Header className="body-cabecera">
-              <h1>{data.nombre}</h1>
-              <Card.Text className="body-precio">${data.precio}</Card.Text>
+              <h1>{productoStore.productos.productos}</h1>
+              <Card.Text className="body-precio">${productoStore.productos.productos}</Card.Text>
             </Card.Header>
             <Card.Body className="body-tarjeta">
             {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>Categorías</Card.Title>
               <div className="body-descripcion">
-                <Card.Text className="texto-descripcion">{data.descripcion}</Card.Text>
+                <Card.Text className="texto-descripcion">{productoStore.productos.productos}</Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
                   <div className="stock-tarjeta">
-                    <Card.Text>STOCK: {data.stock}</Card.Text>
-                    <Card.Text>CANTIDAD A COMPRAR : {cant}</Card.Text>
-                    <Button
-                      className="botonCant"
-                      onClick={() => setCant(cant + 1)}
-                    >
-                      +
-                    </Button>
-                    <Button
-                      className="botonCant"
-                      onClick={() => setCant(cant - 1)}
-                    >
-                      -
-                    </Button>
+                    <CarritoBoton  stock={productoStore.productos.productos} id={id}/>
                   </div>
                 </Row>
               </div>
