@@ -170,5 +170,24 @@ router.get("/:id/review/", (req, res) => {
 
 })
 
+router.get("/:id/reviewprom", async (req, res) => {
+  let id = req.params.id;
+  var sum = 0;
+  var cant = 0;
+  var prom = 0;
+  const reviews = await Reviews.findAll({ where: { productoId: id } });
+  if (reviews.length < 1) return res.status(400).send("no se encontraron reviews para ese articulo")
+  reviews.forEach(e => {
+    sum += e.dataValues.qualification;
+    console.log(e.dataValues.qualification)
+    cant++
+  })
+  prom = sum / cant;
+  console.log(prom)
+  var resultado = (Math.ceil(prom) + Math.floor(prom)) / 2;
+  console.log(resultado)
+  return res.send(`${resultado}`)
+})
+
 module.exports = router;
 
