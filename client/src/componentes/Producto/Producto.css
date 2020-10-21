@@ -8,12 +8,12 @@
 }
 .producto__marco {
   display: flex !important;
-  height: 100vh;
   flex-direction: row !important;
   margin: 100px !important;
+  padding-bottom: 150px !important;
 }
 .carousel-inner {
-  height: 100vh;
+  height: auto;
   display: flex;
   justify-content: space-around;
 }
@@ -21,7 +21,7 @@
   height: 100vh;
 }
 .imagen-asd {
-  height: 100vh;
+  height: auto;
   object-fit: contain !important;
   height: 100%;
 }
