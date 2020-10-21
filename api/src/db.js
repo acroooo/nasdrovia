@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
+const crypto = require('crypto');
 const path = require("path");
 const { userInfo } = require("os");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
@@ -69,6 +70,21 @@ Producto.belongsToMany(Carrito, { through: LineaDeOrden });
 //relacion imagen-producto 
 Producto.hasMany(Images);
 Images.belongsTo(Producto);
+
+
+//-------Password------
+Usuario.randomSalt = function () {
+  return crypto.randomBytes(20).toString("hex");
+},
+Usuario.prototype.checkPassword = function (password) {
+    return (
+      crypto
+      .createHmac("sha1", this.salt)
+      .update(password)
+      .digest("hex") === this.password
+    );
+  };
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

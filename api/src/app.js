@@ -4,7 +4,11 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
-require("./db.js");
+
+//--------- Autenticación 
+const LocalStrategy = require('passport-local').Strategy;
+
+const {Usuario}= require("./db.js"); //Traer usuario de la base de datos
 
 const server = express();
 
