@@ -14,6 +14,7 @@ import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 import PanelAdmin from "./componentes/PanelAdmin/PanelAdmin";
 import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
 import Checkout from "./componentes/Checkout/Checkout";
+import Orden2 from "./componentes/Orden2/Orden2";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -26,6 +27,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/" component={PanelAdmin} />
         <Route exact path="/ordenes" component={ListaOrdenes2} />
+        <Route exact path="/orden" component={Orden2} />
       
         <Switch>
           <Route exact path="/productos" component={Shop} />
