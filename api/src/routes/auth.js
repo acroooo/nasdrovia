@@ -1,14 +1,23 @@
 const router = require("express").Router();
-const {Usuario} = require("../db");
+const {Usuario} = require("../db"); //Revisar si va esta parte
 const passport = require('passport');
 
 router.post('/login', passport.authenticate('local'),(req,res)=>{
     res.status(201).json("Usuario se encuentra logueado");
 });
 
-router.post('/logout', function(req, res){
+router.post('/logout', (req, res)=>{
     req.logout();
     res.status(201).json("Usuario deslogueado");
+   
 });
 
-module.exports=router;
+
+router.get('/me',(req,res)=>{
+    if(req.isAuthenticated())return res.send(req.usuario);
+    else return res.status(401).send("Usuario no se encuentra logueado");
+});
+
+
+
+ module.exports=router; 
