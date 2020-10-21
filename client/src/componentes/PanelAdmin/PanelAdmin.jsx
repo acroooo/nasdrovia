@@ -21,9 +21,10 @@ const PanelAdmin = () => {
            
             <h4 className='text-white mb-4 mt-3'>Administración</h4>
             <nav id='nav'>
-                <Link className='link-admin' to='/listaordenes'>Ordenes</Link>
+                <Link className='link-admin' to='/ordenes'>Ordenes</Link>
                 <Link className='link-admin' to='/formulario-crud'>Productos</Link>
                 <Link className='link-admin' to='/formulario-categoria'>Categorias</Link>
+                <Link className='link-admin' to='/formulario-categoria'>Usuarios</Link>
                 <Link className='link-admin' to='/ajustes'>Ajustes de cuenta</Link>
                 <Link className='link-admin' to='/'>Cerrar Sesión</Link>
             </nav>
