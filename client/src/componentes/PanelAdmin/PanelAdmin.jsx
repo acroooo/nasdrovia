@@ -24,7 +24,7 @@ const PanelAdmin = () => {
                 <Link className='link-admin' to='/ordenes'>Ordenes</Link>
                 <Link className='link-admin' to='/formulario-crud'>Productos</Link>
                 <Link className='link-admin' to='/formulario-categoria'>Categorias</Link>
-                <Link className='link-admin' to='/formulario-categoria'>Usuarios</Link>
+                <Link className='link-admin' to='/usuarios'>Usuarios</Link>
                 <Link className='link-admin' to='/ajustes'>Ajustes de cuenta</Link>
                 <Link className='link-admin' to='/'>Cerrar Sesión</Link>
             </nav>
