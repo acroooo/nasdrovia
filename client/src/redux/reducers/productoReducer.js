@@ -18,9 +18,13 @@ export default function productoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTOS:
       const productos = action.payload
+      const images = action.payload.images
       return {
         ...state,
-        TodosLosProductos: productos,
+        TodosLosProductos: {
+          ...productos,
+          images: images
+        }
 
       };
 

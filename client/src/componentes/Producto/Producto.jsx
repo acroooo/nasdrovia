@@ -11,8 +11,9 @@ const Producto = (props) => {
 
   // =============== ESTADO DE REDUX ================ //
   const productoStore = useSelector(state => state.productos.TodosLosProductos)
+  const imagenes = useSelector(state => state.images)
   // Imagen no funciona.
-  // const imagen = useSelector(state => state.productos.TodosLosProductos.images)
+  const images = useSelector(state => state.productos.TodosLosProductos.images)
   const dispatch = useDispatch();
 
   const [cant, setCant] = useState(0);
@@ -23,6 +24,7 @@ const Producto = (props) => {
   useEffect(
 		() => {
       dispatch(allActions.getProductoDetalle(id))
+
     },[])
   // axios para un producto especifico con verificacion de ID
   // useEffect(() => {
@@ -50,13 +52,12 @@ const Producto = (props) => {
   // faltan funcionalidades
   const addCarro = (event) => {
     event.preventDefault();
+    //hacerlo con localStorage
   };
 
   const removeCarro = (event) => {
     event.preventDefault();
   };
-  console.log(productoStore.images[0])
-  // const cat = categoria.res;
   return (
     <div className="producto__marco">
     {/* Seccion tarjeta producto */}
@@ -66,31 +67,17 @@ const Producto = (props) => {
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
-            {/*data.imagen.map((imagen) => (
-              }<Image
-              className="imagen-asd"
-              src={productoStore.images[0]}
+              {
+                images.map((obj, key) => {
+                  console.log(key, obj)
+                  return obj[key] != "null" ? <Image
+              className="d-block imagen-asd"
+              src={obj[key]}
               alt="Slide"
-              />
-            {/* Colocar flechas al carrousel */}
-              {/* <Image
-                className="d-block w-100"
-                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-                alt="First slide"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <Image
-                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-                className="d-block w-100"
-              />
-            </Carousel.Item>
-            <Carousel.Item>
-              <Image
-                className="w-100"
-                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
-                alt="Third slide"
-              /> */}
+              /> : <div>La imagen no se cargó, intente de nuevo</div>
+                })
+              }
+            {/* /* Colocar flechas al carrousel */}
             </Carousel.Item>
           </Carousel>
         </Container>
