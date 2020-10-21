@@ -5,6 +5,7 @@ const ProductoRuta = require("./producto.js");
 const Usuario = require("./usuarios");
 const Carrito = require("./carrito");
 const Admin = require("./admin");
+const auth =require("./auth")
 const { Op } = require("sequelize");
 const { Producto } = require("../db.js");
 const router = express();
@@ -16,6 +17,7 @@ router.use("/categorias", Categorias);
 router.use("/usuario", Usuario);
 router.use("/ordenes", Carrito);
 router.use("/admin", Admin);
+router.use("/auth",auth);
 
 //prettier-ignore
 router.get("/search", (req, res) => {
