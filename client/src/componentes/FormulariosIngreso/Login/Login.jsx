@@ -25,10 +25,6 @@ const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
         }
     }
 
- 
-
-
-
     return(
         <form className='formulario-login' onSubmit={handleSubmit}>
                <div className="mensaje-bienvenida mb-5">
