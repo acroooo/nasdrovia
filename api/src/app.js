@@ -22,6 +22,7 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(express.static("public"));
+
 server.use(
   session({
     secret: "secret",
@@ -29,6 +30,7 @@ server.use(
     saveUnitialized: true,
   })
 );
+
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
@@ -63,7 +65,7 @@ passport.use(
 );
 
 passport.serializeUser((usuario, done) => {
-  done(null, usuario.id);
+  usuario.id;
 });
 
 passport.deserializeUser(function (id, done) {
