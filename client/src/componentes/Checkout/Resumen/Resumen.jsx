@@ -1,5 +1,6 @@
 import React from 'react';
 import './Resumen.css';
+import Orden from '../../Orden2/Orden2';
 
 
 const Resumen = () => {
@@ -62,6 +63,7 @@ const Resumen = () => {
                    </div>
                 </div>
             </div>
+        
             <div className="contenido-resumen mt-2">
 
                 <div className='promocional d-flex justify-content-between'>
@@ -79,6 +81,7 @@ const Resumen = () => {
                 
 
             </div>
+            
         </section>
      );
 }
