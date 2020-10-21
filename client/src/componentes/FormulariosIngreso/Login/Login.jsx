@@ -13,8 +13,8 @@ const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
     }
     const handleSubmit = e=>{
         e.preventDefault();
-        const{email,contraseña,contraseña2}=datosAdmin;
-        if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia' && contraseña2==='nasdrovia'){
+        const{email,contraseña}=datosAdmin;
+        if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia'){
             setError(false);
             setUsuario('admin');
             e.target.reset();
@@ -49,11 +49,6 @@ const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
                     <i className="fas fa-unlock"></i>
                 </div>
 
-                <div className="grupo-formulario">
-                    <input type="password" name='contraseña2'  required onChange={handleChange}/>
-                    <label className='etiqueta' >Repetir contraseña</label>
-                    <i className="fas fa-lock"></i>
-                </div>
                 <small>¿Olvidaste la contraseña?</small>
 
                 <button className='mt-3'>Iniciar sesión</button>
