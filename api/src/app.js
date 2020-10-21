@@ -6,6 +6,7 @@ const routes = require("./routes/index.js");
 const cors = require("cors");
 
 //--------- Autenticación 
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const {Usuario}= require("./db.js"); //Traer usuario de la base de datos
@@ -27,6 +28,38 @@ server.use((req, res, next) => {
   );
   next();
 });
+
+passport.use(
+	new LocalStrategy(
+		{
+			usernameField: 'email',
+			passwordField: 'password'
+		},
+		(email, password, done) => {
+			Usuario.findOne({where: {email: email}})
+				.then(usuario => {
+					if (!usuario || !usuario.correctPassword(password)) {
+						return done(null, false, {message: 'Incorrect email or password.'}); 
+					}
+					return done(null, usuario);
+				})
+				.catch(err => done(err));
+		}
+	)
+);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+//------Passport Sesion
+server.use(passport.initialize());
+server.use(passport.session());
+
 
 server.use(cors());
 server.use("/", routes);
