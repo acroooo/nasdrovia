@@ -7,6 +7,7 @@ const cors = require("cors");
 
 //--------- Autenticación 
 const passport = require('passport');
+const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 
 const {Usuario}= require("./db.js"); //Traer usuario de la base de datos
@@ -18,6 +19,12 @@ server.name = "API";
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
+server.use(express.static("public"));
+server.use(session({
+  secret: 'secret',
+  resave:false,
+  saveUnitialized: true,
+}))
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
@@ -47,15 +54,19 @@ passport.use(
 		}
 	)
 );
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
+
+passport.serializeUser((usuario, done) => {
+  done(null, usuario.id)
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+  Usuario.findByPk(id)
+  .then(usuario => {
+    done(null, usuario)})
+    .catch(err => done(err, null));
 });
+
+
 //------Passport Sesion
 server.use(passport.initialize());
 server.use(passport.session());
