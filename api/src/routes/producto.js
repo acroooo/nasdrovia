@@ -96,13 +96,16 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
 
 // arrancan las rutas de review
 
-router.post("/:id/review", (req, res) => {
+router.post("/:id/review", async (req, res) => {
   let { commentary, qualification, usuarioId } = req.body;
   var productoId = req.params.id;
-  console.log(productoId)
   if (!commentary || !qualification || !usuarioId) {
     res.status(400).send("Faltan parametros");
   }
+  const allreview = await Reviews.findAll({ where: { productoId } })
+  allreview.forEach(e => {
+    if (e.dataValues.usuarioId === usuarioId) { return res.status(400).send("no se puede agregar mas de una review por producto") }
+  })
   Reviews.create({ commentary, qualification, usuarioId, productoId }).then((respuesta) => {
     res.status(201).send(respuesta);
   }).catch((err) => {
@@ -121,44 +124,49 @@ router.delete("/:id/review/:idReview", async (req, res) => {
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
 router.put("/:id/review/:idRewiew", (req, res) => {
-  let { commentary} = req.body;
+  let { commentary } = req.body;
   let qualification = parseInt(req.body.qualification, 10)
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;
   let largo = commentary.length
-  if(commentary || qualification){
-    if(Number.isNaN(qualification)){return res.status(400).json({"Error":"La calificacion debe ser un numero"})}
-    else if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
-    else if(qualification <1 || qualification >5){return res.status(400).json({"Error":"La calificion debe estar conprendida entre 1 y 5"})}
-      Reviews.findOne(
-        {where: {productoId: productoId , id: rewiewId}
+  if (commentary || qualification) {
+    if (Number.isNaN(qualification)) { return res.status(400).json({ "Error": "La calificacion debe ser un numero" }) }
+    else if (largo < 15 || largo > 200) { return res.status(400).json({ "Error": "El comentario debe tener entre 15 y 200 caracteres" }) }
+    else if (qualification < 1 || qualification > 5) { return res.status(400).json({ "Error": "La calificion debe estar conprendida entre 1 y 5" }) }
+    Reviews.findOne(
+      {
+        where: { productoId: productoId, id: rewiewId }
       })
-      .then((existe) => { 
-        !!existe ?  Reviews.update({commentary, qualification},
-          {where: {productoId: productoId , id: rewiewId},
-        })
-        .then(res.status(200).json({"OK":"Actualizado correctamente"})):
-         res.status(404).json({"Error":"Rewiew no existente"})})
-      .catch((err)=>res.status(400).json({"Error":err}))
-    
-     }else{
-        res.status(400).json({"Error": "Envia almenos un parametro"})
-     }
+      .then((existe) => {
+        !!existe ? Reviews.update({ commentary, qualification },
+          {
+            where: { productoId: productoId, id: rewiewId },
+          })
+          .then(res.status(200).json({ "OK": "Actualizado correctamente" })) :
+          res.status(404).json({ "Error": "Rewiew no existente" })
+      })
+      .catch((err) => res.status(400).json({ "Error": err }))
+
+  } else {
+    res.status(400).json({ "Error": "Envia almenos un parametro" })
+  }
 })
 
 
 /* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
-router.get("/:id/review/",(req,res)=>{
+router.get("/:id/review/", (req, res) => {
   let productoId = req.params.id;
-  Producto.findOne({where: {id: productoId}})
-    .then((producto)=>{if(!producto){return res.status(404).json({"Error": "Producto inexistente"})}})
+  Producto.findOne({ where: { id: productoId } })
+    .then((producto) => { if (!producto) { return res.status(404).json({ "Error": "Producto inexistente" }) } })
   Reviews.findAll(
-    {where: {productoId: productoId}
-  })
-  .then((rewiews) => { 
-    rewiews.length >1 ? res.status(200).json(rewiews):
-    res.status(404).json({"Error":"Este producto no tiene rewiews"})})
-  .catch((err)=>res.status(400).json({"Error":err}))
+    {
+      where: { productoId: productoId }
+    })
+    .then((rewiews) => {
+      rewiews.length > 1 ? res.status(200).json(rewiews) :
+        res.status(404).json({ "Error": "Este producto no tiene rewiews" })
+    })
+    .catch((err) => res.status(400).json({ "Error": err }))
 
 })
 
