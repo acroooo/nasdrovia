@@ -73,17 +73,28 @@ Images.belongsTo(Producto);
 
 
 //-------Password------
-Usuario.randomSalt = function () {
+Usuario.generateSalt = function () {
   return crypto.randomBytes(20).toString("hex");
 },
-Usuario.prototype.checkPassword = function (password) {
-    return (
-      crypto
-      .createHmac("sha1", this.salt)
-      .update(password)
-      .digest("hex") === this.password
-    );
-  };
+Usuario.encryptPassword = function (plainText, salt) { 
+  return crypto 
+      .createHash ('RSA-SHA256') 
+      .update (plainText) 
+      .update (salt) 
+      .digest ('hex') 
+}
+const setSaltAndPassword = usuario => { 
+  if (usuario.changed ('password')) { 
+      usuario.salt = Usuario.generateSalt() 
+      usuario.password = Usuario.encryptPassword (usuario.password (), usuario.salt ()) 
+  } 
+}
+Usuario.beforeCreate (setSaltAndPassword) 
+Usuario.beforeUpdate (setSaltAndPassword)
+
+Usuario.prototype.correctPassword = function(enteredPassword) {
+  return Usuario.encryptPassword(enteredPassword, this.salt()) === this.password()
+}
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -1,5 +1,4 @@
 const { DataTypes, Sequelize } = require("sequelize");
-
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -17,12 +16,12 @@ module.exports = (sequelize) => {
   };
   // defino el modelo
   sequelize.define("usuario", {
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: validations.allowNull,
       validate: validations.strType,
     },
-    role: {
+    rol: {
       type: DataTypes.STRING,
       defaultValue: "Client",
       allowNull: validations.allowNull,
@@ -35,25 +34,19 @@ module.exports = (sequelize) => {
       unique: true,
       validate: {
         isEmail: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: validations.allowNull,
-        set(value) {
-          const rSalt = Usuario.randomSalt();
-          this.setDataValue("salt", rSalt);
-          this.setDataValue(
-            "password",
-            crypto
-            .createHmac("sha1", this.salt)
-            .update(value)
-            .digest("hex")
-          );
-        },
-      },
-      salt: {
-        type: DataTypes.STRING,
-      },
+      }
     },
-  });
-};
+    password: {
+      type: Sequelize.STRING,
+      get() {
+          return () => this.getDataValue('password')
+      }
+  },
+     salt: {
+       type: DataTypes.STRING,
+       get(){
+        return ()=>this.getDataValue('salt')
+      }
+     },
+    });
+}

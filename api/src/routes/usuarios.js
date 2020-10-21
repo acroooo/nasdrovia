@@ -9,12 +9,13 @@ router.post("/", async (req, res, next) => {
       res.status(400).json({ Error: "Email ya registrado" });
     } else {
       let nuevo_usuario = await Usuario.create({
-        name: nombre,
+        nombre,
         rol,
         email,
         password: contrasena,
       });
       res.status(201).json(nuevo_usuario);
+      console.log(contrasena);
     }
   } else {
     res
