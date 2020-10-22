@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Usuario } = require("../db.js");
+
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 
 router.post("/", isAuthenticatedAndAdmin, async (req, res) => {
@@ -17,6 +18,7 @@ router.post("/", isAuthenticatedAndAdmin, async (req, res) => {
         email,
       });
       res.status(201).json(nuevoAdmin);
+
     }
   } else {
     res.status(400).send("Faltan parámetros");

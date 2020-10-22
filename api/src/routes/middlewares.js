@@ -20,3 +20,4 @@ middlewares.createUser = (req, res, next) => {
   let { nombre, rol, email, contrasena } = req.body;
 };
 module.exports = middlewares;
+

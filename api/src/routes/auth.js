@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Usuario } = require("../db"); //Revisar si va esta parte
+
 const passport = require("passport");
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
@@ -31,3 +32,4 @@ router.post("/promote/:id", async (req, res) => {
 });
 
 module.exports = router;
+

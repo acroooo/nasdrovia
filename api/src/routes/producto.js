@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const {
   Producto,
   Categories,
@@ -15,8 +16,10 @@ router.get("/", (req, res, next) => {
       },
       {
         model: Categories,
+
       },
     ],
+
   })
     .then((products) => {
       res.send(products);
@@ -30,6 +33,7 @@ router.get("/:id", (req, res, next) => {
     include: [
       {
         model: Images,
+
         required: true,
       },
       {
@@ -45,15 +49,9 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.post("/", isAuthenticatedAndAdmin, async (req, res, next) => {
-  const {
-    nombre,
-    precio,
-    stock,
-    imagen1,
-    imagen2,
-    imagen3,
-    descripcion,
-  } = req.body;
+
+  const { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion, } = req.body;
+
   if (nombre && precio && stock && descripcion && imagen1) {
     const nproduct = await Producto.create(
       {
@@ -225,5 +223,7 @@ router.get("/:id/review/", isAuthenticated, (req, res) => {
     })
     .catch((err) => res.status(400).json({ Error: err }));
 });
+
+
 
 module.exports = router;
