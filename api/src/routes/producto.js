@@ -6,11 +6,9 @@ router.get("/", (req, res, next) => {
     include: [
       {
         model: Images,
-        required: true
       },
       {
         model: Categories,
-        required: true
       }
     ]
     
