@@ -6,11 +6,22 @@ export default function ListaProducto({lista,setAccion,setProductoEditar,setSoli
  
     //Almacena el producto que toca editar en el state
     const editadoEnState = producto=>{
-        const { nombre, stock, imagen, precio, descripcion, id,categories } = producto
+        const { nombre, stock, images, precio, descripcion, id,categories } = producto
          setAccion('editar');
-         setProductoEditar({id,nombre,imagen,descripcion,stock,precio,categories});
+         let imagen1 = producto.images['0']['0'];
+         let imagen2 = producto.images['0']['1'];
+         let imagen3 = producto.images['0']['2'];
+         let objeto;
+       
+        
+         if(imagen1){objeto ={nombre, stock, precio, descripcion, id,categories,imagen1};  }
+         if(imagen1 && imagen2){objeto ={nombre, stock, precio, descripcion, id,categories,imagen1,imagen2}; }
+         if(imagen1 && imagen2 && imagen3){ objeto ={nombre, stock, precio, descripcion, id,categories,imagen1,imagen2,imagen3}; }
+
+         console.log(objeto)
+         setProductoEditar(objeto);
          let categorias=[];
-         let categoriasProducto = categories.forEach(cat=>categorias.push({id:cat.id,categoria:cat.nombre}));
+         let categoriasProducto =categories && categories.forEach(cat=>categorias.push({id:cat.id,categoria:cat.nombre}));
          setCats(categorias);
       
     }
@@ -25,6 +36,10 @@ export default function ListaProducto({lista,setAccion,setProductoEditar,setSoli
  
      //Función que convierte la primera letra de una palabra en mayuscula
       const mayusc=palabra=>palabra[0].toUpperCase()+palabra.slice(1);
+  /* console.log(lista[0].images['0']['2']);//5 -2 imagen // 6-2imagnes // 7-3 imagenes */
+    
+  console.log(lista[0])
+
 
     return lista.length ?(
         lista.map(element => {
@@ -37,7 +52,7 @@ export default function ListaProducto({lista,setAccion,setProductoEditar,setSoli
                     <div className="d-none d-md-block col-md-1 pl-5">1</div>
                     <div className="d-none d-md-block col-md-1 pl-4">{stock}</div>
                     <div className="d-none d-md-flex col-md-2 align-items-center flex-wrap">
-                          {element.categories.map(cat => <small className="mr-1 text-center" key={Math.random()}>{cat.nombre}</small>)}  
+                          {element.categories && element.categories.map(cat => <small className="mr-1 text-center" key={Math.random()}>{cat.nombre}</small>)}  
                     </div>
                     <div className="d-none d-md-block col-md-1">$ {precio.toString()[0] + '.' + precio.toString().slice(1)} </div>
                     <div className="col-4 col-md-1 text-center text-md-left">
