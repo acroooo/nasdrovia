@@ -30,10 +30,19 @@ const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
                <div className="mensaje-bienvenida mb-5">
                 <h2 className='mb-4'>Iniciar Sesión</h2>
                  <p>¿Eres nuevo en este sitio? <span onClick={()=>setTipo('registrar')}>Regístrate</span></p>
+                 <button class='btn-alternativo btn-fac d-flex align-items-center'> 
+                 <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
+                 <div className="sombra-facebook"></div>
+                 </button>
+                 <button class='btn-alternativo btn-goo d-flex align-items-center'>
+                     <i className="fab fa-google mr-3 pl-3"></i>
+                     Continuar con Google
+                     <div className="sombra-facebook"></div>
+                     </button>
                  {error &&  <p className='error-login text-white'>Datos incorrectos</p>}
                 </div>
 
-                <div className="grupo-formulario">
+                <div className="grupo-formulario mt-0">
                     <input type="text" name='email' required onChange={handleChange}/>
                     <label className='etiqueta' >Email</label>
                     <i className="fas fa-envelope"></i>
