@@ -1,8 +1,10 @@
-const e = require('express')
-const express = require('express')
-const router = express.Router()
-const { Categories, Producto } = require("../db.js")
-const {isAuthenticated, isAuthenticatedAndAdmin} = require("./middlewares")
+
+const e = require("express");
+const express = require("express");
+const router = express.Router();
+const { Categories, Producto } = require("../db.js");
+const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
+
 
 router.get("/", (req, res) => {
   Categories.findAll()
@@ -32,14 +34,13 @@ router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
- router.delete("/:id", isAuthenticatedAndAdmin,(req, res) => {
 
+ router.delete("/:id", isAuthenticatedAndAdmin,(req, res) => {
   let id = req.params.id;
   Categories.destroy({ where: { id } }).then((response) => {
     if (response === 0) return res.status(400);
     else return res.status(201);
   });
 });
- 
 
 module.exports = router;

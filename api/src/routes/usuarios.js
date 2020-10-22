@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
-const {isAuthenticated, isAuthenticatedAndAdmin} = require("./middlewares")
+const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 router.post("/", async (req, res, next) => {
   let { nombre, email, contrasena } = req.body;
   if (nombre && email && contrasena) {
@@ -100,46 +100,48 @@ router.get("/", isAuthenticatedAndAdmin, (req, res) => {
     .then((usuarios) => res.send(usuarios))
     .catch((err) => {
       return res.status(400).send(err);
-    })
-})
-router.get("/:id", isAuthenticatedAndAdmin,(req, res) => {
-  let id = req.params.id
-  Usuario.findOne({where: {id: id}})
+    });
+});
+router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
+  let id = req.params.id;
+  Usuario.findOne({ where: { id: id } })
     .then((usuario) => {
-      !!usuario ? res.send(usuario): res.json({Error: "Usuario no existe"})}
-      )
+      !!usuario ? res.send(usuario) : res.json({ Error: "Usuario no existe" });
+    })
     .catch((err) => {
       return res.status(400).send(err);
-    })
-})
-router.delete("/:id",isAuthenticatedAndAdmin,(req, res) => {
+    });
+});
+router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
   let { id } = req.params;
-  Usuario.destroy({ where: { id } }).then((response) => {
-    if (response === 0) res.status(400);
-    else res.status(201).send("borrado");
-  }).catch((err) => res.status(400).send(err.message))
-})
+  Usuario.destroy({ where: { id } })
+    .then((response) => {
+      if (response === 0) res.status(400);
+      else res.status(201).send("borrado");
+    })
+    .catch((err) => res.status(400).send(err.message));
+});
 
 /* -------------------CARRITO------------------ */
 
 //AÚN ESTÁN EN PROCESO
 //Crear el carro
-router.post("/:idUser/cart", isAuthenticated,async (req, res) => {
+router.post("/:idUser/cart", isAuthenticated, async (req, res) => {
   let id = req.params.idUser;
   const item = await Carrito.findOne({
-    where: { usuarioId: id , estado: "carrito" },
+    where: { usuarioId: id, estado: "carrito" },
   });
 
   if (item) return res.status(400).send("El usuario tiene un carrito");
 
   let compras = await Carrito.create({
     usuarioId: id,
-  })
-  res.status(200).json(compras)
+  });
+  res.status(200).json(compras);
 });
 
 //Obtener items del carrito
-router.get("/:idUser/cart",isAuthenticated, (req, res) => {
+router.get("/:idUser/cart", isAuthenticated, (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
@@ -154,14 +156,13 @@ router.get("/:idUser/cart",isAuthenticated, (req, res) => {
 //Vaciar carrito
 router.delete("/:idUser/cart", isAuthenticated, async (req, res) => {
   const id = req.params.idUser;
- let compras = await Carrito.findOne({ where: { usuarioId: id, estado: "carrito" } })
- let deleting = await  LineaDeOrden.destroy({ where: { carritoId: compras.id} })
- res.status(200).json({deleted:"ok"})
+  let compras = await Carrito.findOne({
+    where: { usuarioId: id, estado: "carrito" },
+  });
+  let deleting = await LineaDeOrden.destroy({
+    where: { carritoId: compras.id },
+  });
+  res.status(200).json({ deleted: "ok" });
 });
 
-
-
-
-
 module.exports = router;
-
