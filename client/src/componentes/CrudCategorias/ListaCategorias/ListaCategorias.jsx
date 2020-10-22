@@ -24,10 +24,10 @@ const ListaCategorias = ({accion,categorias,editar,setSolicitud}) => {
     return categorias.length ? (
         categorias.map(categoria=>
             <section className='categorias-h row py-1 py-md-2 mb-1' key={categoria.id}>
-                <div className="col-2">{categoria.id}</div>
-                <div className="col-3">{mayus(categoria.nombre)}</div>
-                 <div className="col-5">{mayus(categoria.descripcion)}</div>
-                  <div className="col-2">
+                <div className="col-2 text-center">{categoria.id}</div>
+                <div className="col-3 text-center">{mayus(categoria.nombre)}</div>
+                 <div className="col-5 text-center">{mayus(categoria.descripcion)}</div>
+                  <div className="col-2 text-center">
                     <i className="fas fa-pencil-alt p-1 mr-1 text-white" onClick={()=>editarCategoria(categoria)} ></i>
                     <i className="fas fa-trash p-1 text-white" onClick={()=>eliminarCategoria(categoria.id)}></i>
                   </div>

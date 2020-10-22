@@ -15,8 +15,8 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
 
     //Almacena el número de imagnes que va a tener el producto
     const almacenarImagenes = num=>{
-        setNumImagenes(parseInt(num));
-        setUrls({});
+        num && setNumImagenes(parseInt(num));
+        
     }
 
     //Alamacena las urls de las imagenes con sus respectivo id
@@ -48,7 +48,15 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     }
     
     //Datos del producto que se va a editar
-    const { id, nombre, descripcion, precio, stock, imagen,categories } = productoEditar;
+    const { id, nombre, descripcion, precio, stock, imagen1,categories } = productoEditar;
+     let imagen2,imagen3;
+     if(productoEditar.imagen2){
+       imagen2=productoEditar.imagen2;
+    }
+    if(productoEditar.imagen3){
+        imagen3=productoEditar.imagen3;
+     }
+    
 
     //Guarda el producto editado o creado en el state según sea el caso
     const almacenarProductoEditado = e => {
@@ -68,19 +76,36 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
     const handleSubmit = e => {
         e.preventDefault();
         //Obtener los datos del producto del state dependiendo de la accion a ejecutar
-        const { id, nombre, descripcion, precio, stock, imagen } = accion === 'editar' ? productoEditar : productoCrear;
-        
+        const { id, nombre, descripcion, precio, stock, imagen1 } = accion === 'editar' ? productoEditar : productoCrear;
+        let objeto;
 
         //Validar si los campos están vacios
-         if (!nombre || !descripcion || !precio || !stock || !imagen || !cats.length) {
+         if (!nombre || !descripcion || !precio || !stock || !imagen1 || !cats.length) {
           return setError(true);
             
         }
+        if(accion==='crear'){
+           if(!productoCrear.imagen2 || !productoCrear.imagen3){
+               objeto = {nombre, descripcion, precio, stock, imagen1}
+           }
+           if(productoCrear.imagen2){
+               const {imagen2} = productoCrear;
+              objeto = {nombre, descripcion, precio, stock, imagen1,imagen2}
+          }
+          if(productoCrear.imagen2 &&productoCrear.imagen3){
+            const {imagen2,imagen3} = productoCrear;
+           objeto = {nombre, descripcion, precio, stock, imagen1,imagen2,imagen3}
+       }
+          
+        }
+
+
+
         setError(false); 
 
         //Ejecutar  axios
         switch (accion) {
-           case 'crear': axios.post('http://localhost:3001/producto', {nombre, descripcion, precio, stock, imagen})
+           case 'crear': axios.post('http://localhost:3001/producto', objeto)
                 .then(()=>cats.forEach((cat)=>{
                     axios.post(`http://localhost:3001/producto/${id}/categoria/${cat.id}`);
                     setCats([])}))
@@ -88,7 +113,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                  .catch((err) => console.log(err))
             break; 
             
-             case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen})
+             case 'editar': axios.put(`http://localhost:3001/producto/${id}`, { nombre, descripcion, precio, stock, imagen1})
             .then(()=>{
                 catsEliminar.length>0 && catsEliminar.forEach(n=>axios.delete((`http://localhost:3001/producto/${id}/categoria/${n}`)));
                 cats.length>0 &&cats.forEach(cat=>axios.post(`http://localhost:3001/producto/${id}/categoria/${cat.id}`));
@@ -141,40 +166,40 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 value={descripcion}
             >
             </textarea>
-          {/*   <select className='mb-2' onChange={e=>almacenarImagenes(e.target.value)}>
+           <select className='mb-2' onChange={e=>almacenarImagenes(e.target.value)}>
                 <option value="">Selecciona el numero de imagenes</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-            </select>  */}
-        {/*   {numImagenes===1 && (<div>
+            </select>  
+      {numImagenes===1 && (<div>
               <label className="mb-1 w-100">Imagen 1</label>
-             <input className='w-100' name='1' onChange={e=>almacenarUlrs(e)}/> 
+             <input className='w-100' name='imagen1' value={imagen1} required onChange={almacenarProductoEditado}/> 
              </div>
           )}
 
           {numImagenes===2 && (
               <div>
                   <label className="mb-1 w-100">Imagen 1</label>
-                   <input className='w-100'name='1' onChange={e=>almacenarUlrs(e)} />
+                   <input className='w-100'name='imagen1' onChange={almacenarProductoEditado} />
                    <label className="mb-1 w-100">Imagen 2</label>
-                   <input className='w-100' name='2' onChange={e=>almacenarUlrs(e)}/>
+                   <input className='w-100' name='imagen2' onChange={almacenarProductoEditado}/>
               </div>
           )}
 
           {numImagenes===3 && (
               <div>
                    <label className="mb-1 w-100">Imagen 1</label>
-                   <input className='w-100' name='1' onChange={e=>almacenarUlrs(e)}/>
+                   <input className='w-100' name='imagen1' onChange={almacenarProductoEditado}/>
                    <label className="mb-1 w-100">Imagen 2</label>
-                   <input className='w-100' name='2' onChange={e=>almacenarUlrs(e)}/>
+                   <input className='w-100' name='imagen2' onChange={almacenarProductoEditado}/>
                    <label className="mb-1 w-100">Imagen 3</label>
-                   <input className='w-100' name='3' onChange={e=>almacenarUlrs(e)}/>
+                   <input className='w-100' name='imagen3' onChange={almacenarProductoEditado}/>
               </div>
-          )} */}
+          )} 
 
 
-           
+           {/* 
              <label className="mb-1">Imagen</label>
             <input
                 name='imagen'
@@ -182,7 +207,7 @@ const Crud = ({ accion, setAccion, setProductoEditar, productoEditar, setProduct
                 id='imagen'
                 onChange={almacenarProductoEditado}
                 value={imagen}
-            />  
+            />   */}
 
             <label className="mb-1">Stock</label>
             <input
