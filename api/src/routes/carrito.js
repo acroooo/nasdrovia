@@ -50,14 +50,14 @@ router.post("/:idCarro/cart", isAuthenticated,(req, res)=>{
   });
   //Creamos las lineasDeOrden asociadas al carrito
   LineaDeOrden.bulkCreate(lista) 
-  .then(
-    Carrito.findOne(
+  
+  Carrito.findOne(
       {where: { id: id },
       include: LineaDeOrden,
     }
     ).then(
       (carrito)=> res.json(carrito)
-      ))
+      )
 })
 //Editar las cantidad con el id del carro y el id producto la cantidad 
 router.put("/:id/cart", isAuthenticated,async (req, res) => {
