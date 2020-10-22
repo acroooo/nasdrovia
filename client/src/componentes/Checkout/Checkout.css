@@ -1,0 +1,12 @@
+body{
+    overflow-y: auto;
+}
+.titulo-checkout{
+  font-weight: 700;
+  font-size: 30px;
+}
+.general-checkout{
+    border-top: 1px solid #e7e7e7;
+    margin-bottom: 300px;
+    margin-top: 60px;
+}
