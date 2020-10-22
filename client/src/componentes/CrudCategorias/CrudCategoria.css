@@ -3,7 +3,7 @@ body{font-family:  Arial, sans-serif;}
 .btn-nuevo:focus,.btn-buscar:focus,input:focus,textarea:focus,.btn-gproducto:focus,select:focus{outline: none;}
 .total{
     width: 70%;
-    margin:50px auto;
+    margin:70px auto;
     padding:30px 20px;
     display: flex;
     align-items: center;

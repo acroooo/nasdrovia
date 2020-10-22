@@ -112,13 +112,18 @@ router.delete("/:idProd/categoria/:idCat",isAuthenticatedAndAdmin, (req, res) =>
 
 // arrancan las rutas de review
 
+
 router.post("/:id/review",isAuthenticated,(req, res) => {
+
   let { commentary, qualification, usuarioId } = req.body;
   var productoId = req.params.id;
-  console.log(productoId)
   if (!commentary || !qualification || !usuarioId) {
     res.status(400).send("Faltan parametros");
   }
+  const allreview = await Reviews.findAll({ where: { productoId } })
+  allreview.forEach(e => {
+    if (e.dataValues.usuarioId === usuarioId) { return res.status(400).send("no se puede agregar mas de una review por producto") }
+  })
   Reviews.create({ commentary, qualification, usuarioId, productoId }).then((respuesta) => {
     res.status(201).send(respuesta);
   }).catch((err) => {
@@ -136,6 +141,7 @@ router.delete("/:id/review/:idReview",isAuthenticatedAndAdmin, async (req, res) 
 })
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
+
 //Fix temporal
 router.put("/:id/review/:idRewiew", isAuthenticated,(req, res) => {
   let { commentary, qualification} = req.body;
@@ -166,22 +172,42 @@ router.put("/:id/review/:idRewiew", isAuthenticated,(req, res) => {
          res.status(404).json({"Error":"Rewiew no existente"})})
       .catch((err)=>res.status(400).json({"Error":err}))
     
+/* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
+
+router.get("/:id/review/",isAuthenticated,(req,res)=>{
+
+  let productoId = req.params.id;
+  Producto.findOne({ where: { id: productoId } })
+    .then((producto) => { if (!producto) { return res.status(404).json({ "Error": "Producto inexistente" }) } })
+  Reviews.findAll(
+    {
+      where: { productoId: productoId }
+    })
+    .then((rewiews) => {
+      rewiews.length > 1 ? res.status(200).json(rewiews) :
+        res.status(404).json({ "Error": "Este producto no tiene rewiews" })
+    })
+    .catch((err) => res.status(400).json({ "Error": err }))
+
 })
 
-
-/* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
-router.get("/:id/review/",isAuthenticated,(req,res)=>{
-  let productoId = req.params.id;
-  Producto.findOne({where: {id: productoId}})
-    .then((producto)=>{if(!producto){return res.status(404).json({"Error": "Producto inexistente"})}})
-  Reviews.findAll(
-    {where: {productoId: productoId}
+router.get("/:id/reviewprom", async (req, res) => {
+  let id = req.params.id;
+  var sum = 0;
+  var cant = 0;
+  var prom = 0;
+  const reviews = await Reviews.findAll({ where: { productoId: id } });
+  if (reviews.length < 1) return res.status(400).send("no se encontraron reviews para ese articulo")
+  reviews.forEach(e => {
+    sum += e.dataValues.qualification;
+    console.log(e.dataValues.qualification)
+    cant++
   })
-  .then((rewiews) => { 
-    rewiews.length >1 ? res.status(200).json(rewiews):
-    res.status(404).json({"Error":"Este producto no tiene rewiews"})})
-  .catch((err)=>res.status(400).json({"Error":err}))
-
+  prom = sum / cant;
+  console.log(prom)
+  var resultado = (Math.ceil(prom) + Math.floor(prom)) / 2;
+  console.log(resultado)
+  return res.send(`${resultado}`)
 })
 
 module.exports = router;
