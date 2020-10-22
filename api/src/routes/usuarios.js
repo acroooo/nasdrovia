@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
-
+const {isAuthenticated, isAuthenticatedAndAdmin} = require("./middlewares")
 router.post("/", async (req, res, next) => {
-  let { nombre, rol, email, contrasena } = req.body;
+  let { nombre, email, contrasena } = req.body;
   if (nombre && email && contrasena) {
     let emailExistente = await Usuario.findOne({ where: { email: email } });
     if (emailExistente) {
@@ -10,7 +10,6 @@ router.post("/", async (req, res, next) => {
     } else {
       let nuevo_usuario = await Usuario.create({
         nombre,
-        rol,
         email,
         password: contrasena,
       });
@@ -24,7 +23,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", isAuthenticated, async (req, res, next) => {
   // To-Do:  Mejorar ni riot se animo a tanto, pero funciona
   let id = req.params.id;
   let { nombre, rol, email, contrasena } = req.body;
@@ -96,14 +95,14 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/", (req, res) => {
+router.get("/", isAuthenticatedAndAdmin, (req, res) => {
   Usuario.findAll()
     .then((usuarios) => res.send(usuarios))
     .catch((err) => {
       return res.status(400).send(err);
     })
 })
-router.get("/:id", (req, res) => {
+router.get("/:id", isAuthenticatedAndAdmin,(req, res) => {
   let id = req.params.id
   Usuario.findOne({where: {id: id}})
     .then((usuario) => {
@@ -113,7 +112,7 @@ router.get("/:id", (req, res) => {
       return res.status(400).send(err);
     })
 })
-router.delete("/:id", (req, res) => {
+router.delete("/:id",isAuthenticatedAndAdmin,(req, res) => {
   let { id } = req.params;
   Usuario.destroy({ where: { id } }).then((response) => {
     if (response === 0) res.status(400);
@@ -125,7 +124,7 @@ router.delete("/:id", (req, res) => {
 
 //AÚN ESTÁN EN PROCESO
 //Crear el carro
-router.post("/:idUser/cart", async (req, res) => {
+router.post("/:idUser/cart", isAuthenticated,async (req, res) => {
   let id = req.params.idUser;
   const item = await Carrito.findOne({
     where: { usuarioId: id , estado: "carrito" },
@@ -140,7 +139,7 @@ router.post("/:idUser/cart", async (req, res) => {
 });
 
 //Obtener items del carrito
-router.get("/:idUser/cart", (req, res) => {
+router.get("/:idUser/cart",isAuthenticated, (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
@@ -153,7 +152,7 @@ router.get("/:idUser/cart", (req, res) => {
 });
 
 //Vaciar carrito
-router.delete("/:idUser/cart", async (req, res) => {
+router.delete("/:idUser/cart", isAuthenticated, async (req, res) => {
   const id = req.params.idUser;
  let compras = await Carrito.findOne({ where: { usuarioId: id, estado: "carrito" } })
  let deleting = await  LineaDeOrden.destroy({ where: { carritoId: compras.id} })
