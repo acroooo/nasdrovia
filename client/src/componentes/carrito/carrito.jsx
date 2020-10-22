@@ -1,94 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./carrito.css";
 import Miniprod from "./miniproduct"
 import Loader from "../Loader/Loader"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
 import allActions from '../../redux/actions/allActions'
-import { getUsuarioCarrito } from "../../redux/actions/Carrito_Action";
+import Producto from "../Producto/Producto";
+import Axios from "axios";
+// ============ FIN DE IMPORTS ================= //
 
-var producto = [{
-    nombre: "Andes Origen IPA",
-    precio: 150,
-    imagen: "https://nosalgas.com.ar/wp-content/uploads/2020/07/lata-andes-IPA-1.jpg",
-    stock: "15"
-},
-{
-    nombre: "patagonia 24.7",
-    precio: 180,
-    imagen: "https://tatauy.vteximg.com.br/arquivos/ids/169805-1000-1000/Cerveza-Patagonia-247-Ipa-473Ml-1-9176.jpg?v=637122474247070000",
-    stock: "13"
-},
-{
-    nombre: "Siete Cholas Porter",
-    precio: 190,
-    imagen: "https://cdn.shopify.com/s/files/1/1103/5152/products/siete_cholas-porter_1000x1647_c1da1f36-f67c-4f4a-893f-715be5f68b1a_1024x1024.png?v=1580500624",
-    stock: "5"
-}, {
-    nombre: "Andes Origen IPA",
-    precio: 150,
-    imagen: "https://nosalgas.com.ar/wp-content/uploads/2020/07/lata-andes-IPA-1.jpg",
-    stock: "15"
-},
-{
-    nombre: "patagonia 24.7",
-    precio: 180,
-    imagen: "https://tatauy.vteximg.com.br/arquivos/ids/169805-1000-1000/Cerveza-Patagonia-247-Ipa-473Ml-1-9176.jpg?v=637122474247070000",
-    stock: "13"
-},
-{
-    nombre: "Siete Cholas Porter",
-    precio: 190,
-    imagen: "https://cdn.shopify.com/s/files/1/1103/5152/products/siete_cholas-porter_1000x1647_c1da1f36-f67c-4f4a-893f-715be5f68b1a_1024x1024.png?v=1580500624",
-    stock: "5"
-}, {
-    nombre: "Andes Origen IPA",
-    precio: 150,
-    imagen: "https://nosalgas.com.ar/wp-content/uploads/2020/07/lata-andes-IPA-1.jpg",
-    stock: "15"
-},
-{
-    nombre: "patagonia 24.7",
-    precio: 180,
-    imagen: "https://tatauy.vteximg.com.br/arquivos/ids/169805-1000-1000/Cerveza-Patagonia-247-Ipa-473Ml-1-9176.jpg?v=637122474247070000",
-    stock: "13"
-},
-{
-    nombre: "Siete Cholas Porter",
-    precio: 190,
-    imagen: "https://cdn.shopify.com/s/files/1/1103/5152/products/siete_cholas-porter_1000x1647_c1da1f36-f67c-4f4a-893f-715be5f68b1a_1024x1024.png?v=1580500624",
-    stock: "5"
-}];
-
-
-export default function Carrito(props) {
+export default function Carrito() {
 
 
     // ================== ESTADO REDUX ======================//
+    const productoStore = useSelector(state => state.productos.TodosLosProductos)
     const usuario = useSelector(state => state.usuario.id)
-    const productosCarrito = useSelector(state => state.carrito.CarritoCompleto.lineaDeOrdens)
+    const productoCarrito = useSelector(state => state.carrito.CarritoCompleto)
     const dispatch = useDispatch()
 
     // ================== ESTADO COMOPONENTES ===================== //
     const [total, setTotal] = useState(0);
     const [envio, setEnvio] = useState(0);
     const [subtotal, setSubTotal] = useState(0);
-    const [listaproductos, setListaProductos] = useState({ res: null, isLoaded: false });
+    const [listaproductos, setListaProductos] = useState({});
     const [user, setUser] = useState(0)
     const descuento = 0.8;
 
     // ================== USE EFFECT ========================//
     useEffect(
-            () => {
-          dispatch(allActions.getUsuarioCarrito(usuario))
-          dispatch(allActions.login)
-          const productos = () => {
-            productosCarrito.forEach(element => (
-                dispatch(allActions.getProductoDetalle(element.productoId))
-            ))
-        }
-        },[])
-    
+         () => {
+           dispatch(allActions.getUsuarioCarrito(usuario))
+           dispatch(allActions.login)
 
+        },[])
+
+        // const productosPorId = (id) => {
+        //              Axios.get(`http://localhost:3001/producto/${id}`)
+        //             .then((res) => {
+        //                 if(res) {
+        //                     setListaProductos(res.data)
+        //                 }
+        //                 })
+        // }
     // useEffect(() => {
     //     setListaProductos({
     //         res: producto.map(e => {
@@ -103,12 +55,6 @@ export default function Carrito(props) {
     //     setSubTotal(res);
     //     setTotal((res * descuento) + envio)
     // }, [])
-
-    useEffect(() => {
-        setListaProductos(dispatch(allActions.getUsuarioCarrito(usuario.id)))
-        // setUser(dispatch(allActions.postUsuarioCarrito(usuario.id)))
-    }, [allActions.getUsuarioCarrito])
-
     return (
         <div>
             <div className="clean-block clean-cart dark">
@@ -121,12 +67,10 @@ export default function Carrito(props) {
                         <div className="row no-gutters">
                             <div className="col-md-12 col-lg-8">
                                 <div className="items">
-                                        
-                                        {/* {
-                                        listaproductos.isLoaded ?
-                                            listaproductos.res.map((e, i) => {
-                                                return <Miniprod producto={e} setListaProductos={setListaProductos} listaproductos={listaproductos} key={i} />
-                                            }) : <Loader />} */}
+                                { productoCarrito.lineaDeOrdens.map((item, index) => {
+                                    const {productoId} = item
+                                   return <Miniprod productoId={productoId} />
+                                })}
                                 </div>
                             </div>
                             <div className="col-md-12 col-lg-4">

@@ -24,7 +24,6 @@ const Producto = (props) => {
   useEffect(
 		() => {
       dispatch(allActions.getProductoDetalle(id))
-
     },[])
   // axios para un producto especifico con verificacion de ID
   // useEffect(() => {
