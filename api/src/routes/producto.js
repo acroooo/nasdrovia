@@ -138,18 +138,26 @@ router.delete("/:id/review/:idReview",isAuthenticatedAndAdmin, async (req, res) 
 })
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
+//Fix temporal
 router.put("/:id/review/:idRewiew", isAuthenticated,(req, res) => {
-  let { commentary} = req.body;
-  let qualification = parseInt(req.body.qualification, 10)
+  let { commentary, qualification} = req.body;
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;
-  let largo = commentary.length
-  //Not or separate ifs
-  if(commentary || qualification){
+  if(!commentary && !qualification){
+    res.status(400).json({"Error": "Envia almenos un parametro"})    
+  }
+  if(qualification){
+    let qualification = parseInt(req.body.qualification, 10)
     if(Number.isNaN(qualification)){return res.status(400).json({"Error":"La calificacion debe ser un numero"})}
-    else if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
-    else if(qualification <1 || qualification >5){return res.status(400).json({"Error":"La calificion debe estar conprendida entre 1 y 5"})}
-      Reviews.findOne(
+    if(qualification <1 || qualification >5){return res.status(400).json({"Error":"La calificion debe estar conprendida entre 1 y 5"})}
+  }
+  if(commentary){
+    let largo = commentary.length
+    console.log(largo)
+    if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
+  }
+ 
+     Reviews.findOne(
         {where: {productoId: productoId , id: rewiewId}
       })
       .then((existe) => { 
@@ -160,9 +168,6 @@ router.put("/:id/review/:idRewiew", isAuthenticated,(req, res) => {
          res.status(404).json({"Error":"Rewiew no existente"})})
       .catch((err)=>res.status(400).json({"Error":err}))
     
-     }else{
-        res.status(400).json({"Error": "Envia almenos un parametro"})
-     }
 })
 
 
