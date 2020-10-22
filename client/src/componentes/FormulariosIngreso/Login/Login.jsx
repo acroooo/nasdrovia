@@ -1,29 +1,48 @@
 import React,{useState} from 'react';
+import {useDispatch} from 'react-redux';
 import './Login.css';
+import Axios from 'axios';
+import allActions from '../../redux/actions/allActions'
 
 const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
 
+    const dispatch= useDispatch();
 
-    const [datosAdmin,setDatosAdmin]=useState({});
+
+    const [inputValues,setInputValues]=useState({});
     const [error,setError]=useState(false);
+    const [logeado,setLogeado]=useState("");
   
     
     const handleChange = e=>{
-        setDatosAdmin({...datosAdmin,[e.target.name]:e.target.value})
+        setInputValues({...inputValues,[e.target.name]:e.target.value})
     }
+
+
+     // const{email,contraseña}=datosAdmin;
+        // if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia'){
+        //     setError(false);
+        //     setUsuario('admin');
+        //     e.target.reset();
+        //     setFormulario('inactivo')
+        //     setLogueado(true);
+        // }else{
+        //       setError(true)
+        // }
+
     const handleSubmit = e=>{
         e.preventDefault();
-        const{email,contraseña}=datosAdmin;
-        if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia'){
-            setError(false);
-            setUsuario('admin');
-            e.target.reset();
-            setFormulario('inactivo')
-            setLogueado(true);
-        }else{
-              setError(true)
-        }
-    }
+        if (!inputValues.email || !inputValues.password){
+            return setError(true)
+        }setError(false);
+
+        Axios.post('localhost:3001/auth/login', inputValues)
+            .then( () =>{
+            dispatch (allActions.login(usuario.data));
+            setLogeado('Su sesión se ha iniciado con exito!');
+            })
+            .catch((err)=> setError(true));
+    };
 
     return(
         <form className='formulario-login' onSubmit={handleSubmit}>
@@ -40,7 +59,7 @@ const Login = ({setTipo,setUsuario,setFormulario,setLogueado})=>{
                 </div>
                 
                 <div className="grupo-formulario">                 
-                    <input type="password" name='contraseña' required onChange={handleChange}/>
+                    <input type="password" name='password' required onChange={handleChange}/>
                     <label className='etiqueta'>Contraseña</label>
                     <i className="fas fa-unlock"></i>
                 </div>
