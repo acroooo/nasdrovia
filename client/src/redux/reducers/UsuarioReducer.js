@@ -1,8 +1,8 @@
 import { LOGIN, LOGOUT } from "../actions/ActionTypes";
 
 const initialState = {
-  role: "Visitante",
-  id: 1,
+  role: "Guest",
+  id: 0,
   email: null,
   nombre: null,
 };
@@ -20,7 +20,7 @@ export default function usuarioReducer(state = initialState, action) {
     case LOGOUT:
       return {
         ...state,
-        role: "Visitante",
+        role: "Guest",
         id: 0,
         email: null,
         nombre: null,
