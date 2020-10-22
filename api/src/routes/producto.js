@@ -1,9 +1,19 @@
 const router = require("express").Router();
 const { Producto, Categories, producto_categoria, Images, Reviews } = require("../db.js");
+const {isAuthenticated, isAuthenticatedAndAdmin} = require("./middlewares")
 router.get("/", (req, res, next) => {
   Producto.findAll({
-    include: Categories,
-    include: Images
+    include: [
+      {
+        model: Images,
+        required: true
+      },
+      {
+        model: Categories,
+        required: true
+      }
+    ]
+    
   })
     .then((products) => {
       res.send(products);
@@ -14,8 +24,16 @@ router.get("/:id", (req, res, next) => {
   const id = req.params.id;
   Producto.findOne({
     where: { id },
-    include: Categories,
-    include: Images
+    include: [
+      {
+        model: Images,
+        required: true
+      },
+      {
+        model: Categories,
+        required: true
+      }
+    ]
   })
     .then((products) => {
       res.status(200).send(products);
@@ -23,7 +41,7 @@ router.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", isAuthenticatedAndAdmin, async (req, res, next) => {
   const { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion, } = req.body;
   if (nombre && precio && stock && descripcion && imagen1) {
 
@@ -47,7 +65,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
   let id = req.params.id;
   let { nombre, precio, stock, imagen1, imagen2, imagen3, descripcion } = req.body;
   if (imagen1 || imagen2 || imagen3) {
@@ -64,7 +82,7 @@ router.put("/:id", (req, res) => {
   }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
   let id = req.params.id;
   Producto.destroy({ where: { id } }).then((response) => {
     if (response === 0) return res.sendStatus(400);
@@ -73,7 +91,7 @@ router.delete("/:id", (req, res) => {
 });
 
 
-router.post("/:idProd/categoria/:idCat", async (req, res) => {
+router.post("/:idProd/categoria/:idCat", isAuthenticatedAndAdmin, async (req, res) => {
 
   const { idProd, idCat } = req.params;
   const producto = await Producto.findOne({ where: { id: idProd } });
@@ -86,7 +104,7 @@ router.post("/:idProd/categoria/:idCat", async (req, res) => {
   });
   res.json(result);
 });
-router.delete("/:idProd/categoria/:idCat", (req, res) => {
+router.delete("/:idProd/categoria/:idCat",isAuthenticatedAndAdmin, (req, res) => {
   const { idProd, idCat } = req.params;
 
   producto_categoria
@@ -96,7 +114,7 @@ router.delete("/:idProd/categoria/:idCat", (req, res) => {
 
 // arrancan las rutas de review
 
-router.post("/:id/review", (req, res) => {
+router.post("/:id/review",isAuthenticated,(req, res) => {
   let { commentary, qualification, usuarioId } = req.body;
   var productoId = req.params.id;
   console.log(productoId)
@@ -110,7 +128,7 @@ router.post("/:id/review", (req, res) => {
   });
 })
 
-router.delete("/:id/review/:idReview", async (req, res) => {
+router.delete("/:id/review/:idReview",isAuthenticatedAndAdmin, async (req, res) => {
   let id = req.params.idReview;
   let idprod = req.params.id;
   const review = await Reviews.findOne({ where: { productoId: idprod, id } });
@@ -120,12 +138,13 @@ router.delete("/:id/review/:idReview", async (req, res) => {
 })
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
-router.put("/:id/review/:idRewiew", (req, res) => {
+router.put("/:id/review/:idRewiew", isAuthenticated,(req, res) => {
   let { commentary} = req.body;
   let qualification = parseInt(req.body.qualification, 10)
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;
   let largo = commentary.length
+  //Not or separate ifs
   if(commentary || qualification){
     if(Number.isNaN(qualification)){return res.status(400).json({"Error":"La calificacion debe ser un numero"})}
     else if(largo < 15 || largo>200){return res.status(400).json({"Error":"El comentario debe tener entre 15 y 200 caracteres"})}
@@ -148,7 +167,7 @@ router.put("/:id/review/:idRewiew", (req, res) => {
 
 
 /* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
-router.get("/:id/review/",(req,res)=>{
+router.get("/:id/review/",isAuthenticated,(req,res)=>{
   let productoId = req.params.id;
   Producto.findOne({where: {id: productoId}})
     .then((producto)=>{if(!producto){return res.status(404).json({"Error": "Producto inexistente"})}})

@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { Usuario } = require("../db.js");
+const {isAuthenticated, isAuthenticatedAndAdmin} = require("./middlewares")
 
-
-router.post('/',async (req,res)=>{
+router.post('/',isAuthenticatedAndAdmin,async (req,res)=>{
 
     let { nombre, rol, email, contrasena } = req.body;
    
