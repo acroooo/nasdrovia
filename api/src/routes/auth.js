@@ -20,6 +20,8 @@ router.get('/me', (req, res) => {
 
 router.post("/promote/:id", async (req, res) => {
     id = req.params.id;
+    if (!req.isAuthenticated()) return res.status(400).send("no se encuentra logueado");
+    if (req.usuario.rol !== admin) return res.status(400).send("no tienes permisos para realizar la operacion");
     const user = await Usuario.findOne({ where: { id } })
     if (!user) return res.status(400).send("no se encontro el usuario")
     await user.update({ rol: "admin" })
