@@ -121,6 +121,65 @@ router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
     .catch((err) => res.status(400).send(err.message));
 });
 
+router.post("/cambioPassword", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+    if (!usuario)
+      return res.status(404).send("No hay usuarios registrados con ese email");
+
+    const salt = await User.generateSalt();
+
+    usuario.olvidoPassword = salt;
+    await usuario.save();
+
+    setTimeout(() => {
+      usuario.olvidoPassword = null;
+      usuario.save();
+    }, 1080);
+    const data = {
+      from: "Nasdrovia <sanchezlismairy@gmail.com>",
+      to: email,
+      subject: "Reseteo de Password",
+      text: `http://localhost:3000/reset/${salt}`,
+      template: "password",
+    };
+
+    mailgun.messages().send(data, function (error, body) {
+      if (error) {
+        console.log({ error });
+        return res.status(200).send({ salt, statusEmail: "error" });
+      }
+
+      return res.status(200).send({ salt, statusEmail: "enviado" });
+    });
+  } catch (error) {
+    return res.sendStatus(500);
+  }
+});
+
+router.post("/:id/passwordReset", async (req, res) => {
+  const { email, password, token } = req.body;
+  if (!email || !password || !token)
+    return res.status(400).send("Faltan parámetros");
+  try {
+    const usuario = await Usuario.findOne({
+      where: { email, olvidoPassword: token },
+    });
+    if (!usuario) return res.status(400);
+
+    usuario.password = password;
+    usuario.olvidoPassword = null;
+    await usuario.save();
+
+    return res
+      .status(200)
+      .send("Felicidades, su contraseña se ha actualizado exitosamente");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 /* -------------------CARRITO------------------ */
 
 //AÚN ESTÁN EN PROCESO

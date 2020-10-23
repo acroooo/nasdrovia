@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
-const {userInjector} = require("./routes/middlewares")
+const { userInjector } = require("./routes/middlewares");
 //--------- Autenticación
 const passport = require("passport");
 const session = require("express-session");
@@ -135,7 +135,7 @@ server.use(passport.session());
 
 server.use(cors());
 server.use("/", routes);
-server.use(userInjector)
+server.use(userInjector);
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;
