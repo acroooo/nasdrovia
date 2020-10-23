@@ -4,12 +4,12 @@ const passport = require("passport");
 const { isAuthenticatedAndAdmin } = require("./middlewares");
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
-  res.status(201).json("Usuario se encuentra logueado");
+  res.status(201).send(req.user["dataValues"]);
 });
 
 router.post("/logout", (req, res) => {
   req.logout();
-  res.status(201).json("Usuario deslogueado");
+  res.status(201).send("Usuario deslogueado");
 });
 
 router.get("/me", (req, res) => {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import "./Login.css";
 import Axios from "axios";
 import allActions from "../../../redux/actions/allActions.js";
@@ -15,17 +16,6 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
 
-  // const{email,contraseña}=datosAdmin;
-  // if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia'){
-  //     setError(false);
-  //     setUsuario('admin');
-  //     e.target.reset();
-  //     setFormulario('inactivo')
-  //     setLogueado(true);
-  // }else{
-  //       setError(true)
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputValues.email || !inputValues.password) {
@@ -37,7 +27,8 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
         "http://localhost:3001/auth/login",
         inputValues
       );
-      dispatch(allActions.login(usuario.data));
+      if (usuario.status === 201) dispatch(allActions.login(usuario.data));
+      console.log(usuario);
       setLogeado("Su sesión se ha iniciado con exito!");
     } catch (err) {
       setError(true);
@@ -83,7 +74,9 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
 
       <small>¿Olvidaste la contraseña?</small>
 
-      <button className="mt-3">Iniciar sesión</button>
+      <button className="mt-3" onClick={handleSubmit}>
+        Iniciar sesión
+      </button>
     </form>
   );
 };
