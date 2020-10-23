@@ -1,12 +1,10 @@
 const router = require("express").Router();
 const { Op } = require("sequelize");
 const { Carrito, LineaDeOrden, Usuario, Producto } = require("../db.js");
-
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 /* -------------------Rutas Orden de compra------------------ */
 
 router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
-
   let id = req.params.id;
 
   Carrito.findByPk(id, {
@@ -18,7 +16,6 @@ router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
     })
     .catch((error) => res.status(400).json(error));
 });
-
 
 router.get("/", isAuthenticatedAndAdmin, (req, res) => {
   let estado = req.query.estado;
@@ -35,7 +32,6 @@ router.get("/", isAuthenticatedAndAdmin, (req, res) => {
 });
 
 //Agregar productos al carro
-
 router.post("/:idCarro/cart", isAuthenticated, (req, res) => {
   let lista = [];
   id = req.params.idCarro;
@@ -51,33 +47,7 @@ router.post("/:idCarro/cart", isAuthenticated, (req, res) => {
     lista.push(producto);
   });
   //Creamos las lineasDeOrden asociadas al carrito
-
-  LineaDeOrden.bulkCreate(lista) 
-  
-  Carrito.findOne(
-      {where: { id: id },
-      include: LineaDeOrden,
-    }
-    ).then(
-      (carrito)=> res.json(carrito)
-      )
-})
-//Editar las cantidad con el id del carro y el id producto la cantidad 
-router.put("/:id/cart", isAuthenticated,async (req, res) => {
- let idCarrito = req.params.id;
- let {producto, cantidad, precio} = req.body
- if(producto || cantidad || precio){
-  LineaDeOrden.findOne(
-    {where: {carritoId: idCarrito}
-  })
-  .then((existe) => { 
-    !!existe ?  LineaDeOrden.update({producto: producto, cantidad: cantidad, precio: precio},
-      {where: {carritoId: idCarrito},
-    })
-    .then(res.status(200).json({"OK":"Actualizado correctamente"})):
-     res.status(400).json({"Error":"Linea de orden no existente"})})
-  .catch((err)=>res.status(400).json({"Error":err}))
-
+  LineaDeOrden.bulkCreate(lista);
 
   Carrito.findOne({
     where: { id: id },

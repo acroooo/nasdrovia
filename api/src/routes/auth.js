@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { Usuario } = require("../db"); //Revisar si va esta parte
-
 const passport = require("passport");
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
@@ -13,6 +12,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/me", (req, res) => {
+  console.log(req.user)
   if (req.isAuthenticated()) return res.send(req.usuario);
   else return res.status(401).send("Usuario no se encuentra logueado");
 });
@@ -32,4 +32,3 @@ router.post("/promote/:id", async (req, res) => {
 });
 
 module.exports = router;
-
