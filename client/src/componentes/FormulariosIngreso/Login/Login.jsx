@@ -15,16 +15,28 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
 
+  // const{email,contraseña}=datosAdmin;
+  // if(email==='admin@nasdrovia.com' && contraseña==='nasdrovia'){
+  //     setError(false);
+  //     setUsuario('admin');
+  //     e.target.reset();
+  //     setFormulario('inactivo')
+  //     setLogueado(true);
+  // }else{
+  //       setError(true)
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!inputValues.email || !inputValues.password) {
       return setError(true);
     }
     // setError(false);
     try {
-      const usuario = await Axios.post("http://localhost:3001/auth/login");
-
+      const usuario = await Axios.post(
+        "http://localhost:3001/auth/login",
+        inputValues
+      );
       dispatch(allActions.login(usuario.data));
       setLogeado("Su sesión se ha iniciado con exito!");
     } catch (err) {

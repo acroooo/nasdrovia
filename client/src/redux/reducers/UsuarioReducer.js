@@ -12,7 +12,7 @@ export default function usuarioReducer(state = initialState, action) {
     case LOGIN:
       return {
         ...state,
-        rol: action.payload.role,
+        rol: action.payload.rol,
         id: action.payload.id,
         email: action.payload.email,
         nombre: action.payload.nombre,
