@@ -4,13 +4,13 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
-
+const {userInjector} = require("./routes/middlewares")
 //--------- Autenticación
 const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
-const FacebookStrategy = require("passport-facebook").Strategy;
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 const { Usuario } = require("./db.js"); //Traer usuario de la base de datos
 
@@ -22,7 +22,6 @@ server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(express.static("public"));
-
 server.use(
   session({
     secret: "secret",
@@ -30,7 +29,6 @@ server.use(
     saveUnitialized: true,
   })
 );
-
 server.use(morgan("dev"));
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
@@ -42,7 +40,6 @@ server.use((req, res, next) => {
   next();
 });
 
-//----------------------------------PASSPORT LOCAL-STRATEGY---------------------------------------
 passport.use(
   new LocalStrategy(
     {
@@ -65,7 +62,7 @@ passport.use(
 );
 
 passport.serializeUser((usuario, done) => {
-  usuario.id;
+  done(null, usuario.id);
 });
 
 passport.deserializeUser(function (id, done) {
@@ -75,31 +72,6 @@ passport.deserializeUser(function (id, done) {
     })
     .catch((err) => done(err, null));
 });
-
-//----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: "yourclientid",
-      clientSecret: "yourclientsecret",
-      callbackURL: "/auth/google/callback",
-    },
-    function (accessToken, refreshToken, profile, done) {
-      Usuario.findOrCreate({
-        where: { googleId: profile.id },
-        defaults: {
-          nombre: profile.displayName,
-          email: profile.emails[0].value,
-        },
-      });
-      if (!usuario)
-        return done(null, false, {
-          message: "No hemos pudimos loguearte con esa cuenta",
-        });
-      return done(null, usuario);
-    }
-  )
-);
 
 //----------------------------------PASSPORT FACEBOOK-STRATEGY---------------------------------------
 passport.use(
@@ -132,12 +104,38 @@ passport.use(
   )
 );
 
+//----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: "yourclientid",
+      clientSecret: "yourclientsecret",
+      callbackURL: "/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      Usuario.findOrCreate({
+        where: { googleId: profile.id },
+        defaults: {
+          nombre: profile.displayName,
+          email: profile.emails[0].value,
+        },
+      });
+      if (!usuario)
+        return done(null, false, {
+          message: "No hemos pudimos loguearte con esa cuenta",
+        });
+      return done(null, usuario);
+    }
+  )
+);
+
 //------Passport Sesion
 server.use(passport.initialize());
 server.use(passport.session());
 
 server.use(cors());
 server.use("/", routes);
+server.use(userInjector)
 server.use((err, req, res, next) => {
   // eslint-disable-line no-unused-vars
   const status = err.status || 500;

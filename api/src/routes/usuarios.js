@@ -2,8 +2,8 @@ const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 router.post("/", async (req, res, next) => {
-  let { nombre, email, contrasena } = req.body;
-  if (nombre && email && contrasena) {
+  let { nombre, email, password } = req.body;
+  if (nombre && email && password) {
     let emailExistente = await Usuario.findOne({ where: { email: email } });
     if (emailExistente) {
       res.status(400).json({ Error: "Email ya registrado" });
@@ -11,10 +11,9 @@ router.post("/", async (req, res, next) => {
       let nuevo_usuario = await Usuario.create({
         nombre,
         email,
-        password: contrasena,
+        password: password,
       });
       res.status(201).json(nuevo_usuario);
-      console.log(contrasena);
     }
   } else {
     res
