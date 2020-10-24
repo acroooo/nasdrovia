@@ -13,9 +13,10 @@ const Producto = (props) => {
   // VER SI PRODUCTO SE RENDEREA BIEN CON LA IMAGEN
   // =============== ESTADO DE REDUX ================ //
   const productoStore = useSelector(state => state.productos.TodosLosProductos)
+  console.log(productoStore)
   const imagenes = useSelector(state => state.images)
   // Imagen no funciona.
-  const images = useSelector(state => state.productos.TodosLosProductos.images)
+  // const images = useSelector(state => state.productos.TodosLosProductos.images)
   const dispatch = useDispatch();
 
   const [cant, setCant] = useState(0);
@@ -68,7 +69,7 @@ const Producto = (props) => {
         {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
-              {
+              {/* {
                 images.map((obj, key) => {
                   console.log(key, obj)
                   return obj[key] != "null" ? <Image
@@ -77,7 +78,7 @@ const Producto = (props) => {
               alt="Slide"
               /> : <div>La imagen no se cargó, intente de nuevo</div>
                 })
-              }
+              } */}
             {/* /* Colocar flechas al carrousel */}
             </Carousel.Item>
           </Carousel>
