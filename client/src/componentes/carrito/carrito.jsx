@@ -10,6 +10,7 @@ import Axios from "axios";
 
 export default function Carrito() {
 
+    // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
     // ================== ESTADO REDUX ======================//
     const productoStore = useSelector(state => state.productos.TodosLosProductos)

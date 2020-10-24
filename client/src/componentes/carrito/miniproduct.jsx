@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import allActions from "../../redux/actions/allActions";
 import "./miniprod.css"
 
+// ============== YA LLEGA TODO SOLO HAY QUE ACOMODAR ================== //
+
 export default function Miniproduct(props) {
     const productos = useSelector(state => state.productos.TodosLosProductos)
     const dispatch = useDispatch()
