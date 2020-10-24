@@ -65,10 +65,6 @@ const FormularioCrud = () => {
     setSolicitud(false);
   }, [solicitud]);
 
-  useEffect(() => {
-    setReduxState({ res: usuarioLogin, onload: true });
-  }, []);
-
   if (reduxState.rol === "admin") {
     if (listadoProductos.isLoaded) {
       return (

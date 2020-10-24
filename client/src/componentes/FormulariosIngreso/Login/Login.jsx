@@ -7,7 +7,7 @@ import allActions from "../../../redux/actions/allActions.js";
 
 const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
   const dispatch = useDispatch();
-  const usuarioLogin = useSelector((state) => state.usuario);
+  // const usuarioLogin = useSelector((state) => state.usuario);
 
   const [inputValues, setInputValues] = useState({});
   const [error, setError] = useState(false);
@@ -29,7 +29,7 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
         inputValues
       );
       if (usuario.status === 201) dispatch(allActions.login(usuario.data));
-
+      localStorage.setItem("idUsuario", JSON.stringify(usuario.data));
       setLogeado("Su sesión se ha iniciado con exito!");
     } catch (err) {
       setError(true);
