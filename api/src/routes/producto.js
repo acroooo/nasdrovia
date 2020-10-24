@@ -6,6 +6,7 @@ const {
   Images,
   Reviews,
 } = require("../db.js");
+
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 router.get("/", (req, res, next) => {
   Producto.findAll({
@@ -42,7 +43,7 @@ router.get("/:id", (req, res, next) => {
     .catch(next);
 });
 
-router.post("/", isAuthenticatedAndAdmin, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   const {
     nombre,
     precio,
@@ -75,7 +76,7 @@ router.post("/", isAuthenticatedAndAdmin, async (req, res, next) => {
   }
 });
 
-router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.put("/:id", (req, res) => {
   let id = req.params.id;
   let {
     nombre,
@@ -96,7 +97,7 @@ router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
   }
 });
 
-router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.delete("/:id", (req, res) => {
   let id = req.params.id;
   Producto.destroy({ where: { id } }).then((response) => {
     if (response === 0) return res.sendStatus(400);
@@ -106,7 +107,7 @@ router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
 
 router.post(
   "/:idProd/categoria/:idCat",
-  isAuthenticatedAndAdmin,
+
   async (req, res) => {
     const { idProd, idCat } = req.params;
     const producto = await Producto.findOne({ where: { id: idProd } });
@@ -122,7 +123,7 @@ router.post(
 );
 router.delete(
   "/:idProd/categoria/:idCat",
-  isAuthenticatedAndAdmin,
+
   (req, res) => {
     const { idProd, idCat } = req.params;
 
@@ -134,7 +135,7 @@ router.delete(
 
 // arrancan las rutas de review
 
-router.post("/:id/review", isAuthenticated, (req, res) => {
+router.post("/:id/review", (req, res) => {
   let { commentary, qualification, usuarioId } = req.body;
   var productoId = req.params.id;
   console.log(productoId);
@@ -152,7 +153,7 @@ router.post("/:id/review", isAuthenticated, (req, res) => {
 
 router.delete(
   "/:id/review/:idReview",
-  isAuthenticatedAndAdmin,
+
   async (req, res) => {
     let id = req.params.idReview;
     let idprod = req.params.id;
@@ -165,7 +166,7 @@ router.delete(
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
 //Fix temporal
-router.put("/:id/review/:idRewiew", isAuthenticated, (req, res) => {
+router.put("/:id/review/:idRewiew", (req, res) => {
   let { commentary, qualification } = req.body;
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;
@@ -208,7 +209,7 @@ router.put("/:id/review/:idRewiew", isAuthenticated, (req, res) => {
 });
 
 /* ----------------------------Obtener todas las rewiew de un producto---------------------------------------------*/
-router.get("/:id/review/", isAuthenticated, (req, res) => {
+router.get("/:id/review/", (req, res) => {
   let productoId = req.params.id;
   Producto.findOne({ where: { id: productoId } }).then((producto) => {
     if (!producto) {

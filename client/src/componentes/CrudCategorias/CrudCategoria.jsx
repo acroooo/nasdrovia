@@ -13,6 +13,10 @@ const CrudCategoria = () => {
   //prettier-ignore
   const usuarioLogin = useSelector(state => state.usuario);
 
+  //----------LocalStorage, se descomenta cada vez que se resetee la db-----
+
+  // localStorage.setItem("mayorCategorias", "0");
+
   //------------------Hooks------------------
   const [listadoCategorias, setListadoCategorias] = useState([]); //Listado de categorias
   const [accionCategorias, setAccionCategorias] = useState(""); //Tipo de acción que se va a ejecutar
