@@ -1,29 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import "./FormularioCrud.css";
+import { useSelector } from "react-redux";
 import Axios from "axios";
 import EncabezadoCrud from "./EncabezadoCrud/EncabezadoCrud";
 import ListaProductos from "./ListaProductos/ListaProductos";
 import TitulosFiltros from "./TitulosFiltros/TitulosFiltros";
 import Crud from "./Crud/Crud";
+import Error404 from "../Error404/error404";
 
 const FormularioCrud = () => {
   //-------------------- State Redux------------
   //prettier-ignore
   const usuarioLogin = useSelector(state => state.usuario);
 
+  //----------LocalStorage, se descomenta cada vez que se resetee la db-----
+  // localStorage.setItem("mayor", "0");
+
+  //------------------Hooks------------------
   const [listadoProductos, setListadoProductos] = useState({
     res: null,
     isLoaded: false,
   }); //Listado de productos (propiedad res)
-  const [reduxState, setReduxState] = useState({ res: null, onload: false });
   const [productoCrear, setProductoCrear] = useState({}); //Producto que se va a crear
   const [productoEditar, setProductoEditar] = useState({}); //producto que se va a editar
   const [accion, setAccion] = useState(""); //acción que realiza el crud
   const [categorias, setCategorias] = useState({ res: null, onLoad: false }); //categorias del producto que se está creando o editando que vienen de la base de datos
   const [cats, setCats] = useState([]); //Categorías que se asignan a un elemento al editar o crear
+  const [guardarcate, setGuardarCate] = useState([]); //ACTUAL CATEGOIRIAS
   const [solicitud, setSolicitud] = useState(false); //Dependencia que  recarga el componente con los productos cada vez que cambia
   const [n, setN] = useState(0); //Id del proximo producto creado
+  const [valoresCategorias, setValoresCategorias] = useState([]);
+  const [eliminadas, setEliminadas] = useState([]); //categorias que toca eliminar
 
   //Trae todo el listado de productos
 
@@ -55,6 +62,14 @@ const FormularioCrud = () => {
     Axios.get("http://localhost:3001/categorias")
       .then((data) => {
         setCategorias({ res: data.data, onLoad: true });
+        let categorias = data.data;
+        let arreglo = [];
+        let objeto;
+        categorias.map((cat) => {
+          objeto = { id: cat.id, nombre: cat.nombre, valor: false };
+          arreglo.push(objeto);
+        });
+        setValoresCategorias(arreglo);
       })
       .catch((error) => console.log(error));
   };
@@ -64,8 +79,7 @@ const FormularioCrud = () => {
     consultarProductos();
     setSolicitud(false);
   }, [solicitud]);
-
-  if (reduxState.rol === "admin") {
+  if (usuarioLogin.rol.rol === "admin") {
     if (listadoProductos.isLoaded) {
       return (
         <div className="total">
@@ -73,6 +87,8 @@ const FormularioCrud = () => {
             <EncabezadoCrud setAccion={setAccion} />
             <TitulosFiltros />
             <ListaProductos
+              setGuardarCate={setGuardarCate}
+              values={valoresCategorias}
               setSolicitud={setSolicitud}
               lista={listadoProductos.res}
               setAccion={setAccion}
@@ -80,6 +96,13 @@ const FormularioCrud = () => {
               setCats={setCats}
             />
             <Crud
+              eliminadas={eliminadas}
+              setEliminadas={setEliminadas}
+              setValues={setValoresCategorias}
+              values={valoresCategorias}
+              guardarcate={guardarcate}
+              setGuardarCate={setGuardarCate}
+              todos={listadoProductos}
               cats={cats}
               setCats={setCats}
               n={n}
@@ -95,9 +118,14 @@ const FormularioCrud = () => {
           </div>
         </div>
       );
+    } else {
+      return <div>Cargando</div>;
     }
-    return <div>Cargando</div>;
   }
-  return <div>Error 404</div>;
+  return (
+    <div>
+      <Error404 />
+    </div>
+  );
 };
 export default FormularioCrud;

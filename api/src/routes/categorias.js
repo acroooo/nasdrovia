@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
       return res.status(400).send(err);
     });
 });
-router.post("/", isAuthenticatedAndAdmin, (req, res) => {
+router.post("/", (req, res) => {
   let { nombre, descripcion } = req.body;
   if (!nombre || !descripcion) {
     res.status(400).send("Faltan parametros");
@@ -24,7 +24,7 @@ router.post("/", isAuthenticatedAndAdmin, (req, res) => {
   });
 });
 
-router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.put("/:id", (req, res) => {
   let id = req.params.id;
   let { nombre, descripcion } = req.body;
   Categories.update({ nombre, descripcion }, { where: { id } })
@@ -32,7 +32,7 @@ router.put("/:id", isAuthenticatedAndAdmin, (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
-router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.delete("/:id", (req, res) => {
   let id = req.params.id;
   Categories.destroy({ where: { id } }).then((response) => {
     if (response === 0) return res.status(400);
