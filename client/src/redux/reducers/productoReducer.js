@@ -9,9 +9,7 @@ import {
 } from "../actions/ActionTypes";
 
 const initialState = {
-  TodosLosProductos: {
-    images: []
-  },
+  TodosLosProductos: {},
   Res: {},
 };
 export default function productoReducer(state = initialState, action) {
@@ -21,11 +19,7 @@ export default function productoReducer(state = initialState, action) {
       const images = action.payload.images
       return {
         ...state,
-        TodosLosProductos: {
-          ...productos,
-          images: images
-        }
-
+        TodosLosProductos: productos,
       };
 
     case GET_PRODUCTO_DETALLE:
