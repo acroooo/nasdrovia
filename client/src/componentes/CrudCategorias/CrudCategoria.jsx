@@ -5,6 +5,7 @@ import SubformularioCategorias from "./Subformularioategorias/SubformularioCateg
 import ListaCategorias from "./ListaCategorias/ListaCategorias";
 import { useSelector } from "react-redux";
 import TitulosCategorias from "./TitulosCategorias/TitulosCategorias";
+import Error404 from "../Error404/error404";
 import axios from "axios";
 
 const CrudCategoria = () => {
@@ -82,7 +83,11 @@ const CrudCategoria = () => {
       </div>
     );
   }
-  return <div>Error 404</div>;
+  return (
+    <div>
+      <Error404 />
+    </div>
+  );
 };
 
 export default CrudCategoria;
