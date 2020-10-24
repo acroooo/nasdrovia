@@ -37,10 +37,7 @@ export function getProductos(){
 export function getProductoDetalle(id){
     return function(dispatch) {
         return fetch(`http://localhost:3001/producto/${id}`)
-        .then((res) => res.json())
-        .then(json => {
-            dispatch({type: GET_PRODUCTOS, payload:json})
-        })
+        .then((res) => dispatch({type: GET_PRODUCTOS, payload: res.json}))
     }
 }
 

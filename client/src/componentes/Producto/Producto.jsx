@@ -9,6 +9,8 @@ import allActions from '../../redux/actions/allActions'
 
 const Producto = (props) => {
 
+
+  // VER SI PRODUCTO SE RENDEREA BIEN CON LA IMAGEN
   // =============== ESTADO DE REDUX ================ //
   const productoStore = useSelector(state => state.productos.TodosLosProductos)
   const imagenes = useSelector(state => state.images)
@@ -24,7 +26,6 @@ const Producto = (props) => {
   useEffect(
 		() => {
       dispatch(allActions.getProductoDetalle(id))
-
     },[])
   // axios para un producto especifico con verificacion de ID
   // useEffect(() => {

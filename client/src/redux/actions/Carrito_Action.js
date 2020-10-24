@@ -13,15 +13,16 @@ import axios from "axios";
 
 
 //Esta esta totalmente incompleta, 
-export const getUsuarioCarrito = (usuarioId) => (dispatch) => {
-  axios.get(`http://localhost:3001/usuario/${usuarioId}/cart`) //falta url
-    .then((res) => {
+export const getUsuarioCarrito = usuarioId => dispatch => {
+  axios
+      .get(`http://localhost:3001/usuario/${usuarioId}/cart`) //falta url
+      .then(res => {
         dispatch({
             type: GET_USUARIO_CARRITO,
             payload: res.data,
     });
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(postUsuarioCarrito(usuarioId));
     });
 };
@@ -37,13 +38,8 @@ export const postUsuarioCarrito = (usuarioId) => (dispatch) => {
         payload: res.data,
       });
 
-      dispatch(postUsuarioCarrito());
+      dispatch(postUsuarioCarrito(usuarioId));
     })
-
-    .catch((err) => {
-      const error = err.res.data;
-      dispatch(error);
-    });
 };
 
 //delete carrito
