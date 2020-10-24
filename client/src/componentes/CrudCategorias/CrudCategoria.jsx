@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import "./CrudCategoria.css";
 import EncabezadoCategoria from "./EncabezadoCategorias/EncabezadoCategoria";
 import SubformularioCategorias from "./Subformularioategorias/SubformularioCategorias";
 import ListaCategorias from "./ListaCategorias/ListaCategorias";
+import { useSelector } from "react-redux";
 import TitulosCategorias from "./TitulosCategorias/TitulosCategorias";
 import axios from "axios";
 
-//------------------ Hooks ---------------
-export default function CrudCategoria() {
+const CrudCategoria = () => {
   //-------------------- State Redux------------
   //prettier-ignore
   const usuarioLogin = useSelector(state => state.usuario);
 
+  //------------------Hooks------------------
   const [listadoCategorias, setListadoCategorias] = useState([]); //Listado de categorias
   const [accionCategorias, setAccionCategorias] = useState(""); //Tipo de acción que se va a ejecutar
   const [categoriaEditar, setCategoriaEditar] = useState({}); //Categoria que se va a editar
@@ -55,7 +55,7 @@ export default function CrudCategoria() {
     setSolicitud(false);
   }, [solicitud]);
 
-  if (usuarioLogin === "admin") {
+  if (usuarioLogin.rol.rol === "admin") {
     return (
       <div className="total">
         <div className="container general">
@@ -76,10 +76,13 @@ export default function CrudCategoria() {
             setAccion={setAccionCategorias}
             editar={setCategoriaEditar}
             crear={setCategoriaCrear}
+            lista={listadoCategorias}
           />
         </div>
       </div>
     );
   }
   return <div>Error 404</div>;
-}
+};
+
+export default CrudCategoria;

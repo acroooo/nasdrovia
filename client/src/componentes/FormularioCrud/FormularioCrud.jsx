@@ -64,8 +64,8 @@ const FormularioCrud = () => {
     consultarProductos();
     setSolicitud(false);
   }, [solicitud]);
-
-  if (reduxState.rol === "admin") {
+  // console.log(usuarioLogin.rol);
+  if (usuarioLogin.rol.rol === "admin") {
     if (listadoProductos.isLoaded) {
       return (
         <div className="total">
