@@ -2,10 +2,13 @@ import React, {useState} from 'react'
 import StarRatingComponent from 'react-star-rating-component';
 import Axios from "axios";
 
-export default function PostReview({handleChange,handleCick, onStarClick, rating}){
- 
+export default function PostReview({setComentario,handleCick, onStarClick, rating}){
+    const handleChange = (e) => {
+        setComentario({ text: e.target.value })
+    }
     return (
         <div>
+        <h3>Déjanos tu opinión!</h3>
         <form action="Submit-Review" >
             <input type="text" onChange={handleChange} style={{width:"80vw", height:"12vh", size:200}}/>
             
