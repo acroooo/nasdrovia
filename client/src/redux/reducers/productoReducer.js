@@ -18,6 +18,9 @@ export default function productoReducer(state = initialState, action) {
       return {
         ...state,
         TodosLosProductos: action.payload,
+        images: action.payload.images.map((imagen) => {
+          return imagen
+        })
       };
 
     case GET_PRODUCTO_DETALLE:
