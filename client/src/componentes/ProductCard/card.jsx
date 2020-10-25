@@ -94,7 +94,7 @@ export default function Card ({producto, stockDisplay}) {
             >{nombre}</h2>
             </div>
             <div style={{position:"absolute", marginTop:"100px"}}>
-                {stars.isLoaded?
+                {stars.isLoaded && ~~stars.res!==0?
                 <Stars
                     calificacion={stars.res +1} size={12}
                 />:<></>}

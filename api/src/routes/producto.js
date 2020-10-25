@@ -139,7 +139,7 @@ router.post("/:id/review", (req, res) => {
   let { commentary, qualification, usuarioId } = req.body;
   var productoId = req.params.id;
   console.log(productoId);
-  if (!commentary || !qualification || !usuarioId) {
+  if (!qualification || !usuarioId) {
     res.status(400).send("Faltan parametros");
   }
   Reviews.create({ commentary, qualification, usuarioId, productoId })
@@ -220,7 +220,7 @@ router.get("/:id/review/", (req, res) => {
     .then((rewiews) => {
       rewiews.length >= 1
         ? res.status(200).json(rewiews)
-        : res.status(404).json({ Error: "Este producto no tiene rewiews" });
+        : res.status(200).json([]);
     })
     .catch((err) => res.status(400).json({ Error: err }));
 });
@@ -230,8 +230,7 @@ router.get("/:id/reviewprom", async (req, res) => {
   var cant = 0;
   var prom = 0;
   const reviews = await Reviews.findAll({ where: { productoId: id } });
-  if (reviews.length < 1)
-    return res.status(400).send("no se encontraron reviews para ese articulo");
+  if (reviews.length < 1) return res.status(200).send("");
   reviews.forEach((e) => {
     sum += e.dataValues.qualification;
     cant++;
