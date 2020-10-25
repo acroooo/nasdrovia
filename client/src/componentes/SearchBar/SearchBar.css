@@ -24,12 +24,19 @@
   color: #e6e6e6;
   position: relative;
 }
-.contenedor-login>small,.contenedor-salir>small,.admin>small{
+.contenedor-salir{
+ 
+}
+.salir-client{
+  position: relative;
+  right: 20px;
+}
+.contenedor-login small,.contenedor-salir small,.admin small{
   position:absolute;
   top: 30px;
   font-size: 12px;
   left: -6px;
-  
+  color: #e6e6e6;
 }
 
 #basic-nav-dropdown {
@@ -56,6 +63,8 @@
 .login-user{
   font-size: 24px;
   border-radius: 100%;
+  color: #e6e6e6;
+ 
 }
 
 .nav-Bar-css {

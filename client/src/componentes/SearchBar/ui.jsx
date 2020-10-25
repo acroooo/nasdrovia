@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { NavDropdown } from "react-bootstrap";
 import "./icons.css";
 import FormulariosIngreso from "../FormulariosIngreso/FormulariosIngreso";
 import PanelAdmin from "../PanelAdmin/PanelAdmin";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Icons() {
   const [formulario, setFormulario] = useState("inactivo"); //mostrar u ocultar formulario
@@ -11,6 +11,11 @@ export default function Icons() {
   const [usuario, setUsuario] = useState("Ingresar"); //tipo de usuario que ingresa, admin,user etc,cambia al momento de activar login
   const [logueado, setLogueado] = useState(false); //determinar si el usuario está logueado
 
+
+  const usuarioLogin = useSelector(state => state.usuario);
+  const rol = usuarioLogin.rol.rol;
+  
+  
   const cerrarSesion = () => {
     setLogueado(false);
     setUsuario("Ingresar"); //para mostrar mensaje de ingresar
@@ -26,22 +31,28 @@ export default function Icons() {
         </div>
       </Link>
       <div className="contenedor-login">
-        {logueado ? (
-          <i className="fas fa-user login-user"></i>
+        {rol ==='admin' || rol ==='Client'  ? (
+          <Link to='perfil'> <i className="fas fa-user login-user"></i></Link>
+         
         ) : (
           <i
             className="fas fa-user-circle login-user"
             onClick={() => {
-              setFormulario("activo");
-              setTipo("registrar");
+               if(rol !== 'admin' && rol !== 'Client'){
+                setFormulario("activo");
+                setTipo("registrar");
+               }
+             
             }}
           ></i>
         )}
-        <small>{usuario}</small>
+        <Link to={rol ==='admin'|| rol==='Client' && 'perfil'}><small className={rol==='Client' || rol ==='admin' ? 'ml-1'  :'null'} id='loguser'>{rol==='admin' || rol === 'Client' ? 'Perfil' : 'Ingresar'}</small></Link>
+        
       </div>
+      
 
       <div className="admin" id="a">
-        {logueado && (
+        {rol==='admin' && (
           <i
             className="fas fa-tools"
             onClick={() =>
@@ -49,16 +60,16 @@ export default function Icons() {
             }
           ></i>
         )}
-        {logueado && <small className="ml-1">Panel</small>}
+        {rol === "admin" && <small className="ml-1">Panel</small>}
       </div>
-      {logueado && (
-        <div className="contenedor-salir">
+      {rol === "admin" || rol==='Client' ? (
+        <div className={rol === 'Client' ? 'contenedor-salir salir-client':'contenedor-salir'}>
           <i className="fas fa-sign-out-alt" onClick={cerrarSesion}></i>
           <small className="ml-1">Salir</small>
         </div>
-      )}
+      ):null}
 
-      <PanelAdmin />
+   { rol === "admin" && <PanelAdmin /> }
 
       <FormulariosIngreso
         setLogueado={setLogueado}
@@ -67,6 +78,7 @@ export default function Icons() {
         tipo={tipo}
         formulario={formulario}
         setFormulario={setFormulario}
+        
       />
     </div>
   );

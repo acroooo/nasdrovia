@@ -13,6 +13,7 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
   const [error, setError] = useState(false);
   const [logeado, setLogeado] = useState("");
 
+
   const handleChange = (e) => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
@@ -31,6 +32,10 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
       );
       if (usuario.status === 201) dispatch(allActions.login(usuario.data));
       localStorage.setItem("idUsuario", JSON.stringify(usuario.data));
+
+      setUsuario('Perfil')
+      setLogeado("Su sesión se ha iniciado con exito!");
+
       const carrito = await Axios.post(
         `http://localhost:3001/usuario/${usuario.data.id}/cart`
       );
@@ -41,6 +46,7 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
       // }
       setLogeado("Su sesión se ha iniciado con exito!");
       id = usuario.data.id;
+
     } catch (err) {
       setError(true);
     }
