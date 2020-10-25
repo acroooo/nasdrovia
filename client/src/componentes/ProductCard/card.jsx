@@ -1,14 +1,21 @@
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import "./card.css"
 import anime from 'animejs/lib/anime.es.js';
 import {Link} from "react-router-dom";
 import CarroBoton from "../CarritoBoton/CarritoBoton";
+import Stars from "../reviews/stars/stars"
+import Axios from "axios";
 
 export default function Card ({producto, stockDisplay}) {
-    const {nombre, precio, imagen, stock, id}=producto;
+    const [stars, setStars] =useState({res:null, isLoaded:false});
+    const {nombre, precio, images, stock, id}=producto;
     const nombreR=nombre.replace(" ", "_");
-
     useEffect(() => {
+            Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((res)=>{
+                setStars({res:res.data, isLoaded:true});
+
+            })
+
             anime({
                 targets: '.card-css .img-product-card',
                 opacity:1 ,
@@ -71,7 +78,7 @@ export default function Card ({producto, stockDisplay}) {
             <div>
             <img className="img-product-card"
             id={`img${nombreR}`}
-            src={imagen}
+            src={images[0][0]}
             alt={nombre}
             />
             
@@ -85,6 +92,12 @@ export default function Card ({producto, stockDisplay}) {
             <h2 
             className={`${nombreR} cerveza_nombre`}
             >{nombre}</h2>
+            </div>
+            <div style={{position:"absolute", marginTop:"100px"}}>
+                {stars.isLoaded?
+                <Stars
+                    calificacion={stars.res +1} size={12}
+                />:<></>}
             </div>
             </div>
             <h4 className="precio_nombre">precio:</h4>

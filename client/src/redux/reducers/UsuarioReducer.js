@@ -7,15 +7,19 @@ const initialState = {
   nombre: null,
 };
 
-export default function usuarioReducer(state = initialState, action) {
+export default function UsuarioReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
+      const rol = action.payload;
+      const id = action.payload;
+      const email = action.payload;
+      const nombre = action.payload;
       return {
         ...state,
-        rol: action.payload.rol,
-        id: action.payload.id,
-        email: action.payload.email,
-        nombre: action.payload.nombre,
+        rol,
+        id,
+        email,
+        nombre,
       };
     case LOGOUT:
       return {
