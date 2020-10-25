@@ -68,7 +68,7 @@ const Producto = (props) => {
       {/* Seccion tarjeta producto */}
       <Card className="producto__tarjeta">
         {/* Ordenar CSS con nombre segun buenas practicas */}
-
+        
         {/* Mejorar diseño container */}
         <Container className="container2">
           <Card className="card3">
