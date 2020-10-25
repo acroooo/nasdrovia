@@ -46,7 +46,7 @@ export default function Icons() {
             }}
           ></i>
         )}
-        <Link to={rol ==='admin'|| rol==='Client' && 'perfil'}><small className={rol==='Client' || rol ==='admin' ? 'ml-1'  :'null'} id='loguser'>{rol==='admin' || rol === 'Client' ? 'Perfil' : 'Ingresar'}</small></Link>
+        <Link to={rol ==='admin'|| rol==='Client' ? 'perfil':null}><small className={rol==='Client' || rol ==='admin' ? 'ml-1'  :'null'} id='loguser'>{rol==='admin' || rol === 'Client' ? 'Perfil' : 'Ingresar'}</small></Link>
         
       </div>
       

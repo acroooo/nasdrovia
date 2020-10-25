@@ -1,16 +1,21 @@
 *{box-sizing: border-box;}
 body{font-family:  Arial, sans-serif;}
 .btn-nuevo:focus,.btn-buscar:focus,input:focus,textarea:focus,.btn-gproducto:focus,select:focus{outline: none;}
-.total{
-    width: 70%;
+.total-ordenes{
+   
     margin:50px auto;
-    padding:30px 20px;
     display: flex;
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 4px;
+    padding: 10px 30px;
+    width: 1000px;
 } 
-.general{position: relative;}
+.general-ordenes{
+    position: relative;
+    width: 100%;
+    margin: 30px auto;
+}
 .encabezado{
     border-radius: 4px;
     background-color:#015386;

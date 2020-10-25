@@ -16,6 +16,7 @@ import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
 import Checkout from "./componentes/Checkout/Checkout";
 import Orden2 from "./componentes/Orden2/Orden2";
 import Usuarios from "./componentes/ListaUsuarios/Usuarios";
+import Perfil from "./componentes/PaginaUsuario/PaginaUsuario";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -30,6 +31,7 @@ export default function App() {
      
       
         <Switch>
+          <Route exact path="/perfil" component={Perfil} />
           <Route exact path="/ordenes" component={ListaOrdenes2} />
           <Route exact path="/orden" component={Orden2} />{/*es temporal*/}
           <Route exact path="/usuarios" component={Usuarios} />
