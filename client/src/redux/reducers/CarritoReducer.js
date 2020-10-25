@@ -10,7 +10,8 @@ import {
 
 const initialState = {
   CarritoCompleto: {
-    lineaDeOrdens: []
+    lineaDeOrdens: [],
+    productos: [],
   },
   Res: {},
 };
@@ -19,12 +20,12 @@ export default function carritoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_USUARIO_CARRITO:
       const carrito = action.payload;
-      const lineaDeOrdens = action.payload.lineaDeOrdens
+      const lineaDeOrdens = action.payload.lineaDeOrdens;
       return {
         ...state,
         CarritoCompleto: {
           ...carrito,
-          lineaDeOrdens: lineaDeOrdens
+          lineaDeOrdens: lineaDeOrdens,
         },
       };
 

@@ -184,7 +184,7 @@ router.post("/:id/passwordReset", async (req, res) => {
 
 //AÚN ESTÁN EN PROCESO
 //Crear el carro
-router.post("/:idUser/cart", isAuthenticated, async (req, res) => {
+router.post("/:idUser/cart", async (req, res) => {
   let id = req.params.idUser;
   const item = await Carrito.findOne({
     where: { usuarioId: id, estado: "carrito" },
@@ -199,7 +199,7 @@ router.post("/:idUser/cart", isAuthenticated, async (req, res) => {
 });
 
 //Obtener items del carrito
-router.get("/:idUser/cart", isAuthenticated, (req, res) => {
+router.get("/:idUser/cart", (req, res) => {
   const { idUser } = req.params;
 
   Carrito.findOne({
@@ -212,7 +212,7 @@ router.get("/:idUser/cart", isAuthenticated, (req, res) => {
 });
 
 //Vaciar carrito
-router.delete("/:idUser/cart", isAuthenticated, async (req, res) => {
+router.delete("/:idUser/cart", async (req, res) => {
   const id = req.params.idUser;
   let compras = await Carrito.findOne({
     where: { usuarioId: id, estado: "carrito" },

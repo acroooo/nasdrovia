@@ -19,6 +19,7 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let id;
     if (!inputValues.email || !inputValues.password) {
       return setError(true);
     }
@@ -30,7 +31,16 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
       );
       if (usuario.status === 201) dispatch(allActions.login(usuario.data));
       localStorage.setItem("idUsuario", JSON.stringify(usuario.data));
+      const carrito = await Axios.post(
+        `http://localhost:3001/usuario/${usuario.data.id}/cart`
+      );
+      // if (carrito.status === 400) {
+      //   const carritoCreado = await Axios.get(
+      //     `http://localhost:3001/usuario/${usuario.data.id}/cart`
+      //   );
+      // }
       setLogeado("Su sesión se ha iniciado con exito!");
+      id = usuario.data.id;
     } catch (err) {
       setError(true);
     }
