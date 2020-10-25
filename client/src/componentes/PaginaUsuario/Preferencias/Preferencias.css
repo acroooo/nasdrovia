@@ -1,0 +1,67 @@
+.tit-preferencias{
+    font-size: 24px;
+    color:#015386;
+}
+.contenedor-preferencias,.contenedor-opciones{
+    margin: 10px 0;
+    width: 700px;
+    height: 400px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-size: cover;
+    padding-top: 40px;
+ 
+}
+.contenedor-preferencias{
+    background-image: url(../../../Multimedia/preferencias.jpg);
+    background-size: cover;
+}
+.contenedor-opciones{
+    background-image: url(../../../Multimedia/duff.jpg);
+    background-size: cover;
+} 
+
+.btn-preferencias{
+    background-color: #015386;
+    color: #fff;
+    border: none;
+    padding: 7px 40px;
+    border-radius: 2px;
+    font-size: 14px;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: .4s all;
+
+    display: flex;
+    padding-top: 8px;
+    
+}
+.btn-preferencias:focus{
+   outline: none;
+}
+.btn-preferencias:active{
+    transform: scale(.96);
+ }
+ .btn-preferencias:hover{
+    opacity: .9;
+ }
+ .flecha-larga{
+     font-size: 16px;
+     position: relative;
+     top: 2px;
+ }
+
+
+.list-item {
+
+    background-color: #015386;
+    background-color: rgb(168, 168, 168);
+    color: #fff;
+	border-radius: 4px;
+	padding: 8px 20px;
+	text-align: center;
+	margin: 10px auto;
+	width:300px;
+    cursor: pointer;
+    display: block;
+}

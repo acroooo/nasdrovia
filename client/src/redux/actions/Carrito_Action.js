@@ -1,26 +1,26 @@
 import {
-    GET_USUARIO_CARRITO,
-    POST_USUARIO_CARRITO,
-    GET_VISITANTE_CARRITO,
-    POST_VISITANTE_CARRITO,
-    EDITAR_VISITANTE_CARRITO,
-    DELETE_CARRITO,
-    PUT_CATEGORIA,
+  GET_USUARIO_CARRITO,
+  POST_USUARIO_CARRITO,
+  GET_VISITANTE_CARRITO,
+  POST_VISITANTE_CARRITO,
+  EDITAR_VISITANTE_CARRITO,
+  DELETE_CARRITO,
+  PUT_CATEGORIA,
 } from "./ActionTypes";
 import axios from "axios";
 
 //NO TOCAR - MODIFICANDO EN BASE A RUTAS
 
-
-//Esta esta totalmente incompleta, 
-export const getUsuarioCarrito = usuarioId => dispatch => {
+//Esta esta totalmente incompleta,
+export const getUsuarioCarrito = (usuarioId) => (dispatch) => {
   axios
-      .get(`http://localhost:3001/usuario/${usuarioId}/cart`) //falta url
-      .then(res => {
-        dispatch({
-            type: GET_USUARIO_CARRITO,
-            payload: res.data,
-    });
+    .get(`http://localhost:3001/usuario/${usuarioId}/cart`) //falta url
+    .then((res) => {
+      console.log(res)
+      dispatch({
+        type: GET_USUARIO_CARRITO,
+        payload: res.data,
+      });
     })
     .catch(() => {
       dispatch(postUsuarioCarrito(usuarioId));
@@ -30,16 +30,14 @@ export const getUsuarioCarrito = usuarioId => dispatch => {
 //post a usuario
 //revisar que este bien igual que las demas.
 export const postUsuarioCarrito = (usuarioId) => (dispatch) => {
- axios
-    .post(`http://localhost:3001/usuario/${usuarioId}/cart`)
-    .then((res) => {
-      dispatch({
-        type: POST_USUARIO_CARRITO,
-        payload: res.data,
-      });
+  axios.post(`http://localhost:3001/usuario/${usuarioId}/cart`).then((res) => {
+    dispatch({
+      type: POST_USUARIO_CARRITO,
+      payload: res.data,
+    });
 
-      dispatch(postUsuarioCarrito(usuarioId));
-    })
+    dispatch(postUsuarioCarrito(usuarioId));
+  });
 };
 
 //delete carrito
@@ -50,26 +48,25 @@ export const deleteCarrito = () => (dispatch) => {
   });
 };
 
+//get a visitante
+export const getVisCarrito = (idUser) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/usuarios/${idUser}/cart`)
+    .then((res) => {
+      const getVisCarro = res.data;
 
-// //get a visitante
-// export const getVisCarrito = (idUser) => (dispatch) => {
-//   axios
-//     .get(`http://localhost:3001/usuarios/${idUser}/cart`)
-//     .then((res) => {
-//       const getVisCarro = res.data;
+      dispatch({
+        type: GET_VISITANTE_CARRITO,
+        payload: getVisCarro,
+      });
 
-//       dispatch({
-//         type: GET_VISITANTE_CARRITO,
-//         payload: getVisCarro,
-//       });
-
-//       dispatch(getVisCarrito());
-//     })
-//     .catch((err) => {
-//       const error = err.res.data;
-//       dispatch(error);
-//     });
-// };
+      dispatch(getVisCarrito());
+    })
+    .catch((err) => {
+      const error = err.res.data;
+      dispatch(error);
+    });
+};
 
 // //post a carrito
 // export const postVisCarrito = (idUser, body) => (dispatch) => {
@@ -113,6 +110,5 @@ export const deleteCarrito = () => (dispatch) => {
 //     });
 // };
 
-
 // =============== EXPORT DEFAULT FUNCTIONS CARRITO ================ //
-export default { getUsuarioCarrito, postUsuarioCarrito, deleteCarrito};
+export default { getUsuarioCarrito, postUsuarioCarrito, deleteCarrito };

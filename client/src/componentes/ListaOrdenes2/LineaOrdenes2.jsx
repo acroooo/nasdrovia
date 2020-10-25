@@ -7,8 +7,8 @@ import Listado from './Listado/Listado';
 
 const LineaOrdenes = () => {
     return (  
-        <div className='total'>
-        <div className='container general'>
+        <div className='total-ordenes '>
+        <div className='container general-ordenes '>
            <Encabezado/>
            <Ordenes/>
            <Listado/>
