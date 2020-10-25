@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './passReset.css';
-
+//reset password
 const Login = ({ setFormulario, setLogueado }) => {
 
     const [contr1, setContr1] = useState();
