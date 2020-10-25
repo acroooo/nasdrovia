@@ -35,7 +35,7 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
 
       setUsuario('Perfil')
       setLogeado("Su sesión se ha iniciado con exito!");
-    
+
 
       const carrito = await Axios.post(
         `http://localhost:3001/usuario/${usuario.data.id}/cart`
