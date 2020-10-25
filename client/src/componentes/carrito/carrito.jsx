@@ -13,11 +13,12 @@ export default function Carrito() {
     // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
     // ================== ESTADO REDUX ======================//
-    const productoStore = useSelector(state => state.productos.TodosLosProductos)
+    const productoStore = useSelector(state => state.productos)
     const usuario = useSelector(state => state.usuario.id)
-    const productoCarrito = useSelector(state => state.carrito.CarritoCompleto)
+    const productoCarrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
-
+    console.log(productoStore)
+    console.log(productoCarrito)
     // ================== ESTADO COMOPONENTES ===================== //
     const [total, setTotal] = useState(0);
     const [envio, setEnvio] = useState(0);

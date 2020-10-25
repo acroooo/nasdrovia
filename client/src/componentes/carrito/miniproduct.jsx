@@ -16,6 +16,8 @@ export default function Miniproduct(props) {
 		() => {
       dispatch(allActions.getProductoDetalle(props))
     },[])
+
+    console.log("Esto es miniproducto", productos)
     // useEffect(() => {
     //     if (cantidad === 0) {
     //         setListaProductos({ res: listaproductos.res.splice(index, 1), isLoaded: true })
