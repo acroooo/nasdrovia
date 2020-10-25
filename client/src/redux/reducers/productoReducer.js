@@ -5,11 +5,11 @@ import {
   SEARCH_PRODUCTO,
   MODIFY_PRODUCTO,
   REMOVE_PRODUCTO,
-
 } from "../actions/ActionTypes";
 
 const initialState = {
-  TodosLosProductos:{},
+  TodosLosProductos: [{ productos: [{}] }],
+  isLoaded: false,
   Res: {},
 };
 export default function productoReducer(state = initialState, action) {
@@ -17,11 +17,15 @@ export default function productoReducer(state = initialState, action) {
     case GET_PRODUCTOS:
       return {
         ...state,
-        TodosLosProductos: action.payload
+        TodosLosProductos: action.payload,
       };
 
     case GET_PRODUCTO_DETALLE:
-      return;
+      return {
+        ...state,
+        TodosLosProductos: action.payload,
+      };
+
     case ADD_PRODUCTO:
       return {
         ...state,
