@@ -9,11 +9,11 @@ body{overflow: hidden;}
     position: absolute;
     top: 116px;
     right: -280px;
-    padding: 40px 20px;
+    padding: 40px 0;
     text-align: center;
-    height: 100vh;
     color: #fff;
     transition: .4s all;
+    height: 88%;
 }
 .mostrar{
     right: 0;
