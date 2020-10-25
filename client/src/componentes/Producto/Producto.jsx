@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Producto.css";
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
-import CarritoBoton from '../CarritoBoton/CarritoBoton';
-import allActions from '../../redux/actions/allActions'
-
+import CarritoBoton from "../CarritoBoton/CarritoBoton";
+import allActions from "../../redux/actions/allActions";
+import Axios from "axios";
 // =============== FIN IMPORTS ================ //
 
 const Producto = (props) => {
-
-
   // VER SI PRODUCTO SE RENDEREA BIEN CON LA IMAGEN
   // =============== ESTADO DE REDUX ================ //
-  const productoStore = useSelector(state => state.productos.TodosLosProductos)
-  console.log(productoStore)
-  const imagenes = useSelector(state => state.images)
+  const productoStore = useSelector(
+    (state) => state.productos.TodosLosProductos
+  );
+  console.log("Este es el productoStore", productoStore);
+  // const imagenes = useSelector((state) => state.images);
   // Imagen no funciona.
-  // const images = useSelector(state => state.productos.TodosLosProductos.images)
+  const images = useSelector(
+    (state) => state.productos.TodosLosProductos.images
+  );
   const dispatch = useDispatch();
 
   const [cant, setCant] = useState(0);
@@ -24,11 +26,12 @@ const Producto = (props) => {
   const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-  useEffect(
-		() => {
-      dispatch(allActions.getProductoDetalle(id))
-    },[])
+  console.log(id);
+  useEffect(() => {
+    dispatch(allActions.getProductoDetalle(id));
+  }, []);
   // axios para un producto especifico con verificacion de ID
+  // console.log(producto);
   // useEffect(() => {
   //   Axios.get(`http://localhost:3001/producto/${id}`)
   //     .then((data) => {
@@ -62,44 +65,34 @@ const Producto = (props) => {
   };
   return (
     <div className="producto__marco">
-    {/* Seccion tarjeta producto */}
+      {/* Seccion tarjeta producto */}
       <Card className="producto__tarjeta">
-      {/* Ordenar CSS con nombre segun buenas practicas */}
-        <Container className="imagen">
-        {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
-          <Carousel clasName="container">
-            <Carousel.Item>
-              {/* {
-                images.map((obj, key) => {
-                  console.log(key, obj)
-                  return obj[key] != "null" ? <Image
-              className="d-block imagen-asd"
-              src={obj[key]}
-              alt="Slide"
-              /> : <div>La imagen no se cargó, intente de nuevo</div>
-                })
-              } */}
-            {/* /* Colocar flechas al carrousel */}
-            </Carousel.Item>
-          </Carousel>
-        </Container>
+        {/* Ordenar CSS con nombre segun buenas practicas */}
+
         {/* Mejorar diseño container */}
         <Container className="container2">
           <Card className="card3">
             <Card.Header className="body-cabecera">
               <h1>{productoStore.nombre}</h1>
-              <Card.Text className="body-precio">${productoStore.precio}</Card.Text>
+              <Card.Text className="body-precio">
+                ${productoStore.precio}
+              </Card.Text>
             </Card.Header>
             <Card.Body className="body-tarjeta">
-            {/* Añadir conexion a categorias segun id Producto */}
+              {/* Añadir conexion a categorias segun id Producto */}
               <Card.Title>Categorías</Card.Title>
               <div className="body-descripcion">
-                <Card.Text className="texto-descripcion">{productoStore.descripcion}</Card.Text>
+                <Card.Text className="texto-descripcion">
+                  {productoStore.descripcion}
+                </Card.Text>
               </div>
               <div className="abajotexto">
                 <Row>
                   <div className="stock-tarjeta">
-                    <CarritoBoton  stock={productoStore.stock} id={productoStore.id}/>
+                    <CarritoBoton
+                      stock={productoStore.stock}
+                      id={productoStore.id}
+                    />
                   </div>
                 </Row>
               </div>
@@ -118,8 +111,7 @@ const Producto = (props) => {
         </Container>
       </Card>
       {/* seccion productos similares*/}
-      <div class="producto_similares">
-      </div>
+      <div className="producto_similares"></div>
     </div>
   );
 };
