@@ -131,14 +131,12 @@ router.post("/cambioPassword", async (req, res) => {
     if (!usuario)
       return res.status(404).send("No hay usuarios registrados con ese email");
 
-    const salt = await Usuario.generateSalt();
+    let salt = await Usuario.generateSalt();
 
-    usuario.olvidoPassword = salt;
-    await usuario.save();
-
+    Usuario.update({ olvidoPassword: salt }, { where: { email } })
+    
     setTimeout(() => {
-      usuario.olvidoPassword = null;
-      usuario.save();
+      Usuario.update({ olvidoPassword: null }, { where: { email } })
     }, 1080);
     const data = {
       from: 'Excited User <hernanns46@gmail.com>',
@@ -158,14 +156,12 @@ router.post("/passwordReset", async (req, res) => {
     return res.status(400).send("Faltan parámetros");
   try {
     const usuario = await Usuario.findOne({
-      where: { email},
+      where: { email, olvidoPassword: token},
     });
     if (!usuario) return res.status(400).json({"Error":"Usuario no encontrado"});
-    
-    usuario.password = password;
-    usuario.olvidoPassword = null;
-    await usuario.save();
 
+    Usuario.update({ password: password , olvidoPassword: null}, { where: { email , olvidoPassword: token} })
+   
     return res
       .status(200)
       .send("Felicidades, su contraseña se ha actualizado exitosamente");
