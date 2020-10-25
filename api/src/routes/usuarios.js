@@ -142,7 +142,7 @@ router.post("/cambioPassword", async (req, res) => {
       from: "Nasdrovia <sanchezlismairy@gmail.com>",
       to: email,
       subject: "Reseteo de Password",
-      text: `http://localhost:3000/reset/${salt}`,
+      text: `http://localhost:3000/passwordReset/${salt}`,
       template: "password",
     };
 

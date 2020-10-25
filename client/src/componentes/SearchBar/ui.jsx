@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./icons.css";
 import FormulariosIngreso from "../FormulariosIngreso/FormulariosIngreso";
 import PanelAdmin from "../PanelAdmin/PanelAdmin";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Axios from "axios";
 import allActions from "../../redux/actions/allActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,13 +20,10 @@ export default function Icons() {
   const [logueado, setLogueado] = useState(false); //determinar si el usuario está logueado
 
   const cerrarSesion = () => {
-    // setLogueado(false);
-    // setUsuario("Ingresar"); //para mostrar mensaje de ingresar
-    // setFormulario("inactivo");
-    // setTipo("");
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
         dispatch(allActions.logout());
+        // <Redirect to="/productos" />;
         // dispatch(allActions.deleteCarrito());
       })
       .catch((err) => err);

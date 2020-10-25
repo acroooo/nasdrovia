@@ -1,6 +1,5 @@
 import { LOGIN, LOGOUT } from "../actions/ActionTypes";
 
-
 //Harcodeado, problema que solo lee guest
 const initialState = {
   rol: "Guest",
@@ -12,10 +11,10 @@ const initialState = {
 export default function UsuarioReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-      const rol = action.payload;
-      const id = action.payload;
-      const email = action.payload;
-      const nombre = action.payload;
+      const rol = action.payload.rol;
+      const id = action.payload.id;
+      const email = action.payload.email;
+      const nombre = action.payload.nombre;
       return {
         ...state,
         rol,

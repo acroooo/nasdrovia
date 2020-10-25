@@ -87,7 +87,9 @@ const Login = ({ setTipo, setUsuario, setFormulario, setLogueado }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-      <small>¿Olvidaste la contraseña?</small>
+      <Link to="/cambioPassword">
+        <small>¿Olvidaste la contraseña?</small>
+      </Link>
 
       <button className="mt-3" onClick={handleSubmit}>
         Iniciar sesión
