@@ -12,14 +12,16 @@ export default function Carrito() {
   // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
   // ================== ESTADO REDUX ======================//
-  const productoStore = useSelector((state) => state.productos.TodosLosProductos);
+  const productoStore = useSelector(
+    (state) => state.productos.TodosLosProductos
+  );
   const usuario = useSelector((state) => state.usuario.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  console.log("Esto es producto Carrito ", productoCarrito)
-  console.log("Esto es linea de orden", lineaOrden)
-    
+  console.log("Esto es producto Carrito ", productoCarrito);
+  console.log("Esto es linea de orden", lineaOrden);
+
   // ================== ESTADO COMOPONENTES ===================== //
   const [total, setTotal] = useState(0);
   const [envio, setEnvio] = useState(0);
@@ -27,7 +29,7 @@ export default function Carrito() {
   const [listaproductos, setListaProductos] = useState({});
   const [user, setUser] = useState(0);
   const descuento = 0.8;
-  console.log(usuario)
+  console.log(usuario);
 
   // ================== USE EFFECT ========================//
   useEffect(() => {
@@ -35,7 +37,6 @@ export default function Carrito() {
     dispatch(allActions.login);
   }, []);
 
-  
   return (
     <div>
       <div className="clean-block clean-cart dark">

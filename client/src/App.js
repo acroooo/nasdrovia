@@ -17,7 +17,8 @@ import Checkout from "./componentes/Checkout/Checkout";
 import Orden2 from "./componentes/Orden2/Orden2";
 import Usuarios from "./componentes/ListaUsuarios/Usuarios";
 import Perfil from "./componentes/PaginaUsuario/PaginaUsuario";
-import ResetPassword from "./componentes/FormulariosIngreso/FormPassword/FormPassword.jsx";
+import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPassword.jsx";
+import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -44,7 +45,8 @@ export default function App() {
           <Route exact path="/checkout" component={CheckOut} />
           <Route exact path="/checkout2" component={Checkout} />
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
-          <Route exact path="/cambioPassword" component={ResetPassword} />
+          <Route exact path="/cambioPassword" component={EmailPassword} />
+          <Roter exact path="/passwordReset" component={PasswordReset} />
         </Switch>
       </Router>
     </div>

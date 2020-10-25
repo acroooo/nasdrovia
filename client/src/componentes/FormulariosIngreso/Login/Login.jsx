@@ -77,7 +77,9 @@ const Login = ({ setTipo, cerrar }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-      <small>¿Olvidaste la contraseña?</small>
+      <Link to="/cambioPassword">
+        <small>¿Olvidaste la contraseña?</small>
+      </Link>
 
       <button className="mt-3 btn-ingresar" onClick={handleSubmit}>
         Iniciar sesión
