@@ -3,9 +3,7 @@ import { LOGIN, LOGOUT } from "../actions/ActionTypes";
 //Harcodeado, problema que solo lee guest
 const initialState = {
   rol: "Guest",
-  id: {
-    id: 0,
-  },
+  id: 0,
   email: null,
   nombre: null,
 };
