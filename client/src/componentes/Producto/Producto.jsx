@@ -14,7 +14,6 @@ const Producto = (props) => {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
-  console.log("Este es el productoStore", productoStore);
   // const imagenes = useSelector((state) => state.images);
   // Imagen no funciona.
   const images = useSelector(
@@ -27,7 +26,7 @@ const Producto = (props) => {
   const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-  console.log(id);
+  console.log(images);
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(id));
   }, []);
@@ -69,6 +68,43 @@ const Producto = (props) => {
       {/* Seccion tarjeta producto */}
       <Card className="producto__tarjeta">
         {/* Ordenar CSS con nombre segun buenas practicas */}
+        <Container className="imagen">
+        {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
+          <Carousel clasName="container">
+            <Carousel.Item>
+            <Image
+              className="imagen-asd"
+              src={'asd'}
+              alt="Slide"
+              /> 
+            {/*data.imagen.map((imagen) => (
+              }<Image
+              className="imagen-asd"
+              src={productoStore.images[0]}
+              alt="Slide"
+              />
+            {/* Colocar flechas al carrousel */}
+              {/* <Image
+                className="d-block w-100"
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                alt="First slide"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <Image
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                className="d-block w-100"
+              />
+            </Carousel.Item>
+            <Carousel.Item>
+              <Image
+                className="w-100"
+                src="https://d26lpennugtm8s.cloudfront.net/stores/001/173/096/products/golden-coco-1024-frontal31-1ac22b0a311bc87c8c15939084750176-480-0.jpg"
+                alt="Third slide"
+              /> */}
+            </Carousel.Item>
+          </Carousel>
+        </Container>
 
         {/* Mejorar diseño container */}
         <Container className="container2">

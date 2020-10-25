@@ -1,8 +1,10 @@
 import { LOGIN, LOGOUT } from "../actions/ActionTypes";
 
+
+//Harcodeado, problema que solo lee guest
 const initialState = {
-  rol: "Guest",
-  id: 0,
+  rol: "Admin",
+  id: 1,
   email: null,
   nombre: null,
 };
