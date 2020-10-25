@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Axios from "axios";
-import Loader from "../Loader/Loader";
 import Reviews from "./reviews";
 import Stars from "./stars/stars";
 import { useSelector } from "react-redux";
@@ -14,6 +13,8 @@ export default function AllReviews({ id }) {
     const [comentario, setComentario] = useState({ text: "" });
     const [rating, setRating] = useState({ number: "0" });
     const [checkedUsuario, setCheckedUsuario]=useState({res:null, isSet:false})
+    const [nuevoComentario, setNuevoComentario]= useState(false);
+
     useEffect(async() => {
         const revs= await Axios.get(`http://localhost:3001/producto/${id}/review`)
         try{
@@ -26,7 +27,7 @@ export default function AllReviews({ id }) {
             setPromedio({ res: respuesta.data, isLoaded: true })
 
         })
-    }, [])
+    }, [nuevoComentario])
     useEffect(()=>{
         if(reviews.isLoaded){
         const check=checkUsuarioPost()
@@ -37,10 +38,10 @@ export default function AllReviews({ id }) {
         let review = {
             commentary: comentario.text,
             qualification: rating.number,
-            usuarioId: usuarioLogin.id.id,
+            usuarioId: usuarioLogin.id,
         }
         Axios.post(`http://localhost:3001/producto/${id}/review`, review)
-
+        setNuevoComentario(true);
     }
     const onStarClick = (nextValue, prevValue, name) => {
         setRating({ number: nextValue.toString() })
@@ -49,8 +50,7 @@ export default function AllReviews({ id }) {
         let res;
         if (reviews.isLoaded){
         reviews.res.forEach((review)=>{
-            console.log("acá esoty usuario Check-----------------"+review.usuarioId.toString()+usuarioLogin.id.id.toString())
-            if(review.usuarioId.toString() ===usuarioLogin.id.id.toString() ){
+            if(review.usuarioId.toString() ===usuarioLogin.id.toString() ){
                 res= true;
             }else{
                 res= false;
@@ -61,7 +61,7 @@ export default function AllReviews({ id }) {
     }
     return (
         <div className="allReviews">
-          {usuarioLogin.id === 0 && checkedUsuario.isSet || checkedUsuario.res? <></> :
+            {usuarioLogin.id === 0 && checkedUsuario.isSet || checkedUsuario.res? <></> :
                 <PostReview
                     handleCick={handleCick}
                     setComentario={setComentario}
