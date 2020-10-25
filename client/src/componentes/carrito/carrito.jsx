@@ -19,7 +19,9 @@ export default function Carrito() {
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-
+  console.log("Esto es producto Carrito ", productoCarrito)
+  console.log("Esto es linea de orden", lineaOrden)
+    
   // ================== ESTADO COMOPONENTES ===================== //
   const [total, setTotal] = useState(0);
   const [envio, setEnvio] = useState(0);
@@ -68,7 +70,7 @@ export default function Carrito() {
             <div className="row no-gutters">
               <div className="col-md-12 col-lg-8">
                 <div className="items">
-                  {productoCarrito.lineaDeOrdens.map((item, index) => {
+                  {lineaOrden.map((item, index) => {
                     const { productoId } = item;
                     return <Miniprod productoId={productoId} />;
                   })}

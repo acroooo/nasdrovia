@@ -16,6 +16,7 @@ export const getUsuarioCarrito = (usuarioId) => (dispatch) => {
   axios
     .get(`http://localhost:3001/usuario/${usuarioId}/cart`) //falta url
     .then((res) => {
+      console.log(res)
       dispatch({
         type: GET_USUARIO_CARRITO,
         payload: res.data,

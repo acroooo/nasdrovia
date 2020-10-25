@@ -24,9 +24,6 @@ export const getProductoDetalle = (id) => (dispatch) => {
   axios
     .get(`http://localhost:3001/producto/${id}`)
     .then((res) => {
-      const payload = {
-        productos: res.data,
-      };
       dispatch({
         type: GET_PRODUCTO_DETALLE,
         payload: res.data,
