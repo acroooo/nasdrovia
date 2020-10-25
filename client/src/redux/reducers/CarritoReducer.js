@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   CarritoCompleto: [{}],
-  lineaDeOrdens: [],
+  lineaDeOrdens: [{}],
   productos: [{}],
   Res: {},
 };

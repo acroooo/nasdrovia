@@ -29,6 +29,7 @@ export default function Carrito() {
   const [listaproductos, setListaProductos] = useState({});
   const [user, setUser] = useState(0);
   const descuento = 0.8;
+  console.log(usuario)
 
   // ================== USE EFFECT ========================//
   useEffect(() => {
