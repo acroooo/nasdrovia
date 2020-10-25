@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import CarritoBoton from '../CarritoBoton/CarritoBoton';
 import allActions from '../../redux/actions/allActions'
-
+import AllReviews from '../reviews/allReviews';
 // =============== FIN IMPORTS ================ //
 
 const Producto = (props) => {
@@ -64,24 +64,7 @@ const Producto = (props) => {
     {/* Seccion tarjeta producto */}
       <Card className="producto__tarjeta">
       {/* Ordenar CSS con nombre segun buenas practicas */}
-        <Container className="imagen">
-        {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
-          <Carousel clasName="container">
-            <Carousel.Item>
-              {
-                images.map((obj, key) => {
-                  console.log(key, obj)
-                  return obj[key] != "null" ? <Image
-              className="d-block imagen-asd"
-              src={obj[key]}
-              alt="Slide"
-              /> : <div>La imagen no se cargó, intente de nuevo</div>
-                })
-              }
-            {/* /* Colocar flechas al carrousel */}
-            </Carousel.Item>
-          </Carousel>
-        </Container>
+    
         {/* Mejorar diseño container */}
         <Container className="container2">
           <Card className="card3">
@@ -117,7 +100,13 @@ const Producto = (props) => {
         </Container>
       </Card>
       {/* seccion productos similares*/}
-      <div class="producto_similares">
+      <div className="producto_similares">
+      </div>
+
+      <div>
+        <AllReviews
+        pId={productoStore.id}
+        />
       </div>
     </div>
   );

@@ -217,7 +217,7 @@ router.get("/:id/review/", isAuthenticated, (req, res) => {
   });
   Reviews.findAll({ where: { productoId: productoId } })
     .then((rewiews) => {
-      rewiews.length > 1
+      rewiews.length >= 1
         ? res.status(200).json(rewiews)
         : res.status(404).json({ Error: "Este producto no tiene rewiews" });
     })
