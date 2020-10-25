@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Card, Carousel, Container, Image, Button, Row } from "react-bootstrap";
 import CarritoBoton from "../CarritoBoton/CarritoBoton";
 import allActions from "../../redux/actions/allActions";
-import Axios from "axios";
+import AllReviews from "../reviews/allReviews";
+
 // =============== FIN IMPORTS ================ //
 
 const Producto = (props) => {
@@ -148,6 +149,10 @@ const Producto = (props) => {
       </Card>
       {/* seccion productos similares*/}
       <div className="producto_similares"></div>
+      <div className="allReviews-css">
+        <AllReviews id={id}/>
+      </div>
+
     </div>
   );
 };
