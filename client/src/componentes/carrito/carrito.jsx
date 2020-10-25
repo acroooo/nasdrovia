@@ -12,9 +12,7 @@ export default function Carrito() {
   // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
   // ================== ESTADO REDUX ======================//
-  const productoStore = useSelector(
-    (state) => state.productos.TodosLosProductos
-  );
+  const productoStore = useSelector((state) => state.productos.TodosLosProductos);
   const usuario = useSelector((state) => state.usuario.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
@@ -29,6 +27,7 @@ export default function Carrito() {
   const [listaproductos, setListaProductos] = useState({});
   const [user, setUser] = useState(0);
   const descuento = 0.8;
+  console.log(usuario)
 
   // ================== USE EFFECT ========================//
   useEffect(() => {
@@ -36,35 +35,14 @@ export default function Carrito() {
     dispatch(allActions.login);
   }, []);
 
-  // const productosPorId = (id) => {
-  //              Axios.get(`http://localhost:3001/producto/${id}`)
-  //             .then((res) => {
-  //                 if(res) {
-  //                     setListaProductos(res.data)
-  //                 }
-  //                 })
-  // }
-  // useEffect(() => {
-  //     setListaProductos({
-  //         res: producto.map(e => {
-  //             e.cantidad = 1;
-  //             return e
-  //         }), isLoaded: true
-  //     })
-  //     let res = 0;
-  //     for (let i = 0; i < producto.length; i++) {
-  //         res += producto[i].precio;
-  //     }
-  //     setSubTotal(res);
-  //     setTotal((res * descuento) + envio)
-  // }, [])
+  
   return (
     <div>
       <div className="clean-block clean-cart dark">
         <div className="carrito col-lg-10">
           <div className="header">
             <h3 className="text-info">Carrito</h3>
-            <p>Aqui encotraras el resumen de tu pedido</p>
+            <p>Aqui encotrarás el resumen de tu pedido</p>
           </div>
           <div className="content">
             <div className="row no-gutters">
