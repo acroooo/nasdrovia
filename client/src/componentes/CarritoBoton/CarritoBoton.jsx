@@ -112,6 +112,17 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
     }
   }, [cantidad, stock]);
   function handleClick() {
+    
+    let carrito = localStorage["carrito"]
+    if(carrito){
+      let carrito = JSON.parse(localStorage["carrito"])
+      let productoCarrito = {productoId: productoId, precio, cantidad}
+      carrito.push(productoCarrito)
+      localStorage.setItem("carrito", JSON.stringify(carrito))
+    }else{
+      localStorage.setItem("carrito", JSON.stringify([]))
+    }
+    
     setCantidad(cantidad + 1);
     const tl = anime.timeline();
     tl.add({

@@ -71,7 +71,7 @@ export default function Card ({producto, stockDisplay}) {
             <CarroBoton
             nombreR={nombreR}
             stock={stock}
-            idProducto={id}
+            productoId={id}
             precio={precio}
             />
             </div>: < > </>

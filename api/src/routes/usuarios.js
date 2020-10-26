@@ -143,7 +143,7 @@ router.post("/cambioPassword", async (req, res) => {
       from: 'Excited User <hernanns46@gmail.com>',
       to: 'hernanns46@gmail.com',
       subject: 'Solicitud de cambio de contraseña',
-      text: 'Funciona la wea!--------12'
+      text: 'Funciona la wea!--------12',
       template: "password",
 
     };
