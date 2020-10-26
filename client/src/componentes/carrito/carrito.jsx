@@ -20,10 +20,12 @@ export default function Carrito() {
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
 
+  console.log(lineaOrden)
+
   // ================== ESTADO COMOPONENTES ===================== //
   const descuento = 0.8;
 
-  // ================== USE EFFECT ========================//
+  // ================== USE EFFECT ===============item=========//
   useEffect(() => {
     dispatch(allActions.getUsuarioCarrito(usuario));
     dispatch(allActions.login);

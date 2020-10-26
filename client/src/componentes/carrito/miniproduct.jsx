@@ -7,42 +7,12 @@ import CarritoBoton from "../CarritoBoton/CarritoBoton";
 // ============== YA LLEGA TODO SOLO HAY QUE ACOMODAR ================== //
 
 export default function Miniproduct(props) {
+    console.log(props)
   const productos = useSelector((state) => state.productos.TodosLosProductos);
   const dispatch = useDispatch();
-  const { setListaProductos, listaproductos, index } = props;
-  const [producto, setProducto] = useState({});
-  console.log(productos);
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(props.productoId));
   }, []);
-
-  console.log("Esto es miniproducto", productos);
-  // useEffect(() => {
-  //     if (cantidad === 0) {
-  //         setListaProductos({ res: listaproductos.res.splice(index, 1), isLoaded: true })
-  //     }
-  // }, [cantidad])
-
-  // function handleClickMas() {
-  //     setListaProductos({
-  //         res: listaproductos.res.map(e => {
-  //             if (e.nombre === nombre) {
-  //                 e.cantidad++;
-  //             }
-  //             return e;
-  //         }), isLoaded: true
-  //     })
-  // }
-  // function handleClickMenos() {
-  //     setListaProductos({
-  //         res: listaproductos.res.map(e => {
-  //             if (e.nombre === nombre) {
-  //                 e.cantidad--;
-  //             }
-  //             return e;
-  //         }), isLoaded: true
-  //     })
-  // }
   return (
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center">
@@ -85,4 +55,4 @@ export default function Miniproduct(props) {
       </div>
     </div>
   );
-}
+}   

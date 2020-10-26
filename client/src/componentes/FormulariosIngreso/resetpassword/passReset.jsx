@@ -12,7 +12,9 @@ const Login = ({ setFormulario, setLogueado }) => {
   const [contr2, setContr2] = useState();
   const [resetPassword, setResetPassword] = useState("");
   const [error, setError] = useState(false);
-  //const { token } = useParams();
+
+  // const { token } = useParams();
+
 
   const handleChange1 = (e) => {
     setContr1(e.target.value);
@@ -44,7 +46,9 @@ const Login = ({ setFormulario, setLogueado }) => {
   };
 
   return (
-    <form className="formulario-login" >
+
+    <form className="formulario-login" onSubmit={""}>
+
       <div className="mensaje-bienvenida mb-5">
         <h2 className="mb-4">Resetear Contraseña</h2>
         {error && (
