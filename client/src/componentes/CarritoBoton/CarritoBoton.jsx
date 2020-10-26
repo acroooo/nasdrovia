@@ -3,10 +3,14 @@ import "./carroBoton.css";
 import anime from "animejs/lib/anime.es.js";
 import Axios from "axios";
 import {useSelector} from "react-redux";
+import Producto from "../Producto/Producto";
 
 export default function CarroBoton({ nombreR, stock, productoId, precio }) {
+
+  const [producto,setProducto]=useState([]);
   // estado redux
   const usuarioLogin = useSelector((state) => state.usuario);
+
   const idCarrito = useSelector((state) => state.carrito.CarritoCompleto.id)
   const [error, setError] = useState("")
   // estado hook
@@ -19,7 +23,7 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
       if(cantidad===1){
       let producto={id:id, cantidad:cantidad, precio:precio}
       list.push(producto);
-      console.log(list)
+  
       const send={list};
       Axios.post(`http://localhost:3001/ordenes/${idCarrito}/cart`, send ).then((respuesta)=>{
         const asd = respuesta.data.lineaDeOrdens.map((item, index) => {
@@ -35,6 +39,7 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
       })
     }
   },[cantidad]);
+
 
   useEffect(() => {
     if (cantidad === 0) {
@@ -95,9 +100,57 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
     if (cantidad < 0) {
       setCantidad(0);
     }
+      const {id,carroId}= usuarioLogin;
+      let list=[];
+      
+      if(cantidad===1){
+      let producto={id:id, cantidad:cantidad, precio:precio}
+      list.push(producto);
+      const send={list:list};
+   
+      Axios.post(`http://localhost:3001/ordenes/${carroId}/cart`, send ).then(res=>{
+        console.log(res);
+        
+      })
+    }
   }, [cantidad, stock]);
+
   function handleClick() {
     setCantidad(cantidad + 1);
+
+    let carrito = localStorage['carrito'];
+
+   if(carrito){
+     
+    if(carrito.length>0){
+      let carriton =JSON.parse(localStorage['carrito']);
+      let actual = carriton.find(p=>p.nombreR==nombreR);
+      console.log(actual)
+      if(actual){
+        let nuevo = carriton.filter(pro=>pro.nombreR!==nombreR);
+        actual.cantidad=cantidad+1;
+        nuevo.push(actual);
+        localStorage.setItem('carrito',JSON.stringify(nuevo)) 
+      }else{
+        let objeto = {nombreR,cantidad:cantidad+1,precio,productoId,stock};
+        carriton.push(objeto);
+        localStorage.setItem('carrito',JSON.stringify(carriton));
+      }
+     
+    }
+
+    }else{
+
+      let carritos = [];
+      let objeto = {precio,cantidad:cantidad+1,nombreR,productoId}
+      carritos.push(objeto);
+      localStorage.setItem('carrito',JSON.stringify(carritos))
+   
+    } 
+
+    
+
+
     const tl = anime.timeline();
     tl.add({
       targets: `#carro${nombreR}`,
@@ -120,6 +173,15 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
   }
   function handleClickMin() {
     setCantidad(cantidad - 1);
+    let carrito = JSON.parse(localStorage['carrito']);
+    let actual = carrito.find(pro=>pro.nombreR===nombreR);
+    let carritoFiltrado = carrito.filter(pro=>pro.nombreR!==nombreR);
+    actual.cantidad=cantidad-1;
+   carritoFiltrado.push(actual)
+   localStorage.setItem('carrito',JSON.stringify(carritoFiltrado));
+
+    
+   
   }
   return (
     <div className="carroBoton-Container">

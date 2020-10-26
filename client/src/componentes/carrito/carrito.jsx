@@ -19,7 +19,7 @@ export default function Carrito() {
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  
+
   // ================== ESTADO COMOPONENTES ===================== //
   console.log(productoCarrito)
   const descuento = 0.8;
@@ -41,6 +41,9 @@ export default function Carrito() {
     dispatch(allActions.login);
   }, []);
 
+  const products = JSON.parse(localStorage['carrito'])  
+
+  let ppp = [1,2,3]
   return (
     <div>
       <div className="clean-block clean-cart dark">
@@ -53,9 +56,9 @@ export default function Carrito() {
             <div className="row no-gutters">
               <div className="col-md-12 col-lg-8">
                 <div className="items">
-                  {lineaOrden.map((item, index) => {
+                  {products.length>0 && products.map((item, index) => {
                     const { productoId } = item;
-                    return <Miniprod productoId={productoId} />;
+                    return <Miniprod productoId={productoId} producto={item} />;
                   })}
                 </div>
               </div>
