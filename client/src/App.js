@@ -47,7 +47,6 @@ export default function App() {
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Router exact path="/passwordReset" component={PasswordReset} />
-
         </Switch>
       </Router>
     </div>

@@ -4,7 +4,7 @@ import Reviews from "./reviews";
 import Stars from "./stars/stars";
 import { useSelector } from "react-redux";
 import PostReview from "./postReview";
-
+import "./style/allReviews.css"
 
 export default function AllReviews({ id }) {
     const [reviews, setReviews] = useState({ res: null, isLoaded: false })
@@ -41,8 +41,10 @@ export default function AllReviews({ id }) {
             usuarioId: usuarioLogin.id,
         }
         Axios.post(`http://localhost:3001/producto/${id}/review`, review)
+        
         setNuevoComentario(true);
-    }
+        
+        }
     const onStarClick = (nextValue, prevValue, name) => {
         setRating({ number: nextValue.toString() })
     }
@@ -97,9 +99,6 @@ export default function AllReviews({ id }) {
                     }
                 </div>
                 : <></>}
-
-          
         </div>
     )
 }
-

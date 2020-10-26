@@ -47,7 +47,7 @@ const Login = ({ setFormulario, setLogueado }) => {
 
   return (
 
-    <form className="formulario-login" onSubmit={""}>
+    <form className="formulario-login" >
 
       <div className="mensaje-bienvenida mb-5">
         <h2 className="mb-4">Resetear Contraseña</h2>
