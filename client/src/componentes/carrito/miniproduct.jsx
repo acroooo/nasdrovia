@@ -11,35 +11,8 @@ export default function Miniproduct(props) {
   const productos = useSelector((state) => state.productos.TodosLosProductos);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(allActions.getProductoDetalle());
+    dispatch(allActions.getProductoDetalle(props.productoId));
   }, []);
-
-  // useEffect(() => {
-  //     if (cantidad === 0) {
-  //         setListaProductos({ res: listaproductos.res.splice(index, 1), isLoaded: true })
-  //     }
-  // }, [cantidad])
-
-  // function handleClickMas() {
-  //     setListaProductos({
-  //         res: listaproductos.res.map(e => {
-  //             if (e.nombre === nombre) {
-  //                 e.cantidad++;
-  //             }
-  //             return e;
-  //         }), isLoaded: true
-  //     })
-  // }
-  // function handleClickMenos() {
-  //     setListaProductos({
-  //         res: listaproductos.res.map(e => {
-  //             if (e.nombre === nombre) {
-  //                 e.cantidad--;
-  //             }
-  //             return e;
-  //         }), isLoaded: true
-  //     })
-  // }
   return (
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center">
@@ -47,9 +20,9 @@ export default function Miniproduct(props) {
           <div className="product-image">
             <img
               className="img-fluid d-block mx-auto image"
-            //   src={productos.images.map((item, index) => {
-            //     return item[index];
-            //   })}
+              src={productos.images.map((item, index) => {
+                return item[index];
+              })}
             />
           </div>
         </div>
