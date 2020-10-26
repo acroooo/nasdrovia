@@ -46,7 +46,7 @@ export default function App() {
           <Route exact path="/checkout2" component={Checkout} />
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
-          <Roter exact path="/passwordReset" component={PasswordReset} />
+          <Router exact path="/passwordReset" component={PasswordReset} />
         </Switch>
       </Router>
     </div>
