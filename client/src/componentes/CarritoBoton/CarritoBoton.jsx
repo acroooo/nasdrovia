@@ -1,10 +1,40 @@
 import React, { useState, useEffect } from "react";
 import "./carroBoton.css";
 import anime from "animejs/lib/anime.es.js";
+import Axios from "axios";
+import {useSelector} from "react-redux";
 
-export default function CarroBoton({ nombreR, stock }) {
+export default function CarroBoton({ nombreR, stock, productoId, precio }) {
+  // estado redux
+  const usuarioLogin = useSelector((state) => state.usuario);
+  const idCarrito = useSelector((state) => state.carrito.CarritoCompleto.id)
+  const [error, setError] = useState("")
+  // estado hook
   const [cantidad, setCantidad] = useState(0);
-  useEffect(() => {});
+  //effects
+ useEffect( () => {
+  const {id,carroId}= usuarioLogin;
+      let list=[];
+      
+      if(cantidad===1){
+      let producto={id:id, cantidad:cantidad, precio:precio}
+      list.push(producto);
+      console.log(list)
+      const send={list};
+      Axios.post(`http://localhost:3001/ordenes/${idCarrito}/cart`, send ).then((respuesta)=>{
+        const asd = respuesta.data.lineaDeOrdens.map((item, index) => {
+          let producto = {
+            productoId: item.productoId,
+            carritoId: idCarrito,
+            cantidad: item.cantidad,
+            precio: item.precio,
+          }
+        })
+        setError(asd)
+
+      })
+    }
+  },[cantidad]);
 
   useEffect(() => {
     if (cantidad === 0) {

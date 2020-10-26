@@ -7,7 +7,6 @@ import CarritoBoton from "../CarritoBoton/CarritoBoton";
 // ============== YA LLEGA TODO SOLO HAY QUE ACOMODAR ================== //
 
 export default function Miniproduct(props) {
-    console.log(props)
   const productos = useSelector((state) => state.productos.TodosLosProductos);
   const dispatch = useDispatch();
   useEffect(() => {
