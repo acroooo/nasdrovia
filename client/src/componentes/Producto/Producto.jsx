@@ -14,6 +14,7 @@ const Producto = (props) => {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
+  const productId= productoStore.id;
   const usuarioLogin = useSelector((state) => state.usuario);
   const images = useSelector(
     (state) => state.productos.TodosLosProductos.images
@@ -25,7 +26,6 @@ const Producto = (props) => {
   const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-  const productId= productoStore.id;
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(id));
   }, []);
@@ -73,7 +73,7 @@ const Producto = (props) => {
                   <div className="stock-tarjeta">
                     <CarritoBoton
                       stock={productoStore.stock}
-                      id={productoStore.id}
+                      productoId={productoStore.id}
                     />
                   </div>
                 </Row>
