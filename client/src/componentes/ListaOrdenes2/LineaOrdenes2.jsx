@@ -11,7 +11,7 @@ const LineaOrdenes = () => {
   //prettier-ignore
   const usuarioLogin = useSelector(state => state.usuario);
 
-  if (usuarioLogin.rol.rol === "admin") {
+  if (usuarioLogin.rol === "admin") {
     return (
       <div className="total-ordenes ">
         <div className="container general-ordenes ">

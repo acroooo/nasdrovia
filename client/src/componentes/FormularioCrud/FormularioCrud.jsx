@@ -79,7 +79,7 @@ const FormularioCrud = () => {
     consultarProductos();
     setSolicitud(false);
   }, [solicitud]);
-  if (usuarioLogin.rol.rol === "admin") {
+  if (usuarioLogin.rol === "admin") {
     if (listadoProductos.isLoaded) {
       return (
         <div className="total">

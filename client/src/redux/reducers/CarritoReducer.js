@@ -9,6 +9,7 @@ import {
 } from "../actions/ActionTypes";
 
 const initialState = {
+  id: 0,
   CarritoCompleto: [{}],
   lineaDeOrdens: [{}],
   productos: [{}],
@@ -21,7 +22,8 @@ export default function carritoReducer(state = initialState, action) {
       return {
         ...state,
         CarritoCompleto: action.payload,
-        lineaDeOrdens: action.payload.lineaDeOrdens
+        lineaDeOrdens: action.payload.lineaDeOrdens,
+        id: action.payload.id,
       };
 
     case POST_USUARIO_CARRITO:
