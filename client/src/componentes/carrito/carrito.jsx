@@ -15,56 +15,39 @@ export default function Carrito() {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
-  const usuario = useSelector((state) => state.usuario.id);
+  const usuario = useSelector((state) => state.usuario.id.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  console.log("Esto es producto Carrito ", productoCarrito)
-  console.log("Esto es linea de orden", lineaOrden)
-    
-  // ================== ESTADO COMOPONENTES ===================== //
-  const [total, setTotal] = useState(0);
-  const [envio, setEnvio] = useState(0);
-  const [subtotal, setSubTotal] = useState(0);
-  const [listaproductos, setListaProductos] = useState({});
-  const [user, setUser] = useState(0);
-  const descuento = 0.8;
 
-  // ================== USE EFFECT ========================//
+  // ================== ESTADO COMOPONENTES ===================== //
+  console.log(productoCarrito)
+  const descuento = 0.8;
+  // const subtotal = () => {
+  //   lineaOrden.map((item, index) => {
+  //     console.log("item", item)
+  //     const {productoId} = item
+  //     if(item){
+        
+  //     } else {
+  //       return null
+  //     }
+  //   })
+  // }
+
+  // ================== USE EFFECT ===============item=========//
   useEffect(() => {
     dispatch(allActions.getUsuarioCarrito(usuario));
     dispatch(allActions.login);
   }, []);
 
-  // const productosPorId = (id) => {
-  //              Axios.get(`http://localhost:3001/producto/${id}`)
-  //             .then((res) => {
-  //                 if(res) {
-  //                     setListaProductos(res.data)
-  //                 }
-  //                 })
-  // }
-  // useEffect(() => {
-  //     setListaProductos({
-  //         res: producto.map(e => {
-  //             e.cantidad = 1;
-  //             return e
-  //         }), isLoaded: true
-  //     })
-  //     let res = 0;
-  //     for (let i = 0; i < producto.length; i++) {
-  //         res += producto[i].precio;
-  //     }
-  //     setSubTotal(res);
-  //     setTotal((res * descuento) + envio)
-  // }, [])
   return (
     <div>
       <div className="clean-block clean-cart dark">
         <div className="carrito col-lg-10">
           <div className="header">
             <h3 className="text-info">Carrito</h3>
-            <p>Aqui encotraras el resumen de tu pedido</p>
+            <p>Aqui encotrarás el resumen de tu pedido</p>
           </div>
           <div className="content">
             <div className="row no-gutters">
@@ -81,12 +64,12 @@ export default function Carrito() {
                   <h3>Resumen</h3>
                   <h4>
                     <span className="text ">Subtotal</span>
-                    <span className="price">${subtotal}</span>
+                    <span className="price">${""}</span>
                   </h4>
                   <h4>
                     <span className="text">Descuentos</span>
                     <span className="price">
-                      ${subtotal - subtotal * descuento}
+                      ${"subtotal - subtotal * descuento"}
                     </span>
                   </h4>
                   <h4>
@@ -95,7 +78,7 @@ export default function Carrito() {
                   </h4>
                   <h4>
                     <span className="text">Total</span>
-                    <span className="price">${total}</span>
+                    <span className="price">${"total"}</span>
                   </h4>
                   <button
                     className="btn btn-primary btn-block btn-lg"

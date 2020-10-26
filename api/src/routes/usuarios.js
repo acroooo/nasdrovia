@@ -139,10 +139,13 @@ router.post("/cambioPassword", async (req, res) => {
       Usuario.update({ olvidoPassword: null }, { where: { email } })
     }, 1080);
     const data = {
+
       from: 'Excited User <hernanns46@gmail.com>',
       to: 'hernanns46@gmail.com',
       subject: 'Solicitud de cambio de contraseña',
       text: 'Funciona la wea!--------12'
+      template: "password",
+
     };
     mg.messages().send(data, function (error, body) {
   
@@ -195,7 +198,7 @@ router.get("/:idUser/cart", (req, res) => {
     where: { usuarioId: idUser, estado: "carrito" },
     include: [{ model: LineaDeOrden }],
   }).then((item) => {
-    if (!item) return res.status(400).json("El carrito se encuentra vacio");
+    if (!item) return res.status(200).json("El carrito se encuentra vacio");
     else return res.send(item);
   });
 });

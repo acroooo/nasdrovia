@@ -60,7 +60,7 @@ const CrudCategoria = () => {
     setSolicitud(false);
   }, [solicitud]);
 
-  if (usuarioLogin.rol.rol === "admin") {
+  if (usuarioLogin.rol === "admin") {
     return (
       <div className="total">
         <div className="container general">

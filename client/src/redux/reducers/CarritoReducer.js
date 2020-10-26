@@ -1,3 +1,4 @@
+
 import {
   GET_USUARIO_CARRITO,
   POST_USUARIO_CARRITO,
@@ -9,8 +10,9 @@ import {
 } from "../actions/ActionTypes";
 
 const initialState = {
+  id: 0,
   CarritoCompleto: [{}],
-  lineaDeOrdens: [],
+  lineaDeOrdens: [{}],
   productos: [{}],
   Res: {},
 };
@@ -21,7 +23,8 @@ export default function carritoReducer(state = initialState, action) {
       return {
         ...state,
         CarritoCompleto: action.payload,
-        lineaDeOrdens: action.payload.lineaDeOrdens
+        lineaDeOrdens: action.payload.lineaDeOrdens,
+        id: action.payload.id,
       };
 
     case POST_USUARIO_CARRITO:
