@@ -206,7 +206,7 @@ router.get("/:idUser/cart", (req, res) => {
     where: { usuarioId: idUser, estado: "carrito" },
     include: [{ model: LineaDeOrden }],
   }).then((item) => {
-    if (!item) return res.status(400).json("El carrito se encuentra vacio");
+    if (!item) return res.status(200).json("El carrito se encuentra vacio");
     else return res.send(item);
   });
 });

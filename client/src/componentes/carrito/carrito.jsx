@@ -19,7 +19,7 @@ export default function Carrito() {
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  
+
   // ================== ESTADO COMOPONENTES ===================== //
   console.log(productoCarrito)
   const descuento = 0.8;

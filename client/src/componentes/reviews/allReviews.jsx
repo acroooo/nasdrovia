@@ -73,14 +73,14 @@ export default function AllReviews({ id }) {
                     <div>
                     
                         <h3>Opiniones sobre Este producto</h3>
-                        <h1>{~~promedio.res+1} estrellas</h1>
+                        <h1>{~~promedio.res>=5?~~promedio.res:promedio.res+1} estrellas</h1>
                         <Stars
                             calificacion={~~promedio.res+1}
                             size={35}
                         />
                     </div> :<></>
                 }
-                {reviews.isLoaded && ~~promedio!==0 ?
+                {reviews.isLoaded && ~~promedio.res!==0 ?
                     <p>Promedio entre {reviews.res.length} </p> : <></>
                 }
             </div>

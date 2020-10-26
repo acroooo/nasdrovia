@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 export default function CarroBoton({ nombreR, stock, productoId, precio }) {
   // estado redux
   const usuarioLogin = useSelector((state) => state.usuario);
+
   const idCarrito = useSelector((state) => state.carrito.CarritoCompleto.id)
   const [error, setError] = useState("")
   // estado hook
@@ -35,6 +36,7 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
       })
     }
   },[cantidad]);
+
 
   useEffect(() => {
     if (cantidad === 0) {
@@ -94,6 +96,19 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
     }
     if (cantidad < 0) {
       setCantidad(0);
+    }
+      const {id,carroId}= usuarioLogin;
+      let list=[];
+      
+      if(cantidad===1){
+      let producto={id:id, cantidad:cantidad, precio:precio}
+      list.push(producto);
+      const send={list:list};
+      console.log(send);
+      Axios.post(`http://localhost:3001/ordenes/${carroId}/cart`, send ).then(res=>{
+        console.log(res);
+        
+      })
     }
   }, [cantidad, stock]);
   function handleClick() {
