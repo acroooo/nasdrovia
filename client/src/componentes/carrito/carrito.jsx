@@ -15,23 +15,15 @@ export default function Carrito() {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
-  const usuario = useSelector((state) => state.usuario.id);
+  const usuario = useSelector((state) => state.usuario.id.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  console.log("Esto es producto Carrito ", productoCarrito);
-  console.log("Esto es linea de orden", lineaOrden);
-
+  console.log(lineaOrden)
   // ================== ESTADO COMOPONENTES ===================== //
-  const [total, setTotal] = useState(0);
-  const [envio, setEnvio] = useState(0);
-  const [subtotal, setSubTotal] = useState(0);
-  const [listaproductos, setListaProductos] = useState({});
-  const [user, setUser] = useState(0);
   const descuento = 0.8;
-  console.log(usuario);
 
-  // ================== USE EFFECT ========================//
+  // ================== USE EFFECT ===============item=========//
   useEffect(() => {
     dispatch(allActions.getUsuarioCarrito(usuario));
     dispatch(allActions.login);
@@ -60,12 +52,12 @@ export default function Carrito() {
                   <h3>Resumen</h3>
                   <h4>
                     <span className="text ">Subtotal</span>
-                    <span className="price">${subtotal}</span>
+                    <span className="price">${""}</span>
                   </h4>
                   <h4>
                     <span className="text">Descuentos</span>
                     <span className="price">
-                      ${subtotal - subtotal * descuento}
+                      ${"subtotal - subtotal * descuento"}
                     </span>
                   </h4>
                   <h4>
@@ -74,7 +66,7 @@ export default function Carrito() {
                   </h4>
                   <h4>
                     <span className="text">Total</span>
-                    <span className="price">${total}</span>
+                    <span className="price">${"total"}</span>
                   </h4>
                   <button
                     className="btn btn-primary btn-block btn-lg"
