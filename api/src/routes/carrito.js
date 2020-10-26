@@ -4,7 +4,7 @@ const { Carrito, LineaDeOrden, Usuario, Producto } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 /* -------------------Rutas Orden de compra------------------ */
 
-router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.get("/:id", (req, res) => {
   let id = req.params.id;
 
   Carrito.findByPk(id, {
@@ -17,7 +17,7 @@ router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
     .catch((error) => res.status(400).json(error));
 });
 
-router.get("/", isAuthenticatedAndAdmin, (req, res) => {
+router.get("/", (req, res) => {
   let estado = req.query.estado;
 
   Carrito.findAll({
@@ -32,10 +32,10 @@ router.get("/", isAuthenticatedAndAdmin, (req, res) => {
 });
 
 //Agregar productos al carro
-router.post("/:idCarro/cart", isAuthenticated, (req, res) => {
+router.post("/:idCarro/cart", (req, res) => {
   let lista = [];
   id = req.params.idCarro;
-  let productos = JSON.parse(req.body.productos);
+  let productos = req.body;
   //Llenamos la lista de productos
   productos.list.forEach((element) => {
     let producto = {
@@ -55,7 +55,7 @@ router.post("/:idCarro/cart", isAuthenticated, (req, res) => {
   }).then((carrito) => res.json(carrito));
 });
 //Editar las cantidad con el id del carro y el id producto la cantidad
-router.put("/:id/cart", isAuthenticated, async (req, res) => {
+router.put("/:id/cart", async (req, res) => {
   let idCarrito = req.params.id;
   let { producto, cantidad, precio } = req.body;
   if (producto || cantidad || precio) {
@@ -75,7 +75,7 @@ router.put("/:id/cart", isAuthenticated, async (req, res) => {
 });
 
 //Borrar un producto del carrito
-router.delete("/borrar/:idCarro", isAuthenticated, async (req, res) => {
+router.delete("/borrar/:idCarro", async (req, res) => {
   const id = req.params.idCarro;
   let producto = req.body.producto;
   let deleting = await LineaDeOrden.destroy({

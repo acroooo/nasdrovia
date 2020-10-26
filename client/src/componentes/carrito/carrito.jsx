@@ -20,10 +20,20 @@ export default function Carrito() {
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
 
-  console.log(lineaOrden)
-
   // ================== ESTADO COMOPONENTES ===================== //
+  console.log(productoCarrito)
   const descuento = 0.8;
+  // const subtotal = () => {
+  //   lineaOrden.map((item, index) => {
+  //     console.log("item", item)
+  //     const {productoId} = item
+  //     if(item){
+        
+  //     } else {
+  //       return null
+  //     }
+  //   })
+  // }
 
   // ================== USE EFFECT ===============item=========//
   useEffect(() => {
