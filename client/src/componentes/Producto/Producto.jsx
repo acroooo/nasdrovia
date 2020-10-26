@@ -14,7 +14,7 @@ const Producto = (props) => {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
-
+  const usuarioLogin = useSelector((state) => state.usuario);
   const images = useSelector(
     (state) => state.productos.TodosLosProductos.images
   );
@@ -25,7 +25,7 @@ const Producto = (props) => {
   const [categoria, setCategoria] = useState({ res: {}, isLoaded: false });
 
   const id = props.match.params.id;
-  console.log(images);
+  const productId= productoStore.id;
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(id));
   }, []);
@@ -95,7 +95,7 @@ const Producto = (props) => {
       {/* seccion productos similares*/}
       <div className="producto_similares"></div>
       <div className="allReviews-css">
-        <AllReviews id={id} />
+        <AllReviews id={productId} />
       </div>
     </div>
   );

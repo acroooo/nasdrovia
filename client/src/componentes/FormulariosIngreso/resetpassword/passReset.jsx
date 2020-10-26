@@ -12,9 +12,13 @@ const Login = ({ setFormulario, setLogueado }) => {
   const [contr2, setContr2] = useState();
   const [resetPassword, setResetPassword] = useState("");
   const [error, setError] = useState(false);
+<<<<<<< Updated upstream
 
   // const { token } = useParams();
 
+=======
+  //const { token } = useParams();
+>>>>>>> Stashed changes
 
   const handleChange1 = (e) => {
     setContr1(e.target.value);
@@ -46,9 +50,13 @@ const Login = ({ setFormulario, setLogueado }) => {
   };
 
   return (
+<<<<<<< Updated upstream
 
     <form className="formulario-login" onSubmit={""}>
 
+=======
+    <form className="formulario-login">
+>>>>>>> Stashed changes
       <div className="mensaje-bienvenida mb-5">
         <h2 className="mb-4">Resetear Contraseña</h2>
         {error && (

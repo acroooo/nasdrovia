@@ -46,8 +46,12 @@ export default function App() {
           <Route exact path="/checkout2" component={Checkout} />
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
+<<<<<<< Updated upstream
           <Router exact path="/passwordReset" component={PasswordReset} />
 
+=======
+          <Route exact path="/passwordReset" component={PasswordReset} />
+>>>>>>> Stashed changes
         </Switch>
       </Router>
     </div>
