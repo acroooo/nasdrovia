@@ -1,136 +1,137 @@
-
-.formulario-login{
-    width: 400px;
-    margin: auto;
-    border: 1px solid #dad9d9;
-    padding: 20px ;
-    border-radius: 4px;
-    background-color: #fff;
+.formulario-login {
+  width: 400px;
+  margin: auto;
+  border: 1px solid #dad9d9;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #fff;
 }
-.formulario-login>.mensaje-bienvenida>h2{
-    font-weight: normal;
-    font-size: 38px;
+.formulario-login > .mensaje-bienvenida > h2 {
+  font-weight: normal;
+  font-size: 38px;
 }
-.formulario-login>.mensaje-bienvenida>p>span{
-    color: #015386;
-    cursor: pointer;
+.formulario-login > .mensaje-bienvenida > p > span {
+  color: #015386;
+  cursor: pointer;
 }
-.formulario-login>.grupo-formulario{
-    position: relative;
-    width: 95%;
-    margin: 28px auto;
+.formulario-login > .grupo-formulario {
+  position: relative;
+  width: 95%;
+  margin: 28px auto;
 }
-.formulario-login>.grupo-formulario>.fas{
-    position: absolute;
-    top: 2px;
-    left: -12px;
-    color: #015386;
-}
-
-.formulario-login>.grupo-formulario>input{
-    width: 95%;
-    text-align: start;
-     border: none;
-    border-bottom: 1px solid #ccc;
-    z-index: 100;
-     transition: .1s all;
-    
-}
-.formulario-login>.grupo-formulario>.etiqueta{
-   position:absolute;
-   top: 0px;
-   left: 8px;
-   transition: .4s all;
-   font-size: 14px;
+.formulario-login > .grupo-formulario > .fas {
+  position: absolute;
+  top: 2px;
+  left: -12px;
+  color: #015386;
 }
 
-.formulario-login>.grupo-formulario>input:focus +label,
-.formulario-login>.grupo-formulario>input:valid +label{
-    top: -24px;
-    padding-left: 0;
-    font-size: 12px;
-    color: #015386;
+.formulario-login > .grupo-formulario > input {
+  width: 95%;
+  text-align: start;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  z-index: 100;
+  transition: 0.1s all;
 }
-.formulario-login>.grupo-formulario>input:valid +i{
-    color: red;
-}
-.formulario-login>.grupo-formulario>input:hover {
-    border-bottom: 1px solid #015386;
-}
-.formulario-login>button{
-    width: 95%;
-    margin: auto;
-    padding: 10px;
-    border: none;
-    background-color: #d30208;
-    color: #fff;
-    opacity: .8;
-    transition: .4s all;
-    border-radius: 4px;
-}
-.formulario-login>button:hover{
-    opacity: 1;
-}
-.formulario-login>button:focus{
-    outline: none;
-}
-.formulario-login>button:active{
-    transform: scale(.98);
-}
-.formulario-login>small{
-    text-align: start;
-    display: inline-block;
-    width: 95%;
-    cursor: pointer;
-}
-.error-login{
-    background-color: #d30208;
-    border-radius: 2px;
-    padding-top: 1px;
-}
-.btn-alternativo{
-    width: 95%;
-    border: none;
-    padding: 10px 0;
-    border-radius: 4px;
-    margin: 8px 0;
-    cursor: pointer;
-    transition: .4s all;
-    font-weight: 600;
-   position: relative;
-   overflow: hidden;
-}
-.sombra-facebook{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.1);
-    opacity: 0;
-    transition: .4s all;
-    z-index: 10;
-}
-.btn-alternativo:focus{
-    outline: none;
-}
-.btn-alternativo:active{
-  transform: scale(.98);
-}
-.btn-alternativo:hover>.sombra-facebook{
-    opacity: 1;
+.formulario-login > .grupo-formulario > .etiqueta {
+  position: absolute;
+  top: 0px;
+  left: 8px;
+  transition: 0.4s all;
+  font-size: 14px;
 }
 
-
-.btn-fac{
-    background:#3b5998;
-    color: #fff;
- box-shadow: 0px 5px 5px -1px rgba(173,173,173,1);
+.formulario-login > .grupo-formulario > input:focus + label,
+.formulario-login > .grupo-formulario > input:valid + label {
+  top: -24px;
+  padding-left: 0;
+  font-size: 12px;
+  color: #015386;
 }
-.btn-goo{
-    background: #fff;
-    box-shadow: 0px 5px 5px -1px rgba(173,173,173,1);
+.formulario-login > .grupo-formulario > input:valid + i {
+  color: red;
+}
+.formulario-login > .grupo-formulario > input:hover {
+  border-bottom: 1px solid #015386;
+}
+.formulario-login .btn-ingresar {
+  width: 95%;
+  margin: auto;
+  padding: 10px;
+  border: none;
+  background-color: #d30208;
+  color: #fff;
+  opacity: 0.8;
+  transition: 0.4s all;
+  border-radius: 4px;
+}
+.btn-alternativo {
+  width: 95%;
+  border: none;
+  padding: 10px 0;
+  border-radius: 4px;
+  margin: 10px auto;
+  cursor: pointer;
+  transition: 0.4s all;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+.formulario-login button:hover {
+  opacity: 1;
+}
+.formulario-login button:focus {
+  outline: none;
+}
+.formulario-login button:active {
+  transform: scale(0.98);
+}
+.formulario-login > small {
+  text-align: start;
+  display: inline-block;
+  width: 95%;
+  cursor: pointer;
+}
+.error-login {
+  background-color: #d30208;
+  border-radius: 2px;
+  padding-top: 1px;
 }
 
-.fa-google{
-    color: #d95030;
+.sombra-facebook {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: 0.4s all;
+  z-index: 10;
+}
+.btn-alternativo:focus {
+  outline: none;
+}
+.btn-alternativo:active {
+  transform: scale(0.98);
+}
+.btn-alternativo:hover > .sombra-facebook {
+  opacity: 1;
+}
+
+.btn-fac {
+  background: #3b5998;
+  color: #fff;
+  box-shadow: 0px 5px 5px -1px rgba(173, 173, 173, 1);
+}
+.btn-goo {
+  background: #fff;
+  box-shadow: 0px 5px 5px -1px rgba(173, 173, 173, 1);
+}
+
+.fa-google {
+  color: #d95030;
+}
+.btn-fac {
+  background-color: royalblue;
 }

@@ -12,12 +12,14 @@ export default function Carrito() {
   // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
   // ================== ESTADO REDUX ======================//
-  const usuario = useSelector((state) => state.usuario.id);
+  const productoStore = useSelector(
+    (state) => state.productos.TodosLosProductos
+  );
+  const usuario = useSelector((state) => state.usuario.id.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  console.log("Esto es linea de orden", lineaOrden)
-    
+
   // ================== ESTADO COMOPONENTES ===================== //
   const descuento = 0.8;
 
@@ -27,30 +29,6 @@ export default function Carrito() {
     dispatch(allActions.login);
   }, []);
 
-  const subtotal = () => {
-    const sub = 0;
-    lineaOrden.map((item, index) => {
-      sub = lineaOrden[index].precio + sub
-  })
-    console.log("esto es", sub)
-    return sub;  
-}
-
-  subtotal()
-  // useEffect(() => {
-  //     setListaProductos({
-  //         res: producto.map(e => {
-  //             e.cantidad = 1;
-  //             return e
-  //         }), isLoaded: true
-  //     })
-  //     let res = 0;
-  //     for (let i = 0; i < producto.length; i++) {
-  //         res += producto[i].precio;
-  //     }
-  //     setSubTotal(res);
-  //     setTotal((res * descuento) + envio)
-  // }, [])
   return (
     <div>
       <div className="clean-block clean-cart dark">
@@ -74,7 +52,7 @@ export default function Carrito() {
                   <h3>Resumen</h3>
                   <h4>
                     <span className="text ">Subtotal</span>
-                    <span className="price">${subtotal}</span>
+                    <span className="price">${""}</span>
                   </h4>
                   <h4>
                     <span className="text">Descuentos</span>

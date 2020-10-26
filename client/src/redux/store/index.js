@@ -3,7 +3,7 @@ import rootReducers from "../reducers/index";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import combineReducers from '../reducers/index'
+import combineReducers from "../reducers/index";
 // ======== IMPORTS ========== //
 
 //Agregando persistState

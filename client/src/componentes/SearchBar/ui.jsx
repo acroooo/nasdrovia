@@ -3,82 +3,85 @@ import "./icons.css";
 import FormulariosIngreso from "../FormulariosIngreso/FormulariosIngreso";
 import PanelAdmin from "../PanelAdmin/PanelAdmin";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import Axios from "axios";
+import allActions from "../../redux/actions/allActions";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Icons() {
+  //-----------State Redux ------------------
+  const usuarioLogin = useSelector((state) => state.usuario);
+  const rol = usuarioLogin.rol;
+  const dispatch = useDispatch();
+
+  //-------------Hooks------------
   const [formulario, setFormulario] = useState("inactivo"); //mostrar u ocultar formulario
   const [tipo, setTipo] = useState(""); //acción registro o inicio de sesión
-  const [usuario, setUsuario] = useState("Ingresar"); //tipo de usuario que ingresa, admin,user etc,cambia al momento de activar login
-  const [logueado, setLogueado] = useState(false); //determinar si el usuario está logueado
 
-
-  const usuarioLogin = useSelector(state => state.usuario);
-  const rol = usuarioLogin.rol.rol;
-  
-  
   const cerrarSesion = () => {
-    setLogueado(false);
-    setUsuario("Ingresar"); //para mostrar mensaje de ingresar
-    setFormulario("inactivo");
-    setTipo("");
+    Axios.post("http://localhost:3001/auth/logout")
+      .then(() => {
+        dispatch(allActions.logout());
+      })
+      .catch((err) => err);
   };
 
   return (
     <div className="ui-css">
       <Link to="/carrito">
-        <div className="carrito ">
+        <div className="contenedor-salir">
           <i className="fas fa-shopping-cart"></i>
+          <small className="ml-1">Carrito</small>
         </div>
       </Link>
-      <div className="contenedor-login">
-        {rol ==='admin' || rol ==='Client'  ? (
-          <Link to='perfil'> <i className="fas fa-user login-user"></i></Link>
-         
-        ) : (
+
+      {usuarioLogin.rol === "Guest" && (
+        <div className="contenedor-salir">
           <i
-            className="fas fa-user-circle login-user"
+            className="fas fa-user-circle "
             onClick={() => {
-               if(rol !== 'admin' && rol !== 'Client'){
-                setFormulario("activo");
-                setTipo("registrar");
-               }
-             
+              setFormulario("activo");
+              setTipo("registrar");
             }}
           ></i>
-        )}
-        <Link to={rol ==='admin'|| rol==='Client' ? 'perfil':null}><small className={rol==='Client' || rol ==='admin' ? 'ml-1'  :'null'} id='loguser'>{rol==='admin' || rol === 'Client' ? 'Perfil' : 'Ingresar'}</small></Link>
-        
-      </div>
-      
+          <small className="ml-1">Entrar</small>
+        </div>
+      )}
 
-      <div className="admin" id="a">
-        {rol==='admin' && (
+      {rol === "Client" && (
+        <Link to="/perfil">
+          <div className="contenedor-salir">
+            <i className="fas fa-user login-user"></i>
+            <small className="ml-1">Perfil</small>
+          </div>
+        </Link>
+      )}
+
+      {rol === "admin" && (
+        <div className="contenedor-salir">
           <i
             className="fas fa-tools"
             onClick={() =>
               document.getElementById("panel").classList.toggle("mostrar")
             }
           ></i>
-        )}
-        {rol === "admin" && <small className="ml-1">Panel</small>}
-      </div>
-      {rol === "admin" || rol==='Client' ? (
-        <div className={rol === 'Client' ? 'contenedor-salir salir-client':'contenedor-salir'}>
+          <small className="ml-1">Panel</small>
+        </div>
+      )}
+
+      {usuarioLogin.rol !== "Guest" && (
+        <div className="contenedor-salir">
           <i className="fas fa-sign-out-alt" onClick={cerrarSesion}></i>
           <small className="ml-1">Salir</small>
         </div>
-      ):null}
+      )}
 
-   { rol === "admin" && <PanelAdmin /> }
+      {rol === "admin" && <PanelAdmin />}
 
       <FormulariosIngreso
-        setLogueado={setLogueado}
-        setUsuario={setUsuario}
         setTipo={setTipo}
         tipo={tipo}
         formulario={formulario}
         setFormulario={setFormulario}
-        
       />
     </div>
   );
