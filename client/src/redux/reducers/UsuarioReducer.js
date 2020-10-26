@@ -6,6 +6,7 @@ const initialState = {
   id: 0,
   email: null,
   nombre: null,
+  carritoId: null,
 };
 
 export default function UsuarioReducer(state = initialState, action) {
@@ -15,12 +16,14 @@ export default function UsuarioReducer(state = initialState, action) {
       const id = action.payload.id;
       const email = action.payload.email;
       const nombre = action.payload.nombre;
+      const carroId = action.payload.carritoId;
       return {
         ...state,
         rol,
         id,
         email,
         nombre,
+        carroId,
       };
     case LOGOUT:
       return {
@@ -29,6 +32,7 @@ export default function UsuarioReducer(state = initialState, action) {
         id: 0,
         email: null,
         nombre: null,
+        carroId: null,
       };
     default:
       return state;
