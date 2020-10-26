@@ -12,22 +12,14 @@ export default function Carrito() {
   // ================ LLEGA TODO SOLO SE TIENE QUE RENDEREAR BIEN MINIPROD ==================== //
 
   // ================== ESTADO REDUX ======================//
-  const productoStore = useSelector((state) => state.productos.TodosLosProductos);
   const usuario = useSelector((state) => state.usuario.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const dispatch = useDispatch();
-  console.log("Esto es producto Carrito ", productoCarrito)
   console.log("Esto es linea de orden", lineaOrden)
     
   // ================== ESTADO COMOPONENTES ===================== //
-  const [total, setTotal] = useState(0);
-  const [envio, setEnvio] = useState(0);
-  const [subtotal, setSubTotal] = useState(0);
-  const [listaproductos, setListaProductos] = useState({});
-  const [user, setUser] = useState(0);
   const descuento = 0.8;
-  console.log(usuario)
 
   // ================== USE EFFECT ========================//
   useEffect(() => {
@@ -35,7 +27,30 @@ export default function Carrito() {
     dispatch(allActions.login);
   }, []);
 
-  
+  const subtotal = () => {
+    const sub = 0;
+    lineaOrden.map((item, index) => {
+      sub = lineaOrden[index].precio + sub
+  })
+    console.log("esto es", sub)
+    return sub;  
+}
+
+  subtotal()
+  // useEffect(() => {
+  //     setListaProductos({
+  //         res: producto.map(e => {
+  //             e.cantidad = 1;
+  //             return e
+  //         }), isLoaded: true
+  //     })
+  //     let res = 0;
+  //     for (let i = 0; i < producto.length; i++) {
+  //         res += producto[i].precio;
+  //     }
+  //     setSubTotal(res);
+  //     setTotal((res * descuento) + envio)
+  // }, [])
   return (
     <div>
       <div className="clean-block clean-cart dark">
@@ -64,7 +79,7 @@ export default function Carrito() {
                   <h4>
                     <span className="text">Descuentos</span>
                     <span className="price">
-                      ${subtotal - subtotal * descuento}
+                      ${"subtotal - subtotal * descuento"}
                     </span>
                   </h4>
                   <h4>
@@ -73,7 +88,7 @@ export default function Carrito() {
                   </h4>
                   <h4>
                     <span className="text">Total</span>
-                    <span className="price">${total}</span>
+                    <span className="price">${"total"}</span>
                   </h4>
                   <button
                     className="btn btn-primary btn-block btn-lg"
