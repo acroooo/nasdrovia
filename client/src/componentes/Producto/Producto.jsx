@@ -9,7 +9,7 @@ import AllReviews from "../reviews/allReviews";
 // =============== FIN IMPORTS ================ //
 
 const Producto = (props) => {
-  // VER SI PRODUCTO SE RENDEREA BIEN CON LA IMAGEN
+//renderea
   // =============== ESTADO DE REDUX ================ //
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
@@ -33,10 +33,7 @@ const Producto = (props) => {
   const addCarro = (event) => {
     event.preventDefault();
   };
-
-  const removeCarro = (event) => {
-    event.preventDefault();
-  };
+  console.log(images)
   return (
     <div className="producto__marco">
       {/* Seccion tarjeta producto */}
@@ -46,7 +43,9 @@ const Producto = (props) => {
           {/* Ordenar tema imagenes o imagen segun se pueda pedir desde la DB */}
           <Carousel clasName="container">
             <Carousel.Item>
-              <Image className="imagen-asd" src={"asd"} alt="Slide" />
+              <Image className="imagen-asd" src={images && images.map((item, index) => {
+                  return Object.values(images[index])[index]
+              })} alt="Slide" />
             </Carousel.Item>
           </Carousel>
         </Container>
@@ -71,10 +70,7 @@ const Producto = (props) => {
               <div className="abajotexto">
                 <Row>
                   <div className="stock-tarjeta">
-                    <CarritoBoton
-                      stock={productoStore.stock}
-                      productoId={productoStore.id}
-                    />
+
                   </div>
                 </Row>
               </div>
@@ -82,11 +78,13 @@ const Producto = (props) => {
 
             <Card.Footer className="pie">
               {/* Funcion de agregar y remover producto del carro */}
+              <CarritoBoton
+                      className="css_carritoboton"
+                      stock={productoStore.stock}
+                      id={productoStore.id}
+                    />
               <Button className="botonRojo" onClick={addCarro}>
                 Agregar al Carro
-              </Button>
-              <Button className="botonRojo" onClick={removeCarro}>
-                Quitar del Carro
               </Button>
             </Card.Footer>
           </Card>

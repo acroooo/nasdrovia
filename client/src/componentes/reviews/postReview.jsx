@@ -31,4 +31,4 @@ export default function PostReview({setComentario,handleCick, onStarClick, ratin
         </button>
         </div>
     )
-} 
+}

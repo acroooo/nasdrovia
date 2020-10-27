@@ -70,7 +70,9 @@ export default function Icons() {
 
       {usuarioLogin.rol !== "Guest" && (
         <div className="contenedor-salir">
-          <i className="fas fa-sign-out-alt" onClick={cerrarSesion}></i>
+          <Link to="/productos">
+            <i className="fas fa-sign-out-alt" onClick={cerrarSesion}></i>
+          </Link>
           <small className="ml-1">Salir</small>
         </div>
       )}
