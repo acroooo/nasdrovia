@@ -28,6 +28,7 @@
 
 .cerveza_nombre {
   color: #e6e6e6 !important;
+  background-color: #e40613;
   display: absolute;
   text-align: left;
   padding: 12px 30px;
@@ -80,6 +81,7 @@
   box-shadow: 10px 10px 55px #015386;
   z-index: -5;
   opacity: 0;
+  background-color: #e40613;
 }
 .carro {
   position: absolute;

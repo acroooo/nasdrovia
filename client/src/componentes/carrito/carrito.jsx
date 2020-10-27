@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./carrito.css";
 import Miniprod from "./miniproduct";
 import Loader from "../Loader/Loader";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { useSelector, useDispatch, connect, ReactReduxContext } from "react-redux";
 import allActions from "../../redux/actions/allActions";
 import Producto from "../Producto/Producto";
 import Axios from "axios";
@@ -18,22 +18,12 @@ export default function Carrito() {
   const usuario = useSelector((state) => state.usuario.id.id);
   const productoCarrito = useSelector((state) => state.carrito.CarritoCompleto);
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
+  const [total, setTotal] = useState(0)
   const dispatch = useDispatch();
-
+  console.log(lineaOrden)
   // ================== ESTADO COMOPONENTES ===================== //
   console.log(productoCarrito)
   const descuento = 0.8;
-  // const subtotal = () => {
-  //   lineaOrden.map((item, index) => {
-  //     console.log("item", item)
-  //     const {productoId} = item
-  //     if(item){
-        
-  //     } else {
-  //       return null
-  //     }
-  //   })
-  // }
 
   // ================== USE EFFECT ===============item=========//
   useEffect(() => {
@@ -44,6 +34,26 @@ export default function Carrito() {
   const products = JSON.parse(localStorage['carrito'])  
 
   let ppp = [1,2,3]
+
+  // const subtotal = () => {
+  //   let arr = []
+  //   let total = 0
+  //   products.map((item, index) => {
+  //     console.log(item)
+  //     total = item.precio * item.cantidad
+  //    arr.push(total)
+  //   })
+  
+  //   let res = 0
+  //   arr.forEach(el => {
+  //     res = res + el;
+  //   })
+  //   return res
+    
+  // }
+
+  // setTotal(() => subtotal)
+
   return (
     <div>
       <div className="clean-block clean-cart dark">
@@ -67,7 +77,7 @@ export default function Carrito() {
                   <h3>Resumen</h3>
                   <h4>
                     <span className="text ">Subtotal</span>
-                    <span className="price">${""}</span>
+                    <span className="price">${"total"}</span>
                   </h4>
                   <h4>
                     <span className="text">Descuentos</span>
