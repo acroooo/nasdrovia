@@ -25,6 +25,7 @@ export default function Carrito() {
   console.log(productoCarrito)
   const descuento = 0.8;
 
+
   // ================== USE EFFECT ===============item=========//
   useEffect(() => {
     dispatch(allActions.getUsuarioCarrito(usuario));
