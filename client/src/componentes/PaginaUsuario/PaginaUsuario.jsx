@@ -4,7 +4,7 @@ import Cuenta from './Cuenta/Cuenta';
 import Panel from './PanelUsuario/Panel';
 import Datos from './Datos/Datos';
 import Ordenes from './Ordenes/Ordenes';
-import Preferencias from './Preferencias/Preferencias';
+import Preferencias from './Preferencias/Preferencias.jsx';
 import Deseos from './Deseos/Deseos';
 import Error404 from '../Error404/error404';
 import { useSelector } from "react-redux";

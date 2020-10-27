@@ -129,9 +129,9 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
     
     setCantidad(cantidad + 1);
 
-    let carrito = localStorage['carrito'];
+    let carritoLS = localStorage['carrito'];
 
-   if(carrito){
+   if(carritoLS){
      
     if(carrito.length>0){
       let carriton =JSON.parse(localStorage['carrito']);
