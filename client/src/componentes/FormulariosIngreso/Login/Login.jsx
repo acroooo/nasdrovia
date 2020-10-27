@@ -53,14 +53,6 @@ const Login = ({ setTipo, cerrar }) => {
 
       }
 
-     
-      
-      
-      // if (carrito.status === 400) {
-      //   const carritoCreado = await Axios.get(
-      //     `http://localhost:3001/usuario/${usuario.data.id}/cart`
-      //   );
-      // }
 
       id = usuario.data.id;
     } catch (err) {
@@ -105,13 +97,13 @@ const Login = ({ setTipo, cerrar }) => {
         Iniciar sesión
       </button>
 
-      <button class="btn-alternativo btn-fac d-flex align-items-center">
+      <button class=" btn-fac d-flex align-items-center" id='fa'>
         <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
       </button>
 
-      <button class="btn-alternativo btn-goo d-flex align-items-center">
-        <i className="fab fa-google mr-3 pl-3"></i>
+      <button class="btn-alternativo btn-goo d-flex align-items-center"id='go' >
+        <i className="fab fa-google mr-3 pl-3 "></i>
         Continuar con Google
         <div className="sombra-facebook"></div>
       </button>

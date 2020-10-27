@@ -24,7 +24,6 @@ const CrudCategoria = () => {
   const [categoriaCrear, setCategoriaCrear] = useState({}); //Categoria que se va a crear
   const [solicitud, setSolicitud] = useState(false); //Dependencia que  recarga el componente con las categorias cada vez que cambia
   const [nextId, setNextId] = useState(0); //Id de la próxima categoria creada
-
   const consultarCategorias = () => {
     axios
       .get("http://localhost:3001/categorias")

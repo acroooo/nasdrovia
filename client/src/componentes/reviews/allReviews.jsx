@@ -4,7 +4,9 @@ import Reviews from "./reviews";
 import Stars from "./stars/stars";
 import { useSelector } from "react-redux";
 import PostReview from "./postReview";
-import "./style/allReviews.css"
+
+import "./style/allReviews.css";
+
 
 export default function AllReviews({ id }) {
     const [reviews, setReviews] = useState({ res: null, isLoaded: false })
@@ -18,16 +20,18 @@ export default function AllReviews({ id }) {
     useEffect(async() => {
         const revs= await Axios.get(`http://localhost:3001/producto/${id}/review`)
         try{
-            console.log(revs)
             setReviews({res:revs.data, isLoaded:true})
         } catch(error){
-            console.log(error);
         }
         Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((respuesta) => {
             setPromedio({ res: respuesta.data, isLoaded: true })
 
         })
-    }, [nuevoComentario])
+        return ()=>{
+            setReviews({res:null, isLoaded:false})
+            setPromedio({res:null, isLoaded:false})
+        }
+    }, [])
     useEffect(()=>{
         if(reviews.isLoaded){
         const check=checkUsuarioPost()
@@ -61,7 +65,13 @@ export default function AllReviews({ id }) {
         return !!res;
     }
     }
+    if(reviews.isLoaded){
+    if(usuarioLogin.id === 0 && reviews.res.length===0){
+        return <></>
+    }
+}
     return (
+        
         <div className="allReviews">
             {usuarioLogin.id === 0 && checkedUsuario.isSet || checkedUsuario.res? <></> :
                 <PostReview
@@ -75,7 +85,9 @@ export default function AllReviews({ id }) {
                     <div>
                     
                         <h3>Opiniones sobre Este producto</h3>
-                        <h1>{~~promedio.res>=5?~~promedio.res:promedio.res+1} estrellas</h1>
+
+                        <h1>{~promedio.res>=5?~promedio.res:promedio.res+1} estrellas</h1>
+
                         <Stars
                             calificacion={~~promedio.res+1}
                             size={35}
@@ -101,4 +113,5 @@ export default function AllReviews({ id }) {
                 : <></>}
         </div>
     )
+
 }

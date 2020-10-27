@@ -9,6 +9,7 @@ import Axios from "axios";
 export default function Card ({producto, stockDisplay}) {
     const [stars, setStars] =useState({res:null, isLoaded:false});
     const {nombre, precio, images, stock, id}=producto;
+    console.log(producto)
     const nombreR=nombre.replace(" ", "_");
     useEffect(() => {
             Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((res)=>{
@@ -73,6 +74,7 @@ export default function Card ({producto, stockDisplay}) {
             stock={stock}
             productoId={id}
             precio={precio}
+            imagen={images[0][0]}
             />
             </div>: < > </>
             }

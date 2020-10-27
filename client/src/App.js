@@ -9,7 +9,6 @@ import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
 import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
-import CheckOut from "./componentes/carrito/checkOut";
 import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 import PanelAdmin from "./componentes/PanelAdmin/PanelAdmin";
 import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
@@ -21,6 +20,9 @@ import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPas
 import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
 import Footer from "./componentes/footer/footer.jsx"
 import Moodal from "./componentes/modal+18/modal.jsx";
+
+import Carrito2 from "./componentes/Carrito2/Carrito";
+import ProductInfo from "./componentes/ProductInfo/ProductInfo";
 
 //React Router
 //Faltan actions
@@ -39,15 +41,14 @@ export default function App() {
           <Route exact path="/perfil" component={Perfil} />
           <Route exact path="/ordenes" component={ListaOrdenes2} />
           <Route exact path="/orden" component={Orden2} />
-          {/*es temporal*/}
           <Route exact path="/usuarios" component={Usuarios} />
 
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
           <Route exact path="/producto/:id" component={Producto} />
           <Route exact path="/formulario-crud" component={FormularioCrud} />
-          <Route exact path="/carrito" component={Carrito} />
-          <Route exact path="/checkout" component={CheckOut} />
-          <Route exact path="/checkout2" component={Checkout} />
+          <Route exact path="/carrito" component={Carrito2} />
+          <Route exact path="/info" component={ProductInfo} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Router exact path="/passwordReset" component={PasswordReset} />

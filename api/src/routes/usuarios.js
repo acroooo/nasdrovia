@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;
 const mailgun = require("mailgun-js");
 const DOMAIN = 'sandbox396137037a674502865965b3ae0e95d0.mailgun.org';
 const mg = mailgun({apiKey: "4e1388898d6578304533bdde9d4cdca0-53c13666-92f2a20e", domain: DOMAIN});
@@ -124,53 +126,50 @@ router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
     .catch((err) => res.status(400).send(err.message));
 });
 
-router.post("/cambioPassword", async (req, res) => {
-  const { email } = req.body;
-
-    const usuario = await Usuario.findOne({ where: { email } });
-    if (!usuario)
-      return res.status(404).send("No hay usuarios registrados con ese email");
-
+router.post("/askForPasswordReset", async (req, res) => {
+    const { email } = req.body;
     let salt = await Usuario.generateSalt();
+    let usuario = await Usuario.findOne({ where: { email: email } })
+    if (!usuario){
+          return res.status(404).send("No hay usuarios registrados con ese email");
+        }
+  usuario.resetToken = salt
+  //10 minutos dura el token
+  usuario.tokenLife = Date.now() + 600000
+  usuario.save()
+  const data = {
 
-    Usuario.update({ olvidoPassword: salt }, { where: { email } })
-    
-    setTimeout(() => {
-      Usuario.update({ olvidoPassword: null }, { where: { email } })
-    }, 1080);
-    const data = {
+    from: 'Excited User <support@nasdrovia.com>',
+    to: email,
+    subject: 'Solicitud de cambio de contraseña',
+    text: `http://localhost:3000/resetPassword/${salt}`,
+    "v:salt": salt,
+    template: "password",
 
-      from: 'Excited User <hernanns46@gmail.com>',
-      to: 'hernanns46@gmail.com',
-      subject: 'Solicitud de cambio de contraseña',
-      text: 'Funciona la wea!--------12',
-      template: "password",
+  };
+  mg.messages().send(data, function (error, body) {
 
-    };
-    mg.messages().send(data, function (error, body) {
-  
-    })
-    res.status(200).json({"Sended to": email, "token":salt})
+  })
+  res.status(200).json({"Sended to": email, "token":salt})
 });
 
 router.post("/passwordReset", async (req, res) => {
-  const { email, password, token } = req.body;
-  if (!email || !password || !token)
+  const { password, token} = req.body;
+  if (!password || !token )
     return res.status(400).send("Faltan parámetros");
-  try {
-    const usuario = await Usuario.findOne({
-      where: { email, olvidoPassword: token},
+  const usuario = await Usuario.findOne({
+      where: { resetToken: token,  tokenLife: {
+        [Op.gte]: Date.now()
+      }}
     });
-    if (!usuario) return res.status(400).json({"Error":"Usuario no encontrado"});
-
-    Usuario.update({ password: password , olvidoPassword: null}, { where: { email , olvidoPassword: token} })
+  if (!usuario) return res.status(400).json({"Error":"Usuario no encontrado o token expirado"});
+  
+  usuario.password = password
+  usuario.resetToken = null
+  usuario.tokenLife = null
+  usuario.save()
+  res.status(200).json({"Success":"Contraseña actualizada"})
    
-    return res
-      .status(200)
-      .send("Felicidades, su contraseña se ha actualizado exitosamente");
-  } catch (error) {
-    res.status(500).send(error);
-  }
 });
 /* -------------------CARRITO------------------ */
 

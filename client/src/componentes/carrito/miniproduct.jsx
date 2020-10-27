@@ -6,12 +6,28 @@ import CarritoBoton from "../CarritoBoton/CarritoBoton";
 
 // ============== YA LLEGA TODO SOLO HAY QUE ACOMODAR ================== //
 
-export default function Miniproduct(props) {
+export default function Miniproduct({producto}) {
   const productos = useSelector((state) => state.productos.TodosLosProductos);
   const dispatch = useDispatch();
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(allActions.getProductoDetalle(props.productoId));
-  }, []);
+  }, []); */
+
+  
+
+  const aumentar = (id)=>{
+    document.getElementById(id).value = parseInt(document.getElementById(id).value)+1;
+  }
+  const disminuir = (id)=>{
+   
+    if( document.getElementById(id).value>=1){
+      document.getElementById(id).value = parseInt(document.getElementById(id).value)-1;
+    }
+    
+  }
+
+
+
   return (
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center">
@@ -19,7 +35,7 @@ export default function Miniproduct(props) {
           <div className="product-image">
             <img
               className="img-fluid d-block mx-auto image"
-              src={productos.images.map((item, index) => {
+              src={productos.images && productos.images.map((item, index) => {
                 return item[index];
               })}
             />
@@ -28,19 +44,23 @@ export default function Miniproduct(props) {
         <div className="col-sm-3 col-md-4 col-lg-4 col-xl-4 product-info">
           <div className="product-specs">
             <div>
-              <span className="nombre">{productos.nombre}</span>
+              <span className="nombre">Nombre: {producto.nombreR}</span>
             </div>
             <div>
-              <span className="value">Stock: {productos.stock}</span>
+              <span className="value">Stock: {producto.stock}</span>
             </div>
             <div className="price">
-              <span>Precio: {productos.precio}</span>
+              <span>Precio: {producto.precio}</span>
             </div>
           </div>
         </div>
         <div className="col-sm-3 col-md-2 col-lg-2 col-xl-2 quantity">
-          <span>{productos.cantidad}</span>
-          <CarritoBoton />
+          
+      
+      <div className="botones-aumentar d-flex">
+          <p className='btn-accion' onClick={()=>aumentar(producto.nombreR)}>+</p>
+          <p className='btn-accion' onClick={()=>disminuir(producto.nombreR)}>-</p>
+      </div>
           <label className="cantidad" for="quantity">
             Cantidad
           </label>
@@ -48,10 +68,12 @@ export default function Miniproduct(props) {
             type="number"
             id="cantidad"
             className="form-control quantity-input"
-            value="1"
+            value={producto.cantidad}
+            id={producto.nombreR}
+        
           />
         </div>
       </div>
     </div>
   );
-}   
+}
