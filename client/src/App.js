@@ -9,7 +9,6 @@ import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
 import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
-import CheckOut from "./componentes/carrito/checkOut";
 import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 import PanelAdmin from "./componentes/PanelAdmin/PanelAdmin";
 import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
@@ -44,8 +43,7 @@ export default function App() {
           <Route exact path="/formulario-crud" component={FormularioCrud} />
           <Route exact path="/carrito" component={Carrito2} />
           <Route exact path="/info" component={ProductInfo} />
-          <Route exact path="/checkout" component={CheckOut} />
-          <Route exact path="/checkout2" component={Checkout} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Router exact path="/passwordReset" component={PasswordReset} />

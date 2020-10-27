@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Card from './Card';
+import {Link} from 'react-router-dom';
 
 
 
-const ResumenOrden = ({productos,objeto}) => {
+const ResumenOrden = ({total,setTotal}) => {
 
+  const [subtotal,setSubtotal]=useState(0)
+  let productos = JSON.parse(localStorage['carrito'])
+
+  useEffect(()=>{
+    let sumatoria=0;
+    productos&& productos.map(pro=>sumatoria+=(pro.precio*pro.cantidad));
+    setSubtotal(sumatoria);
+    setTotal(false);
+  },[total])
     
 
     return ( 
         <div className="contenido-resumen">
-        <p className="mb-1">{objeto.cantidadProductos} PRODUCTOS</p>
+        <p className="mb-1">{productos.length} PRODUCTOS</p>
         <div className="precio-resumen d-flex justify-content-between">
           <p>Subtotal</p>
-          <p>$ {objeto.subtotal}</p>
+        <p>$ {subtotal}</p>
         </div>
 
         <div className="precio-resumen d-flex justify-content-between">
@@ -32,15 +42,20 @@ const ResumenOrden = ({productos,objeto}) => {
 
         <div className="precio-resumen precio-total-resumen d-flex justify-content-between">
           <p>Total</p>
-          <p>$ 24.560</p>
+           <p>$ {productos.length && subtotal+12000}</p>
         </div>
 
+     {productos.length ?
         <div className="financiaciacion d-flex">
           <small>Financiación con Tarjeta de Credito</small>
-          <small className="cuotas">Hasta 12 cuotas de $2.540</small>
-        </div>
+         <small className="cuotas">Hasta 12 cuotas de ${(subtotal+12000)/12}</small>
+      </div>
+      :null
+      }
+
+       <Link to='/checkout'><button className='btn-comprar-carr'>Confirmar compra</button></Link>  
         
-        <Card productos={productos}/>
+       {/*  <Card productos={productos}/> */}
 
       </div>
      );

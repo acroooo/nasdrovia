@@ -2,6 +2,8 @@ import React from "react";
 import "./ProductInfo.css";
 import Panel from './PanelCarrito/PanelCarrito';
 import PanelCarrito from "./PanelCarrito/PanelCarrito";
+import AllReviews from "../reviews/allReviews";
+// import { useSelector, useDispatch } from "react-redux";
 
 const ProductInfo = () => {
   let productoPrueba = {
@@ -53,6 +55,9 @@ const ProductInfo = () => {
         </div>
       </section>
       <PanelCarrito />
+      <div className="allReviews-css">
+  {/*       <AllReviews  /> */}
+      </div>
     </div>
   );
 };
