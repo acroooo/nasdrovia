@@ -19,6 +19,9 @@
 .cont-uno .sc{
     cursor: pointer;
     transition: .4s all;
+    color:#015386;
+    display: inline-block;
+    width: 160px;
   
 }
 .cont-uno .sc:hover{
@@ -28,6 +31,7 @@
     font-weight: bold;
     font-size: 22px;
     letter-spacing: 1px;
+    color:#015386;
    
 }
 .cont-general{
@@ -64,14 +68,14 @@
     width: 90%;
     height: 100%;
     cursor: pointer;
-    background-color: red;
-    
+
 }
 
 .cont-body{width: 68%;}
 .cont-body>h4{
     font-size: 18px;
     font-weight: 300;
+   
 }
 .cont-body>p{
     font-size: 14px;

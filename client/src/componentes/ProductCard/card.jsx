@@ -74,6 +74,7 @@ export default function Card ({producto, stockDisplay}) {
             stock={stock}
             productoId={id}
             precio={precio}
+            imagen={images[0][0]}
             />
             </div>: < > </>
             }
