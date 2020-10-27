@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
+const mailgun = require("mailgun-js");
+const DOMAIN = 'sandbox396137037a674502865965b3ae0e95d0.mailgun.org';
+const mg = mailgun({apiKey: "4e1388898d6578304533bdde9d4cdca0-53c13666-92f2a20e", domain: DOMAIN});
 router.post("/", async (req, res, next) => {
   let { nombre, email, password } = req.body;
   if (nombre && email && password) {
@@ -124,55 +127,44 @@ router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
 router.post("/cambioPassword", async (req, res) => {
   const { email } = req.body;
 
-  try {
     const usuario = await Usuario.findOne({ where: { email } });
     if (!usuario)
       return res.status(404).send("No hay usuarios registrados con ese email");
 
-    const salt = await User.generateSalt();
+    let salt = await Usuario.generateSalt();
 
-    usuario.olvidoPassword = salt;
-    await usuario.save();
-
+    Usuario.update({ olvidoPassword: salt }, { where: { email } })
+    
     setTimeout(() => {
-      usuario.olvidoPassword = null;
-      usuario.save();
+      Usuario.update({ olvidoPassword: null }, { where: { email } })
     }, 1080);
     const data = {
-      from: "Nasdrovia <sanchezlismairy@gmail.com>",
-      to: email,
-      subject: "Reseteo de Password",
-      text: `http://localhost:3000/passwordReset/${salt}`,
+
+      from: 'Excited User <hernanns46@gmail.com>',
+      to: 'hernanns46@gmail.com',
+      subject: 'Solicitud de cambio de contraseña',
+      text: 'Funciona la wea!--------12',
       template: "password",
+
     };
-
-    mailgun.messages().send(data, function (error, body) {
-      if (error) {
-        console.log({ error });
-        return res.status(200).send({ salt, statusEmail: "error" });
-      }
-
-      return res.status(200).send({ salt, statusEmail: "enviado" });
-    });
-  } catch (error) {
-    return res.sendStatus(500);
-  }
+    mg.messages().send(data, function (error, body) {
+  
+    })
+    res.status(200).json({"Sended to": email, "token":salt})
 });
 
-router.post("/:id/passwordReset", async (req, res) => {
+router.post("/passwordReset", async (req, res) => {
   const { email, password, token } = req.body;
   if (!email || !password || !token)
     return res.status(400).send("Faltan parámetros");
   try {
     const usuario = await Usuario.findOne({
-      where: { email, olvidoPassword: token },
+      where: { email, olvidoPassword: token},
     });
-    if (!usuario) return res.status(400);
+    if (!usuario) return res.status(400).json({"Error":"Usuario no encontrado"});
 
-    usuario.password = password;
-    usuario.olvidoPassword = null;
-    await usuario.save();
-
+    Usuario.update({ password: password , olvidoPassword: null}, { where: { email , olvidoPassword: token} })
+   
     return res
       .status(200)
       .send("Felicidades, su contraseña se ha actualizado exitosamente");
@@ -206,7 +198,7 @@ router.get("/:idUser/cart", (req, res) => {
     where: { usuarioId: idUser, estado: "carrito" },
     include: [{ model: LineaDeOrden }],
   }).then((item) => {
-    if (!item) return res.status(400).json("El carrito se encuentra vacio");
+    if (!item) return res.status(200).json("El carrito se encuentra vacio");
     else return res.send(item);
   });
 });

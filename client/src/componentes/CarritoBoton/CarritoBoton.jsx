@@ -107,7 +107,7 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
       let producto={id:id, cantidad:cantidad, precio:precio}
       list.push(producto);
       const send={list:list};
-   
+
       Axios.post(`http://localhost:3001/ordenes/${carroId}/cart`, send ).then(res=>{
         console.log(res);
         
@@ -116,6 +116,17 @@ export default function CarroBoton({ nombreR, stock, productoId, precio }) {
   }, [cantidad, stock]);
 
   function handleClick() {
+    
+    let carrito = localStorage["carrito"]
+    if(carrito){
+      let carrito = JSON.parse(localStorage["carrito"])
+      let productoCarrito = {productoId: productoId, precio, cantidad}
+      carrito.push(productoCarrito)
+      localStorage.setItem("carrito", JSON.stringify(carrito))
+    }else{
+      localStorage.setItem("carrito", JSON.stringify([]))
+    }
+    
     setCantidad(cantidad + 1);
 
     let carrito = localStorage['carrito'];

@@ -4,7 +4,9 @@ import Reviews from "./reviews";
 import Stars from "./stars/stars";
 import { useSelector } from "react-redux";
 import PostReview from "./postReview";
+
 import "./style/allReviews.css";
+
 
 export default function AllReviews({ id }) {
     const [reviews, setReviews] = useState({ res: null, isLoaded: false })
@@ -83,7 +85,9 @@ export default function AllReviews({ id }) {
                     <div>
                     
                         <h3>Opiniones sobre Este producto</h3>
+
                         <h1>{~promedio.res>=5?~promedio.res:promedio.res+1} estrellas</h1>
+
                         <Stars
                             calificacion={~~promedio.res+1}
                             size={35}
@@ -109,5 +113,5 @@ export default function AllReviews({ id }) {
                 : <></>}
         </div>
     )
-                
+
 }

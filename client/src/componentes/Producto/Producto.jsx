@@ -14,7 +14,8 @@ const Producto = (props) => {
   const productoStore = useSelector(
     (state) => state.productos.TodosLosProductos
   );
-
+  const productId= productoStore.id;
+  const usuarioLogin = useSelector((state) => state.usuario);
   const images = useSelector(
     (state) => state.productos.TodosLosProductos.images
   );
@@ -69,6 +70,7 @@ const Producto = (props) => {
               <div className="abajotexto">
                 <Row>
                   <div className="stock-tarjeta">
+
                   </div>
                 </Row>
               </div>
@@ -91,7 +93,7 @@ const Producto = (props) => {
       {/* seccion productos similares*/}
       <div className="producto_similares"></div>
       <div className="allReviews-css">
-        <AllReviews id={id} />
+        <AllReviews id={productId} />
       </div>
     </div>
   );

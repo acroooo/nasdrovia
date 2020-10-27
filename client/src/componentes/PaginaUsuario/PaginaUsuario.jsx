@@ -6,14 +6,15 @@ import Datos from './Datos/Datos';
 import Ordenes from './Ordenes/Ordenes';
 import Preferencias from './Preferencias/Preferencias';
 import Deseos from './Deseos/Deseos';
-
+import Error404 from '../Error404/error404';
+import { useSelector } from "react-redux";
 
 
 const PaginaUsuario = () => {
-
+    const usuarioLogin = useSelector(state => state.usuario);
     const [pagina,setPagina]=useState('cuenta')
   
-    
+    if (usuarioLogin.rol === "Client") {
     return (  
         <section className="general-usuarios " id='a'>
            <div className='anuncios d-flex justify-content-around '>
@@ -40,7 +41,7 @@ const PaginaUsuario = () => {
         </div>
       
     </section>
-    );
+    );}else{return <Error404 />}
 }
  
 export default PaginaUsuario;

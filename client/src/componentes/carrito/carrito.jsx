@@ -20,7 +20,7 @@ export default function Carrito() {
   const lineaOrden = useSelector((state) => state.carrito.lineaDeOrdens);
   const [total, setTotal] = useState(0)
   const dispatch = useDispatch();
-  console.log(lineaOrden)
+
   // ================== ESTADO COMOPONENTES ===================== //
   console.log(productoCarrito)
   const descuento = 0.8;
