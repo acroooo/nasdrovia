@@ -48,8 +48,11 @@ module.exports = (sequelize) => {
         return ()=>this.getDataValue('salt')
       }
      },
-     olvidoPassword: {
-      type: DataTypes.STRING,
+     resetToken: {
+      type: DataTypes.STRING
+     },
+     tokenLife: {
+      type: DataTypes.DATE
      }
     });
 }

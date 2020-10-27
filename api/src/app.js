@@ -25,8 +25,8 @@ server.use(express.static("public"));
 server.use(
   session({
     secret: "secret",
-    resave: false,
-    saveUnitialized: true,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 server.use(morgan("dev"));
