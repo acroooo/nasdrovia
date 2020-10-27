@@ -87,4 +87,22 @@ router.delete("/borrar/:idCarro", async (req, res) => {
   });
   res.status(200).json(compras);
 });
+router.put("/:id/cart/status", (req,res)=>{
+  let idCarrito = req.params.id;
+  let { estado} = req.body;
+  if (estado) {
+    Carrito.findOne({ where: { id: idCarrito } })
+      .then((existe) => {
+        !!existe
+          ? Carrito.update(
+              { estado:estado },
+              { where: { id: idCarrito } }
+            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+          : res.status(400).json({ Error: "Linea de orden no existente" });
+      })
+      .catch((err) => res.status(400).json({ Error: err }));
+  } else {
+    res.status(400).json({ Error: "Envia almenos un parametro" });
+  }
+})
 module.exports = router;
