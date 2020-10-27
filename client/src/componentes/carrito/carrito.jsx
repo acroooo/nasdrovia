@@ -28,7 +28,7 @@ export default function Carrito() {
   //     console.log("item", item)
   //     const {productoId} = item
   //     if(item){
-        
+
   //     } else {
   //       return null
   //     }

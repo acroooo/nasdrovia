@@ -19,6 +19,9 @@ import Usuarios from "./componentes/ListaUsuarios/Usuarios";
 import Perfil from "./componentes/PaginaUsuario/PaginaUsuario";
 import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPassword.jsx";
 import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
+import Footer from "./componentes/footer/footer.jsx"
+import Moodal from "./componentes/modal+18/modal.jsx";
+
 //React Router
 //Faltan actions
 //Pasar todo mediante un UseEffect
@@ -28,16 +31,17 @@ export default function App() {
     <div className="App">
       <Router>
         <Route path="/" component={SearchBar} />
+        <Route path="/" component={Moodal} />
+        <Route exact path="/" component={Shop} />
         <Route exact path="/" component={Home} />
         <Route exact path="/" component={PanelAdmin} />
-
         <Switch>
           <Route exact path="/perfil" component={Perfil} />
           <Route exact path="/ordenes" component={ListaOrdenes2} />
           <Route exact path="/orden" component={Orden2} />
           {/*es temporal*/}
           <Route exact path="/usuarios" component={Usuarios} />
-          <Route exact path="/productos" component={Shop} />
+
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
           <Route exact path="/producto/:id" component={Producto} />
           <Route exact path="/formulario-crud" component={FormularioCrud} />
@@ -47,7 +51,9 @@ export default function App() {
           <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Router exact path="/passwordReset" component={PasswordReset} />
+
         </Switch>
+        <Route path="/" component={Footer} />
       </Router>
     </div>
   );
