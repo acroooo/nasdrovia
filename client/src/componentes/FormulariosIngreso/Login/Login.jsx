@@ -37,11 +37,10 @@ const Login = ({ setTipo, cerrar }) => {
       if (!error) cerrar("inactivo");
 
       const getId = await Axios.get(`http://localhost:3001/usuario/${usuario.data.id}/cart`);
-      if(getId.status===201){
+      if(getId.status===200){
       usuarioLog.carritoId=getId.data.id;
       dispatch(allActions.login(usuarioLog))
       }else { 
-        dispatch(allActions.login(usuarioLog))
         const carrito = await Axios.post(
         `http://localhost:3001/usuario/${usuario.data.id}/cart`
       );
