@@ -4,8 +4,11 @@ const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandbox396137037a674502865965b3ae0e95d0.mailgun.org';
-const mg = mailgun({apiKey: "4e1388898d6578304533bdde9d4cdca0-53c13666-92f2a20e", domain: DOMAIN});
+const DOMAIN = "sandbox396137037a674502865965b3ae0e95d0.mailgun.org";
+const mg = mailgun({
+  apiKey: "4e1388898d6578304533bdde9d4cdca0-53c13666-92f2a20e",
+  domain: DOMAIN,
+});
 router.post("/", async (req, res, next) => {
   let { nombre, email, password } = req.body;
   if (nombre && email && password) {
@@ -129,20 +132,19 @@ router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
 router.post("/askForPasswordReset", async (req, res) => {
   const { email } = req.body;
   let salt = await Usuario.generateSalt();
-  let usuario = await Usuario.findOne({ where: { email: email } })
-  if (!usuario){
-        return res.status(404).send("No hay usuarios registrados con ese email");
-      }
-usuario.resetToken = salt
-//10 minutos dura el token
-usuario.tokenLife = Date.now() + 600000
-usuario.save()
-const data = {
-
-  from: 'Nasdrovia <support@nasdrovia.com>',
-  to: email,
-  subject: 'Solicitud de cambio de contraseña',
-  html:  `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  let usuario = await Usuario.findOne({ where: { email: email } });
+  if (!usuario) {
+    return res.status(404).send("No hay usuarios registrados con ese email");
+  }
+  usuario.resetToken = salt;
+  //10 minutos dura el token
+  usuario.tokenLife = Date.now() + 600000;
+  usuario.save();
+  const data = {
+    from: "Nasdrovia <support@nasdrovia.com>",
+    to: email,
+    subject: "Solicitud de cambio de contraseña",
+    html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -336,33 +338,37 @@ const data = {
       </tr>
   </table>
   </body>
-  </html>`
-};
-mg.messages().send(data, function (error, body) {
-  if(error){
-    res.status(400).json({"Error":error})
-  }
-})
-res.status(200).json({"Sended to": email, "token":salt})
+  </html>`,
+  };
+  mg.messages().send(data, function (error, body) {
+    if (error) {
+      res.status(400).json({ Error: error });
+    }
+  });
+  res.status(200).json({ "Sended to": email, token: salt });
 });
 
 router.post("/passwordReset", async (req, res) => {
-  const { password, token} = req.body;
-  if (!password || !token )
-    return res.status(400).send("Faltan parámetros");
+  const { password, token } = req.body;
+  if (!password || !token) return res.status(400).send("Faltan parámetros");
   const usuario = await Usuario.findOne({
-      where: { resetToken: token,  tokenLife: {
-        [Op.gte]: Date.now()
-      }}
-    });
-  if (!usuario) return res.status(400).json({"Error":"Usuario no encontrado o token expirado"});
-  
-  usuario.password = password
-  usuario.resetToken = null
-  usuario.tokenLife = null
-  usuario.save()
-  res.status(200).json({"Success":"Contraseña actualizada"})
-   
+    where: {
+      resetToken: token,
+      tokenLife: {
+        [Op.gte]: Date.now(),
+      },
+    },
+  });
+  if (!usuario)
+    return res
+      .status(400)
+      .json({ Error: "Usuario no encontrado o token expirado" });
+
+  usuario.password = password;
+  usuario.resetToken = null;
+  usuario.tokenLife = null;
+  usuario.save();
+  res.status(200).json({ Success: "Contraseña actualizada" });
 });
 /* -------------------CARRITO------------------ */
 
@@ -390,8 +396,8 @@ router.get("/:idUser/cart", (req, res) => {
     where: { usuarioId: idUser, estado: "carrito" },
     include: [{ model: LineaDeOrden }],
   }).then((item) => {
-    if (!item) return res.status(200).json("El carrito se encuentra vacio");
-    else return res.send(item);
+    if (!item) return res.status(204).json("El carrito se encuentra vacio");
+    else return res.status(200).send(item);
   });
 });
 
