@@ -23,6 +23,7 @@ import Moodal from "./componentes/modal+18/modal.jsx";
 
 import Carrito2 from "./componentes/Carrito2/Carrito";
 import ProductInfo from "./componentes/ProductInfo/ProductInfo";
+import Carrusel from "./componentes/carrousel/carrousel";
 
 //React Router
 //Faltan actions
@@ -34,6 +35,7 @@ export default function App() {
       <Router>
         <Route path="/" component={SearchBar} />
         <Route path="/" component={Moodal} />
+        <Route exact path="/" component={Carrusel} />
         <Route exact path="/" component={Shop} />
         <Route exact path="/" component={Home} />
         <Route exact path="/" component={PanelAdmin} />
