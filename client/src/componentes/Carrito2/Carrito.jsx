@@ -42,7 +42,7 @@ const Carrito = () => {
                 ))} 
             </div>
             <div className='col-12 col-lg-4 mt-4'>
-                 <Orden total={total} setTotal={setTotal}/> 
+                 <Orden total={total} setTotal={setTotal} pro={prodcarrito}/> 
             </div>
 
         </section>

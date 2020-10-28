@@ -19,7 +19,7 @@ export default function SearchBar({handleClick, handleChange}) {
     />
     <FormControl.Feedback />
     <Button onClick={handleClick} variant="outline-info">
-    <i class="fas fa-search"></i>
+    <i className="fas fa-search"></i>
     </Button>
     </Form>
     );

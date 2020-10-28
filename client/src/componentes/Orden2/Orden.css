@@ -2,7 +2,7 @@
     position: relative;
     width: 300px;
     background-color:#ebebeb;
-    background:#015386;
+    /* background:#015386;  */
     padding: 6px;
     border-radius: 2px;
 }
@@ -10,7 +10,6 @@
     font-weight: 700;
     letter-spacing: 1px;
     font-size: 16px;
-    color: #fff;
 }
 .contenido-resumen{
     background: white;
@@ -40,22 +39,32 @@
    font-weight: bold;
 }
 .producto-resumen{
-    padding: 14px 6px;
+    padding: 6px;
     border-bottom: 1px solid #ccc;
+    background-color: #fff;
+   
 }
 .sin{
     border: none;
 }
-.producto-resumen>img{
+ .producto-resumen>img{
     width: 60px;
-}
+    height: 60px;
+    position: relative;
+   top: 10px;
+    left: 20px;
+} 
 .datos-item{
     width: 130px;
+    font-size: 14px;
 }
 .datos-item h5{
   font-size: 15px;
   margin: 0;
   font-weight: bold;
+}
+.datos-item p{
+    margin: 0;
 }
 .promocional{
     padding: 8px;

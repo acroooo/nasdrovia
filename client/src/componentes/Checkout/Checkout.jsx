@@ -3,6 +3,7 @@ import './Checkout.css';
 import Formulario from './FormularioCheckout/FormularioCheckout';
 import Resumen from './Resumen/Resumen';
 
+
 const Checkout = () => {
     return (  
         <section className=" general-checkout ">
@@ -14,7 +15,7 @@ const Checkout = () => {
                 
                 </div>
                 <div className="col-4 mt-3">
-                    <Resumen/>
+                  <Resumen/> 
                 </div>
             </div>
             </div>

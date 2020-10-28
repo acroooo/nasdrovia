@@ -32,28 +32,35 @@ router.get("/", (req, res) => {
 });
 
 //Agregar productos al carro
-router.post("/:idCarro/cart", (req, res) => {
-  let lista = [];
-  id = req.params.idCarro;
-  let productos = req.body;
+router.post("/:idCarro/cart", (req, res)=>{
+  let lista = []
+  id = req.params.idCarro
+  let productos = JSON.parse(req.body.productos)
+
+  console.log(req.body)
+  console.log(productos)
   //Llenamos la lista de productos
-  productos.list.forEach((element) => {
+  productos.list.forEach(element => {
     let producto = {
       productoId: element.id,
       carritoId: id,
       cantidad: element.cantidad,
-      precio: element.precio,
-    };
-    lista.push(producto);
+      precio: element.precio
+    }
+    lista.push(producto)
   });
   //Creamos las lineasDeOrden asociadas al carrito
-  LineaDeOrden.bulkCreate(lista);
+  LineaDeOrden.bulkCreate(lista) 
+  .then(
+    Carrito.findOne(
+      {where: { id: id },
+      include: LineaDeOrden,
+    }
+    ).then(
+      (carrito)=> res.json(carrito)
+      ))
+})
 
-  Carrito.findOne({
-    where: { id: id },
-    include: LineaDeOrden,
-  }).then((carrito) => res.json(carrito));
-});
 //Editar las cantidad con el id del carro y el id producto la cantidad
 router.put("/:id/cart", async (req, res) => {
   let idCarrito = req.params.id;

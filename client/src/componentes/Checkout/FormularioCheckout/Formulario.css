@@ -99,8 +99,10 @@
 .titulo-datos{
     font-weight: 700;
     font-size: 18px;
-    border-top: 2px solid #000;
+   /*  border-top: 2px solid #000; */
+    border-top: 2px solid #015386; 
     padding-top: 10px;
+    color:#015386; 
 
     
   }
@@ -153,7 +155,7 @@
     border: 1px solid transparent;
 }
 .btn-checkout{
-    background-color: #000;
+    background-color: #015386;
     color: #fff;
     width: 120px;
     padding: 5px;
@@ -177,6 +179,7 @@
   
     position: relative;
     width: 160px;
+    color: #015386;
  
 }
 .grupo-promociones>small{
@@ -190,6 +193,7 @@
 }
 .grupo-promociones>.fa-truck{
     background-color: #000;
+    background-color: #015386;
     position: relative;
     color: #fff;
     width: 40px;
@@ -198,11 +202,11 @@
     font-size: 12px;
     padding-top:6px;
     padding-left: 5px;
-    opacity: .7;
+
     transition: .4s all;
 }
 .grupo-promociones>.fa-sync-alt{
-    background-color: #000;
+    background-color: #015386;
     width: 25px;
     height: 25px;
     border-radius: 100%;
@@ -210,16 +214,14 @@
     padding-top: 7px;
     padding-left: 5px;
     font-size: 12px; 
-    opacity: .7;
     transition: .4s all;
    
 }
 .grupo-promociones>.fa-exclamation-circle{
-    color: #000;
     font-size: 22px;
-    opacity: .7;
     transition: .4s all;
+    color: #015386;
 }
 .grupo-promociones>.fas:hover{
-    opacity: 1;
+    opacity: .7;
 }
