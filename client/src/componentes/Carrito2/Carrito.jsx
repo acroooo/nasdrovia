@@ -5,16 +5,16 @@ import './Carrito.css';
 import {Link} from 'react-router-dom';
 
 const Carrito = () => {
-   
+    
     const [cambio,setCambio]=useState(false);
     const [prodcarrito,setProdCarrito]=useState([]);
     const [total,setTotal]=useState(false);
     
-  
-     useEffect(()=>{
-       let products = JSON.parse(localStorage['carrito']);
-       setProdCarrito(products);
-       setCambio(false);
+    
+    useEffect(()=>{
+        let products = JSON.parse(localStorage['carrito']);
+        setProdCarrito(products);
+        setCambio(false);
 
     },[cambio]) 
 
@@ -23,9 +23,9 @@ const Carrito = () => {
         <section className='row w-100'>
             <div className='col-12 col-lg-8'>
                 <div className='cont-uno d-flex justify-content-between'>
-                 <h4 className='titulo-carrito w-75'>Tu carrito  <small className='ml-3 cant'>{prodcarrito && prodcarrito.length} {prodcarrito && prodcarrito.length === 1 ? 'Artículo' : 'Artículos'}</small>  </h4>
-             <Link to='productos'><span className='sc '>{prodcarrito.length>0 ? 'Sigue comprando':'Empieza a comprar'}</span></Link>   
-              
+                <h4 className='titulo-carrito w-75'>Tu carrito  <small className='ml-3 cant'>{prodcarrito && prodcarrito.length} {prodcarrito && prodcarrito.length === 1 ? 'Artículo' : 'Artículos'}</small>  </h4>
+            <Link to='productos'><span className='sc '>{prodcarrito.length>0 ? 'Sigue comprando':'Empieza a comprar'}</span></Link>   
+            
                 </div>
                 {prodcarrito && prodcarrito.map(p => (
                     <Item
@@ -42,7 +42,7 @@ const Carrito = () => {
                 ))} 
             </div>
             <div className='col-12 col-lg-4 mt-4'>
-                 <Orden total={total} setTotal={setTotal} pro={prodcarrito}/> 
+                <Orden total={total} setTotal={setTotal}/> 
             </div>
 
         </section>
