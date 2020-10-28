@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Formulario.css';
 
 
 
 const FormularioCheckout = () => {
+
+  const [datos,setDatos]=useState({});
+
+  const handleChange = e=>{
+    setDatos({...datos,[e.target.name]:e.target.value});
+  }
+
+  
+
     return (
       <form>
         <div className="form-grupo d-flex justifty-content-between mb-3 mt-4">
           <div className="grupo">
-            <input type="text" placeholder="* NOMBRE" required />{" "}
+            <input type="text" placeholder="* NOMBRE" name='nombre' required onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-nombre linea"></div>
           </div>
           <div className="grupo">
-            <input type="text" placeholder="* APELLIDOS" required />{" "}
+            <input type="text" placeholder="* APELLIDOS" name='apellidos' required onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-apellido linea"></div>
           </div>
@@ -23,8 +32,10 @@ const FormularioCheckout = () => {
           <input
             className="input-direccion mb-3"
             placeholder="* TÉLEFONO"
-            type="text"
+            type="number"
             required
+            name='telefono'
+            onChange={handleChange}
           />
           <div className="linea-direccion"></div>
           <i className="fas fa-check validado"></i>
@@ -32,12 +43,12 @@ const FormularioCheckout = () => {
 
         <div className="form-grupo d-flex justifty-content-between mb-3">
           <div className="grupo">
-            <input type="text" placeholder="* CIUDAD" required />{" "}
+            <input type="text" placeholder="* CIUDAD" name='ciudad' required onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-nombre linea"></div>
           </div>
           <div className="grupo">
-            <input type="text" placeholder="* PROVICIA/DEPARTAMENTO" required />{" "}
+            <input type="text" placeholder="* PROVINCIA/DEPARTAMENTO" name='departamento' required onChange={handleChange} />
             <i className="fas fa-check validado"></i>
             <div className="linea-apellido linea"></div>
           </div>
@@ -48,7 +59,9 @@ const FormularioCheckout = () => {
             className="input-direccion mb-3"
             placeholder="* DIRECCIÓN"
             type="text"
+            name='direccion'
             required
+            onChange={handleChange}
           />
           <div className="linea-direccion"></div>
           <i className="fas fa-check validado"></i>
@@ -56,12 +69,12 @@ const FormularioCheckout = () => {
 
         <div className="form-grupo d-flex justifty-content-between mb-3">
           <div className="grupo">
-            <input type="text" placeholder="* PAIS" required />{" "}
+            <input type="text" placeholder="* PAIS" required name='pais' onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-nombre linea"></div>
           </div>
           <div className="grupo">
-            <input type="text" placeholder="* CÓDIGO POSTAL" required />{" "}
+            <input type="number" placeholder="* CÓDIGO POSTAL" required name='postal' onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-apellido linea"></div>
           </div>
@@ -71,12 +84,12 @@ const FormularioCheckout = () => {
 
         <div className="form-grupo d-flex justifty-content-between mb-3">
           <div className="grupo">
-            <input type="text" placeholder="* CORREO ELECTRONICO" required />{" "}
+            <input type="email" placeholder="* CORREO ELECTRONICO" name='correo' required onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-nombre linea"></div>
           </div>
           <div className="grupo">
-            <input type="text" placeholder="* DOCUMENTO IDENTIDAD" required />{" "}
+            <input type="number" placeholder="* DOCUMENTO IDENTIDAD" name='documento' required onChange={handleChange}/>
             <i className="fas fa-check validado"></i>
             <div className="linea-apellido linea"></div>
           </div>
@@ -86,12 +99,8 @@ const FormularioCheckout = () => {
           <input className='mr-2' type="checkbox" />
           <small>
             Doy mi consentimiento a <span className='nombre-terminos'>Nadrovia </span> para que utilice mis
-            datos personales con fines comerciales y para sondeos de opinión. En
-            particular, adidas estará autorizada a analizar mis interacciones
-            con la compania (como por ejemplo mi historial de compras, el uso de
-            aplicaciones, redes sociales y datos personales que comparto con
-            Nasdrovia) para así poderme enviar mensajes comerciales personalizados
-            sobre los productos de Nadrovia. Nasdrovia podrá ponerse en contacto
+            datos personales con fines comerciales y para sondeos de opinión.  
+            Podrán ponerse en contacto
             conmigo mediante correos electrónicos, mensajes de texto, correo
             ordinario, aplicaciones o cualquier otro medio de comunicación que
             yo desee utilizar.
@@ -138,13 +147,13 @@ const FormularioCheckout = () => {
                  
                </div>
                <div className='grupo-promociones d-flex align-items-center '>
-               <i class="fas fa-sync-alt"></i>
+               <i className="fas fa-sync-alt"></i>
                 <small className='ml-2' >DEVOLUCIONES  GRATIS <i className="fas fa-arrow-circle-right"></i></small>
                  
                </div>
                <div className='grupo-promociones  d-flex align-items-center'>
-               <i class="fas fa-exclamation-circle"></i>
-                 <small class='ml-2'>PAGA SEGURO <i className="fas fa-arrow-circle-right"></i></small>
+               <i className="fas fa-exclamation-circle"></i>
+                 <small className='ml-2'>PAGA SEGURO <i className="fas fa-arrow-circle-right"></i></small>
                  
                </div>
 

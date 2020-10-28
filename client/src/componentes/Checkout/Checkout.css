@@ -4,6 +4,7 @@ body{
 .titulo-checkout{
   font-weight: 700;
   font-size: 30px;
+  color: #015386; 
 }
 .general-checkout{
     border-top: 1px solid #e7e7e7;

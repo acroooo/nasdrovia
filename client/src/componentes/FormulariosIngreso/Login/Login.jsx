@@ -45,6 +45,7 @@ const Login = ({ setTipo, cerrar }) => {
       }else { const carrito = await Axios.post(
         `http://localhost:3001/usuario/${usuario.data.id}/cart`
       );
+      
       if(carrito.status===200){
         console.log("post")
         usuarioLog.carritoId=carrito.data.id;
@@ -53,8 +54,7 @@ const Login = ({ setTipo, cerrar }) => {
 
       }
 
-
-      id = usuario.data.id;
+    
     } catch (err) {
       console.log(err);
     }
@@ -97,13 +97,13 @@ const Login = ({ setTipo, cerrar }) => {
         Iniciar sesión
       </button>
 
-      <button class=" btn-fac d-flex align-items-center" id='fa'>
+      <button class="btn-alternativo btn-fac d-flex align-items-center">
         <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
       </button>
 
-      <button class="btn-alternativo btn-goo d-flex align-items-center"id='go' >
-        <i className="fab fa-google mr-3 pl-3 "></i>
+      <button class="btn-alternativo btn-goo d-flex align-items-center">
+        <i className="fab fa-google mr-3 pl-3"></i>
         Continuar con Google
         <div className="sombra-facebook"></div>
       </button>

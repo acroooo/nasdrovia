@@ -5,6 +5,8 @@ import Orden from '../../Orden2/Orden2';
 
 const Resumen = () => {
   
+    const productos = JSON.parse(localStorage['carrito']);
+    let subtotal = JSON.parse(localStorage['subtotal'])
 
     return ( 
         <section className="contenedor-resumen">
@@ -13,7 +15,7 @@ const Resumen = () => {
                 <p className='mb-1'>3 PRODUCTOS</p>
                 <div className='precio-resumen d-flex justify-content-between'>
                 <p>Subtotal</p>
-                <p>$ 12.560</p>
+                    <p>$ {subtotal}</p>
                 </div>
 
                 <div className='precio-resumen d-flex justify-content-between'>
@@ -33,42 +35,34 @@ const Resumen = () => {
 
                 <div className='precio-resumen precio-total-resumen d-flex justify-content-between'>
                 <p>Total</p>
-                <p>$ 24.560</p>
+                 <p>$ {subtotal+12000}</p>
                 </div>
 
                 <div className='financiaciacion d-flex'>
                     <small>Financiación con Tarjeta de Credito</small>
-                    <small className='cuotas'>Hasta 12 cuotas de $2.540</small>
+                 <small className='cuotas'>Hasta 12 cuotas de $ {subtotal/12}</small>
                 </div>
 
-                <div className="producto-resumen d-flex justify-content-between">
-                   <img src="https://i.pinimg.com/originals/35/c2/78/35c2787bbda4994398614730d8ffc61b.jpg" />
-                   <div className='datos-item'>
-                       <h5>Heineken</h5>
-                       <p>Categoria: Europea</p>
-                       <p>Cantidad:1</p>
-                       <p>Precio: $12.500</p>
-                        <p><b>Total: $ 24.560</b></p>
-                   </div>
-                </div>
-
-                <div className="producto-resumen sin d-flex justify-content-between">
-                <img src="https://andresconrapidez.com/wp-content/uploads/2019/04/Corona-710ml-1.jpg" />
-                   <div className='datos-item'>
-                       <h5>Heineken</h5>
-                       <p>Categoria: Europea</p>
-                       <p>Cantidad:3</p>
-                       <p>Precio: $25.000</p>
-                        <p><b>Total: $ 75.560</b></p>
-                   </div>
-                </div>
+                  {productos && productos.map(ele=>(
+                       <div className="producto-resumen d-flex justify-content-between" key={ele.productoId}>
+                       <img src={ele.imagen} />
+                       <div className='datos-item'>
+                           <h5>{ele.nombreR[0].toUpperCase()+ele.nombreR.slice(1)}</h5>
+                           <p>Cantidad: {ele.cantidad}</p>
+                           <p>Precio: ${ele.precio}</p>
+                            <p><b>Total: $ {ele.cantidad*ele.precio}</b></p>
+                       </div>
+                    </div>
+                  ))}
+          
+                
             </div>
         
             <div className="contenido-resumen mt-2">
 
                 <div className='promocional d-flex justify-content-between'>
-                    <p>CÓDIGO PROMOCIONAL <i class="far fa-question-circle"></i></p>
-                    <i class="fas fa-angle-down mr-3" onClick={()=>{document.getElementById('cod').classList.toggle('pedir-codigo')}}></i>
+                    <p>CÓDIGO PROMOCIONAL <i className="far fa-question-circle"></i></p>
+                    <i className="fas fa-angle-down mr-3" onClick={()=>{document.getElementById('cod').classList.toggle('pedir-codigo')}}></i>
                 </div>
                 <div className='contenedor-codigo-introducir '>
                 <div className='introducir-codigo' id='cod'>
