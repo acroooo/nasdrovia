@@ -5,7 +5,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <nav className="navbar navbar-default navbar-custom">
-                <div className="container-fluid">
+                <div className="container-fluid container-footer-css">
                     <div className="nav navbar-nav navbar-left">
                         <ul className="footerleft">
 

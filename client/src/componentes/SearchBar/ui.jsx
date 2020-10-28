@@ -24,27 +24,9 @@ export default function Icons() {
     //   { "id": 6, "cantidad": 20, "precio": 20000},
     //   { "id": 5, "cantidad": 30, "precio": 300005}
     // ]}
-    const carrito = JSON.parse(localStorage['carrito']);
+    const carrito = localStorage['carrito'];
     let productos ={};
     productos.list=carrito;
-    /* console.log(productos)
-    console.log({productos}) */
-    let parseado = JSON.stringify(productos);
-    let objeto = {
-      productos:productos
-    }
-    console.log(objeto)
-    
-
-    
-   Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,JSON.stringify(objeto))
-   .then((res)=>{
-     console.log(res)
-   })
-   .catch((err)=>{
-     console.log(err)
-   })
-
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
         dispatch(allActions.logout());

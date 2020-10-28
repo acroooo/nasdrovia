@@ -22,7 +22,6 @@ const Login = ({ setTipo, cerrar }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let id;
     let usuarioLog={};
     try {
       const usuario = await Axios.post(
@@ -39,22 +38,20 @@ const Login = ({ setTipo, cerrar }) => {
 
       const getId = await Axios.get(`http://localhost:3001/usuario/${usuario.data.id}/cart`);
       if(getId.status===201){
-        console.log("get");
       usuarioLog.carritoId=getId.data.id;
       dispatch(allActions.login(usuarioLog))
-      }else { const carrito = await Axios.post(
+      }else { 
+        dispatch(allActions.login(usuarioLog))
+        const carrito = await Axios.post(
         `http://localhost:3001/usuario/${usuario.data.id}/cart`
       );
       
       if(carrito.status===200){
-        console.log("post")
         usuarioLog.carritoId=carrito.data.id;
-        dispatch(allActions.login(usuarioLog));
       }
-
+      dispatch(allActions.login(usuarioLog))
       }
-
-    
+      dispatch(allActions.login(usuarioLog))
     } catch (err) {
       console.log(err);
     }

@@ -8,7 +8,7 @@ export default function NavMenu(){
     return (
         <Container fluid>
         <Navbar className="navbar-custom" variant="dark">
-        <Navbar.Brand href="/productos">
+        <Navbar.Brand href="/">
             <img
             src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg"
             alt="Logo"
