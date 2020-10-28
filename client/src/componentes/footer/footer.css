@@ -1,6 +1,8 @@
 .footer-css-full {
   align-self: flex-end;
-  margin: 0 !important;
+  margin-bottom: -50px !important;
+  background-color: #015386;
+  height: 100%;
 }
 
 .container-footer-css {
