@@ -25,5 +25,33 @@ router.post("/promote/:id", isAuthenticatedAndAdmin, async (req, res) => {
   await user.update({ rol: "admin" });
   return res.status(201).send(user);
 });
+//--------- Autenticación Facebook-----------
+router.get(
+  "/auth/facebook",
+  passport.authenticate("facebook", { scope: ["email"], display: "popup" })
+);
 
+router.get("/facebook/callback", passport.authenticate("facebook"), function (
+  req,
+  res
+) {
+  // Successful authentication, redirect home.
+  res.redirect("/me");
+});
+
+//--------- Autenticación Google -----------
+
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] }),
+  (req, res) => {}
+);
+// Api call back function
+app.get(
+  "/callback",
+  passport.authenticate("google", { scope: ["email", "profile"] }),
+  (req, res) => {
+    return res.send("Felicidades");
+  }
+);
 module.exports = router;

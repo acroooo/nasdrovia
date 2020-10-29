@@ -79,56 +79,112 @@ passport.use(
     {
       clientID: "1086208491813234",
       clientSecret: "11a1a7d1065e475e4a86d149c78622ec",
-      callbackURL: "/auth/facebook/redirect",
+      callbackURL: "/auth/facebook/callback",
       rofileFields: ["id", "emails", "displayName"],
     },
-    async (accessToken, refreshToken, profile, done) => {
-      console.log("Facebook profile: ", profile);
-      try {
-        const [user, created] = await User.findOrCreate({
-          where: { facebookId: profile.id },
-          defaults: {
-            name: profile.displayName,
-            email: profile.emails[0].value,
-          },
-        });
-        if (!user)
-          return done(null, false, {
-            message: "No pudimos loguearte con esa cuenta",
-          });
-        return done(null, user);
-      } catch (error) {
-        done(error);
-      }
+    function (accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        user = { ...profile };
+        return cb(err, user);
+      });
     }
   )
 );
 
+// async (accessToken, refreshToken, profile, done) => {
+//   try {
+//     const [user, created] = await User.findOrCreate({
+//       where: { facebookId: profile.id },
+//       defaults: {
+//         name: profile.displayName,
+//         email: profile.emails[0].value,
+//       },
+//     });
+//     if (!user)
+//       return done(null, false, {
+//         message: "No pudimos loguearte con esa cuenta",
+//       });
+//     return done(null, user);
+//   } catch (error) {
+//     done(error);
+//   }
+// try {
+//   const [user, created] = await User.findOrCreate({
+//     where: { facebookId: profile.id },
+//     defaults: {
+//       name: profile.displayName,
+//       email: profile.emails[0].value,
+//     },
+//   });
+
+//   // On error
+//   if (!user)
+//     return done(null, false, {
+//       message: "No pudimos loguearte con esa cuenta",
+//     });
+
+//   // On success
+//   return done(null, user);
+// } catch (error) {
+//   done(error);
+// }
+
 //----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: "yourclientid",
+//       clientSecret: "yourclientsecret",
+//       callbackURL: "/auth/google/callback",
+//     },
+//     function (accessToken, refreshToken, profile, done) {
+//       Usuario.findOrCreate({
+//         where: { googleId: profile.id },
+//         defaults: {
+//           nombre: profile.displayName,
+//           email: profile.emails[0].value,
+//         },
+//       });
+//       if (!usuario)
+//         return done(null, false, {
+//           message: "No hemos pudimos loguearte con esa cuenta",
+//         });
+//       return done(null, usuario);
+//     }
+//   )
+// );
+
+function extractProfile(profile) {
+  let imageUrl = "";
+  if (profile.photos && profile.photos.length) {
+    imageUrl = profile.photos[0].value;
+  }
+  return {
+    id: profile.id,
+    displayName: profile.displayName,
+    image: imageUrl,
+  };
+}
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "yourclientid",
-      clientSecret: "yourclientsecret",
-      callbackURL: "/auth/google/callback",
+      clientID: config.clientId,
+      clientSecret: config.secret,
+      callbackURL: config.callback,
+      accessType: "offline",
+      userProfileURL: "https:www.googleapis.com/oauth2/v3/userinfo",
     },
-    function (accessToken, refreshToken, profile, done) {
-      Usuario.findOrCreate({
-        where: { googleId: profile.id },
-        defaults: {
-          nombre: profile.displayName,
-          email: profile.emails[0].value,
-        },
-      });
-      if (!usuario)
-        return done(null, false, {
-          message: "No hemos pudimos loguearte con esa cuenta",
-        });
-      return done(null, usuario);
+    (accessToken, refreshToken, profile, cb) => {
+      cb(null, extractProfile(profile));
     }
   )
 );
-
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+passport.deserializeUser((obj, cb) => {
+  cb(null, obj);
+});
 //------Passport Sesion
 server.use(passport.initialize());
 server.use(passport.session());
