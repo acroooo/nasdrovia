@@ -4,6 +4,7 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId,setCambio,se
   const nombreR = nombre.replace(" ", "_");
   const [cantidadActual, setCantidadActual] = useState(cantidad);
   
+  localStorage.setItem("carrito", JSON.stringify([]));
 
   const aumentarCantidad = () => {
     let carrito = localStorage["carrito"];

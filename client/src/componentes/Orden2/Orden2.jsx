@@ -3,12 +3,12 @@ import "./Orden.css";
 import Resumen from './Resumen';
 
 
-const Orden2 = ({total,setTotal,pro,checkout}) => {
+const Orden2 = ({total,setTotal}) => {
   
   return (
     <section className="contenedor-resumen">
       <h6>RESUMEN DEL PEDIDO</h6>
-      <Resumen  total={total} setTotal={setTotal} checkout={checkout}/>
+      <Resumen  total={total} setTotal={setTotal} />
      
     </section>
 

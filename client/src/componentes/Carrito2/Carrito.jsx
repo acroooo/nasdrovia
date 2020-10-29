@@ -12,7 +12,7 @@ const Carrito = () => {
     
     
     useEffect(()=>{
-        let products = JSON.parse(localStorage['carrito']);
+        let products = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
         setProdCarrito(products);
         setCambio(false);
 
