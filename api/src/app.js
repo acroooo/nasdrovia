@@ -9,7 +9,7 @@ const { userInjector } = require("./routes/middlewares");
 const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 const { Usuario } = require("./db.js"); //Traer usuario de la base de datos
@@ -130,61 +130,23 @@ passport.use(
 // }
 
 //----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: "yourclientid",
-//       clientSecret: "yourclientsecret",
-//       callbackURL: "/auth/google/callback",
-//     },
-//     function (accessToken, refreshToken, profile, done) {
-//       Usuario.findOrCreate({
-//         where: { googleId: profile.id },
-//         defaults: {
-//           nombre: profile.displayName,
-//           email: profile.emails[0].value,
-//         },
-//       });
-//       if (!usuario)
-//         return done(null, false, {
-//           message: "No hemos pudimos loguearte con esa cuenta",
-//         });
-//       return done(null, usuario);
-//     }
-//   )
-// );
 
-function extractProfile(profile) {
-  let imageUrl = "";
-  if (profile.photos && profile.photos.length) {
-    imageUrl = profile.photos[0].value;
-  }
-  return {
-    id: profile.id,
-    displayName: profile.displayName,
-    image: imageUrl,
-  };
-}
 passport.use(
   new GoogleStrategy(
     {
-      clientID: config.clientId,
-      clientSecret: config.secret,
-      callbackURL: config.callback,
-      accessType: "offline",
-      userProfileURL: "https:www.googleapis.com/oauth2/v3/userinfo",
+      clientID:
+        "1096828624678-ff37cs6fkvj0un9nnendgl0bkk78e73t.apps.googleusercontent.com",
+      clientSecret: "jb9pYm-rurR_lcZerrvTXaD7",
+      callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, cb) => {
-      cb(null, extractProfile(profile));
+      console.log("accesToken", accessToken);
+      console.log("refreshToken", refreshToken);
+      console.log("profile", profile);
+      console.log("cb", cb);
     }
   )
 );
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-passport.deserializeUser((obj, cb) => {
-  cb(null, obj);
-});
 //------Passport Sesion
 server.use(passport.initialize());
 server.use(passport.session());

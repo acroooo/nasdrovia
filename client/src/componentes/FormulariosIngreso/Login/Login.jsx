@@ -67,12 +67,12 @@ const Login = ({ setTipo, cerrar }) => {
   const popup = (e) => {
     e.preventDefault();
     const { value } = e.target;
-    window.open(
-      // `http://localhost:3000/auth/${value}`,
-      "http://localhost:3000/auth/facebook",
-      "",
-      "height=500, width=500"
-    );
+    // window.open(
+    //   `http://localhost:3000/auth/${value}`,
+    //   // "http://localhost:3000/auth/facebook",
+    //   "",
+    //   "height=500, width=500"
+    // );
   };
 
   return (
@@ -120,16 +120,17 @@ const Login = ({ setTipo, cerrar }) => {
 
       <button
         class="btn-alternativo btn-fac d-flex align-items-center"
+        id="face"
         value="facebook"
         onClick={popup}
       >
-        <i className="fab fa-facebook-f mr-3 pl-3"></i>
-        Continuar con Facebook
+        <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
       </button>
 
       <button
         class="btn-alternativo btn-goo d-flex align-items-center"
+        id="goog"
         value="google"
         onClick={popup}
       >

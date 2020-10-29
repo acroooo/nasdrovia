@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Registro.css";
 import Axios from "axios";
+import swal from 'sweetalert';
 
 const Registro = ({ setTipo }) => {
   const [datos, setDatos] = useState({});
@@ -29,13 +30,13 @@ const Registro = ({ setTipo }) => {
     setErrorContraseña(false);
     let password = contrasena;
     Axios.post("http://localhost:3001/usuario", { nombre, email, password })
-      .then((ele) => alert("registrado", ele))
+      .then((ele) =>console.log(ele))
       .catch((err) => {
         err.request.status && setEmailRepetido(true);
         return console.log(err);
       });
     e.target.reset();
-    alert("te has registrado correctamente"); //Lo voy a cambiar más adelante,tranqui
+    swal("Buen trabajo!", "Te has registrado correctamente!", "success");
   };
 
   return (
