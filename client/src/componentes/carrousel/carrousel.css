@@ -1,16 +1,16 @@
-.ads{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+.ads {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
-.slide{
-    max-height: 300px;
+.slide {
+  max-height: 300px;
 }
-.item{
-    margin-right: auto !important;
-    margin-left: auto !important;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-self: center;
-    
+.item {
+  height: 300px;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-self: center;
 }
