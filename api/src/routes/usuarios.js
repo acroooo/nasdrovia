@@ -102,7 +102,7 @@ router.put("/:id", isAuthenticated, async (req, res, next) => {
   }
 });
 
-router.get("/", isAuthenticatedAndAdmin, (req, res) => {
+router.get("/", (req, res) => {
   Usuario.findAll()
     .then((usuarios) => res.send(usuarios))
     .catch((err) => {

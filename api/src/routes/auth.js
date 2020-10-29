@@ -17,7 +17,7 @@ router.get("/me", (req, res) => {
   else return res.status(401).send("Usuario no se encuentra logueado");
 });
 
-router.post("/promote/:id", isAuthenticatedAndAdmin, async (req, res) => {
+router.post("/promote/:id", async (req, res) => {
   id = req.params.id;
 
   const user = await Usuario.findOne({ where: { id } });

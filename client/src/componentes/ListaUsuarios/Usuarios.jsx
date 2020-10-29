@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Encabezado from './Encabezado';
 import Titulos from './Titulos';
 import Listado from './Listado';
 import './Usuarios.css';
+import Axios from 'axios';
+
 
 const ListaUsuarios = () => {
 
-    const listadoUsuarios= [
-        {id:1,nombre:'Andrés',correo:'Andres@andres.com',rol:'admin'},
-        {id:2,nombre:'Lis',correo:'Lis@Lis.com',rol:'admin'},
-        {id:3,nombre:'Ale',correo:'Ale@Ale.com',rol:'admin'},
-        {id:4,nombre:'Felipe',correo:'Felipe@Felipe.com',rol:'admin'},
-        {id:5,nombre:'Hernán',correo:'Hernán@Hernán.com',rol:'admin'},
-        {id:6,nombre:'Hernán 2',correo:'Hernán2@Hernán.com',rol:'admin'},
-    ]
+    const [users, setUsers] = useState({ res: null, isLoaded: false })
+    const [flag, setFlag] = useState(false)
+
+    const mostrar = () => {
+        Axios.get("http://localhost:3001/usuario/")
+            .then(respuesta => {
+                setUsers({ res: respuesta.data, isLoaded: true })
+            })
+            .catch(err => {
+                console.log(err.message)
+                setUsers({ res: null, isLoaded: false })
+            })
+    }
+
+    useEffect(() => {
+        mostrar()
+        setFlag(false)
+    }, [flag])
 
 
-    return ( 
+    return (
         <div className='total listado-usuarios '>
-        <div className='container general '>
-           <Encabezado/>
-           <Titulos/>
-           <Listado usuarios={listadoUsuarios}/>
+            <div className='container general '>
+                <Encabezado usuarios={users} setFlag={setFlag} />
+                <Titulos />
+                <Listado usuarios={users} />
+            </div>
         </div>
-    </div>
-     );
+    );
 }
- 
+
 export default ListaUsuarios;
