@@ -1,63 +1,138 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./ProductInfo.css";
-import Panel from './PanelCarrito/PanelCarrito';
 import PanelCarrito from "./PanelCarrito/PanelCarrito";
 import AllReviews from "../reviews/allReviews";
-// import { useSelector, useDispatch } from "react-redux";
+import allActions from "../../redux/actions/allActions";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
-const ProductInfo = () => {
-  let productoPrueba = {
-    id: 2,
-    nombre: "Corona",
-    precio: "2200",
-    imagen1:
-      "https://andresconrapidez.com/wp-content/uploads/2019/04/Corona-710ml-1.jpg",
-    imagen2:
-      "https://andresconrapidez.com/wp-content/uploads/2019/04/Corona-710ml-1.jpg",
-    imagen3:
-      "https://andresconrapidez.com/wp-content/uploads/2019/04/Corona-710ml-1.jpg",
-    cantidad: 2,
-    descripcion:
-      "Es de las mejores chelas del mercado, ¿Que esperas para disfrutarla?",
-  };
+const ProductInfo = (props) => {
 
+  const productosCarrito = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
+  const productoStore = useSelector((state) => state.productos.TodosLosProductos);
+  const dispatch = useDispatch();
+  const productId= productoStore.id;
+  let proActu = productosCarrito.find(prod=>prod.nombreR===productoStore.nombre);
+  let cantidad = proActu ? parseInt(proActu.cantidad):0;
+
+  const [cant,setCant]=useState(cantidad);
  
 
+
+
+  const id = props.match.params.id;
+  useEffect(() => {
+    dispatch(allActions.getProductoDetalle(id));
+  
+  
+  }, []);
+
+
+
+  
+ const aumentarCantidad = () => {
+    let carrito = localStorage["carrito"];
+   const {precio,nombre,stock,productId}=productoStore;
+   const imagen = productoStore.images[0][0];
+
+    if (carrito) {
+      if (carrito.length > 0) {
+        let carriton = JSON.parse(localStorage["carrito"]);
+        let actual = carriton.find((p) => p.nombreR == nombre);
+        if (actual) {
+          let nuevo = carriton.filter((pro) => pro.nombreR !== nombre);
+          actual.cantidad = cantidad + 1;
+          nuevo.push(actual);
+          localStorage.setItem("carrito", JSON.stringify(nuevo));
+        } else {
+          let objeto = {
+            nombreR:nombre,
+            cantidad: cantidad + 1,
+            precio,
+            productoId:productId,
+            stock,
+            imagen,
+          };
+          carriton.push(objeto);
+          localStorage.setItem("carrito", JSON.stringify(carriton));
+        }
+      }
+    } else {
+      let carritos = [];
+      let objeto = {
+        precio,
+        cantidad: cantidad + 1,
+        nombreR:nombre,
+        productoId:productId,
+        stock,
+        imagen,
+      };
+      carritos.push(objeto);
+      localStorage.setItem("carrito", JSON.stringify(carritos));
+    }
+    setCant(cantidad+1)
+  
+  };
+
+  const disminuirCantidad = ()=>{
+    const {nombre}=productoStore;
+    if(cant>1){
+      let carrito = JSON.parse(localStorage['carrito']);
+      let actual = carrito.find(pro=>pro.nombreR===nombre);
+      let carritoFiltrado = carrito.filter(pro=>pro.nombreR!==nombre);
+      actual.cantidad=cant-1;
+     carritoFiltrado.push(actual)
+     localStorage.setItem('carrito',JSON.stringify(carritoFiltrado));
+     setCant(cant - 1);
+    }
+    
+}
+const cambiarImagen=(num)=>{
+document.getElementById('img-actual').src=productoStore.images[0][num];
+}
+ 
+  
   return (
     <div className="general-product-info ">
       <p className="texto-nombre-seccion">
-        Inicio / <span>{productoPrueba.nombre}</span>{" "}
+        Inicio / <span>{productoStore.nombre}</span>{" "}
       </p>
       <section className="container general-product-info">
         <div className="row">
           <aside className="col-2 text-center mt-3">
-            <img src={productoPrueba.imagen1} />
-            <img src={productoPrueba.imagen2} />
-            <img src={productoPrueba.imagen3} />
+     
+            <img src={productoStore.images[0][0]} onClick={()=>cambiarImagen(0)}/>
+          {productoStore.images[0][1] && <img src={productoStore.images[0][1]} onClick={()=>cambiarImagen(1)}/>}
+          {productoStore.images[0][2] && <img src={productoStore.images[0][2]} onClick={()=>cambiarImagen(2)}/>} 
+        
           </aside>
           <main className="col-6  text-center">
-            <img src={productoPrueba.imagen1} />
+             <img src={productoStore.images[0][0]} id='img-actual'/> 
           </main>
           <section className="col-4 ">
-            <p className="nombre">{productoPrueba.nombre}</p>
-            <h3>${productoPrueba.precio}</h3>
-            <p className="descripcion">{productoPrueba.descripcion}</p>
+            <p className="nombre">{productoStore.nombre}</p>
+            <h3>${productoStore.precio}</h3>
+            <p className="descripcion">{productoStore.descripcion}</p>
 
             <div className="cantidad-productInfo">
-              <i className="fas fa-minus"></i>
-              <small>3</small>
-              <i className="fas fa-plus"></i>
+              <i className="fas fa-minus" onClick={disminuirCantidad}></i>
+          <small>{cant}</small>
+              <i className="fas fa-plus" onClick={aumentarCantidad}></i>
             </div>
 
 
-            <button onClick={()=>document.getElementById('panel-carrito').classList.toggle('mostrar-carritopanel')}>Agregar al carrito</button>
+            <button onClick={()=>document.getElementById('panel-carrito').classList.toggle('mostrar-carritopanel')}>Ver carrito</button>
           </section>
         </div>
       </section>
       <PanelCarrito />
-      <div className="allReviews-css">
-  {/*       <AllReviews  /> */}
-      </div>
+
+
+       {/* <div className="allReviews-css">
+         <AllReviews id={productId} />  
+      </div>   */}
+      
+      
     </div>
   );
 };

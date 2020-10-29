@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
     if (r.length <= 0) {
       res.status(400).send("no existe su petición");
     }
-    res.status(200).send(r);
+    else { res.status(200).send(r) };
   });
 });
 
@@ -81,9 +81,9 @@ router.put("/:id/cart", async (req, res) => {
       .then((existe) => {
         !!existe
           ? LineaDeOrden.update(
-              { producto: producto, cantidad: cantidad, precio: precio },
-              { where: { carritoId: idCarrito } }
-            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+            { producto: producto, cantidad: cantidad, precio: precio },
+            { where: { carritoId: idCarrito } }
+          ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
@@ -113,9 +113,11 @@ router.put("/:id/cart/status", (req,res)=>{
       .then((existe) => {
         !!existe
           ? Carrito.update(
+
               { estado:estado },
               { where: { id: idCarrito } }
             ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
