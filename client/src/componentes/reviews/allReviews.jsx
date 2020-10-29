@@ -15,26 +15,21 @@ export default function AllReviews({ id }) {
     const [comentario, setComentario] = useState({ text: "" });
     const [rating, setRating] = useState({ number: "0" });
     const [checkedUsuario, setCheckedUsuario]=useState({res:null, isSet:false})
-    useEffect(async() => {
 
-        const revs= await Axios.get(`http://localhost:3001/producto/${id}/review`)
-        try{
+
+    useEffect(() => {
+        Axios.get(`http://localhost:3001/producto/${id}/review`).then(revs=>{
             setReviews({res:revs.data, isLoaded:true})
-        } catch(error){
-        }
+        }) 
         Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((respuesta) => {
             setPromedio({ res: respuesta.data, isLoaded: true })
-
         })
-        return ()=>{
-            setReviews({res:null, isLoaded:false})
-            setPromedio({res:null, isLoaded:false})
-            
-        }
+
     }, [])
     useEffect(()=>{
         if(reviews.isLoaded){
         const check=checkUsuarioPost()
+        console.log(check)
         setCheckedUsuario({res:check, isSet:true})}
     },[reviews])
     const handleCick = () => {
@@ -47,10 +42,7 @@ export default function AllReviews({ id }) {
             Axios.get(`http://localhost:3001/producto/${id}/review`).then((respuesta)=>{
                 setReviews({res:respuesta.data, isLoaded:true})
             })
-        })
-        
-        
-        
+        }) 
         }
     const onStarClick = (nextValue, prevValue, name) => {
         setRating({ number: nextValue.toString() })
@@ -60,6 +52,7 @@ export default function AllReviews({ id }) {
         if (reviews.isLoaded){
         reviews.res.forEach((review)=>{
             if(review.usuarioId.toString() ===usuarioLogin.id.toString() ){
+                console.log('true')
                 res= true;
             }else{
                 res= false;
@@ -108,6 +101,7 @@ export default function AllReviews({ id }) {
                             <Reviews
                                 review={review}
                                 key={i}
+                                usuarioLoginId={usuarioLogin.id}
                             />
                         )
                     })

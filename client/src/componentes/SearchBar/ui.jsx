@@ -23,8 +23,10 @@ export default function Icons() {
  
 
   const cerrarSesion = () => {
+    if(localStorage['carrito']){
     let carrito = JSON.parse(localStorage['carrito'])
     let productos = {"productos":{"list":carrito}}
+    
     /*
     Lo dejo comentado por si vuelve a querer autodestruirse
     console.log("//////////////////////////////////////////////////")
@@ -51,7 +53,7 @@ export default function Icons() {
     Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,productos)
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
-
+  }
 
 
     Axios.post("http://localhost:3001/auth/logout")
@@ -63,6 +65,7 @@ export default function Icons() {
     
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
+    
   };
   
 
