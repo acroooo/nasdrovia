@@ -1,15 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import SearchBar from "./componentes/SearchBar/navBar.jsx";
 import Shop from "./componentes/Categoria/Shop";
 import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
-import Carrito from "./componentes/carrito/carrito";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
-import OrdenesAdmin from "./componentes/ListaDeOrdenesAdmin/ListaOrdenes";
 import PanelAdmin from "./componentes/PanelAdmin/PanelAdmin";
 import ListaOrdenes2 from "./componentes/ListaOrdenes2/LineaOrdenes2";
 import Checkout from "./componentes/Checkout/Checkout";
@@ -18,7 +15,7 @@ import Usuarios from "./componentes/ListaUsuarios/Usuarios";
 import Perfil from "./componentes/PaginaUsuario/PaginaUsuario";
 import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPassword.jsx";
 import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
-import Footer from "./componentes/footer/footer.jsx"
+import Footer from "./componentes/footer/footer.jsx";
 import Moodal from "./componentes/modal+18/modal.jsx";
 
 import Carrito2 from "./componentes/Carrito2/Carrito";
@@ -51,10 +48,8 @@ export default function App() {
           <Route exact path="/carrito" component={Carrito2} />
           <Route exact path="/info" component={ProductInfo} />
           <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/listaordenes" component={OrdenesAdmin} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Router exact path="/passwordReset" component={PasswordReset} />
-
         </Switch>
         <Route path="/" component={Footer} />
       </Router>

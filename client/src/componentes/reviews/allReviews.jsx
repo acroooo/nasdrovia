@@ -15,9 +15,8 @@ export default function AllReviews({ id }) {
     const [comentario, setComentario] = useState({ text: "" });
     const [rating, setRating] = useState({ number: "0" });
     const [checkedUsuario, setCheckedUsuario]=useState({res:null, isSet:false})
-    const [nuevoComentario, setNuevoComentario]= useState(false);
-
     useEffect(async() => {
+
         const revs= await Axios.get(`http://localhost:3001/producto/${id}/review`)
         try{
             setReviews({res:revs.data, isLoaded:true})
@@ -30,12 +29,12 @@ export default function AllReviews({ id }) {
         return ()=>{
             setReviews({res:null, isLoaded:false})
             setPromedio({res:null, isLoaded:false})
+            
         }
     }, [])
     useEffect(()=>{
         if(reviews.isLoaded){
         const check=checkUsuarioPost()
-        console.log(check)
         setCheckedUsuario({res:check, isSet:true})}
     },[reviews])
     const handleCick = () => {
@@ -44,9 +43,13 @@ export default function AllReviews({ id }) {
             qualification: rating.number,
             usuarioId: usuarioLogin.id,
         }
-        Axios.post(`http://localhost:3001/producto/${id}/review`, review)
+        Axios.post(`http://localhost:3001/producto/${id}/review`, review).then(()=>{
+            Axios.get(`http://localhost:3001/producto/${id}/review`).then((respuesta)=>{
+                setReviews({res:respuesta.data, isLoaded:true})
+            })
+        })
         
-        setNuevoComentario(true);
+        
         
         }
     const onStarClick = (nextValue, prevValue, name) => {
@@ -86,10 +89,10 @@ export default function AllReviews({ id }) {
                     
                         <h3>Opiniones sobre Este producto</h3>
 
-                        <h1>{~promedio.res>=5?~promedio.res:promedio.res+1} estrellas</h1>
+                        <h1>{~promedio.res>=5?~promedio.res:Math.round(promedio.res)} estrellas</h1>
 
                         <Stars
-                            calificacion={~~promedio.res+1}
+                            calificacion={Math.round(promedio.res)}
                             size={35}
                         />
                     </div> :<></>

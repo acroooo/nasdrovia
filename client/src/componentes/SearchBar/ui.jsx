@@ -20,7 +20,7 @@ export default function Icons() {
   const cerrarSesion = () => {
    
    
-    let carrito = localStorage['carrito'];
+    let carrito = localStorage['carrito']?JSON.parse(localStorage['carrito']):[];
    
 /* 
     {"list":[
@@ -30,7 +30,7 @@ export default function Icons() {
     
     let objeto = {
       productos:{
-        list:JSON.parse(carrito)
+        list:carrito
       }
     }
     console.log(objeto)
