@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import swal from 'sweetalert';
 
 import Axios from "axios";
 
 export default function FormPassword() {
   //--------------------- Hooks-----------------------
   const [inputValues, setInputValues] = useState({ email: null });
-  const [token, setToken] = useState("");
   const [error, setError] = useState(false);
 
   const handleChange = (event) => {
@@ -19,10 +19,26 @@ export default function FormPassword() {
     e.preventDefault();
 
     if (!inputValues.email) return setError(true);
-
-    Axios.post("http://localhost:3000/cambioPassword", inputValues)
-      .then((respuesta) => setToken(respuesta.data))
+    swal({
+      title: "Es este tu email?",
+      text: "Asegurate de escribir bien tu email o quizas no recibas ningun link de reseteo",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((correct) => {
+      if (correct) {
+        swal("Recibiras un enlace al instante!, asegurate de revisar tu carpeta de spam", {
+          icon: "success",
+        });
+        Axios.post("http://localhost:3001/usuario/askForPasswordReset", inputValues)
+      .then((respuesta)=> respuesta  )
       .catch((err) => setError(err));
+      } else {
+        return;
+      }
+    });
+    
   };
 
   return (

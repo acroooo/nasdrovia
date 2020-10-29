@@ -134,7 +134,7 @@ router.post("/askForPasswordReset", async (req, res) => {
   let salt = await Usuario.generateSalt();
   let usuario = await Usuario.findOne({ where: { email: email } });
   if (!usuario) {
-    return res.status(404).send("No hay usuarios registrados con ese email");
+    return res.status(204).send("No hay usuarios registrados con ese email");
   }
   usuario.resetToken = salt;
   //10 minutos dura el token
@@ -345,7 +345,7 @@ router.post("/askForPasswordReset", async (req, res) => {
       res.status(400).json({ Error: error });
     }
   });
-  res.status(200).json({ "Sended to": email, token: salt });
+  res.status(200).json({ "Recovery token sended to": email});
 });
 
 router.post("/passwordReset", async (req, res) => {
