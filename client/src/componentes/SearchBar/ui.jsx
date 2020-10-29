@@ -6,16 +6,21 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import allActions from "../../redux/actions/allActions";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Icons() {
   //-----------State Redux ------------------
   const usuarioLogin = useSelector((state) => state.usuario);
   const rol = usuarioLogin.rol;
   const dispatch = useDispatch();
-
+  let cantidadItems = localStorage['carrito'] ? JSON.parse(localStorage['carrito']) : [];
   //-------------Hooks------------
   const [formulario, setFormulario] = useState("inactivo"); //mostrar u ocultar formulario
   const [tipo, setTipo] = useState(""); //acción registro o inicio de sesión
+  const[items,setItems]=useState(parseInt(cantidadItems.length))
+ 
+
+ 
 
   const cerrarSesion = () => {
    
@@ -51,6 +56,7 @@ export default function Icons() {
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
   };
+  
 
   return (
     <div className="ui-css">
@@ -58,6 +64,7 @@ export default function Icons() {
         <div className="contenedor-salir">
           <i className="fas fa-shopping-cart"></i>
           <small className="ml-1">Carrito</small>
+      <small className='items-carrito'>{items>0 && items}</small>
         </div>
       </Link>
 

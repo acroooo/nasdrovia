@@ -13,7 +13,7 @@ body{overflow: hidden;}
     text-align: center;
     color: #fff;
     transition: .4s all;
-    height: 88%;
+    height: 100vh;
 }
 .mostrar{
     right: 0;
@@ -24,7 +24,7 @@ body{overflow: hidden;}
     cursor: pointer;
 }
 .linea-logo{
-    width: 55px;
+    width: 100%;
     border-bottom: 1px solid #f2f2f2;
     border-radius: 10%;
 }
