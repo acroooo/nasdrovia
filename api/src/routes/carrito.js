@@ -33,23 +33,28 @@ router.get("/", (req, res) => {
 
 //Agregar productos al carro
 router.post("/:idCarro/cart", (req, res) => {
+<<<<<<< HEAD
   let lista = []
   id = req.params.idCarro
   let productos = JSON.parse(req.body.productos)
+=======
+  let lista = [];
+  id = req.params.idCarro;
+  let productos = JSON.parse(req.body.productos);
+>>>>>>> abfec9813aa109687669deba60aad180dc60770b
 
-  console.log(req.body)
-  console.log(productos)
   //Llenamos la lista de productos
-  productos.list.forEach(element => {
+  productos.list.forEach((element) => {
     let producto = {
       productoId: element.id,
       carritoId: id,
       cantidad: element.cantidad,
-      precio: element.precio
-    }
-    lista.push(producto)
+      precio: element.precio,
+    };
+    lista.push(producto);
   });
   //Creamos las lineasDeOrden asociadas al carrito
+<<<<<<< HEAD
   LineaDeOrden.bulkCreate(lista)
     .then(
       Carrito.findOne(
@@ -61,6 +66,15 @@ router.post("/:idCarro/cart", (req, res) => {
         (carrito) => res.json(carrito)
       ))
 })
+=======
+  LineaDeOrden.bulkCreate(lista).then(
+    Carrito.findOne({
+      where: { id: id },
+      include: LineaDeOrden,
+    }).then((carrito) => res.json(carrito))
+  );
+});
+>>>>>>> abfec9813aa109687669deba60aad180dc60770b
 
 //Editar las cantidad con el id del carro y el id producto la cantidad
 router.put("/:id/cart", async (req, res) => {
@@ -103,14 +117,20 @@ router.put("/:id/cart/status", (req, res) => {
       .then((existe) => {
         !!existe
           ? Carrito.update(
+<<<<<<< HEAD
             { estado: estado },
             { where: { id: idCarrito } }
           ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+=======
+              { estado: estado },
+              { where: { id: idCarrito } }
+            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+>>>>>>> abfec9813aa109687669deba60aad180dc60770b
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
   } else {
     res.status(400).json({ Error: "Envia almenos un parametro" });
   }
-})
+});
 module.exports = router;
