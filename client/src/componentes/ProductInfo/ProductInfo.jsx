@@ -128,9 +128,9 @@ document.getElementById('img-actual').src=productoStore.images[0][num];
       <PanelCarrito />
 
 
-       {/* <div className="allReviews-css">
-         <AllReviews id={productId} />  
-      </div>   */}
+    <div className="allReviews-css">
+      <AllReviews id={productId} />  
+    </div>   
       
       
     </div>
