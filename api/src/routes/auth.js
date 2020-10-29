@@ -42,15 +42,15 @@ router.get("/facebook/callback", passport.authenticate("facebook"), function (
 //--------- Autenticación Google -----------
 
 router.get(
-  "/auth/google",
+  "/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
-// Api call back function
-// app.get(
-//   "/callback",
-//   passport.authenticate("google", { scope: ["email", "profile"] }),
-//   (req, res) => {
-//     return res.send("Felicidades");
-//   }
-// );
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
 module.exports = router;

@@ -67,12 +67,13 @@ const Login = ({ setTipo, cerrar }) => {
   const popup = (e) => {
     e.preventDefault();
     const { value } = e.target;
-    // window.open(
-    //   `http://localhost:3000/auth/${value}`,
-    //   // "http://localhost:3000/auth/facebook",
-    //   "",
-    //   "height=500, width=500"
-    // );
+    console.log(value);
+    window.open(
+      `http://localhost:3000/auth/google`,
+      //   // "http://localhost:3000/auth/facebook",
+      "",
+      "height=500, width=500"
+    );
   };
 
   return (

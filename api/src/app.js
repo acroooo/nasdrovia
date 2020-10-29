@@ -10,6 +10,7 @@ const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const keys = require("../Keys");
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 const { Usuario } = require("./db.js"); //Traer usuario de la base de datos
@@ -134,19 +135,19 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "1096828624678-ff37cs6fkvj0un9nnendgl0bkk78e73t.apps.googleusercontent.com",
-      clientSecret: "jb9pYm-rurR_lcZerrvTXaD7",
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback",
     },
-    (accessToken, refreshToken, profile, cb) => {
+    (accessToken, refreshToken, profile, done) => {
       console.log("accesToken", accessToken);
       console.log("refreshToken", refreshToken);
       console.log("profile", profile);
-      console.log("cb", cb);
+      console.log("done", done);
     }
   )
 );
+
 //------Passport Sesion
 server.use(passport.initialize());
 server.use(passport.session());
