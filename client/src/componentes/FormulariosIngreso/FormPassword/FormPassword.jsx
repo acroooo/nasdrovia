@@ -21,14 +21,14 @@ export default function FormPassword() {
     if (!inputValues.email) return setError(true);
     swal({
       title: "Es este tu email?",
-      text: "Asegurate de escribir bien tu email o quizas no recibas ningun link de reseteo",
+      text: "Asegurate de escribir bien tu email o quizas no recibas ningun enlace de reseteo",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     })
     .then((correct) => {
       if (correct) {
-        swal("Recibiras un enlace al instante!, asegurate de revisar tu carpeta de spam", {
+        swal("Si tu email se encuentra registrado recibiras un enlace en un instante!, asegurate de revisar tu carpeta de spam", {
           icon: "success",
         });
         Axios.post("http://localhost:3001/usuario/askForPasswordReset", inputValues)

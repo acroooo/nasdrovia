@@ -1,20 +1,16 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom'
+import swal from 'sweetalert';
 import "./passReset.css";
 import Axios from "axios";
+import { set } from "js-cookie";
 //reset password
 const Login = ({ setFormulario, setLogueado }) => {
-  const [inputValues, setInputValues] = useState({
-    email: null,
-    password: null,
-    passwordRepeat: null,
-  });
   const [contr1, setContr1] = useState();
   const [contr2, setContr2] = useState();
-  const [resetPassword, setResetPassword] = useState("");
   const [error, setError] = useState(false);
-
-  // const { token } = useParams();
-
+  const [postError, setPostError] = useState(false);
+  let { token } = useParams()
 
   const handleChange1 = (e) => {
     setContr1(e.target.value);
@@ -34,15 +30,30 @@ const Login = ({ setFormulario, setLogueado }) => {
   // }
   const handleConfirmar = (e) => {
     e.preventDefault();
+    console.log(contr2, contr1)
+    //alert(token)
+    if (!contr1 || !contr2|| !token) return setError(true);
+    if (contr1 !== contr2) {return setError(true)
+    }else{
+     
+      Axios.post("http://localhost:3001/usuario/passwordReset", { password:contr1, token:token })
+      .then((res) => res.status == 200 ?  swal({
+        title: "Buen trabajo",
+        text: "Su contraseña fue actualizada con exito",
+        icon: "success",
+        button: "Aceptar",
+      }) :
+      swal({
+        title: "Token expirado",
+        text: "No pudimos actualizar su contraseña, puede intentar pidiendo un nuevo enlace de reseteo",
+        icon: "error",
+        button: "Aceptar",
+      }))
+      .catch(() => setPostError("No se pudo actualizar la contraseña"));
+     
+    }
 
-    const { email, password, passwordRepeat } = inputValues;
-
-    if (!email || !password || !passwordRepeat) return setError(true);
-    if (password === passwordRepeat) return setError(false);
-
-    Axios.post("http://localhost:3000/passwordReset", { ...inputValues })
-      .then(() => setResetPassword("La contraseña se actualizó con éxito"))
-      .catch(() => setError("No se pudo actualizar la contraseña"));
+    
   };
 
   return (

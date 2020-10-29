@@ -49,7 +49,7 @@ export default function App() {
           <Route exact path="/producto/:id" component={ProductInfo} /> 
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
-          <Route exact path="/passwordReset" component={PasswordReset} />
+          <Route exact path="/passwordReset/:token" component={PasswordReset} />
         </Switch>
         <Route path="/" component={Footer} />
       </Router>
