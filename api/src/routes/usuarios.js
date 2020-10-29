@@ -361,7 +361,7 @@ router.post("/passwordReset", async (req, res) => {
   });
   if (!usuario)
     return res
-      .status(400)
+      .status(204)
       .json({ Error: "Usuario no encontrado o token expirado" });
 
   usuario.password = password;
@@ -413,4 +413,8 @@ router.delete("/:idUser/cart", async (req, res) => {
   res.status(200).json({ deleted: "ok" });
 });
 
+//Agregar datos del usuario
+router.post("/datosUsuario",(req,res)=>{
+
+})
 module.exports = router;
