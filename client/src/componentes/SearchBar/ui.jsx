@@ -19,20 +19,35 @@ export default function Icons() {
 
   const cerrarSesion = () => {
    
-    // {"list":[
-    //   { "id": 7, "cantidad": 10, "precio": 10000},
-    //   { "id": 6, "cantidad": 20, "precio": 20000},
-    //   { "id": 5, "cantidad": 30, "precio": 300005}
-    // ]}
-    const carrito = localStorage['carrito'];
-    let productos ={};
-    productos.list=carrito;
+   
+    let carrito = localStorage['carrito'];
+   
+/* 
+    {"list":[
+      { "id": 1, "cantidad": 10, "precio": 10000},
+      { "id": 2, "cantidad": 20, "precio": 20000}
+    ]} */
+    
+    let objeto = {
+      productos:{
+        list:JSON.parse(carrito)
+      }
+    }
+    console.log(objeto)
+
+    Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,objeto)
+    .then(()=>console.log('posteado'))
+    .catch((err)=>console.log(err))
+
+
+
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
         dispatch(allActions.logout());
       })
       .catch((err) => err);
 
+    
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
   };
