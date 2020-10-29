@@ -1,13 +1,15 @@
 import React from 'react';
 
 
-const handleChange = (e) => {
-    const seleccion = e.target.value;
-    console.log(seleccion)
-}
+
 
 
 const Encabezado = (props) => {
+
+    const handleChange = (e) => {
+        props.stateHandler(e.target.value)
+        props.setActualizar(true)
+    }
 
     return (
         <div className="row align-items-center ">
@@ -28,12 +30,12 @@ const Encabezado = (props) => {
                 <button className="btn-buscar text-white py-0 py-md-1 px-2  px-md-2"><i className="fas fa-search mr-1 mr-md-2"></i>Buscar</button>
                 <div className="input-group py-0 py-md-1 px-2  px-md-2">
                     <select class="custom-select" id="select" onChange={handleChange}>
-                        <option selected>Estado...</option>
-                        <option value="1">carrito</option>
-                        <option value="2">creada</option>
-                        <option value="3">procesando</option>
-                        <option value="4">cancelada</option>
-                        <option value="5">completa</option>
+                        <option selected value="estado...">Estado...</option>
+                        <option value="carrito" key={1}>carrito</option>
+                        <option value="creada" key={2}>creada</option>
+                        <option value="procesando" key={3}>procesando</option>
+                        <option value="cancelada" key={4}>cancelada</option>
+                        <option value="completa" key={5}>completa</option>
                     </select>
                 </div>
             </div>

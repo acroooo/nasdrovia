@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./LineaOrdenes.css";
 import Encabezado from "./Encabezado/Encabezado";
@@ -12,27 +12,40 @@ const LineaOrdenes = () => {
   //prettier-ignore
   const usuarioLogin = useSelector(state => state.usuario);
 
-  const [listado, setListado] = useState({ res: null, isLoaded: false })
+  const [listado, setListado] = useState({ res: null, isLoaded: false });
+  const [estado, setEstado] = useState("");
+  const [actualizar, setActualizar] = useState(false);
+
+  // useEffect(() => {
+  //   Axios.get(`http://localhost:3001/ordenes/`)
+  //     .then((ordenes) => {
+  //       setListado({ res: ordenes.data, isLoaded: true })
+  //     })
+  //     .catch((err) => { console.log(err.message) })
+  // }, [])
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/ordenes/")
+    filtrado()
+    setActualizar(false)
+  }, [estado, actualizar])
+
+  const filtrado = () => {
+    if (estado === "estado..." || estado === "") {
+      Axios.get(`http://localhost:3001/ordenes/`)
+        .then((ordenes) => {
+          setListado({ res: ordenes.data, isLoaded: true })
+        })
+        .catch((err) => { setListado({ res: null, isLoaded: false }) })
+    }
+    else Axios.get(`http://localhost:3001/ordenes?estado=${estado}`)
       .then((ordenes) => {
-        console.log(ordenes)
-        console.log(ordenes.data)
         setListado({ res: ordenes.data, isLoaded: true })
       })
-      .catch((err) => { console.log(err.message) })
-  }, [])
+      .catch((err) => { setListado({ res: null, isLoaded: false }) })
+  }
 
-  stateHandler = (num) => {
-    switch (num) {
-      case 1: return "carrito";
-      case 2: return "creada";
-      case 3: return "procesando";
-      case 4: return "cancelada";
-      case 5: return "completa";
-      default: return num
-    }
+  const stateHandler = (estad) => {
+    setEstado(estad)
   }
 
 
@@ -40,9 +53,9 @@ const LineaOrdenes = () => {
     return (
       <div className="total-ordenes ">
         <div className="container general-ordenes ">
-          <Encabezado stateHandler={} />
+          <Encabezado setActualizar={setActualizar} stateHandler={stateHandler} />
           <Ordenes />
-          <Listado />
+          <Listado lista={listado} />
         </div>
       </div>
     );
