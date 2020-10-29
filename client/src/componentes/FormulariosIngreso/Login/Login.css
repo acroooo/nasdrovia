@@ -78,6 +78,19 @@
   position: relative;
   overflow: hidden;
 }
+#face{
+  background: #3b5998;
+  opacity: 1;
+  padding: 10px 0;
+  box-shadow: 0px 5px 5px -1px rgba(173, 173, 173, 1);
+}
+#goog{
+  background: #fff;
+  opacity: 1;
+  padding: 10px 0;
+  color: #000;
+  box-shadow: 0px 5px 5px -1px rgba(173, 173, 173, 1);
+}
 .formulario-login button:hover {
   opacity: 1;
 }
@@ -115,20 +128,13 @@
 .btn-alternativo:active {
   transform: scale(0.98);
 }
-#fa:hover > .sombra-facebook {
+#face:hover > .sombra-facebook {
   opacity: 1;
 }
-#go:hover > .sombra-facebook {
+#goog:hover > .sombra-facebook {
   opacity: 1;
 }
 
-#fa {
-  background: #3b5998;
-  opacity: 1;
-  padding: 10px 0;
-  box-shadow: 0px 5px 5px -1px rgba(173, 173, 173, 1);
-  position: relative;
-}
 
 #go {
   background: #fff;

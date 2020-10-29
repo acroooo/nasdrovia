@@ -93,12 +93,12 @@ const Login = ({ setTipo, cerrar }) => {
         Iniciar sesión
       </button>
 
-      <button class="btn-alternativo btn-fac d-flex align-items-center">
+      <button class="btn-alternativo btn-fac d-flex align-items-center" id='face'>
         <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
       </button>
 
-      <button class="btn-alternativo btn-goo d-flex align-items-center">
+      <button class="btn-alternativo btn-goo d-flex align-items-center" id='goog'>
         <i className="fab fa-google mr-3 pl-3"></i>
         Continuar con Google
         <div className="sombra-facebook"></div>

@@ -4,10 +4,11 @@ import {Link} from 'react-router-dom';
 
 
 
-const ResumenOrden = ({total,setTotal,checkout}) => {
+const ResumenOrden = ({total,setTotal}) => {
 
   const [subtotal,setSubtotal]=useState(0)
-  let productos = JSON.parse(localStorage['carrito'])
+  let productos = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
+
 
   useEffect(()=>{
     let sumatoria=0;
@@ -54,7 +55,7 @@ const ResumenOrden = ({total,setTotal,checkout}) => {
       :null
       }
 
-       {checkout && <Card productos={productos}/> }
+       {/* {checkout && <Card productos={productos}/> } */}
        <Link to='/checkout'><button className='btn-comprar-carr'>Confirmar compra</button></Link>  
 
       </div>

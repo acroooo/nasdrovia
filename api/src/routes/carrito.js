@@ -35,10 +35,11 @@ router.get("/", (req, res) => {
 router.post("/:idCarro/cart", (req, res) => {
   let lista = [];
   id = req.params.idCarro;
-  let productos = JSON.parse(req.body.productos);
+  let productos = req.body.productos;
 
+  console.log(req.body)
   //Llenamos la lista de productos
-  productos.list.forEach((element) => {
+    productos.list.forEach((element) => {
     let producto = {
       productoId: element.id,
       carritoId: id,
@@ -47,6 +48,7 @@ router.post("/:idCarro/cart", (req, res) => {
     };
     lista.push(producto);
   });
+  
   //Creamos las lineasDeOrden asociadas al carrito
   LineaDeOrden.bulkCreate(lista).then(
     Carrito.findOne({
