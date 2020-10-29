@@ -1,8 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import "./PanelCarrito.css";
-import hei from "../../../Multimedia/hei.png";
+import {Link} from 'react-router-dom';
+
 
 const PanelCarrito = () => {
+
+  const productosCarrito=localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
+  const [subtotal,setSubtotal]=useState(0);
+
+  let sumatoria=0;
+  productosCarrito.length>0&& productosCarrito.map(pro=>sumatoria+=(pro.precio*pro.cantidad));
+  
+
   return (
     <div className="contenedor-panel" id='panel-carrito'>
       <div>
@@ -13,56 +22,25 @@ const PanelCarrito = () => {
           </p>
         </div>
 
-        <div className="item-panel ">
-          <img className='img-panelc' src={hei} alt="cerveza" />
+        {productosCarrito.length>0 && productosCarrito.map(pro=><div className="item-panel ">
+          <img className='img-panelc' src={pro.imagen} alt="cerveza" />
           <div className="subitem-panel">
-            <p>Corona</p>
-            <p className="precio-subitem">$ 34.456</p>
-
-            <div className="cantidad-productInfo">
-              <i className="fas fa-minus"></i>
-              <small>3</small>
-              <i className="fas fa-plus"></i>
-            </div>
+          <p >{pro.nombreR}</p>
+          <p className="precio-subitem">$ {pro.precio}</p>
+          <p >Cantidad: <b>{pro.cantidad}</b></p>
           </div>
-        </div>
-        <div className="item-panel ">
-          <img className='img-panelc' src={hei} alt="cerveza" />
-          <div className="subitem-panel">
-            <p>Corona</p>
-            <p className="precio-subitem">$ 34.456</p>
+        </div>)}
 
-            <div className="cantidad-productInfo">
-              <i className="fas fa-minus"></i>
-              <small>3</small>
-              <i className="fas fa-plus"></i>
-            </div>
-          </div>
-        </div>
-        <div className="item-panel ">
-          <img className='img-panelc' src={hei} alt="cerveza" />
-          <div className="subitem-panel">
-            <p>Corona</p>
-            <p className="precio-subitem">$ 34.456</p>
-
-            <div className="cantidad-productInfo">
-              <i className="fas fa-minus"></i>
-              <small>3</small>
-              <i className="fas fa-plus"></i>
-            </div>
-          </div>
-        </div>
-
-
+    
       </div>
 
       <div >
         <div className="subtotal-panel"> 
          <h4>Subtotal</h4>
-         <p>$12.567</p>
+            <p>$ {sumatoria}</p>
          </div>
         <div className="ver-carrito">
-          <button>Ver carrito</button>
+          <Link to='/carrito'><button>Ir al carrito</button></Link>
         </div>
       </div>
     </div>

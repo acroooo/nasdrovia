@@ -34,6 +34,7 @@ const Producto = (props) => {
     event.preventDefault();
   };
   console.log(images)
+  console.log(productoStore)
   return (
     <div className="producto__marco">
       {/* Seccion tarjeta producto */}
@@ -92,9 +93,9 @@ const Producto = (props) => {
       </Card>
       {/* seccion productos similares*/}
       <div className="producto_similares"></div>
-      <div className="allReviews-css">
+     {/*  <div className="allReviews-css">
         <AllReviews id={productId} />
-      </div>
+      </div> */}
     </div>
   );
 };

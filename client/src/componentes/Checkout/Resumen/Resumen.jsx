@@ -1,6 +1,6 @@
 import React from 'react';
 import './Resumen.css';
-import Orden from '../../Orden2/Orden2';
+
 
 
 const Resumen = () => {
