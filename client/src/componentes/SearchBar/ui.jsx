@@ -18,24 +18,32 @@ export default function Icons() {
   const [tipo, setTipo] = useState(""); //acción registro o inicio de sesión
 
   const cerrarSesion = () => {
+    let carrito = JSON.parse(localStorage['carrito'])
+    let productos = {"productos":{"list":carrito}}
+    /*
+    Lo dejo comentado por si vuelve a querer autodestruirse
+    console.log("//////////////////////////////////////////////////")
+    console.log("---------Contenido---------")
+    console.log(carrito)
+    console.log("------------ tipo ---------")
+    console.log(typeof carrito)
+    console.log("//////////////////////////////////////////////////")
    
-   
-    let carrito = localStorage['carrito']?JSON.parse(localStorage['carrito']):[];
-   
-/* 
     {"list":[
       { "id": 1, "cantidad": 10, "precio": 10000},
       { "id": 2, "cantidad": 20, "precio": 20000}
-    ]} */
-    
-    let objeto = {
-      productos:{
-        list:carrito
-      }
-    }
-    console.log(objeto)
+    ]} 
+  
+    let productos = {"productos":{"list":carrito}}
+    console.log("//////////////////////////////////////////////////")
+    console.log("---------Contenido---------")
+    console.log(productos)
+    console.log("------------ tipo ---------")
+    console.log(typeof productos)
+    console.log("//////////////////////////////////////////////////")
+   */
 
-    Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,objeto)
+    Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,productos)
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
 
