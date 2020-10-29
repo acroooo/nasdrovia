@@ -27,12 +27,12 @@ router.get("/", (req, res) => {
     if (r.length <= 0) {
       res.status(400).send("no existe su petición");
     }
-    res.status(200).send(r);
+    else { res.status(200).send(r) };
   });
 });
 
 //Agregar productos al carro
-router.post("/:idCarro/cart", (req, res)=>{
+router.post("/:idCarro/cart", (req, res) => {
   let lista = []
   id = req.params.idCarro
   let productos = JSON.parse(req.body.productos)
@@ -50,14 +50,15 @@ router.post("/:idCarro/cart", (req, res)=>{
     lista.push(producto)
   });
   //Creamos las lineasDeOrden asociadas al carrito
-  LineaDeOrden.bulkCreate(lista) 
-  .then(
-    Carrito.findOne(
-      {where: { id: id },
-      include: LineaDeOrden,
-    }
-    ).then(
-      (carrito)=> res.json(carrito)
+  LineaDeOrden.bulkCreate(lista)
+    .then(
+      Carrito.findOne(
+        {
+          where: { id: id },
+          include: LineaDeOrden,
+        }
+      ).then(
+        (carrito) => res.json(carrito)
       ))
 })
 
@@ -70,9 +71,9 @@ router.put("/:id/cart", async (req, res) => {
       .then((existe) => {
         !!existe
           ? LineaDeOrden.update(
-              { producto: producto, cantidad: cantidad, precio: precio },
-              { where: { carritoId: idCarrito } }
-            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+            { producto: producto, cantidad: cantidad, precio: precio },
+            { where: { carritoId: idCarrito } }
+          ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
@@ -94,17 +95,17 @@ router.delete("/borrar/:idCarro", async (req, res) => {
   });
   res.status(200).json(compras);
 });
-router.put("/:id/cart/status", (req,res)=>{
+router.put("/:id/cart/status", (req, res) => {
   let idCarrito = req.params.id;
-  let { estado} = req.body;
+  let { estado } = req.body;
   if (estado) {
     Carrito.findOne({ where: { id: idCarrito } })
       .then((existe) => {
         !!existe
           ? Carrito.update(
-              { estado:estado },
-              { where: { id: idCarrito } }
-            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+            { estado: estado },
+            { where: { id: idCarrito } }
+          ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));

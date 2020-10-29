@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Axios from "axios";
+import React from 'react';
 
 
+const handleChange = (e) => {
+    const seleccion = e.target.value;
+    console.log(seleccion)
+}
 
 
-const Encabezado = () => {
-
-    const [listado, setListado] = useState({ res: null, isLoaded: false })
-
-    useEffect(() => {
-        Axios.get("http://localhost:3001/ordenes/")
-            .then((ordenes) => {
-                console.log(ordenes)
-                console.log(ordenes.data)
-                setListado({ res: ordenes.data, isLoaded: true })
-            })
-            .catch()
-    }, [])
-
-    const handleChange = (e) => {
-        const seleccion = e.target.value;
-        console.log(seleccion)
-    }
-
+const Encabezado = (props) => {
 
     return (
         <div className="row align-items-center ">
@@ -44,11 +29,11 @@ const Encabezado = () => {
                 <div className="input-group py-0 py-md-1 px-2  px-md-2">
                     <select class="custom-select" id="select" onChange={handleChange}>
                         <option selected>Estado...</option>
-                        <option value="carrito">carrito</option>
-                        <option value="creada">creada</option>
-                        <option value="procesando">procesando</option>
-                        <option value="cancelada">cancelada</option>
-                        <option value="completa">completa</option>
+                        <option value="1">carrito</option>
+                        <option value="2">creada</option>
+                        <option value="3">procesando</option>
+                        <option value="4">cancelada</option>
+                        <option value="5">completa</option>
                     </select>
                 </div>
             </div>
