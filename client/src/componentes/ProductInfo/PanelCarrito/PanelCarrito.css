@@ -45,7 +45,7 @@
     border-top: 1px solid #fff;
     padding: 10px 20px;
 }
-.ver-carrito>button{
+.ver-carrito button{
   background-color: transparent;
   width: 76%;
   margin-top:30px;
@@ -59,15 +59,15 @@
  transition: .4s all;
 
 }
-.ver-carrito>button:focus{
+.ver-carrito button:focus{
     outline: none;
   }
-  .ver-carrito>button:hover{
+  .ver-carrito button:hover{
     background: #fff;
     color: #015386;
     border: 1px solid transparent;
   }
-  .ver-carrito>button:active{
+  .ver-carrito button:active{
     transform: scale(.97);
   }
   .item-panel{
@@ -104,7 +104,7 @@
     width: 65px;
     margin: 5px 0;
    color: #000;
-    background: #fff;
+   /*  background: #fff; */
   }
   .cantidad-productInfo>.fas{
     font-size: 10px;

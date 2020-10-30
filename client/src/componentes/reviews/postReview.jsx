@@ -18,12 +18,12 @@ export default function PostReview({setComentario,handleCick, onStarClick, ratin
         <StarRatingComponent 
                 name="submit"
                 onStarClick={onStarClick}
-                value={rating.number}
+                value={parseInt(rating.number)}
                 starColor={"#ff0000"}
             />
         </div>
         <form action="Submit-Review" >
-            <textarea type="text" onChange={handleChange} style={{width:"80vw", height:"12vh", size:200}} maxlength="12000"/>
+            <textarea type="text" onChange={handleChange} style={{width:"80vw", height:"12vh", size:200}} maxLength="12000"/>
             
         </form>
         <button className="submitbtn-css" onClick={handleCick}>

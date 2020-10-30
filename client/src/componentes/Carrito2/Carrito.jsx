@@ -4,6 +4,7 @@ import Item from './Item';
 import './Carrito.css';
 import {Link} from 'react-router-dom';
 
+
 const Carrito = () => {
     
     const [cambio,setCambio]=useState(false);
@@ -12,14 +13,14 @@ const Carrito = () => {
     
     
     useEffect(()=>{
-        let products = JSON.parse(localStorage['carrito']);
+        let products = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
         setProdCarrito(products);
         setCambio(false);
 
     },[cambio]) 
 
     return (  
-        <div className='container mt-5 carrito-general'>
+        <div className='container  carrito-general '>
         <section className='row w-100'>
             <div className='col-12 col-lg-8'>
                 <div className='cont-uno d-flex justify-content-between'>

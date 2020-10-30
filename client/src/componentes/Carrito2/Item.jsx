@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Item = ({ nombre, precio, cantidad, imagen, stock, productoId,setCambio,setTotal }) => {
   const nombreR = nombre.replace(" ", "_");
   const [cantidadActual, setCantidadActual] = useState(cantidad);
-  
+
 
   const aumentarCantidad = () => {
     let carrito = localStorage["carrito"];
@@ -59,7 +59,8 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId,setCambio,se
       }
       setTotal(true);
   }
-     const eliminarProducto = ()=>{
+
+    const eliminarProducto = ()=>{
      let carrito = JSON.parse(localStorage['carrito']);
     let nuevo = carrito.filter(pro=>pro.nombreR!==nombreR);
     localStorage.setItem('carrito',JSON.stringify(nuevo));

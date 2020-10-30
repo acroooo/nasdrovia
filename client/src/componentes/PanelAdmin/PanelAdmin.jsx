@@ -10,7 +10,7 @@ const PanelAdmin = () => {
         <div className='contenedor-admin' id='panel'>
              <span className='cerrar' onClick={()=>document.getElementById('panel').classList.toggle('mostrar')}>X</span> 
             <img src="https://i.pinimg.com/564x/ac/de/80/acde80ebc88d4dda88b10f7697cef890.jpg" alt="logo"/>
-            <hr className='linea-logo'/>
+            <hr className='linea-logo '/>
 
             <div className="contorno mt-4">
             <div className="img-admin">

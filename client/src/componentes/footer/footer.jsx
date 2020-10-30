@@ -3,7 +3,7 @@ import "./footer.css"
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer-css-full">
             <nav className="navbar navbar-default navbar-custom">
                 <div className="container-fluid container-footer-css">
                     <div className="nav navbar-nav navbar-left">
@@ -19,13 +19,13 @@ const Footer = () => {
 
                     <div className="iconos">
                         <div className="as">
-                            <a href="https://www.instagram.com/nasdroviabeerstore/"><i class="fab fa-instagram fa-3x"></i></a>
+                            <a href="https://www.instagram.com/nasdroviabeerstore/"><i className="fab fa-instagram fa-3x"></i></a>
                         </div>
                         <div className="as">
-                            <a href="https://www.facebook.com/nasdrovia.beerstore.9"><i class="fab fa-facebook-f fa-3x"></i></a>
+                            <a href="https://www.facebook.com/nasdrovia.beerstore.9"><i className="fab fa-facebook-f fa-3x"></i></a>
                         </div>
                         <div className="as">
-                            <a href="https://github.com/henry-labs/ecommerce-ft05-g10"><i class="fab fa-github fa-3x"></i></a>
+                            <a href="https://github.com/henry-labs/ecommerce-ft05-g10"><i className="fab fa-github fa-3x"></i></a>
                         </div>
                     </div>
                     <div className="nav navbar-nav navbar-right">
