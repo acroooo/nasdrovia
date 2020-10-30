@@ -99,6 +99,7 @@ const ListaUsuarios = () => {
                     <Listado usuarios={users} selec={selec} />
                 </div>
             </div>
+            {/* modal que permite promover o revocar */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     {estado !== "admin" ? <Modal.Title>promover usuario a Admin</Modal.Title> : <Modal.Title>Revocar permisos de administrador</Modal.Title>}
@@ -116,6 +117,7 @@ const ListaUsuarios = () => {
                     {estado !== "admin" ? <Button variant="danger" onClick={promover}>Promover</Button> : <Button variant="danger" onClick={revocar}>Revocar</Button>}
                 </Modal.Footer>
             </Modal>
+            {/* aviso antes de eliminar usuario */}
             <Modal show={showe} onHide={handleClosee}>
                 <Modal.Header closeButton>
                     <Modal.Title>Esta seguro que desea eliminar el usuario {nombre}?</Modal.Title>
@@ -130,6 +132,7 @@ const ListaUsuarios = () => {
                     <Button variant="danger" onClick={elimUser}>Eliminar</Button>
                 </Modal.Footer>
             </Modal>
+            {/* modal de succes */}
             <Modal show={showa} onHide={handleClosea}>
                 <Modal.Header closeButton>
                     <Modal.Title>Completado!</Modal.Title>
@@ -138,7 +141,7 @@ const ListaUsuarios = () => {
                     <p>Realizado con exito</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClosea}>
+                    <Button variant="danger" onClick={handleClosea}>
                         cerrar
                     </Button>
                 </Modal.Footer>
