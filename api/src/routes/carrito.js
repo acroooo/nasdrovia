@@ -32,29 +32,45 @@ router.get("/", (req, res) => {
 });
 
 //Agregar productos al carro
-router.post("/:idCarro/cart", (req, res) => {
-  let lista = [];
-  id = req.params.idCarro;
-  let productos = JSON.parse(req.body.productos);
-
+router.post("/:idCarro/cart", (req, res)=>{
+  let lista = []
+  id = req.params.idCarro
+  let productos = req.body.productos
+  console.log(productos)
+  console.log( typeof productos)
+  if (typeof productos !== "object"){
+    productos = JSON.parse(req.body.productos)
+  }
+  console.log( typeof productos)
   //Llenamos la lista de productos
-  productos.list.forEach((element) => {
+  productos.list.forEach(element => {
     let producto = {
-      productoId: element.id,
+      productoId: element.productoId,
       carritoId: id,
       cantidad: element.cantidad,
-      precio: element.precio,
-    };
-    lista.push(producto);
+      precio: element.precio
+    }
+    lista.push(producto)
   });
+  let listaAnterior = LineaDeOrden.findAll({ where: { carritoId: id }})
+  console.log(listaAnterior)
+  if(listaAnterior){
+      LineaDeOrden.destroy({ where: { carritoId: id } })
+    }
+
+ 
   //Creamos las lineasDeOrden asociadas al carrito
-  LineaDeOrden.bulkCreate(lista).then(
-    Carrito.findOne({
-      where: { id: id },
+  LineaDeOrden.bulkCreate(lista) 
+
+  .then(
+    Carrito.findOne(
+      {where: { id: id },
       include: LineaDeOrden,
-    }).then((carrito) => res.json(carrito))
-  );
-});
+    }
+    ).then(
+      (carrito)=> res.json(carrito)
+      ))
+})
 
 //Editar las cantidad con el id del carro y el id producto la cantidad
 router.put("/:id/cart", async (req, res) => {
@@ -89,22 +105,24 @@ router.delete("/borrar/:idCarro", async (req, res) => {
   });
   res.status(200).json(compras);
 });
-router.put("/:id/cart/status", (req, res) => {
+router.put("/:id/cart/status", (req,res)=>{
   let idCarrito = req.params.id;
-  let { estado } = req.body;
+  let { estado} = req.body;
   if (estado) {
     Carrito.findOne({ where: { id: idCarrito } })
       .then((existe) => {
         !!existe
           ? Carrito.update(
-            { estado: estado },
-            { where: { id: idCarrito } }
-          ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+
+              { estado:estado },
+              { where: { id: idCarrito } }
+            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
   } else {
     res.status(400).json({ Error: "Envia almenos un parametro" });
   }
-});
+})
 module.exports = router;

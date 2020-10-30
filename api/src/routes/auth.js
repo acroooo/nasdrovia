@@ -24,6 +24,12 @@ router.post("/promote/:id", async (req, res) => {
   await user.update({ rol: "admin" });
   return res.status(201).send(user);
 });
+//--------- Autenticación Facebook-----------
+router.get(
+  "/auth/facebook",
+  passport.authenticate("facebook", { scope: ["email"], display: "popup" })
+);
+
 
 router.post("/revoque/:id", async (req, res) => {
   id = req.params.id;
@@ -32,5 +38,29 @@ router.post("/revoque/:id", async (req, res) => {
   await user.update({ rol: "client" });
   return res.status(201).send(user);
 });
+
+
+router.get("/facebook/callback", passport.authenticate("facebook"), function (
+  req,
+  res
+) {
+  // Successful authentication, redirect home.
+  res.redirect("/me");
+});
+
+//--------- Autenticación Google -----------
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
 
 module.exports = router;

@@ -24,7 +24,11 @@
   color: #e6e6e6;
   position: relative;
 }
-.contenedor-salir{
+.contenedor-salir>.items-carrito{
+ color: #000;
+ position: absolute;
+ top: 7px;
+ left: 12px;
  
 }
 .salir-client{
