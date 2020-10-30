@@ -11,10 +11,10 @@ const FormularioCheckout = () => {
   const handleChange = e=>{
     setDatos({...datos,[e.target.name]:e.target.value});
   }
-  console.log(datos)
+
   const sendUserData = () => {
     Axios.post(`http://localhost:3001/usuario/datos/${id}`, datos)
-      .then((res)=>{ res.status == 200 ? alert("OK"): alert("La cagaste")})
+      .then((res)=>{ res.status == 200 ? alert("OK"):  Axios.put(`http://localhost:3001/usuario/actualizar-datos/${id}`, datos)})
   }
 
     return (

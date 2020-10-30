@@ -417,13 +417,12 @@ router.delete("/:idUser/cart", async (req, res) => {
 //Agregar datos del usuario
 router.post("/datos/:id",async (req,res)=>{
   let {id} = req.params;
-  console.log(req.body)
   let {nombre, apellido, documento, ciudad, pais , telefono, direccion, departamento} = req.body
   let checkPrevius = await Userdata.findOne({
     where: { usuarioId: id }
   })
   if(checkPrevius){
-    res.status(400).json({"Error":"Ya tenemos los datos, mejor intenta actualizarlos"})
+    res.status(204).json({"Error":"Ya tenemos los datos, mejor intenta actualizarlos"})
   }else{
   let newData = await Userdata.create({
     usuarioId: id,
@@ -437,6 +436,33 @@ router.post("/datos/:id",async (req,res)=>{
     departamento
   });
   res.status(200).json({"Ok":"datos agregados con exito", "data, para testeo borrar pliz":newData})
+}
+})  
+//Modificarlos
+router.put("/actualizar-datos/:id",async (req,res)=>{
+  let {id} = req.params;
+  let {nombre, apellido, documento, ciudad, pais , telefono, direccion, departamento} = req.body
+  let exist = await Userdata.findOne({
+    where: { usuarioId: id }
+  })
+  if(exist){
+    res.status(204).json({"Error":"Esta tabla no existe"})
+  }else{
+  let updating = await Userdata.update(
+   { where: { usuarioId: id }
+  }
+  ,{
+    usuarioId: id,
+    nombre,
+    apellido,
+    documento,
+    ciudad,
+    pais,
+    telefono,
+    direccion,
+    departamento
+  })
+  res.status(200).json({"Ok":"Actualizado correctamente", "data, para testeo borrar pliz":updating})
 }  
 })
 module.exports = router;
