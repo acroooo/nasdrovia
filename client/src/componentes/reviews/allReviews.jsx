@@ -42,6 +42,9 @@ export default function AllReviews({ id }) {
             Axios.get(`http://localhost:3001/producto/${id}/review`).then((respuesta)=>{
                 setReviews({res:respuesta.data, isLoaded:true})
             })
+            Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((respuesta) => {
+                setPromedio({ res: respuesta.data, isLoaded: true })
+            })
         }) 
         }
     const onStarClick = (nextValue, prevValue, name) => {
@@ -102,6 +105,9 @@ export default function AllReviews({ id }) {
                                 review={review}
                                 key={i}
                                 usuarioLoginId={usuarioLogin.id}
+                                productoId={id}
+                                setReviews={setReviews}
+                                setPromedio={setPromedio}
                             />
                         )
                     })

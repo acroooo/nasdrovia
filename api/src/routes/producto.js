@@ -166,7 +166,7 @@ router.delete(
 
 /* ----------------------------Actualizar rewiew de un producto---------------------------------------------*/
 //Fix temporal
-router.put("/:id/review/:idRewiew", isAuthenticated, (req, res) => {
+router.put("/:id/review/:idRewiew", (req, res) => {
   let { commentary, qualification } = req.body;
   let productoId = req.params.id;
   let rewiewId = req.params.idRewiew;

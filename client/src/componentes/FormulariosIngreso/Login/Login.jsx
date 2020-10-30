@@ -115,7 +115,9 @@ const Login = ({ setTipo, cerrar }) => {
         <small>¿Olvidaste la contraseña?</small>
       </Link>
 
-      <button className="mt-3 btn-ingresar" onClick={handleSubmit}>
+      <button 
+      className="mt-3 btn-ingresar"
+      onClick={handleSubmit}>
         Iniciar sesión
       </button>
 
