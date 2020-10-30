@@ -42,16 +42,17 @@ export default function App() {
           <Route exact path="/ordenes" component={ListaOrdenes2} />
           <Route exact path="/orden" component={Orden2} />
           <Route exact path="/usuarios" component={Usuarios} />
+
           <Route exact path="/succes" component={Succes} />
 
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
-          <Route exact path="/producto/:id" component={Producto} />
+          {/* <Route exact path="/producto/:id" component={Producto} />  */}
           <Route exact path="/formulario-crud" component={FormularioCrud} />
           <Route exact path="/carrito" component={Carrito2} />
-          <Route exact path="/info" component={ProductInfo} />
+          <Route exact path="/producto/:id" component={ProductInfo} />
           <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/cambioPassword" component={EmailPassword} />
-          <Router exact path="/passwordReset" component={PasswordReset} />
+          <Route exact path="/passwordReset/:token" component={PasswordReset} />
         </Switch>
         <Route path="/" component={Footer} />
       </Router>

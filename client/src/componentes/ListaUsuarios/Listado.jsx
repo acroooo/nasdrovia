@@ -1,22 +1,21 @@
 import React from 'react';
 
-const Listado = ({usuarios}) => {
+const Listado = (props) => {
 
-
-    return ( 
-        usuarios.map(usuario=>{
-            const {id,nombre,correo,rol} = usuario;
-            return(
-                <section className='categorias-h row py-1 py-md-2 mb-1' key={id}>    
-                <div className="col-3 text-center">{id}</div>
-                <div className="col-3 text-center">{nombre}</div>
-                <div className="col-3 text-center">{correo}</div>
-                <div className="col-3 text-center">{rol}</div>
+    return (
+        props.usuarios.res !== null ? props.usuarios.res.map(usuario => {
+            const { id, nombre, email, rol } = usuario;
+            return (
+                <section className='categorias-h row py-1 py-md-2 mb-1' key={id}>
+                    <div className="col-3 text-center">{id}</div>
+                    <div className="col-3 text-center">{nombre}</div>
+                    <div className="col-3 text-center">{email}</div>
+                    <div className="col-3 text-center">{rol}</div>
                 </section>
             )
-        })
-        
-     );
+        }) : <p>cargando usuarios...</p>
+
+    );
 }
- 
+
 export default Listado;

@@ -6,39 +6,54 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import allActions from "../../redux/actions/allActions";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function Icons() {
   //-----------State Redux ------------------
   const usuarioLogin = useSelector((state) => state.usuario);
   const rol = usuarioLogin.rol;
   const dispatch = useDispatch();
-
+  let cantidadItems = localStorage['carrito'] ? JSON.parse(localStorage['carrito']) : [];
   //-------------Hooks------------
   const [formulario, setFormulario] = useState("inactivo"); //mostrar u ocultar formulario
   const [tipo, setTipo] = useState(""); //acción registro o inicio de sesión
+  const[items,setItems]=useState(parseInt(cantidadItems.length))
+ 
+
+ 
 
   const cerrarSesion = () => {
+    if(localStorage['carrito']){
+    let carrito = JSON.parse(localStorage['carrito'])
+    let productos = {"productos":{"list":carrito}}
+    
+    /*
+    Lo dejo comentado por si vuelve a querer autodestruirse
+    console.log("//////////////////////////////////////////////////")
+    console.log("---------Contenido---------")
+    console.log(carrito)
+    console.log("------------ tipo ---------")
+    console.log(typeof carrito)
+    console.log("//////////////////////////////////////////////////")
    
-   
-    let carrito = localStorage['carrito']?JSON.parse(localStorage['carrito']):[];
-   
-/* 
     {"list":[
       { "id": 1, "cantidad": 10, "precio": 10000},
       { "id": 2, "cantidad": 20, "precio": 20000}
-    ]} */
-    
-    let objeto = {
-      productos:{
-        list:carrito
-      }
-    }
-    console.log(objeto)
+    ]} 
+  
+    let productos = {"productos":{"list":carrito}}
+    console.log("//////////////////////////////////////////////////")
+    console.log("---------Contenido---------")
+    console.log(productos)
+    console.log("------------ tipo ---------")
+    console.log(typeof productos)
+    console.log("//////////////////////////////////////////////////")
+   */
 
-    Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,objeto)
+    Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,productos)
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
-
+  }
 
 
     Axios.post("http://localhost:3001/auth/logout")
@@ -50,7 +65,9 @@ export default function Icons() {
     
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
+    
   };
+  
 
   return (
     <div className="ui-css">
@@ -58,6 +75,7 @@ export default function Icons() {
         <div className="contenedor-salir">
           <i className="fas fa-shopping-cart"></i>
           <small className="ml-1">Carrito</small>
+      <small className='items-carrito'>{items>0 && items}</small>
         </div>
       </Link>
 

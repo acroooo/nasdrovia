@@ -7,7 +7,7 @@ const Carrito = require("./carrito");
 const Admin = require("./admin");
 const auth = require("./auth");
 const { Op } = require("sequelize");
-const { Producto } = require("../db.js");
+const { Producto, Images, Categories } = require("../db.js");
 const router = express();
 // load each router on a route
 // i.e: router.use('/auth', authRouter);
@@ -29,7 +29,14 @@ router.get("/search", (req, res) => {
         { nombre: { [Op.iLike]: `%${query.busqueda}%` } },
         { descripcion: { [Op.iLike]: `%${query.busqueda}%` } },
       ],
-    },
+    }, include: [
+      {
+        model: Images,
+      },
+      {
+        model: Categories,
+      },
+    ],
   }).then((response) => {
     if (response.length <= 0) {
       return res.status(404).send("No se encontró ningún producto con ese nombre o descripción!" + err.message);
