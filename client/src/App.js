@@ -17,6 +17,7 @@ import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPas
 import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
 import Footer from "./componentes/footer/footer.jsx";
 import Moodal from "./componentes/modal+18/modal.jsx";
+import Succes from "./componentes/FormulariosIngreso/Login/Succes";
 
 import Carrito2 from "./componentes/Carrito2/Carrito";
 import ProductInfo from "./componentes/ProductInfo/ProductInfo";
@@ -41,6 +42,7 @@ export default function App() {
           <Route exact path="/ordenes" component={ListaOrdenes2} />
           <Route exact path="/orden" component={Orden2} />
           <Route exact path="/usuarios" component={Usuarios} />
+          <Route exact path="/succes" component={Succes} />
 
           <Route exact path="/formulario-categoria" component={CrudCategoria} />
           <Route exact path="/producto/:id" component={Producto} />

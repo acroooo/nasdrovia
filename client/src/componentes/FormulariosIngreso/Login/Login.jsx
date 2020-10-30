@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import "./Login.css";
 import Axios from "axios";
@@ -64,13 +64,21 @@ const Login = ({ setTipo, cerrar }) => {
     }
   };
 
-  const popup = (e) => {
+  const google = (e) => {
     e.preventDefault();
-    const { value } = e.target;
-    console.log(value);
+
     window.open(
-      `http://localhost:3000/auth/google`,
-      //   // "http://localhost:3000/auth/facebook",
+      `http://localhost:3001/auth/google`,
+      "",
+      "height=500, width=500"
+    );
+  };
+  const facebook = (e) => {
+    e.preventDefault();
+
+    window.open(
+      `http://localhost:3001/auth/facebook`,
+
       "",
       "height=500, width=500"
     );
@@ -123,7 +131,7 @@ const Login = ({ setTipo, cerrar }) => {
         class="btn-alternativo btn-fac d-flex align-items-center"
         id="face"
         value="facebook"
-        onClick={popup}
+        onClick={facebook}
       >
         <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
@@ -133,7 +141,7 @@ const Login = ({ setTipo, cerrar }) => {
         class="btn-alternativo btn-goo d-flex align-items-center"
         id="goog"
         value="google"
-        onClick={popup}
+        onClick={google}
       >
         <i className="fab fa-google mr-3 pl-3"></i>
         Continuar con Google

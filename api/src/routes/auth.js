@@ -27,17 +27,16 @@ router.post("/promote/:id", isAuthenticatedAndAdmin, async (req, res) => {
 });
 //--------- Autenticación Facebook-----------
 router.get(
-  "/auth/facebook",
-  passport.authenticate("facebook", { scope: ["email"], display: "popup" })
+  "/facebook",
+  passport.authenticate("facebook", { scope: ["email"] })
 );
 
-router.get("/facebook/callback", passport.authenticate("facebook"), function (
-  req,
-  res
-) {
-  // Successful authentication, redirect home.
-  res.redirect("/me");
-});
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "http://localhost:3000/succes",
+  })
+);
 
 //--------- Autenticación Google -----------
 
@@ -47,10 +46,8 @@ router.get(
 );
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/");
-  }
+  passport.authenticate("google", {
+    successRedirect: "http://localhost:3000/succes",
+  })
 );
 module.exports = router;
