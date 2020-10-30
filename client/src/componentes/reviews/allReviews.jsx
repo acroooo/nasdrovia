@@ -29,7 +29,6 @@ export default function AllReviews({ id }) {
     useEffect(()=>{
         if(reviews.isLoaded){
         const check=checkUsuarioPost()
-        console.log(check)
         setCheckedUsuario({res:check, isSet:true})}
     },[reviews])
     const handleCick = () => {
@@ -55,7 +54,6 @@ export default function AllReviews({ id }) {
         if (reviews.isLoaded){
         reviews.res.forEach((review)=>{
             if(review.usuarioId.toString() ===usuarioLogin.id.toString() ){
-                console.log('true')
                 res= true;
             }else{
                 res= false;

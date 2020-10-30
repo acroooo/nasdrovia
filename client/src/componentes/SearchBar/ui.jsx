@@ -54,7 +54,8 @@ export default function Icons() {
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
   }
-
+  //router.put("/:id/cart/status"
+ // Axios.put(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart/status`,)
 
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
@@ -65,7 +66,7 @@ export default function Icons() {
     
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
-    
+      localStorage.removeItem('subtotal');
   };
   
 

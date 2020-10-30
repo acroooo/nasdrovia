@@ -28,10 +28,10 @@ export default function ({review, usuarioLoginId, productoId, setReviews, setPro
         {usuarioLoginId === usuarioId?
         <div>
         <div className="delete-review-css" onClick={handleDelete}>
-        <i class="fas fa-trash"></i>
+        <i className="fas fa-trash"></i>
         </div>
         <div className="edit-review-css" onClick={handleEdit}>
-        <i class="fas fa-edit"></i>
+        <i className="fas fa-edit"></i>
         </div>
         </div>
         :<></>}
