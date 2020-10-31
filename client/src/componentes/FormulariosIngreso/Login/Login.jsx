@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
+import { Link, Redirect } from "react-router-dom";
 import "./Login.css";
 import Axios from "axios";
 import allActions from "../../../redux/actions/allActions.js";
@@ -49,7 +48,7 @@ const Login = ({ setTipo, cerrar }) => {
       );
       
 
-      if (getId.statusText !==400) {
+      if (getId.statusText !=="No Content") {
         usuarioLog.carritoId = getId.data.id;
         dispatch(allActions.login(usuarioLog));
 
@@ -69,8 +68,6 @@ const Login = ({ setTipo, cerrar }) => {
             if(actual){
               let nuevo = productosActual.filter(prod=>prod.nombreR!==objeto.nombreR);
               actual.cantidad=actual.cantidad+objeto.cantidad;
-              console.log('este es el',nuevo)
-              console.log('este es actual',actual)
               nuevo.push(actual);
               productosActual=nuevo;
             
@@ -83,6 +80,7 @@ const Login = ({ setTipo, cerrar }) => {
           .catch(err=>console.log(err))
         })  
       } else {
+        console.log("entre al post!")
         const carrito = await Axios.post(
           `http://localhost:3001/usuario/${usuario.data.id}/cart`
         );
@@ -98,13 +96,21 @@ const Login = ({ setTipo, cerrar }) => {
     }
   };
 
-  const popup = (e) => {
+  const google = (e) => {
     e.preventDefault();
-    const { value } = e.target;
-    console.log(value);
+
     window.open(
-      `http://localhost:3000/auth/google`,
-      //   // "http://localhost:3000/auth/facebook",
+      `http://localhost:3001/auth/google`,
+      "",
+      "height=500, width=500"
+    );
+  };
+  const facebook = (e) => {
+    e.preventDefault();
+
+    window.open(
+      `http://localhost:3001/auth/facebook`,
+
       "",
       "height=500, width=500"
     );
@@ -122,8 +128,10 @@ const Login = ({ setTipo, cerrar }) => {
         {error && <p className="error-login text-white">Datos incorrectos</p>}
       </div>
 
+
   
       <div className="grupo-formulario">
+
         <input
           type="text"
           name="email"
@@ -131,6 +139,7 @@ const Login = ({ setTipo, cerrar }) => {
           required
           onChange={handleChange}
         />
+        
         <label className="etiqueta">Email</label>
         <i className="fas fa-envelope"></i>
       </div>
@@ -147,7 +156,7 @@ const Login = ({ setTipo, cerrar }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-     
+ 
         <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
      
 
@@ -161,7 +170,7 @@ const Login = ({ setTipo, cerrar }) => {
         className="btn-alternativo btn-fac d-flex align-items-center"
         id="face"
         value="facebook"
-        onClick={popup}
+        onClick={facebook}
       >
         <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
         <div className="sombra-facebook"></div>
@@ -171,7 +180,7 @@ const Login = ({ setTipo, cerrar }) => {
         className="btn-alternativo btn-goo d-flex align-items-center"
         id="goog"
         value="google"
-        onClick={popup}
+        onClick={google}
       >
         <i className="fab fa-google mr-3 pl-3"></i>
         Continuar con Google

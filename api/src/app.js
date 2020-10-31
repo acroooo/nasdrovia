@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -10,11 +11,15 @@ const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("../Keys");
 const FacebookStrategy = require("passport-facebook").Strategy;
 
 const { Usuario } = require("./db.js"); //Traer usuario de la base de datos
-
+const {
+  googleClientID,
+  googleClientSecret,
+  FacebookClientId,
+  FacebookClientSecret,
+} = process.env;
 const server = express();
 
 server.name = "API";
@@ -41,6 +46,7 @@ server.use((req, res, next) => {
   next();
 });
 
+//------------------------Passport Autenticaciones------------------------
 passport.use(
   new LocalStrategy(
     {
@@ -62,10 +68,73 @@ passport.use(
   )
 );
 
+//----------------------------------PASSPORT FACEBOOK-STRATEGY---------------------------------------
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: FacebookClientId,
+      clientSecret: FacebookClientSecret,
+      callbackURL: "http://localhost:3001/auth/facebook/callback",
+      profileFields: ["id", "emails", "displayName"],
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const [usuario, created] = await Usuario.findOrCreate({
+          where: { facebookId: profile.id },
+          defaults: {
+            nombre: profile.displayName,
+            email: profile.emails[0].value,
+          },
+        });
+
+        if (!usuario)
+          return done(null, false, {
+            message: "No pudimos loguearte con esa cuenta",
+          });
+        return done(null, usuario);
+      } catch (err) {
+        done(err);
+      }
+    }
+  )
+);
+
+//----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: googleClientID,
+      clientSecret: googleClientSecret,
+      callbackURL: "http://localhost:3001/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const [usuario, created] = await Usuario.findOrCreate({
+          where: { googleId: profile.id },
+          defaults: {
+            nombre: profile.displayName,
+            email: profile.emails[0].value,
+          },
+        });
+
+        if (!usuario)
+          return done(null, false, {
+            message: "No pudimos loguearte con esa cuenta",
+          });
+        return done(null, usuario);
+      } catch (err) {
+        done(err);
+      }
+    }
+  )
+);
+//-------------------- Serialize-----------------
 passport.serializeUser((usuario, done) => {
   done(null, usuario.id);
 });
 
+//------------------- Deserialize----------------
 passport.deserializeUser(function (id, done) {
   Usuario.findByPk(id)
     .then((usuario) => {
@@ -74,81 +143,7 @@ passport.deserializeUser(function (id, done) {
     .catch((err) => done(err, null));
 });
 
-//----------------------------------PASSPORT FACEBOOK-STRATEGY---------------------------------------
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: "1086208491813234",
-      clientSecret: "11a1a7d1065e475e4a86d149c78622ec",
-      callbackURL: "/auth/facebook/callback",
-      rofileFields: ["id", "emails", "displayName"],
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-        user = { ...profile };
-        return cb(err, user);
-      });
-    }
-  )
-);
-
-// async (accessToken, refreshToken, profile, done) => {
-//   try {
-//     const [user, created] = await User.findOrCreate({
-//       where: { facebookId: profile.id },
-//       defaults: {
-//         name: profile.displayName,
-//         email: profile.emails[0].value,
-//       },
-//     });
-//     if (!user)
-//       return done(null, false, {
-//         message: "No pudimos loguearte con esa cuenta",
-//       });
-//     return done(null, user);
-//   } catch (error) {
-//     done(error);
-//   }
-// try {
-//   const [user, created] = await User.findOrCreate({
-//     where: { facebookId: profile.id },
-//     defaults: {
-//       name: profile.displayName,
-//       email: profile.emails[0].value,
-//     },
-//   });
-
-//   // On error
-//   if (!user)
-//     return done(null, false, {
-//       message: "No pudimos loguearte con esa cuenta",
-//     });
-
-//   // On success
-//   return done(null, user);
-// } catch (error) {
-//   done(error);
-// }
-
-//----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: "/auth/google/callback",
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log("accesToken", accessToken);
-      console.log("refreshToken", refreshToken);
-      console.log("profile", profile);
-      console.log("done", done);
-    }
-  )
-);
-
-//------Passport Sesion
+//------------------Passport Sesion---------------
 server.use(passport.initialize());
 server.use(passport.session());
 
