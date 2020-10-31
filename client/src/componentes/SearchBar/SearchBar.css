@@ -42,7 +42,9 @@
   left: -6px;
   color: #e6e6e6;
 }
-
+.contenedor-salir .fas{
+  color: #e6e6e6;
+}
 #basic-nav-dropdown {
   font-size: x-large;
   color: #e6e6e6;
@@ -63,7 +65,10 @@
 .usuario-login {
   color: #e6e6e6;
 }
-
+.fa-tools{
+  color: #e6e6e6;
+  display: none;
+}
 .login-user{
   font-size: 24px;
   border-radius: 100%;

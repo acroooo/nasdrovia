@@ -1,9 +1,10 @@
 const router = require("express").Router();
-const { Usuario, Carrito, Producto, LineaDeOrden } = require("../db.js");
+const { Usuario, Carrito, Producto, LineaDeOrden, Userdata } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const mailgun = require("mailgun-js");
+const userData = require("../models/userData.js");
 const DOMAIN = "sandbox396137037a674502865965b3ae0e95d0.mailgun.org";
 const mg = mailgun({
   apiKey: "4e1388898d6578304533bdde9d4cdca0-53c13666-92f2a20e",
@@ -109,7 +110,7 @@ router.get("/", (req, res) => {
       return res.status(400).send(err);
     });
 });
-router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.get("/:id", (req, res) => {
   let id = req.params.id;
   Usuario.findOne({ where: { id: id } })
     .then((usuario) => {
@@ -119,7 +120,7 @@ router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
       return res.status(400).send(err);
     });
 });
-router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.delete("/:id", (req, res) => {
   let { id } = req.params;
   Usuario.destroy({ where: { id } })
     .then((response) => {
@@ -414,7 +415,54 @@ router.delete("/:idUser/cart", async (req, res) => {
 });
 
 //Agregar datos del usuario
-router.post("/datosUsuario",(req,res)=>{
-
+router.post("/datos/:id",async (req,res)=>{
+  let {id} = req.params;
+  let {nombre, apellido, documento, ciudad, pais , telefono, direccion, departamento} = req.body
+  let checkPrevius = await Userdata.findOne({
+    where: { usuarioId: id }
+  })
+  if(checkPrevius){
+    res.status(204).json({"Error":"Ya tenemos los datos, mejor intenta actualizarlos"})
+  }else{
+  let newData = await Userdata.create({
+    usuarioId: id,
+    nombre,
+    apellido,
+    documento,
+    ciudad,
+    pais,
+    telefono,
+    direccion,
+    departamento
+  });
+  res.status(200).json({"Ok":"datos agregados con exito", "data, para testeo borrar pliz":newData})
+}
+})  
+//Modificarlos
+router.put("/actualizar-datos/:id",async (req,res)=>{
+  let {id} = req.params;
+  let {nombre, apellido, documento, ciudad, pais , telefono, direccion, departamento} = req.body
+  let exist = await Userdata.findOne({
+    where: { usuarioId: id }
+  })
+  if(exist){
+    res.status(204).json({"Error":"Esta tabla no existe"})
+  }else{
+  let updating = await Userdata.update(
+   { where: { usuarioId: id }
+  }
+  ,{
+    usuarioId: id,
+    nombre,
+    apellido,
+    documento,
+    ciudad,
+    pais,
+    telefono,
+    direccion,
+    departamento
+  })
+  res.status(200).json({"Ok":"Actualizado correctamente", "data, para testeo borrar pliz":updating})
+}  
 })
 module.exports = router;

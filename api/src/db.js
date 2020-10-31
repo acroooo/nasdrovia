@@ -4,6 +4,7 @@ const fs = require("fs");
 const crypto = require('crypto');
 const path = require("path");
 const { userInfo } = require("os");
+const userData = require("./models/userData");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -47,7 +48,8 @@ const {
   LineaDeOrden,
   Reviews,
   Usuario,
-  Images
+  Images,
+  Userdata
 } = sequelize.models;
 
 // relacion producto-categoria
@@ -70,8 +72,9 @@ Producto.belongsToMany(Carrito, { through: LineaDeOrden });
 //relacion imagen-producto 
 Producto.hasMany(Images);
 Images.belongsTo(Producto);
-
-
+//relacion usuario-datos
+Userdata.belongsToMany(Usuario, { through: "datosUsuario"});
+Usuario.hasOne(Userdata);
 //-------Password------
 Usuario.generateSalt = function () {
   return crypto.randomBytes(20).toString("hex");

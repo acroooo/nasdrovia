@@ -49,7 +49,11 @@ export default function EditAlert({setDisplayEdit, comentario, calificacion, rev
                 starColor={"#ff0000"}
             />
         </div>
-        <textarea type="text" onChange={handleChange} style={{width:"80vw", height:"12vh", size:200}} maxlength="12000">
+        <textarea 
+        type="text"
+        onChange={handleChange}
+        style={{width:"80vw", height:"12vh", size:200}}
+        maxLength="1000">
         {comentario}
         </textarea>
         <div>
