@@ -5,11 +5,15 @@ import './Carrito.css';
 import {Link} from 'react-router-dom';
 
 
+
 const Carrito = () => {
-    
+  
     const [cambio,setCambio]=useState(false);
     const [prodcarrito,setProdCarrito]=useState([]);
     const [total,setTotal]=useState(false);
+
+    
+  
     
     
     useEffect(()=>{

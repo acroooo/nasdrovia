@@ -1,33 +1,30 @@
 import React from 'react';
 
 
-const Listado = () => {
+const Listado = ({ ordenes }) => {
 
-    const ordenes = [
-        {id:1,estado:'carrito',total:2000,creadtedAt:'2020-12-20',updatedAt:'2020-12-10',UserId:3},
-        {id:2,estado:'rechazado',total:2000,creadtedAt:'2020-12-20',updatedAt:'2020-12-10',UserId:3},
-        {id:3,estado:'carrito',total:2000,creadtedAt:'2020-12-20',updatedAt:'2020-12-10',UserId:3},
-        {id:4,estado:'rechazado',total:2000,creadtedAt:'2020-12-20',updatedAt:'2020-12-10',UserId:3},
-        {id:5,estado:'carrito',total:2000,creadtedAt:'2020-12-20',updatedAt:'2020-12-10',UserId:3},
-    ]
+  
 
-
-    return (  
-    ordenes.map(orden=>
-        {  let claseBtn=orden.estado==='carrito' ? 'btn-estado-orden completado' : 'btn-estado-orden rechazado'; 
-        const {id,estado,total,creadtedAt,updatedAt,UserId} = orden;
-      return (<section className='categorias-h row py-1 py-md-2 mb-1 text-center' key={id} >
-        <div className="col-2 text-center">{id}</div>
-        <div className="col-2 text-center">
-         <button className={claseBtn} disabled>{estado[0].toUpperCase()+estado.slice(1)}</button>
-        </div>
-        <div className="col-2 text-center">$ {total.toString()[0] + '.' + total.toString().slice(1)}</div>
-        <div className="col-2 text-center">{creadtedAt}</div>
-        <div className="col-2 text-center">{updatedAt}</div>
-        <div className="col-2  text-center">{UserId}</div>
-        </section>)}
+    return (
+        ordenes.map(orden => {
+            let claseBtn = orden.estado === 'carrito' ? 'btn-estado-orden completado' : 'btn-estado-orden rechazado';
+            const { id, estado, total, createdAt, updatedAt, usuarioId, lineaDeOrdens } = orden;
+            let subtotal = 0;
+            lineaDeOrdens.forEach(ele => subtotal += ele.precio);
+            return (<section className='categorias-h row py-1 py-md-2 mb-1 text-center ordenes-cliente' key={id} >
+                <div className="col-2 text-center d-flex align-items-center justify-content-center">{id}</div>
+                <div className="col-2 text-center d-flex align-items-center justify-content-center">
+                    <button className={claseBtn} disabled>{estado[0].toUpperCase() + estado.slice(1)}</button>
+                </div>
+                <div className="col-2 text-center d-flex align-items-center justify-content-center">$ {subtotal.toString()[0] + '.' + subtotal.toString().slice(1)}</div>
+                <div className="col-2 text-center d-flex align-items-center justify-content-center">{createdAt.slice(0, 10)}</div>
+                <div className="col-2 text-center d-flex align-items-center justify-content-center">{updatedAt.slice(0, 10)}</div>
+                <div className="col-2  text-center d-flex align-items-center justify-content-center">{usuarioId}</div>
+                 
+            </section>)
+        }
         )
     );
 }
- 
+
 export default Listado;

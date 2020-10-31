@@ -11,12 +11,21 @@ const FormularioCheckout = () => {
   const handleChange = e=>{
     setDatos({...datos,[e.target.name]:e.target.value});
   }
-
+  const usuarioLogin = useSelector((state) => state.usuario);
 
   const sendUserData = (e) => {
     e.preventDefault()
     Axios.post(`http://localhost:3001/usuario/datos/${id}`, datos)
       .then((res)=>{ res.status == 200 ? alert("OK"):  Axios.put(`http://localhost:3001/usuario/actualizar-datos/${id}`, datos)})
+      let carrito = JSON.parse(localStorage['carrito'])
+      let productos = {"productos":{"list":carrito}}
+      
+      Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,productos)
+      .then(()=>console.log('posteado'))
+      .catch((err)=>console.log(err))
+      ///:id/cart/status
+
+      Axios.put(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart/status`,{estado:'creada'})
   }
 
     return (

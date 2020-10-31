@@ -5,6 +5,7 @@ import AllReviews from "../reviews/allReviews";
 import allActions from "../../redux/actions/allActions";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import swal from 'sweetalert';
 
 const ProductInfo = (props) => {
 
@@ -35,6 +36,7 @@ const ProductInfo = (props) => {
    const {precio,nombre,stock,productId}=productoStore;
    const imagen = productoStore.images[0][0];
 
+   if(cantidad<stock){
     if (carrito) {
       if (carrito.length > 0) {
         let carriton = JSON.parse(localStorage["carrito"]);
@@ -71,7 +73,13 @@ const ProductInfo = (props) => {
       localStorage.setItem("carrito", JSON.stringify(carritos));
     }
     setCant(cantidad+1)
-  
+
+   }
+
+   if(cantidad===stock){
+    swal("Lo siento!", "Has superado el limite del stock", "error");
+  }
+
   };
 
   const disminuirCantidad = ()=>{
@@ -102,13 +110,13 @@ document.getElementById('img-actual').src=productoStore.images[0][num];
         <div className="row">
           <aside className="col-2 text-center mt-3">
      
-            <img src={productoStore.images[0][0]} onClick={()=>cambiarImagen(0)}/>
+           {/*  <img src={productoStore.images[0][0]} onClick={()=>cambiarImagen(0)}/>
           {productoStore.images[0][1] && <img src={productoStore.images[0][1]} onClick={()=>cambiarImagen(1)}/>}
-          {productoStore.images[0][2] && <img src={productoStore.images[0][2]} onClick={()=>cambiarImagen(2)}/>} 
+          {productoStore.images[0][2] && <img src={productoStore.images[0][2]} onClick={()=>cambiarImagen(2)}/>}  */}
         
           </aside>
           <main className="col-6  text-center">
-             <img src={productoStore.images[0][0]} id='img-actual'/> 
+            {/*  <img src={productoStore.images[0][0]} id='img-actual'/>  */}
           </main>
           <section className="col-4 ">
             <p className="nombre">{productoStore.nombre}</p>

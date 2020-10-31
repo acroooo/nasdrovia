@@ -73,7 +73,7 @@ export default function Card({ producto, stockDisplay }) {
               stock={stock}
               productoId={id}
               precio={precio}
-              imagen={images[0][0]}
+              // imagen={images[0][0]}
             />
           </div>
         ) : (
@@ -84,7 +84,7 @@ export default function Card({ producto, stockDisplay }) {
             <img
               className="img-product-card"
               id={`img${nombreR}`}
-              src={images[0][0]}
+              // src={images[0][0]}
               alt={nombre}
             />
           </div>

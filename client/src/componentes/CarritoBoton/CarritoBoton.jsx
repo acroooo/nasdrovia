@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./carroBoton.css";
 import anime from "animejs/lib/anime.es.js";
-import Axios from "axios";
 import {useSelector} from "react-redux";
+import swal from 'sweetalert';
 
 
 export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }) {
@@ -95,10 +95,11 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }
   }, [cantidad, stock]);
 
   function handleClick() {
-    setCantidad(cantidad + 1);
 
+    if(cantidad<stock){
+
+    setCantidad(cantidad + 1);
     let carrito = localStorage['carrito'];
-  
      if(carrito){
      
     if(carrito.length>0){
@@ -130,9 +131,14 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }
     } 
 
     setAumentar(true);
+    }
+
+    if(cantidad===stock){
+      swal("Lo siento!", "Has superado el limite del stock", "error");
+    }
+
+ 
     
-
-
     const tl = anime.timeline();
     tl.add({
       targets: `#carro${nombreR}`,
@@ -155,7 +161,6 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }
   }
 
 
-
   function handleClickMin() {
     setCantidad(cantidad - 1);
     let carrito = JSON.parse(localStorage['carrito']);
@@ -164,9 +169,8 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }
     actual.cantidad=cantidad-1;
    carritoFiltrado.push(actual)
    localStorage.setItem('carrito',JSON.stringify(carritoFiltrado));
-
    setAumentar(true);
-   
+
   }
   return (
     <div className="carroBoton-Container">

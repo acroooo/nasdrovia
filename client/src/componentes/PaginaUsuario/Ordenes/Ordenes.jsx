@@ -5,12 +5,12 @@ import Listado from './Listado';
 import './Ordenes.css';
 
 
-const Ordenes = () => {
+const Ordenes = ({ordenes}) => {
     return (  
         <div className="container general">
             <Encabezado/>
              <Titulos/>
-             <Listado/>
+             <Listado  ordenes={ordenes}/>
              
         </div>
     );

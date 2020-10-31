@@ -55,7 +55,6 @@ const ResumenOrden = ({total,setTotal}) => {
       :null
       }
 
-       {/* {checkout && <Card productos={productos}/> } */}
        <Link to='/checkout'><button className='btn-comprar-carr'>Confirmar compra</button></Link>  
 
       </div>
