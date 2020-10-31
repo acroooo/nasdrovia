@@ -69,6 +69,7 @@ export default function Card({ producto, stockDisplay }) {
         {stockDisplay ? (
           <div className="carro" id={`carro-full${nombreR}`}>
             <CarroBoton
+              nombre={nombre}
               nombreR={nombreR}
               stock={stock}
               productoId={id}

@@ -11,17 +11,17 @@ const Checkout = () => {
             <div className="row">
                 <div className="col-8 seccion-formulario">
                     <h2 className='mb-3 titulo-checkout mt-3'>DIRECCIÓN DE ENTREGA</h2>
-                         <Formulario/>
+                        <Formulario/>
                 
                 </div>
                 <div className="col-4 mt-3">
-                  <Resumen/> 
+                <Resumen/> 
                 </div>
             </div>
             </div>
-          
+        
         </section>
     );
 }
- 
+
 export default Checkout;

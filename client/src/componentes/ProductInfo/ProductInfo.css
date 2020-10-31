@@ -32,7 +32,9 @@
   border-top: 1px solid #ccc;
   margin-top: 40px;
   padding-top: 10px;
-  width: 300px;
+  object-fit: contain;
+  height: 500px;
+  width: 500px;
 }
 .general-product-info section {
   padding: 20px;
@@ -74,7 +76,7 @@
   padding: 6px 14px;
   width: 200px;
   border-radius: 4px;
-  background: #015386;
+  background: #d30208;
   color: #fff;
   font-weight: 500;
   transition: 0.4s all;

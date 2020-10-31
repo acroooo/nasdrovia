@@ -26,51 +26,48 @@ router.get("/", (req, res) => {
   }).then((r) => {
     if (r.length <= 0) {
       res.status(400).send("no existe su petición");
+    } else {
+      res.status(200).send(r);
     }
-    else { res.status(200).send(r) };
   });
 });
 
 //Agregar productos al carro
-router.post("/:idCarro/cart", (req, res)=>{
-  let lista = []
-  id = req.params.idCarro
-  let productos = req.body.productos
-  console.log(productos)
-  console.log( typeof productos)
-  if (typeof productos !== "object"){
-    productos = JSON.parse(req.body.productos)
+router.post("/:idCarro/cart", (req, res) => {
+  let lista = [];
+  id = req.params.idCarro;
+  let productos = req.body.productos;
+  console.log(productos);
+  console.log(typeof productos);
+  if (typeof productos !== "object") {
+    productos = JSON.parse(req.body.productos);
   }
-  console.log( typeof productos)
+  console.log(typeof productos);
   //Llenamos la lista de productos
-  productos.list.forEach(element => {
+  productos.list.forEach((element) => {
     let producto = {
       productoId: element.productoId,
       carritoId: id,
       cantidad: element.cantidad,
-      precio: element.precio
-    }
-    lista.push(producto)
+      precio: element.precio,
+    };
+    lista.push(producto);
   });
-  let listaAnterior = LineaDeOrden.findAll({ where: { carritoId: id }})
-  console.log(listaAnterior)
-  if(listaAnterior){
-      LineaDeOrden.destroy({ where: { carritoId: id } })
-    }
+  let listaAnterior = LineaDeOrden.findAll({ where: { carritoId: id } });
+  console.log(listaAnterior);
+  if (listaAnterior) {
+    LineaDeOrden.destroy({ where: { carritoId: id } });
+  }
 
- 
   //Creamos las lineasDeOrden asociadas al carrito
-  LineaDeOrden.bulkCreate(lista) 
-
+  LineaDeOrden.bulkCreate(lista)
   .then(
-    Carrito.findOne(
-      {where: { id: id },
+    Carrito.findOne({
+      where: { id: id },
       include: LineaDeOrden,
-    }
-    ).then(
-      (carrito)=> res.json(carrito)
-      ))
-})
+    }).then((carrito) => res.json(carrito))
+  );
+});
 
 //Editar las cantidad con el id del carro y el id producto la cantidad
 router.put("/:id/cart", async (req, res) => {
@@ -81,9 +78,9 @@ router.put("/:id/cart", async (req, res) => {
       .then((existe) => {
         !!existe
           ? LineaDeOrden.update(
-            { producto: producto, cantidad: cantidad, precio: precio },
-            { where: { carritoId: idCarrito } }
-          ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
+              { producto: producto, cantidad: cantidad, precio: precio },
+              { where: { carritoId: idCarrito } }
+            ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
@@ -105,45 +102,42 @@ router.delete("/borrar/:idCarro", async (req, res) => {
   });
   res.status(200).json(compras);
 });
-router.put("/:id/cart/status", (req,res)=>{
+
+router.put("/:id/cart/status", (req, res) => {
   let idCarrito = req.params.id;
-  let { estado} = req.body;
+  let { estado } = req.body;
   if (estado) {
     Carrito.findOne({ where: { id: idCarrito } })
       .then((existe) => {
         !!existe
           ? Carrito.update(
-
-              { estado:estado },
+              { estado: estado },
               { where: { id: idCarrito } }
             ).then(res.status(200).json({ OK: "Actualizado correctamente" }))
-
           : res.status(400).json({ Error: "Linea de orden no existente" });
       })
       .catch((err) => res.status(400).json({ Error: err }));
   } else {
     res.status(400).json({ Error: "Envia almenos un parametro" });
   }
-})
+});
 
-router.put("/:id/set-total", async (req,res)=>{
+router.put("/:id/set-total", async (req, res) => {
   let idCarrito = req.params.id;
   let total = 0;
-  let data = await Carrito.findOne(
-    {where: { id: idCarrito },
+  let data = await Carrito.findOne({
+    where: { id: idCarrito },
     include: LineaDeOrden,
-  })
-  if(data){
-  data.lineaDeOrdens.forEach(element => {
-    total+=element.dataValues.precio
   });
-  Carrito.update(
-    { total:total },
-    { where: { id: idCarrito } }
-  ).then(res.status(200).json({ OK: "Total seteado" }))
-  }else{
-    res.status(200).json({ Error:"Esa orden no existia" })
+  if (data) {
+    data.lineaDeOrdens.forEach((element) => {
+      total += element.dataValues.precio;
+    });
+    Carrito.update({ total: total }, { where: { id: idCarrito } }).then(
+      res.status(200).json({ OK: "Total seteado" })
+    );
+  } else {
+    res.status(200).json({ Error: "Esa orden no existia" });
   }
-}
-)
+});
 module.exports = router;
