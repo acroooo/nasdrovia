@@ -37,8 +37,10 @@ const Registro = ({ setTipo }) => {
       });
     e.target.reset();
     swal("Buen trabajo!", "Te has registrado correctamente!", "success");
+
+
     setTimeout(() => setTipo("ingresar"),1000);
-    
+
   };
 
   return (
