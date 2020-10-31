@@ -5,7 +5,7 @@ import "./passReset.css";
 import Axios from "axios";
 import { set } from "js-cookie";
 //reset password
-const Login = ({ setFormulario, setLogueado }) => {
+const Login = ({ setFormulario, setLogueado,setTipo }) => {
   const [contr1, setContr1] = useState();
   const [contr2, setContr2] = useState();
   const [error, setError] = useState(false);
@@ -50,7 +50,8 @@ const Login = ({ setFormulario, setLogueado }) => {
         button: "Aceptar",
       }))
       .catch(() => setPostError("No se pudo actualizar la contraseña"));
-     
+      // window.location='/';
+
     }
 
     
@@ -89,9 +90,7 @@ const Login = ({ setFormulario, setLogueado }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-      <button className="mt-3" onClick={handleConfirmar}>
-        Confirmar
-      </button>
+     <button className="mt-3" onClick={handleConfirmar}>Confirmar</button>
     </form>
   );
 };

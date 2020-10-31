@@ -46,7 +46,7 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://localhost:3000/",
+    successRedirect: "http://localhost:3000/perfil",
   })
 );
 
@@ -59,8 +59,11 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3000/",
+    successRedirect: "http://localhost:3000/perfil",
   })
+  
+ 
+
 );
 
 module.exports = router;

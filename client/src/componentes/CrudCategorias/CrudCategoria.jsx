@@ -61,7 +61,7 @@ const CrudCategoria = () => {
 
   if (usuarioLogin.rol === "admin") {
     return (
-      <div className="total">
+ 
         <div className="container general">
           <EncabezadoCategoria setAccion={setAccionCategorias} />
           <TitulosCategorias />
@@ -83,7 +83,7 @@ const CrudCategoria = () => {
             lista={listadoCategorias}
           />
         </div>
-      </div>
+      
     );
   }
   return (

@@ -10,10 +10,13 @@ body{font-family:  Arial, sans-serif;}
     border: 1px solid #ccc;
     border-radius: 4px;
 } 
-.general{position: relative;}
+.general{position: relative;bottom: 60px;}
 .encabezado{
     border-radius: 4px;
     background-color:#015386;
+}
+#ncat{
+    color:#015386;
 }
 .grupo-header>input{
     border-radius: 2px;

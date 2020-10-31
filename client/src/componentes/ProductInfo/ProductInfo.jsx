@@ -18,19 +18,12 @@ const ProductInfo = (props) => {
 
   const [cant,setCant]=useState(cantidad);
  
-
-
-
   const id = props.match.params.id;
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(id));
-  
-  
   }, []);
 
 
-
-  
  const aumentarCantidad = () => {
     let carrito = localStorage["carrito"];
    const {precio,nombre,stock,productId}=productoStore;

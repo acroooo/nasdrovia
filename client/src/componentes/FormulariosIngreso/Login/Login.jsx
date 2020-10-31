@@ -167,7 +167,7 @@ const Login = ({ setTipo, cerrar }) => {
      </Link> 
 
       <button
-        className="btn-alternativo btn-fac d-flex align-items-center"
+        className="btn-alternativo btn-fac d-flex align-items-center my-2"
         id="face"
         value="facebook"
         onClick={facebook}
@@ -177,7 +177,7 @@ const Login = ({ setTipo, cerrar }) => {
       </button>
 
       <button
-        className="btn-alternativo btn-goo d-flex align-items-center"
+        className="btn-alternativo btn-goo d-flex align-items-center my-2"
         id="goog"
         value="google"
         onClick={google}

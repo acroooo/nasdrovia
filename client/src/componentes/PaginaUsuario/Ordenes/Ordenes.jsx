@@ -11,6 +11,9 @@ const Ordenes = ({ordenes}) => {
             <Encabezado/>
              <Titulos/>
              <Listado  ordenes={ordenes}/>
+             <div className="relleno">
+                 
+             </div>
              
         </div>
     );

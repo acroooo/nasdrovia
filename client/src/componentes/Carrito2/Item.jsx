@@ -3,15 +3,22 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 
-const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, setTotal }) => {
+const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, setTotal,setItems }) => {
   const nombreR = nombre.replace(" ", "_");
   const [cantidadActual, setCantidadActual] = useState(cantidad);
-  const [stockPro, setStockPro] = useState()
+  
+
+
+  let cantidadItems=0;
+  let carrito = localStorage["carrito"] ? JSON.parse(localStorage['carrito']):[];
+  if(carrito){carrito.forEach((car)=>{cantidadItems+=parseInt(car.cantidad)})}
+  console.log(cantidadItems)
+
+  
 
 
   const aumentarCantidad = async () => {
     let carrito = localStorage["carrito"];
-
     let respuesta = await axios.get(`http://localhost:3001/producto/${productoId}`)
     let stockPro = await respuesta.data.stock;
 
@@ -55,6 +62,9 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
         }
         setCantidadActual(cantidadActual + 1);
         setTotal(true);
+        cantidadItems=cantidadItems+1;
+        setItems(cantidadItems)
+      
       }
      
     }
@@ -75,6 +85,8 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
       setCantidadActual(cantidadActual - 1);
     }
     setTotal(true);
+    cantidadItems=cantidadItems-1;
+    setItems(cantidadItems)
   }
 
   const eliminarProducto = () => {
