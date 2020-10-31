@@ -3,20 +3,24 @@ const { Usuario } = require("../db"); //Revisar si va esta parte
 const passport = require("passport");
 const { isAuthenticatedAndAdmin } = require("./middlewares");
 
+//----------Logueo-------------
 router.post("/login", passport.authenticate("local"), (req, res) => {
   res.status(201).send(req.user["dataValues"]);
 });
 
+//-------------Deslogueo--------------
 router.post("/logout", (req, res) => {
   req.logout();
   res.status(201).send("Usuario deslogueado");
 });
 
+//------------Perfil usuario---------
 router.get("/me", (req, res) => {
   if (req.isAuthenticated()) return res.send(req.usuario);
   else return res.status(401).send("Usuario no se encuentra logueado");
 });
 
+//-------Cambio rol de usuario-------
 router.post("/promote/:id", async (req, res) => {
   id = req.params.id;
   const user = await Usuario.findOne({ where: { id } });
@@ -24,12 +28,6 @@ router.post("/promote/:id", async (req, res) => {
   await user.update({ rol: "admin" });
   return res.status(201).send(user);
 });
-//--------- Autenticación Facebook-----------
-router.get(
-  "/auth/facebook",
-  passport.authenticate("facebook", { scope: ["email"], display: "popup" })
-);
-
 
 router.post("/revoque/:id", async (req, res) => {
   id = req.params.id;
@@ -39,14 +37,18 @@ router.post("/revoque/:id", async (req, res) => {
   return res.status(201).send(user);
 });
 
+//--------- Autenticación Facebook-----------
+router.get(
+  "/facebook",
+  passport.authenticate("facebook", { scope: ["email"] })
+);
 
-router.get("/facebook/callback", passport.authenticate("facebook"), function (
-  req,
-  res
-) {
-  // Successful authentication, redirect home.
-  res.redirect("/me");
-});
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "http://localhost:3000/",
+  })
+);
 
 //--------- Autenticación Google -----------
 
@@ -56,11 +58,9 @@ router.get(
 );
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/");
-  }
+  passport.authenticate("google", {
+    successRedirect: "http://localhost:3000/",
+  })
 );
 
 module.exports = router;
