@@ -1,10 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import './Datos.css';
 
 const Datos = () => {
+
+    const [cambiar,setCambiar]=useState(false);
+
     return (
-
-
 
         <section className='seccion-datosUser'>
             <h4 className='titulo-seccion mt-4'>TUS DATOS</h4>
@@ -82,8 +84,11 @@ const Datos = () => {
                     <div className="linea linea-correo "></div>
                 </div>
 
-                <p className='subtitulo-contraseña'>CAMBIA TU CONTRASEÑA</p>
+               {!cambiar && <p className='subtitulo-contraseña' onClick={()=>setCambiar(true)}>CAMBIA TU CONTRASEÑA</p>}
+               {cambiar && <p className='subtitulo-contraseña' onClick={()=>setCambiar(false)}>VOLVER</p>}
+             
 
+                {cambiar && 
                 <div className='seccion-contraseña'>
                     <div className="cambiar-contraseña ">
 
@@ -100,7 +105,7 @@ const Datos = () => {
 
                     </div>
 
-                </div>
+                </div>}
 
 
 

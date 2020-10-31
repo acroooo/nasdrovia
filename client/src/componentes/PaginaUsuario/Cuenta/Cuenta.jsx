@@ -1,8 +1,11 @@
 import React from 'react';
 import hei from '../../../Multimedia/hei.png'
 import './Cuenta.css';
+import {Link} from 'react-router-dom';
 
 const Cuenta = () => {
+    const productos = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
+
     return (  
         <section className='general-cuenta'>
             
@@ -15,12 +18,10 @@ const Cuenta = () => {
                 <h4>EN MI CARRITO</h4>
                 <small>3 ARTÍCULOS</small>
                 <div className="productos-contenido d-flex">
-                <img className='producto-perfil' src={hei} alt="cerveza"/> 
-                <img className='producto-perfil' src={hei} alt="cerveza"/> 
-                <img className='producto-perfil' src={hei} alt="cerveza"/> 
-                <img className='producto-perfil' src={hei} alt="cerveza"/> 
+                {productos.length>0 && productos.map(pro=><img className='producto-perfil' src={pro.imagen} alt="cerveza"/> )}
+                {productos.length===0 && <h3 className='mb-4'>NO HAY PRODUCTOS EN TU CARRITO</h3> }
                 </div>
-                <button  className='btn-verCarrito'>VER MI CARRITO <i className="fas fa-long-arrow-alt-right ml-2 flecha-larga"></i></button>
+              <Link to={productos.length ? '/carrito':'/'}><button  className='btn-verCarrito'>{productos.length ? 'Ver mi carrito':'Empezar a comprar'} <i className="fas fa-long-arrow-alt-right ml-2 flecha-larga"></i></button></Link>  
             </div>
                 <h4 className='subtitulos-cuenta'>TUS CUPONES</h4>
                 <p className='texto-normal'>Actualmente no hay cupones disponibles</p>

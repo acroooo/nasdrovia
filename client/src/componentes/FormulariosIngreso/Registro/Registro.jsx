@@ -7,7 +7,7 @@ const Registro = ({ setTipo }) => {
   const [datos, setDatos] = useState({});
 
   const [errorContraseña, setErrorContraseña] = useState(false);
-  const [emailRepetido, setEmailRepetido] = useState(false);
+ 
 
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -32,11 +32,15 @@ const Registro = ({ setTipo }) => {
     Axios.post("http://localhost:3001/usuario", { nombre, email, password })
       .then((ele) =>console.log(ele))
       .catch((err) => {
-        err.request.status && setEmailRepetido(true);
+       
         return console.log(err);
       });
     e.target.reset();
     swal("Buen trabajo!", "Te has registrado correctamente!", "success");
+
+
+    setTimeout(() => setTipo("ingresar"),1000);
+
   };
 
   return (
@@ -44,10 +48,17 @@ const Registro = ({ setTipo }) => {
       <div className="mensaje-bienvenida mb-5">
         <h2 className="mb-4">Regístrate</h2>
         <p>
-          ¿Ya tienes un perfil personal?{" "}
+          ¿Ya tienes un perfil personal?
           <span onClick={() => setTipo("ingresar")}>Iniciar sesión</span>
         </p>
       </div>
+
+      {errorContraseña && (
+        <p className="error-contraseña mb-5">
+          <i className="fas fa-unlock"></i> Las contraseñas no coinciden
+          <i className="fas fa-unlock"></i>
+        </p>
+      )}
 
       <div className="grupo-formulario">
         <input type="text" name="nombre" onChange={handleChange} required />
@@ -85,18 +96,8 @@ const Registro = ({ setTipo }) => {
         <i className="fas fa-lock"></i>
       </div>
 
-      {errorContraseña && (
-        <p className="error-contraseña">
-          <i className="fas fa-unlock"></i> Las contraseñas no coinciden{" "}
-          <i className="fas fa-unlock"></i>
-        </p>
-      )}
-      {emailRepetido && (
-        <p className="error-contraseña">
-          <i class="fas fa-exclamation-triangle"></i> El usuario ya se encuentra
-          registrado <i className="fas fa-exclamation-triangle"></i>
-        </p>
-      )}
+      
+     
       <button className="mt-3">Registrate</button>
     </form>
   );
