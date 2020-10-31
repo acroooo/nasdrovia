@@ -19,7 +19,6 @@ router.get("/me", (req, res) => {
 
 router.post("/promote/:id", async (req, res) => {
   id = req.params.id;
-
   const user = await Usuario.findOne({ where: { id } });
   if (!user) return res.status(400).send("no se encontro el usuario");
   await user.update({ rol: "admin" });
@@ -30,6 +29,16 @@ router.get(
   "/auth/facebook",
   passport.authenticate("facebook", { scope: ["email"], display: "popup" })
 );
+
+
+router.post("/revoque/:id", async (req, res) => {
+  id = req.params.id;
+  const user = await Usuario.findOne({ where: { id } });
+  if (!user) return res.status(400).send("no se encontro el usuario");
+  await user.update({ rol: "client" });
+  return res.status(201).send(user);
+});
+
 
 router.get("/facebook/callback", passport.authenticate("facebook"), function (
   req,
@@ -53,4 +62,5 @@ router.get(
     res.redirect("/");
   }
 );
+
 module.exports = router;

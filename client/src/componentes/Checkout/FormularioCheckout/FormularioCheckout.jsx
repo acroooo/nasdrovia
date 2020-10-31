@@ -12,7 +12,9 @@ const FormularioCheckout = () => {
     setDatos({...datos,[e.target.name]:e.target.value});
   }
 
-  const sendUserData = () => {
+
+  const sendUserData = (e) => {
+    e.preventDefault();
     Axios.post(`http://localhost:3001/usuario/datos/${id}`, datos)
       .then((res)=>{ res.status == 200 ? alert("OK"):  Axios.put(`http://localhost:3001/usuario/actualizar-datos/${id}`, datos)})
   }
@@ -140,7 +142,7 @@ const FormularioCheckout = () => {
                 <label htmlFor="express">Express</label>
                 <small className='mr-4'>$ 15.000</small>
             </div>
-//---------------------------------------------------------------------------------------------------------------------------
+
             <button className='btn-checkout mt-2 mb-4' onClick={sendUserData}>Pagar <i className="fas fa-long-arrow-alt-right ml-2"></i></button>
         
            <div className="promociones d-flex justify-content-around">

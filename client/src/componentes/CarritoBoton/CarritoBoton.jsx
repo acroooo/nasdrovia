@@ -3,7 +3,7 @@ import "./carroBoton.css";
 import anime from "animejs/lib/anime.es.js";
 import Axios from "axios";
 import {useSelector} from "react-redux";
-import Producto from "../Producto/Producto";
+
 
 export default function CarroBoton({ nombreR, stock, productoId, precio,imagen }) {
 

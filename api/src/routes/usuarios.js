@@ -110,7 +110,7 @@ router.get("/", (req, res) => {
       return res.status(400).send(err);
     });
 });
-router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.get("/:id", (req, res) => {
   let id = req.params.id;
   Usuario.findOne({ where: { id: id } })
     .then((usuario) => {
@@ -120,7 +120,7 @@ router.get("/:id", isAuthenticatedAndAdmin, (req, res) => {
       return res.status(400).send(err);
     });
 });
-router.delete("/:id", isAuthenticatedAndAdmin, (req, res) => {
+router.delete("/:id", (req, res) => {
   let { id } = req.params;
   Usuario.destroy({ where: { id } })
     .then((response) => {

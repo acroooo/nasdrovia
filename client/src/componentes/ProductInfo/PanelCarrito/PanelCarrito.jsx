@@ -17,7 +17,7 @@ const PanelCarrito = () => {
       <div>
         <div className="ocultar">
           <p className="titulo-pc">
-            <i class="fas fa-angle-right mr-5 ml-3"onClick={()=>document.getElementById('panel-carrito').classList.toggle('mostrar-carritopanel')}></i>
+            <i className="fas fa-angle-right mr-5 ml-3"onClick={()=>document.getElementById('panel-carrito').classList.toggle('mostrar-carritopanel')}></i>
             <span className="carr">Carrito</span>
           </p>
         </div>

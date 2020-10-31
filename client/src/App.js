@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import SearchBar from "./componentes/SearchBar/navBar.jsx";
 import Shop from "./componentes/Categoria/Shop";
-import Producto from "./componentes/Producto/Producto.jsx";
 import FormularioCrud from "./componentes/FormularioCrud/FormularioCrud.jsx";
 import Home from "./componentes/Home/Home.jsx";
 import CrudCategoria from "./componentes/CrudCategorias/CrudCategoria";
@@ -17,7 +16,6 @@ import EmailPassword from "./componentes/FormulariosIngreso/FormPassword/FormPas
 import PasswordReset from "./componentes/FormulariosIngreso/resetpassword/passReset.jsx";
 import Footer from "./componentes/footer/footer.jsx";
 import Moodal from "./componentes/modal+18/modal.jsx";
-
 import Carrito2 from "./componentes/Carrito2/Carrito";
 import ProductInfo from "./componentes/ProductInfo/ProductInfo";
 import Carrusel from "./componentes/carrousel/carrousel";

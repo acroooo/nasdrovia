@@ -54,7 +54,8 @@ export default function Icons() {
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
   }
-
+  //router.put("/:id/cart/status"
+ // Axios.put(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart/status`,)
 
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
@@ -65,7 +66,7 @@ export default function Icons() {
     
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
-    
+      localStorage.removeItem('subtotal');
   };
   
 
@@ -115,7 +116,7 @@ export default function Icons() {
 
       {usuarioLogin.rol !== "Guest" && (
         <div className="contenedor-salir">
-          <Link to="/productos">
+          <Link to="/">
             <i className="fas fa-sign-out-alt" onClick={cerrarSesion}></i>
           </Link>
           <small className="ml-1">Salir</small>
