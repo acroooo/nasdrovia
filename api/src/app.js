@@ -75,25 +75,9 @@ passport.use(
       clientSecret: FacebookClientSecret,
       callbackURL: "http://localhost:3001/auth/facebook/callback",
     },
-    async (accessToken, refreshToken, profile, done) => {
-      console.log("Facebook profile: ", profile);
-      try {
-        const [usuario, created] = await Usuario.findOrCreate({
-          where: { facebookId: profile.id },
-          defaults: {
-            nombre: profile.displayName,
-            email: profile.emails[0].value,
-          },
-        });
-        if (!usuario)
-          return done(null, false, {
-            message: "No pudimos loguearte con esa cuenta",
-          });
-
-        return done(null, usuario);
-      } catch (err) {
-        done(err);
-      }
+    function (accessToken, refreshToken, profile, done) {
+      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(null, profile);
     }
   )
 );
@@ -106,25 +90,9 @@ passport.use(
       clientSecret: googleClientSecret,
       callbackURL: "http://localhost:3001/auth/google/callback",
     },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        const [usuario, created] = await Usuario.findOrCreate({
-          where: { googleId: profile.id },
-          defaults: {
-            nombre: profile.displayName,
-            email: profile.emails[0].value,
-          },
-        });
-
-        if (!usuario)
-          return done(null, false, {
-            message: "No hemos pudido loguearte ",
-          });
-
-        return done(null, usuario);
-      } catch (err) {
-        done(err);
-      }
+    function (accessToken, refreshToken, profile, done) {
+      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(null, profile);
     }
   )
 );
