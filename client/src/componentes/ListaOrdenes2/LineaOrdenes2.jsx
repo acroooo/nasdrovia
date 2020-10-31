@@ -55,7 +55,7 @@ const LineaOrdenes = () => {
         <div className="container general-ordenes ">
           <Encabezado setActualizar={setActualizar} stateHandler={stateHandler} />
           <Ordenes />
-          <Listado lista={listado} />
+          <Listado lista={listado} setActualizar={setActualizar} />
         </div>
       </div>
     );

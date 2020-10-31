@@ -125,4 +125,25 @@ router.put("/:id/cart/status", (req,res)=>{
     res.status(400).json({ Error: "Envia almenos un parametro" });
   }
 })
+
+router.put("/:id/set-total", async (req,res)=>{
+  let idCarrito = req.params.id;
+  let total = 0;
+  let data = await Carrito.findOne(
+    {where: { id: idCarrito },
+    include: LineaDeOrden,
+  })
+  if(data){
+  data.lineaDeOrdens.forEach(element => {
+    total+=element.dataValues.precio
+  });
+  Carrito.update(
+    { total:total },
+    { where: { id: idCarrito } }
+  ).then(res.status(200).json({ OK: "Total seteado" }))
+  }else{
+    res.status(200).json({ Error:"Esa orden no existia" })
+  }
+}
+)
 module.exports = router;

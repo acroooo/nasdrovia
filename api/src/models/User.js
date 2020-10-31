@@ -34,25 +34,31 @@ module.exports = (sequelize) => {
       unique: true,
       validate: {
         isEmail: true,
-      }
+      },
     },
     password: {
       type: Sequelize.STRING,
       get() {
-          return () => this.getDataValue('password')
-      }
-  },
-     salt: {
-       type: DataTypes.STRING,
-       get(){
-        return ()=>this.getDataValue('salt')
-      }
-     },
-     resetToken: {
-      type: DataTypes.STRING
-     },
-     tokenLife: {
-      type: DataTypes.DATE
-     }
-    });
-}
+        return () => this.getDataValue("password");
+      },
+    },
+    salt: {
+      type: DataTypes.STRING,
+      get() {
+        return () => this.getDataValue("salt");
+      },
+    },
+    resetToken: {
+      type: DataTypes.STRING,
+    },
+    tokenLife: {
+      type: DataTypes.DATE,
+    },
+    googleId: {
+      type: DataTypes.STRING,
+    },
+    facebookId: {
+      type: DataTypes.STRING,
+    },
+  });
+};
