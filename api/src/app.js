@@ -46,6 +46,7 @@ server.use((req, res, next) => {
   next();
 });
 
+//------------------------Passport Autenticaciones------------------------
 passport.use(
   new LocalStrategy(
     {
@@ -74,15 +75,32 @@ passport.use(
       clientID: FacebookClientId,
       clientSecret: FacebookClientSecret,
       callbackURL: "http://localhost:3001/auth/facebook/callback",
+      profileFields: ["id", "emails", "displayName"],
     },
-    function (accessToken, refreshToken, profile, done) {
-      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const [usuario, created] = await Usuario.findOrCreate({
+          where: { facebookId: profile.id },
+          defaults: {
+            nombre: profile.displayName,
+            email: profile.emails[0].value,
+          },
+        });
+
+        if (!usuario)
+          return done(null, false, {
+            message: "No pudimos loguearte con esa cuenta",
+          });
+        return done(null, usuario);
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
 
 //----------------------------------PASSPORT GOOGLE-STRATEGY---------------------------------------
+
 passport.use(
   new GoogleStrategy(
     {
@@ -90,17 +108,33 @@ passport.use(
       clientSecret: googleClientSecret,
       callbackURL: "http://localhost:3001/auth/google/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
-      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+      try {
+        const [usuario, created] = await Usuario.findOrCreate({
+          where: { googleId: profile.id },
+          defaults: {
+            nombre: profile.displayName,
+            email: profile.emails[0].value,
+          },
+        });
+
+        if (!usuario)
+          return done(null, false, {
+            message: "No pudimos loguearte con esa cuenta",
+          });
+        return done(null, usuario);
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
-
+//-------------------- Serialize-----------------
 passport.serializeUser((usuario, done) => {
   done(null, usuario.id);
 });
 
+//------------------- Deserialize----------------
 passport.deserializeUser(function (id, done) {
   Usuario.findByPk(id)
     .then((usuario) => {
@@ -109,7 +143,7 @@ passport.deserializeUser(function (id, done) {
     .catch((err) => done(err, null));
 });
 
-//------Passport Sesion
+//------------------Passport Sesion---------------
 server.use(passport.initialize());
 server.use(passport.session());
 

@@ -47,7 +47,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3000/succes",
+    successRedirect: "http://localhost:3000/",
   })
 );
 module.exports = router;
