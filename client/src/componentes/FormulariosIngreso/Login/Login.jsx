@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
 import "./Login.css";
 import Axios from "axios";
 import allActions from "../../../redux/actions/allActions.js";
@@ -49,7 +48,7 @@ const Login = ({ setTipo, cerrar }) => {
       );
       
 
-      if (getId.statusText !==400) {
+      if (getId.statusText !=="No Content") {
         usuarioLog.carritoId = getId.data.id;
         dispatch(allActions.login(usuarioLog));
 
@@ -69,8 +68,6 @@ const Login = ({ setTipo, cerrar }) => {
             if(actual){
               let nuevo = productosActual.filter(prod=>prod.nombreR!==objeto.nombreR);
               actual.cantidad=actual.cantidad+objeto.cantidad;
-              console.log('este es el',nuevo)
-              console.log('este es actual',actual)
               nuevo.push(actual);
               productosActual=nuevo;
             
@@ -83,6 +80,7 @@ const Login = ({ setTipo, cerrar }) => {
           .catch(err=>console.log(err))
         })  
       } else {
+        console.log("entre al post!")
         const carrito = await Axios.post(
           `http://localhost:3001/usuario/${usuario.data.id}/cart`
         );
