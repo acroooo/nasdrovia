@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 
 import Axios from "axios";
 
-export default function FormPassword() {
+export default function FormPassword({setTipo}) {
   //--------------------- Hooks-----------------------
   const [inputValues, setInputValues] = useState({ email: null });
   const [error, setError] = useState(false);
@@ -53,7 +53,8 @@ export default function FormPassword() {
         <i className="fas fa-envelope"></i>
       </div>
 
-      <button className="mt-3">Enviar</button>
+      <button className="mt-1">Enviar</button>
+      <small className='mt-2' onClick={()=>setTipo('ingresar')}>Iniciar Sesión</small>
     </form>
   );
 }

@@ -122,11 +122,13 @@ const Login = ({ setTipo, cerrar }) => {
         {error && <p className="error-login text-white">Datos incorrectos</p>}
       </div>
 
-      <div className="grupo-formulario mt-0">
+  
+      <div className="grupo-formulario">
         <input
           type="text"
           name="email"
           value={inputValues.email}
+          required
           onChange={handleChange}
         />
         <label className="etiqueta">Email</label>
@@ -145,9 +147,12 @@ const Login = ({ setTipo, cerrar }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-      <Link to="/cambioPassword">
-        <small>¿Olvidaste la contraseña?</small>
-      </Link>
+      {/* <Link to="/cambioPassword">
+        <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
+      </Link> */}
+    
+        <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
+     
 
      <Link to='/'>
      <button className="mt-3 btn-ingresar" onClick={handleSubmit}>

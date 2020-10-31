@@ -25,7 +25,7 @@ const Carrito = () => {
             <div className='col-12 col-lg-8'>
                 <div className='cont-uno d-flex justify-content-between'>
                 <h4 className='titulo-carrito w-75'>Tu carrito  <small className='ml-3 cant'>{prodcarrito && prodcarrito.length} {prodcarrito && prodcarrito.length === 1 ? 'Artículo' : 'Artículos'}</small>  </h4>
-            <Link to='productos'><span className='sc '>{prodcarrito.length>0 ? 'Sigue comprando':'Empieza a comprar'}</span></Link>   
+            <Link to='/'><span className='sc '>{prodcarrito.length>0 ? 'Sigue comprando':'Empieza a comprar'}</span></Link>   
             
                 </div>
                 {prodcarrito && prodcarrito.map(p => (

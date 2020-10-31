@@ -86,9 +86,11 @@
     background-color: #d30208;
     color: #fff;
     border-radius: 4px;
-    margin: 2px 0;
+    margin: 2px auto;
     padding: 2px 0;
     padding-top: 4px;
+    width: 90%;
+    opacity: .8;
 }
 
 .error-registro>.fas,.error-contraseña>.fas{
