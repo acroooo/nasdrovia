@@ -147,10 +147,7 @@ const Login = ({ setTipo, cerrar }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
-      {/* <Link to="/cambioPassword">
-        <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
-      </Link> */}
-    
+     
         <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
      
 

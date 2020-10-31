@@ -93,6 +93,7 @@ document.getElementById('img-actual').src=productoStore.images[0][num];
  
   
   return (
+    
     <div className="general-product-info ">
       <p className="texto-nombre-seccion">
         Inicio / <span>{productoStore.nombre}</span>{" "}

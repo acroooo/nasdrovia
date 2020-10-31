@@ -24,10 +24,12 @@ export default function AllReviews({ id }) {
         Axios.get(`http://localhost:3001/producto/${id}/reviewprom`).then((respuesta) => {
             setPromedio({ res: respuesta.data, isLoaded: true })
         })
+    
 
-    }, [])
+    }, [id])
     useEffect(()=>{
         if(reviews.isLoaded){
+            console.log("entré!")
         const check=checkUsuarioPost()
         setCheckedUsuario({res:check, isSet:true})}
     },[reviews])
@@ -52,13 +54,17 @@ export default function AllReviews({ id }) {
     const checkUsuarioPost=()=>{
         let res;
         if (reviews.isLoaded){
+            if(usuarioLogin.id===0){
+                res=true
+            }else {
         reviews.res.forEach((review)=>{
             if(review.usuarioId.toString() ===usuarioLogin.id.toString() ){
                 res= true;
             }else{
                 res= false;
             }
-        })   
+        })   }
+        console.log(res)
         return !!res;
     }
     }
@@ -70,7 +76,7 @@ export default function AllReviews({ id }) {
     return (
         
         <div className="allReviews">
-            {usuarioLogin.id === 0 && checkedUsuario.isSet || checkedUsuario.res? <></> :
+            {checkedUsuario.isSet && checkedUsuario.res? <></> :
                 <PostReview
                     handleCick={handleCick}
                     setComentario={setComentario}

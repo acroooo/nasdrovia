@@ -3,6 +3,7 @@ import Stars from "./stars/stars";
 import Comentarios from "./comentario/comentario";
 import Axios from "axios";
 import EditAlert from "./editAlert";
+import "./style/reviews.css"
 
 export default function ({review, usuarioLoginId, productoId, setReviews, setPromedio}){
     const[displayEdit, setDisplayEdit]=useState(false);
@@ -18,26 +19,31 @@ export default function ({review, usuarioLoginId, productoId, setReviews, setPro
         })
     }
     const handleEdit=(e)=>{
-        setDisplayEdit(true);
+        setDisplayEdit(!displayEdit);
     }
     const {commentary, qualification, usuarioId}=review;
     return (
-        <div className="Reviews-Component">
+        <div className="Reviews-Component-css">
+        <div className="calificacion-review-css">
         <Stars calificacion={qualification} size={35}/>
+        </div>
+        <div className="comentario-review-css">
         <Comentarios comentario={commentary}/>
+        </div>
         {usuarioLoginId === usuarioId?
         <div>
         <div className="delete-review-css" onClick={handleDelete}>
-        <i className="fas fa-trash"></i>
+        <i className="fas fa-trash" style={{color: '#3c3c3c',backgroundColor: '#fff',fontSize: '20px'}}></i>
         </div>
         <div className="edit-review-css" onClick={handleEdit}>
-        <i className="fas fa-edit"></i>
+        <i className="fas fa-edit" style={{color: '#3c3c3c',backgroundColor: '#fff',fontSize: '20px'}}></i>
         </div>
         </div>
         :<></>}
 
         {
             displayEdit?
+            <div className="editDisplay-css">
             <EditAlert 
             setDisplayEdit={setDisplayEdit}
             comentario={commentary}
@@ -46,7 +52,8 @@ export default function ({review, usuarioLoginId, productoId, setReviews, setPro
             productoId={productoId}
             setReviews={setReviews}
             setPromedio={setPromedio}
-            />:
+            />
+            </div>:
             <></>
             
         }
