@@ -81,7 +81,7 @@ const FormularioCrud = () => {
   if (usuarioLogin.rol === "admin") {
     if (listadoProductos.isLoaded) {
       return (
-        <div className="total">
+ 
           <div className="container general">
             <EncabezadoCrud setAccion={setAccion} />
             <TitulosFiltros />
@@ -115,7 +115,7 @@ const FormularioCrud = () => {
               categorias={categorias}
             />
           </div>
-        </div>
+     
       );
     } else {
       return <div>Cargando</div>;

@@ -16,7 +16,7 @@ const Cuenta = () => {
 
             <div className="contenido-carrito">
                 <h4>EN MI CARRITO</h4>
-                <small>3 ARTÍCULOS</small>
+                <small>{productos.length} ARTÍCULOS</small>
                 <div className="productos-contenido d-flex">
                 {productos.length>0 && productos.map(pro=><img className='producto-perfil' src={pro.imagen} alt="cerveza"/> )}
                 {productos.length===0 && <h3 className='mb-4'>NO HAY PRODUCTOS EN TU CARRITO</h3> }

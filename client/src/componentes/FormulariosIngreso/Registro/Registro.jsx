@@ -3,6 +3,7 @@ import "./Registro.css";
 import Axios from "axios";
 import swal from 'sweetalert';
 
+
 const Registro = ({ setTipo }) => {
   const [datos, setDatos] = useState({});
 

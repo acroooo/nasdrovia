@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 
 
-const ResumenOrden = ({total,setTotal}) => {
+const ResumenOrden = ({total,setTotal,items}) => {
 
   const [subtotal,setSubtotal]=useState(0)
   let productos = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
@@ -21,7 +21,7 @@ const ResumenOrden = ({total,setTotal}) => {
 
     return ( 
         <div className="contenido-resumen">
-        <p className="mb-1">{productos.length} PRODUCTOS</p>
+        <p className="mb-1">{items} PRODUCTOS</p>
         <div className="precio-resumen d-flex justify-content-between">
           <p>Subtotal</p>
         <p>$ {subtotal}</p>
@@ -55,7 +55,6 @@ const ResumenOrden = ({total,setTotal}) => {
       :null
       }
 
-       {/* {checkout && <Card productos={productos}/> } */}
        <Link to='/checkout'><button className='btn-comprar-carr'>Confirmar compra</button></Link>  
 
       </div>
