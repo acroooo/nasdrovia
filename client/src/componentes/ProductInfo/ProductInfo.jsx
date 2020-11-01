@@ -27,7 +27,7 @@ const ProductInfo = (props) => {
  const aumentarCantidad = () => {
     let carrito = localStorage["carrito"];
    const {precio,nombre,stock,productId}=productoStore;
-   const imagen = productoStore.images[0][0];
+   const imagen = productoStore.images[0]['i1'];
 
    if(cantidad<stock){
     if (carrito) {
@@ -103,13 +103,13 @@ document.getElementById('img-actual').src=productoStore.images[0][num];
         <div className="row">
           <aside className="col-2 text-center mt-3">
      
-           {/*  <img src={productoStore.images[0][0]} onClick={()=>cambiarImagen(0)}/>
-          {productoStore.images[0][1] && <img src={productoStore.images[0][1]} onClick={()=>cambiarImagen(1)}/>}
-          {productoStore.images[0][2] && <img src={productoStore.images[0][2]} onClick={()=>cambiarImagen(2)}/>}  */}
+           <img src={productoStore.images[0]['i1']} onClick={()=>cambiarImagen('i1')}/>
+          {productoStore.images[0]['i2'] && <img src={productoStore.images[0]['i2']} onClick={()=>cambiarImagen('i2')}/>}
+          {productoStore.images[0]['i3'] && <img src={productoStore.images[0]['i3']} onClick={()=>cambiarImagen('i3')}/>}  
         
           </aside>
           <main className="col-6  text-center">
-            {/*  <img src={productoStore.images[0][0]} id='img-actual'/>  */}
+              <img src={productoStore.images[0]['i1']} id='img-actual'/>  
           </main>
           <section className="col-4 ">
             <p className="nombre">{productoStore.nombre}</p>

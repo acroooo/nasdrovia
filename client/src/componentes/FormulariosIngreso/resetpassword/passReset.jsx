@@ -50,7 +50,7 @@ const Login = ({ setFormulario, setLogueado,setTipo }) => {
         button: "Aceptar",
       }))
       .catch(() => setPostError("No se pudo actualizar la contraseña"));
-      // window.location='/';
+      // window.location='/';as
 
     }
 

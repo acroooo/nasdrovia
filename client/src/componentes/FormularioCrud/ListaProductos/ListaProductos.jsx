@@ -13,11 +13,13 @@ export default function ListaProducto({
 }) {
   //Almacena el producto que toca editar en el state
   const editadoEnState = (producto) => {
-    const { nombre, stock, precio, descripcion, id, categories } = producto;
+    const { nombre, stock, precio, descripcion, id, categories,images } = producto;
     setAccion("editar");
-    let imagen1 = producto.images["0"]["0"];
-    let imagen2 = producto.images["0"]["1"];
-    let imagen3 = producto.images["0"]["2"];
+   
+    let imagen1 =images.length>0 && images["0"]["i1"];
+    let imagen2 =images.length>0 && images["0"]["i2"];
+    let imagen3 =images.length>0 && images["0"]["i3"];
+    
     let objeto;
 
     if (imagen1) {
@@ -94,16 +96,17 @@ export default function ListaProducto({
     lista.map((element) => {
       const { nombre, stock, precio, descripcion, id, images } = element;
       let numero = 0;
-      if (images[0][0]) {
+      if(images.length>0){
+      if (images[0]['i1']) {
         numero = 1;
       }
-      if (images[0][1]) {
+      if (images[0]['i2']) {
         numero = 2;
       }
-      if (images[0][2]) {
+      if (images[0]['i3']) {
         numero = 3;
       }
-
+    }
       return (
         <section
           className="productos row py-1 py-md-2 mb-1 align-items-center"
@@ -120,8 +123,8 @@ export default function ListaProducto({
           <div className="d-none d-md-block col-md-1 pl-4">{stock}</div>
           <div className="d-none d-md-flex col-md-2 align-items-center flex-wrap  justify-content-between">
             {element.categories &&
-              element.categories.map((cat) => (
-                <small className=" text-center" key={Math.random()}>
+              element.categories.map((cat,index) => (
+                <small className=" text-center" key={index}>
                   {cat.nombre}
                 </small>
               ))}

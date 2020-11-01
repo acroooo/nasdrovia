@@ -61,9 +61,9 @@ router.post("/", async (req, res, next) => {
         stock: stock,
         descripcion: descripcion,
         images: {
-          0: imagen1,
-          1: imagen2,
-          2: imagen3,
+          i1: imagen1,
+          i2: imagen2,
+          i3: imagen3,
         },
       },
       {
