@@ -21,7 +21,7 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen,n
   useEffect(()=>{
     let productos = localStorage['carrito'];
     if(productos){
-       let actual = JSON.parse(productos).find(ele=>ele.nombreR===nombreR);
+       let actual = JSON.parse(productos).find(ele=>ele.nombre===nombre);
        actual && setCantidad(actual.cantidad);
     }
     setAumentar(false);

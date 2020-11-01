@@ -1,5 +1,8 @@
 import React from 'react';
 import hei from '../../../Multimedia/hei.png'
+import cor from '../../../Multimedia/cor.png'
+import pilsen from '../../../Multimedia/pilsen.png'
+import poker from '../../../Multimedia/poker.png'
 import './Cuenta.css';
 import {Link} from 'react-router-dom';
 
@@ -66,36 +69,36 @@ const Cuenta = () => {
 
                <div className="card-recomendada">
                  <div className="head-card">
-                  <img className='pola' src={hei} alt="cerveza"/> 
+                  <img className='pola' src={pilsen} alt="cerveza"/> 
                  </div>
                  <div className="card-bodyre ">
-                     <p className='pl-2'>CERVEZA HEINEKEN</p>
-                     <small className='pl-2'>$12.990</small>
-                     <span className='etiqueta-pola'>Ligera y suave</span>
+                     <p className='pl-2'>CERVEZA PILSEN</p>
+                     <small className='pl-2'>$10.990</small>
+                     <span className='etiqueta-pola'>Armoniosa </span>
                  </div>
                  <i class="far fa-heart"></i>
                </div>
 
                <div className="card-recomendada">
                  <div className="head-card">
-                  <img className='pola' src={hei} alt="cerveza"/> 
+                  <img className='pola' src={cor} alt="cerveza"/> 
                  </div>
                  <div className="card-bodyre ">
-                     <p className='pl-2'>CERVEZA HEINEKEN</p>
-                     <small className='pl-2'>$12.990</small>
-                     <span className='etiqueta-pola'>Ligera y suave</span>
+                     <p className='pl-2'>CERVEZA CORONA</p>
+                     <small className='pl-2'>$16.990</small>
+                     <span className='etiqueta-pola'>Suave y refinada</span>
                  </div>
                  <i class="far fa-heart"></i>
                </div>
 
                <div className="card-recomendada">
                  <div className="head-card">
-                  <img className='pola' src={hei} alt="cerveza"/> 
+                  <img className='pola' src={poker} alt="cerveza"/> 
                  </div>
                  <div className="card-bodyre ">
-                     <p className='pl-2'>CERVEZA HEINEKEN</p>
-                     <small className='pl-2'>$12.990</small>
-                     <span className='etiqueta-pola'>Ligera y suave</span>
+                     <p className='pl-2'>CERVEZA POKER</p>
+                     <small className='pl-2'>$22.990</small>
+                     <span className='etiqueta-pola'>Amarga y potente</span>
                  </div>
                  <i class="far fa-heart"></i>
                </div>
