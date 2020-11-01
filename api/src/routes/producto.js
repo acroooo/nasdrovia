@@ -88,7 +88,7 @@ router.put("/:id", (req, res) => {
     descripcion,
   } = req.body;
   if (imagen1 || imagen2 || imagen3) {
-    Images.update({ 0: imagen1, 1: imagen2, 2: imagen3 }, { where: { id } });
+    Images.update({ i1: imagen1, i2: imagen2, i3: imagen3 }, { where: { id } });
   }
   if (nombre || precio || stock || descripcion) {
     Producto.update({ nombre, precio, stock, descripcion }, { where: { id } })

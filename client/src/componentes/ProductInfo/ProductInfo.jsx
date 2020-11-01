@@ -13,7 +13,7 @@ const ProductInfo = (props) => {
   const productoStore = useSelector((state) => state.productos.TodosLosProductos);
   const dispatch = useDispatch();
   const productId= productoStore.id;
-  let proActu = productosCarrito.find(prod=>prod.nombreR===productoStore.nombre);
+  let proActu = productosCarrito.find(prod=>prod.nombre===productoStore.nombre);
   let cantidad = proActu ? parseInt(proActu.cantidad):0;
 
   const [cant,setCant]=useState(cantidad);
@@ -22,6 +22,8 @@ const ProductInfo = (props) => {
   useEffect(() => {
     dispatch(allActions.getProductoDetalle(id));
   }, []);
+
+
 
 
  const aumentarCantidad = () => {
@@ -33,15 +35,15 @@ const ProductInfo = (props) => {
     if (carrito) {
       if (carrito.length > 0) {
         let carriton = JSON.parse(localStorage["carrito"]);
-        let actual = carriton.find((p) => p.nombreR == nombre);
+        let actual = carriton.find((p) => p.nombre === nombre);
         if (actual) {
-          let nuevo = carriton.filter((pro) => pro.nombreR !== nombre);
+          let nuevo = carriton.filter((pro) => pro.nombre !== nombre);
           actual.cantidad = cantidad + 1;
           nuevo.push(actual);
           localStorage.setItem("carrito", JSON.stringify(nuevo));
         } else {
           let objeto = {
-            nombreR:nombre,
+            nombre,
             cantidad: cantidad + 1,
             precio,
             productoId:productId,
@@ -57,7 +59,7 @@ const ProductInfo = (props) => {
       let objeto = {
         precio,
         cantidad: cantidad + 1,
-        nombreR:nombre,
+        nombre,
         productoId:productId,
         stock,
         imagen,
@@ -79,8 +81,8 @@ const ProductInfo = (props) => {
     const {nombre}=productoStore;
     if(cant>1){
       let carrito = JSON.parse(localStorage['carrito']);
-      let actual = carrito.find(pro=>pro.nombreR===nombre);
-      let carritoFiltrado = carrito.filter(pro=>pro.nombreR!==nombre);
+      let actual = carrito.find(pro=>pro.nombre===nombre);
+      let carritoFiltrado = carrito.filter(pro=>pro.nombre!==nombre);
       actual.cantidad=cant-1;
      carritoFiltrado.push(actual)
      localStorage.setItem('carrito',JSON.stringify(carritoFiltrado));
@@ -105,11 +107,11 @@ document.getElementById('img-actual').src=productoStore.images[0][num];
      
            <img src={productoStore.images[0]['i1']} onClick={()=>cambiarImagen('i1')}/>
           {productoStore.images[0]['i2'] && <img src={productoStore.images[0]['i2']} onClick={()=>cambiarImagen('i2')}/>}
-          {productoStore.images[0]['i3'] && <img src={productoStore.images[0]['i3']} onClick={()=>cambiarImagen('i3')}/>}  
+          {productoStore.images[0]['i3'] && <img src={productoStore.images[0]['i3']} onClick={()=>cambiarImagen('i3')}/>}   
         
           </aside>
           <main className="col-6  text-center">
-              <img src={productoStore.images[0]['i1']} id='img-actual'/>  
+               <img src={productoStore.images[0]['i1']} id='img-actual'/>   
           </main>
           <section className="col-4 ">
             <p className="nombre">{productoStore.nombre}</p>

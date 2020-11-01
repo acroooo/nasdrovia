@@ -435,7 +435,7 @@ const Crud = ({
               checked={ele.valor}
               onChange={(e) => catsProducto(e, ele.id, ele.nombre)}
             />
-            <label htmlFor="c1">{ele.nombre}</label>
+            <label htmlFor="c1">{ele.nombre[0].toUpperCase()+ele.nombre.slice(1)}</label>
           </div>
         ))}
       </div>

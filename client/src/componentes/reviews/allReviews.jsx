@@ -29,7 +29,7 @@ export default function AllReviews({ id }) {
     }, [id])
     useEffect(()=>{
         if(reviews.isLoaded){
-            console.log("entré!")
+          
         const check=checkUsuarioPost()
         setCheckedUsuario({res:check, isSet:true})}
     },[reviews])
@@ -64,7 +64,6 @@ export default function AllReviews({ id }) {
                 res= false;
             }
         })   }
-        console.log(res)
         return !!res;
     }
     }

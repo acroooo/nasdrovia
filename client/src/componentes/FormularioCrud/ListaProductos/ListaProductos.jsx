@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useState } from "react";
+
 
 export default function ListaProducto({
   lista,
@@ -16,14 +16,14 @@ export default function ListaProducto({
     const { nombre, stock, precio, descripcion, id, categories,images } = producto;
     setAccion("editar");
    
-    let imagen1 =images.length>0 && images["0"]["i1"];
-    let imagen2 =images.length>0 && images["0"]["i2"];
-    let imagen3 =images.length>0 && images["0"]["i3"];
+    let imagen1 =images.length>0 && images[0]["i1"];
+    let imagen2 =images.length>0 && images[0]["i2"];
+    let imagen3 =images.length>0 && images[0]["i3"];
     
     let objeto;
 
-    if (imagen1) {
-      objeto = { nombre, stock, precio, descripcion, id, categories, imagen1 };
+    if (imagen1 && !imagen2 && !imagen3) {
+      objeto = { nombre, stock, precio, descripcion, id, categories, imagen1,imagen2:'',imagen3:'' };
     }
     if (imagen1 && imagen2) {
       objeto = {
@@ -35,6 +35,7 @@ export default function ListaProducto({
         categories,
         imagen1,
         imagen2,
+        imagen3:''
       };
     }
     if (imagen1 && imagen2 && imagen3) {
@@ -109,14 +110,14 @@ export default function ListaProducto({
     }
       return (
         <section
-          className="productos row py-1 py-md-2 mb-1 align-items-center"
+          className="productos fila-cat row py-1 py-md-2 mb-1 align-items-center"
           key={id}
         >
-          <div className="col-4 col-md-1 text-center text-md-left">{id}</div>
-          <div className="col-4 col-md-1 text-center text-md-left">
+          <div className="col-4 col-md-1 text-center text-md-left pl-5">{id}</div>
+          <div className="col-4 col-md-1 text-center text-md-left pl-4">
             {mayusc(nombre)}
           </div>
-          <div className="d-none d-md-block col-md-4">
+          <div className="d-none d-md-block col-md-4 pl-4">
             {mayusc(descripcion)}
           </div>
           <div className="d-none d-md-block col-md-1 pl-5">{numero}</div>

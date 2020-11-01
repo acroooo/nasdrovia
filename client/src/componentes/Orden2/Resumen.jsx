@@ -50,7 +50,7 @@ const ResumenOrden = ({total,setTotal,items}) => {
      {productos.length ?
         <div className="financiaciacion d-flex">
           <small>Financiación con Tarjeta de Credito</small>
-         <small className="cuotas">Hasta 12 cuotas de ${(subtotal+12000)/12}</small>
+         <small className="cuotas">Hasta 12 cuotas de ${((subtotal+12000)/12).toFixed(2)}</small>
       </div>
       :null
       }

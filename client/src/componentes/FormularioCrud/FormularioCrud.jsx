@@ -82,9 +82,10 @@ const FormularioCrud = () => {
     if (listadoProductos.isLoaded) {
       return (
  
-          <div className="container general">
+          <div className="container productos-general" >
             <EncabezadoCrud setAccion={setAccion} />
             <TitulosFiltros />
+            <div className="contenedor-productos">
             <ListaProductos
               setGuardarCate={setGuardarCate}
               values={valoresCategorias}
@@ -94,6 +95,7 @@ const FormularioCrud = () => {
               setProductoEditar={setProductoEditar}
               setCats={setCats}
             />
+            </div>
             <Crud
               eliminadas={eliminadas}
               setEliminadas={setEliminadas}

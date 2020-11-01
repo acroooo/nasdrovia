@@ -22,9 +22,10 @@ const ListaCategorias = ({ accion, categorias, editar, setSolicitud }) => {
   console.log(categorias);
 
   return categorias.length ? (
+   
     categorias.map((categoria) => (
       <section
-        className="categorias-h row py-1 py-md-2 mb-1"
+        className="fila-cat row py-1 py-md-2 mb-1"
         key={categoria.id}
       >
         <div className="col-2 text-center">{categoria.id}</div>
@@ -42,7 +43,8 @@ const ListaCategorias = ({ accion, categorias, editar, setSolicitud }) => {
         </div>
       </section>
     ))
-  ) : (
+  ) 
+  : (
     <div className="productos-vacios row justify-content-center py-2  align-items-center">
       <i className="fas fa-exclamation-circle mx-2"></i> No hay categorías{" "}
       <i className="fas fa-database mx-2"></i>
