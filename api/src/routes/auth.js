@@ -40,7 +40,7 @@ router.post("/revoque/:id", async (req, res) => {
 //--------- Autenticación Facebook-----------
 router.get(
   "/facebook",
-  passport.authenticate("facebook", { scope: ["email"] })
+  passport.authenticate("facebook", { scope: ["email"], display: "facebook" })
 );
 
 router.get(
@@ -54,16 +54,16 @@ router.get(
 
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
+  passport.authenticate("google", {
+    scope: ["email", "profile"],
+    display: "google",
+  })
 );
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     successRedirect: "http://localhost:3000/perfil",
   })
-  
- 
-
 );
 
 module.exports = router;
