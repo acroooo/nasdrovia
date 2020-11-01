@@ -18,16 +18,16 @@ module.exports = (sequelize) => {
   };
   // defino el modelo
   sequelize.define('images', {
-    0: {
+    i1: {
       type: DataTypes.STRING,
       allowNull: validations.allowNull,
       validate: validations.strType,
     },
-    1: {
+    i2: {
         type: DataTypes.STRING,
         validate: validations.strType,
     },
-    2: {
+    i3: {
         type: DataTypes.STRING,
         validate: validations.strType,
     }

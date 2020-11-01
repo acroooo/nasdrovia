@@ -22,7 +22,7 @@ const PanelCarrito = () => {
           </p>
         </div>
 
-        {productosCarrito.length>0 && productosCarrito.map(pro=><div className="item-panel ">
+        {productosCarrito.length>0 && productosCarrito.map((pro,index)=><div className="item-panel" key={index}>
           <img className='img-panelc' src={pro.imagen} alt="cerveza" />
           <div className="subitem-panel">
           <p >{pro.nombreR}</p>

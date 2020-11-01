@@ -40,14 +40,14 @@ const Resumen = () => {
 
                 <div className='financiaciacion d-flex'>
                     <small>Financiación con Tarjeta de Credito</small>
-                 <small className='cuotas'>Hasta 12 cuotas de $ {subtotal/12}</small>
+                 <small className='cuotas'>Hasta 12 cuotas de $ {(subtotal/12).toFixed(2)}</small>
                 </div>
 
                   {productos && productos.map(ele=>(
                        <div className="producto-resumen d-flex justify-content-between" key={ele.productoId}>
                        <img src={ele.imagen} />
                        <div className='datos-item'>
-                           <h5>{ele.nombreR[0].toUpperCase()+ele.nombreR.slice(1)}</h5>
+                           <h5>{ele.nombre[0].toUpperCase()+ele.nombre.slice(1)}</h5>
                            <p>Cantidad: {ele.cantidad}</p>
                            <p>Precio: ${ele.precio}</p>
                             <p><b>Total: $ {ele.cantidad*ele.precio}</b></p>

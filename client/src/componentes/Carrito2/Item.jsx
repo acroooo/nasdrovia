@@ -4,18 +4,13 @@ import swal from 'sweetalert';
 
 
 const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, setTotal,setItems }) => {
-  const nombreR = nombre.replace(" ", "_");
+
   const [cantidadActual, setCantidadActual] = useState(cantidad);
   
-
-
   let cantidadItems=0;
   let carrito = localStorage["carrito"] ? JSON.parse(localStorage['carrito']):[];
   if(carrito){carrito.forEach((car)=>{cantidadItems+=parseInt(car.cantidad)})}
   console.log(cantidadItems)
-
-  
-
 
   const aumentarCantidad = async () => {
     let carrito = localStorage["carrito"];
@@ -28,15 +23,15 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
         if (carrito) {
           if (carrito.length > 0) {
             let carriton = JSON.parse(localStorage["carrito"]);
-            let actual = carriton.find((p) => p.nombreR == nombreR);
+            let actual = carriton.find((p) => p.nombre == nombre);
             if (actual) {
-              let nuevo = carriton.filter((pro) => pro.nombreR !== nombreR);
+              let nuevo = carriton.filter((pro) => pro.nombre !== nombre);
               actual.cantidad = cantidadActual + 1;
               nuevo.push(actual);
               localStorage.setItem("carrito", JSON.stringify(nuevo));
             } else {
               let objeto = {
-                nombreR,
+                nombre,
                 cantidad: cantidadActual + 1,
                 precio,
                 productoId,
@@ -52,7 +47,7 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
           let objeto = {
             precio,
             cantidad: cantidadActual + 1,
-            nombreR,
+            nombre,
             productoId,
             stock,
             imagen,
@@ -77,8 +72,8 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
   const disminuirCantidad = () => {
     if (cantidadActual > 1) {
       let carrito = JSON.parse(localStorage['carrito']);
-      let actual = carrito.find(pro => pro.nombreR === nombreR);
-      let carritoFiltrado = carrito.filter(pro => pro.nombreR !== nombreR);
+      let actual = carrito.find(pro => pro.nombre === nombre);
+      let carritoFiltrado = carrito.filter(pro => pro.nombre !== nombre);
       actual.cantidad = cantidadActual - 1;
       carritoFiltrado.push(actual)
       localStorage.setItem('carrito', JSON.stringify(carritoFiltrado));
@@ -91,7 +86,7 @@ const Item = ({ nombre, precio, cantidad, imagen, stock, productoId, setCambio, 
 
   const eliminarProducto = () => {
     let carrito = JSON.parse(localStorage['carrito']);
-    let nuevo = carrito.filter(pro => pro.nombreR !== nombreR);
+    let nuevo = carrito.filter(pro => pro.nombre !== nombre);
     localStorage.setItem('carrito', JSON.stringify(nuevo));
     setCambio(true);
     setTotal(true);

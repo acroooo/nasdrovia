@@ -186,7 +186,6 @@ const Crud = ({
     if (accion === "editar") {
       console.log(numImagenes);
       if (numImagenes == 1) {
-        console.log("entre");
         objeto = {
           nombre,
           descripcion,
@@ -364,6 +363,7 @@ const Crud = ({
             value={imagen1}
             required
             onChange={almacenarProductoEditado}
+            maxLength='255'
           />
         </div>
       )}
@@ -383,6 +383,7 @@ const Crud = ({
             name="imagen2"
             value={imagen2 && imagen2}
             onChange={almacenarProductoEditado}
+            maxLength='255'
           />
         </div>
       )}
@@ -395,6 +396,7 @@ const Crud = ({
             name="imagen1"
             value={imagen1}
             onChange={almacenarProductoEditado}
+            maxLength='255'
           />
           <label className="mb-1 w-100">Imagen 2</label>
           <input
@@ -402,6 +404,7 @@ const Crud = ({
             name="imagen2"
             value={imagen2 && imagen2}
             onChange={almacenarProductoEditado}
+            maxLength='255'
           />
           <label className="mb-1 w-100">Imagen 3</label>
           <input
@@ -409,6 +412,7 @@ const Crud = ({
             name="imagen3"
             value={imagen3 && imagen3}
             onChange={almacenarProductoEditado}
+            maxLength='255'
           />
         </div>
       )}
@@ -431,7 +435,7 @@ const Crud = ({
               checked={ele.valor}
               onChange={(e) => catsProducto(e, ele.id, ele.nombre)}
             />
-            <label htmlFor="c1">{ele.nombre}</label>
+            <label htmlFor="c1">{ele.nombre[0].toUpperCase()+ele.nombre.slice(1)}</label>
           </div>
         ))}
       </div>

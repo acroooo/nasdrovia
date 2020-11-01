@@ -37,7 +37,7 @@ const Carrito = () => {
                 {prodcarrito && prodcarrito.map(p => (
                     <Item
                         key={p.productoId}
-                        nombre={p.nombreR}
+                        nombre={p.nombre}
                         precio={p.precio}
                         imagen={p.imagen}
                         cantidad={p.cantidad}
