@@ -3,6 +3,8 @@ import "./FormulariosIngreso.css";
 import Login from "./Login/Login";
 import Registro from "./Registro/Registro";
 import Password from "./FormPassword/FormPassword";
+import Reset from "./resetpassword/passReset";
+
 const FormulariosIngreso = ({ formulario, setFormulario, setTipo, tipo }) => {
   return (
     formulario === "activo" && (
@@ -16,6 +18,7 @@ const FormulariosIngreso = ({ formulario, setFormulario, setTipo, tipo }) => {
         {tipo === "registrar" && <Registro setTipo={setTipo} />}
         {tipo === "ingresar" && <Login setTipo={setTipo} cerrar={setFormulario} />}
         {tipo === "cambio" && <Password setTipo={setTipo}/>}
+        {tipo === "reset" && <Reset setTipo={setTipo}/>}
      
       </div>
     )

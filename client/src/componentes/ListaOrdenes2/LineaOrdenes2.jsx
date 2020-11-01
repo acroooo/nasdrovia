@@ -51,13 +51,13 @@ const LineaOrdenes = () => {
 
   if (usuarioLogin.rol === "admin") {
     return (
-      <div className="total-ordenes ">
+      
         <div className="container general-ordenes ">
           <Encabezado setActualizar={setActualizar} stateHandler={stateHandler} />
           <Ordenes />
           <Listado lista={listado} setActualizar={setActualizar} />
         </div>
-      </div>
+  
     );
   }
   return (

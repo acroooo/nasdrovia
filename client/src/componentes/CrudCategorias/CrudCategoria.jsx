@@ -61,16 +61,23 @@ const CrudCategoria = () => {
 
   if (usuarioLogin.rol === "admin") {
     return (
-      <div className="total">
-        <div className="container general">
-          <EncabezadoCategoria setAccion={setAccionCategorias} />
+ 
+        <div className="container general general-categorias">
+          <EncabezadoCategoria setAccion={setAccionCategorias} />   
           <TitulosCategorias />
+         
+          <div className='contenedor-categorias '>
           <ListaCategorias
             setSolicitud={setSolicitud}
             accion={setAccionCategorias}
             categorias={listadoCategorias}
             editar={setCategoriaEditar}
           />
+          </div>
+      
+         
+          
+      
           <SubformularioCategorias
             n={nextId}
             catCrear={categoriaCrear}
@@ -83,7 +90,7 @@ const CrudCategoria = () => {
             lista={listadoCategorias}
           />
         </div>
-      </div>
+      
     );
   }
   return (

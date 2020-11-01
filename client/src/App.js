@@ -52,7 +52,7 @@ export default function App() {
           <Route exact path="/cambioPassword" component={EmailPassword} />
           <Route exact path="/passwordReset/:token" component={PasswordReset} />
         </Switch>
-        <Route path="/" component={Footer} />
+        <Route path="/" component={Footer} /> 
       </Router>
     </div>
   );

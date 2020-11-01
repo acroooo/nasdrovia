@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
-
 import Axios from "axios";
+
 
 export default function FormPassword({setTipo}) {
   //--------------------- Hooks-----------------------
@@ -31,8 +31,10 @@ export default function FormPassword({setTipo}) {
         swal("Si tu email se encuentra registrado recibiras un enlace en un instante!, asegurate de revisar tu carpeta de spam", {
           icon: "success",
         });
+        setTipo('ingresar') 
         Axios.post("http://localhost:3001/usuario/askForPasswordReset", inputValues)
-      .then((respuesta)=> respuesta  )
+      
+      .then((respuesta)=>  respuesta)
       .catch((err) => setError(err));
       } else {
         return;

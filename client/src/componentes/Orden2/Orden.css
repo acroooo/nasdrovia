@@ -139,6 +139,10 @@
     padding: 8px;
     cursor: pointer;
     transition: .4s all;
+    background:#015386;
+    border: none;
+    color: #fff;
+    border-radius: 2px;
 }
 .btn-comprar-carr:hover{
     background:#015386;

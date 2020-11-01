@@ -4,6 +4,10 @@ const { Carrito, LineaDeOrden, Usuario, Producto } = require("../db.js");
 const { isAuthenticated, isAuthenticatedAndAdmin } = require("./middlewares");
 /* -------------------Rutas Orden de compra------------------ */
 
+
+
+
+//Ruta para obtener lineas de orden de un carrito
 router.get("/:id", (req, res) => {
   let id = req.params.id;
 
@@ -17,6 +21,7 @@ router.get("/:id", (req, res) => {
     .catch((error) => res.status(400).json(error));
 });
 
+//Rutas para traer todas las lineas de ordenes
 router.get("/", (req, res) => {
   let estado = req.query.estado;
 

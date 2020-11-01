@@ -386,6 +386,7 @@ router.post("/:idUser/cart", async (req, res) => {
   let compras = await Carrito.create({
     usuarioId: id,
   });
+
   res.status(200).json(compras);
 });
 
@@ -395,7 +396,7 @@ router.get("/:idUser/cart", (req, res) => {
 
   Carrito.findOne({
     where: { usuarioId: idUser, estado: "carrito" },
-    include: [{ model: LineaDeOrden }],
+    include: [{ model: LineaDeOrden },{model:Producto}],
   }).then((item) => {
     if (!item) return res.status(204).json("El carrito se encuentra vacio");
     else return res.status(200).send(item);

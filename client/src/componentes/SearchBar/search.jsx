@@ -16,12 +16,12 @@ export default function SearchBar({handleClick, handleChange}) {
     type="search"
     placeholder="Buscar..."
     onChange={handleChange}
-    className="mr-sm-2"
+    className="mr-sm-2 barra-b"
     />
     <FormControl.Feedback />
     <Link to="/search">
     <Button onClick={handleClick} variant="outline-info">
-    <i className="fas fa-search"></i>
+    <i className="fas fa-search text-white"></i>
     </Button>
     </Link>
     </Form>

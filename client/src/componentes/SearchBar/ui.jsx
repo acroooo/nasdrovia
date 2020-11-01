@@ -39,8 +39,6 @@ export default function Icons() {
         dispatch(allActions.logout());
       })
       .catch((err) => err);
-
-    
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
       localStorage.removeItem('subtotal');
@@ -53,7 +51,7 @@ export default function Icons() {
         <div className="contenedor-salir">
           <i className="fas fa-shopping-cart"></i>
           <small className="ml-1">Carrito</small>
-      <small className='items-carrito'>{items>0 && items}</small>
+      <small className='items-carrito'>{items.length}</small>
         </div>
       </Link>
 
@@ -99,8 +97,7 @@ export default function Icons() {
           <small className="ml-1">Salir</small>
         </div>
       )}
-
-      {rol === "admin" && <PanelAdmin />}
+      {rol === "admin" && <PanelAdmin />} 
 
       <FormulariosIngreso
         setTipo={setTipo}

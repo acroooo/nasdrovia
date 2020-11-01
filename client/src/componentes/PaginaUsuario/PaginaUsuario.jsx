@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './PaginaUsuario.css';
 import Cuenta from './Cuenta/Cuenta';
 import Panel from './PanelUsuario/Panel';
 import Datos from './Datos/Datos';
 import Ordenes from './Ordenes/Ordenes';
-//import Preferencias from './Preferencias/Preferencias.jsx';
-import Deseos from './Deseos/Deseos';
 import Error404 from '../Error404/error404';
 import { useSelector } from "react-redux";
+import axios from 'axios';
 
 
 const PaginaUsuario = () => {
     const usuarioLogin = useSelector(state => state.usuario);
     const [pagina, setPagina] = useState('cuenta')
+    const [ordenes,setOrdenes]=useState([]);
+    
+
+    const obtenerOrdenes = ()=>{
+        let ordenesUsuario=[];
+         axios.get(`http://localhost:3001/ordenes/`)
+         .then((res)=>{
+             res.data.map(orden=>{
+                 if(orden.usuarioId===usuarioLogin.id){
+                       ordenesUsuario.push(orden);
+                 }
+             })
+             setOrdenes(ordenesUsuario)
+         })
+         .catch((err)=>console.log(err))
+
+    }
+
+    useEffect(()=>{
+        obtenerOrdenes();
+    },[])
 
     if (usuarioLogin.rol === "Client") {
         return (
@@ -27,11 +47,8 @@ const PaginaUsuario = () => {
 
                             {pagina === 'cuenta' && <Cuenta />}
                             {pagina === 'datos' && <Datos />}
-                            {pagina === 'ordenes' && <Ordenes />}
-                            {/*pagina === 'preferencias' && <Preferencias />*/}
-                            {pagina === 'deseos' && <Deseos />}
-
-
+                            {pagina === 'ordenes' && <Ordenes ordenes={ordenes}/>}
+                          
 
                         </div>
                         <div className="col-4 mt-3 panel">

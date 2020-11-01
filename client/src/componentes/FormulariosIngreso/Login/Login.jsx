@@ -57,16 +57,16 @@ const Login = ({ setTipo, cerrar }) => {
           Axios.get(`http://localhost:3001/producto/${producto.productoId}`)
           .then((res)=>{
             let objeto = {
-              nombreR:res.data.nombre,
+              nombre:res.data.nombre,
               precio:res.data.precio,
               imagen:res.data.images[0][0],
               cantidad:producto.cantidad,
               stock:res.data.stock,
               productoId:producto.productoId
             }
-            let actual = productosActual.find(prod=>prod.nombreR===objeto.nombreR);
+            let actual = productosActual.find(prod=>prod.nombre===objeto.nombre);
             if(actual){
-              let nuevo = productosActual.filter(prod=>prod.nombreR!==objeto.nombreR);
+              let nuevo = productosActual.filter(prod=>prod.nombre!==objeto.nombre);
               actual.cantidad=actual.cantidad+objeto.cantidad;
               nuevo.push(actual);
               productosActual=nuevo;
@@ -167,7 +167,7 @@ const Login = ({ setTipo, cerrar }) => {
      </Link> 
 
       <button
-        className="btn-alternativo btn-fac d-flex align-items-center"
+        className="btn-alternativo btn-fac d-flex align-items-center my-2"
         id="face"
         value="facebook"
         onClick={facebook}
@@ -177,7 +177,7 @@ const Login = ({ setTipo, cerrar }) => {
       </button>
 
       <button
-        className="btn-alternativo btn-goo d-flex align-items-center"
+        className="btn-alternativo btn-goo d-flex align-items-center my-2"
         id="goog"
         value="google"
         onClick={google}
