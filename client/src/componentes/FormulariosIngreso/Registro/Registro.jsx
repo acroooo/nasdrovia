@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "./Registro.css";
 import Axios from "axios";
-import swal from 'sweetalert';
-
+import swal from "sweetalert";
 
 const Registro = ({ setTipo }) => {
   const [datos, setDatos] = useState({});
 
   const [errorContraseña, setErrorContraseña] = useState(false);
- 
 
   const handleChange = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value });
@@ -31,17 +29,14 @@ const Registro = ({ setTipo }) => {
     setErrorContraseña(false);
     let password = contrasena;
     Axios.post("http://localhost:3001/usuario", { nombre, email, password })
-      .then((ele) =>console.log(ele))
+      .then((ele) => console.log(ele))
       .catch((err) => {
-       
         return console.log(err);
       });
     e.target.reset();
     swal("Buen trabajo!", "Te has registrado correctamente!", "success");
 
-
-    setTimeout(() => setTipo("ingresar"),1000);
-
+    setTimeout(() => setTipo("ingresar"), 1000);
   };
 
   return (
@@ -97,8 +92,6 @@ const Registro = ({ setTipo }) => {
         <i className="fas fa-lock"></i>
       </div>
 
-      
-     
       <button className="mt-3">Registrate</button>
     </form>
   );
