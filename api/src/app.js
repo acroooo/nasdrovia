@@ -75,7 +75,7 @@ passport.use(
       clientID: FacebookClientId,
       clientSecret: FacebookClientSecret,
       callbackURL: "http://localhost:3001/auth/facebook/callback",
-      profileFields: ["id", "emails", "displayName"],
+      profileFields: ["id", "email", "displayName"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

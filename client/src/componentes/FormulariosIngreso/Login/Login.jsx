@@ -99,25 +99,25 @@ const Login = ({ setTipo, cerrar }) => {
     }
   };
 
-  const google = (e) => {
-    e.preventDefault();
+  // const google = (e) => {
+  //   e.preventDefault();
 
-    window.open(
-      `http://localhost:3001/auth/google`,
-      "",
-      "height=500, width=500"
-    );
-  };
-  const facebook = (e) => {
-    e.preventDefault();
+  //   window.open(
+  //     `http://localhost:3001/auth/google`,
+  //     "",
+  //     "height=500, width=500"
+  //   );
+  // };
+  // const facebook = (e) => {
+  //   e.preventDefault();
 
-    window.open(
-      `http://localhost:3001/auth/facebook`,
+  //   window.open(
+  //     `http://localhost:3001/auth/facebook`,
 
-      "",
-      "height=500, width=500"
-    );
-  };
+  //     "",
+  //     "height=500, width=500"
+  //   );
+  // };
 
   return (
     <form className="formulario-login" onSubmit={handleSubmit} id="cd">
@@ -164,26 +164,28 @@ const Login = ({ setTipo, cerrar }) => {
         </button>
       </Link>
 
-      <button
-        className="btn-alternativo btn-fac d-flex align-items-center my-2"
-        id="face"
-        value="facebook"
-        onClick={facebook}
-      >
-        <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
-        <div className="sombra-facebook"></div>
-      </button>
-
-      <button
-        className="btn-alternativo btn-goo d-flex align-items-center my-2"
-        id="goog"
-        value="google"
-        onClick={google}
-      >
-        <i className="fab fa-google mr-3 pl-3"></i>
-        Continuar con Google
-        <div className="sombra-facebook"></div>
-      </button>
+      {/* Boton Facebook  */}
+      <a href="http://localhost:3001/auth/facebook">
+        <div
+          className="btn-alternativo btn-fac d-flex align-items-center my-2 "
+          id="face"
+          value="facebook"
+        >
+          <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
+          <div className="sombra-facebook"></div>
+        </div>
+      </a>
+      {/* Boton Google */}
+      <a href="http://localhost:3001/auth/google">
+        <div
+          className="btn-alternativo btn-goo d-flex align-items-center my-2"
+          id="goog"
+          value="google"
+        >
+          <i className="fab fa-google mr-3 pl-3"></i>Continuar con Google
+          <div className="sombra-facebook"></div>
+        </div>
+      </a>
     </form>
   );
 };
