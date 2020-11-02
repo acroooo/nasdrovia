@@ -11,9 +11,6 @@ export default function Carrusel() {
                         src="https://i.ibb.co/P4fDpCC/nasdrovia-2.jpg"
                         alt="First slide"
                     />
-                    <Carousel.Caption>
-
-                    </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item className="item" interval={500}>
                     <img
@@ -21,11 +18,7 @@ export default function Carrusel() {
                         src="https://i.ibb.co/9hM48bY/nasdrovfia-3.jpg"
                         alt="Third slide"
                     />
-                    <Carousel.Caption>
-
-                    </Carousel.Caption>
                 </Carousel.Item>
-
             </Carousel>
         </div>)
 
