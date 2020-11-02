@@ -99,26 +99,6 @@ const Login = ({ setTipo, cerrar }) => {
     }
   };
 
-  // const google = (e) => {
-  //   e.preventDefault();
-
-  //   window.open(
-  //     `http://localhost:3001/auth/google`,
-  //     "",
-  //     "height=500, width=500"
-  //   );
-  // };
-  // const facebook = (e) => {
-  //   e.preventDefault();
-
-  //   window.open(
-  //     `http://localhost:3001/auth/facebook`,
-
-  //     "",
-  //     "height=500, width=500"
-  //   );
-  // };
-
   return (
     <form className="formulario-login" onSubmit={handleSubmit} id="cd">
       <div className="mensaje-bienvenida mb-5">
