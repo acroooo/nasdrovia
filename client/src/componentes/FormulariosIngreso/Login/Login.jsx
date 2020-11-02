@@ -76,6 +76,7 @@ const Login = ({ setTipo, cerrar }) => {
             }
             console.log(productosActual)
           localStorage.setItem('carrito',JSON.stringify(productosActual)); 
+          window.location.reload()
           })
           .catch(err=>console.log(err))
         })  
@@ -87,6 +88,7 @@ const Login = ({ setTipo, cerrar }) => {
 
         if (carrito.status === 200) {
           usuarioLog.carritoId = carrito.data.id;
+          window.location.reload()
         }
         dispatch(allActions.login(usuarioLog));
       }
@@ -94,6 +96,7 @@ const Login = ({ setTipo, cerrar }) => {
     } catch (err) {
       console.log(err);
     }
+ 
   };
 
   const google = (e) => {

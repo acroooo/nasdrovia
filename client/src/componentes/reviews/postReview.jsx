@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import StarRatingComponent from 'react-star-rating-component';
-import anime from "animejs";
 import "./style/allReviews.css";
 
 

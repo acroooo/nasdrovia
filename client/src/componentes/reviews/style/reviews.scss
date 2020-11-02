@@ -3,11 +3,12 @@ $blueColor: #015386;
 $black: #3c3c3c;
 .Reviews-Component-css {
   display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-columns: 3fr 5fr 1fr;
   grid-template-columns: 1fr 5fr 1fr;
   justify-items: end;
   border-top: solid 2px $black;
   border-radius: 0px 25px;
+
   .delete-review-css {
     grid-column: 3/4;
     grid-row: 1/2;
