@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from "react";
 import "./carroBoton.css";
 import anime from "animejs/lib/anime.es.js";
-import {useSelector} from "react-redux";
-import swal from 'sweetalert';
+import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
-
-export default function CarroBoton({ nombreR, stock, productoId, precio,imagen,nombre }) {
-
-  const [producto,setProducto]=useState([]);
+export default function CarroBoton({
+  nombreR,
+  stock,
+  productoId,
+  precio,
+  imagen,
+  nombre,
+}) {
+  const [producto, setProducto] = useState([]);
   // estado redux
   const usuarioLogin = useSelector((state) => state.usuario);
 
-  const idCarrito = useSelector((state) => state.carrito.CarritoCompleto.id)
-  const [error, setError] = useState("")
+  const idCarrito = useSelector((state) => state.carrito.CarritoCompleto.id);
+  const [error, setError] = useState("");
   // estado hook
   const [cantidad, setCantidad] = useState(0);
   //effects
-  const [aumentar,setAumentar]=useState(false);
- 
-  useEffect(()=>{
-    let productos = localStorage['carrito'];
-    if(productos){
-       let actual = JSON.parse(productos).find(ele=>ele.nombre===nombre);
-       actual && setCantidad(actual.cantidad);
+  const [aumentar, setAumentar] = useState(false);
+
+  useEffect(() => {
+    let productos = localStorage["carrito"];
+    if (productos) {
+      let actual = JSON.parse(productos).find((ele) => ele.nombre === nombre);
+      actual && setCantidad(actual.cantidad);
     }
     setAumentar(false);
-
-  },[aumentar])
-
+  }, [aumentar]);
 
   useEffect(() => {
     if (cantidad === 0) {
@@ -88,57 +91,60 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen,n
     if (cantidad < 0) {
       setCantidad(0);
     }
-      const {id,carroId}= usuarioLogin;
-      let list=[];
-      
-      
+    const { id, carroId } = usuarioLogin;
+    let list = [];
   }, [cantidad, stock]);
 
   function handleClick() {
+    if (cantidad < stock) {
+      setCantidad(cantidad + 1);
+      let carrito = localStorage["carrito"];
+      if (carrito) {
+        if (carrito.length > 0) {
+          let carriton = JSON.parse(localStorage["carrito"]);
 
-    if(cantidad<stock){
+          let actual = carriton.find((p) => p.nombre == nombre);
 
-    setCantidad(cantidad + 1);
-    let carrito = localStorage['carrito'];
-     if(carrito){
-     
-    if(carrito.length>0){
-      let carriton =JSON.parse(localStorage['carrito']);
+          if (actual) {
+            let nuevo = carriton.filter((pro) => pro.nombre !== nombre);
+            actual.cantidad = cantidad + 1;
 
-      let actual = carriton.find(p=>p.nombre==nombre);
-     
-      if(actual){
-        let nuevo = carriton.filter(pro=>pro.nombre!==nombre);
-        actual.cantidad=cantidad+1;
-      
-        nuevo.push(actual);
-        localStorage.setItem('carrito',JSON.stringify(nuevo)) 
-       
-      }else{
-        let objeto = {nombre,cantidad:cantidad+1,precio,productoId,stock,imagen};
-        carriton.push(objeto);
-        localStorage.setItem('carrito',JSON.stringify(carriton));
+            nuevo.push(actual);
+            localStorage.setItem("carrito", JSON.stringify(nuevo));
+          } else {
+            let objeto = {
+              nombre,
+              cantidad: cantidad + 1,
+              precio,
+              productoId,
+              stock,
+              imagen,
+            };
+            carriton.push(objeto);
+            localStorage.setItem("carrito", JSON.stringify(carriton));
+          }
+        }
+      } else {
+        let carritos = [];
+        let objeto = {
+          precio,
+          cantidad: cantidad + 1,
+          nombre,
+          productoId,
+          stock,
+          imagen,
+        };
+        carritos.push(objeto);
+        localStorage.setItem("carrito", JSON.stringify(carritos));
       }
-     
+
+      setAumentar(true);
     }
 
-    }else{
-      let carritos = [];
-      let objeto = {precio,cantidad:cantidad+1,nombre,productoId,stock,imagen}
-      carritos.push(objeto);
-      localStorage.setItem('carrito',JSON.stringify(carritos))
-
-    } 
-
-    setAumentar(true);
-    }
-
-    if(cantidad===stock){
+    if (cantidad === stock) {
       swal("Lo siento!", "Has superado el limite del stock", "error");
     }
 
- 
-    
     const tl = anime.timeline();
     tl.add({
       targets: `#carro${nombreR}`,
@@ -160,17 +166,15 @@ export default function CarroBoton({ nombreR, stock, productoId, precio,imagen,n
     });
   }
 
-
   function handleClickMin() {
     setCantidad(cantidad - 1);
-    let carrito = JSON.parse(localStorage['carrito']);
-    let actual = carrito.find(pro=>pro.nombre===nombre);
-    let carritoFiltrado = carrito.filter(pro=>pro.nombre!==nombre);
-    actual.cantidad=cantidad-1;
-   carritoFiltrado.push(actual)
-   localStorage.setItem('carrito',JSON.stringify(carritoFiltrado));
-   setAumentar(true);
-
+    let carrito = JSON.parse(localStorage["carrito"]);
+    let actual = carrito.find((pro) => pro.nombre === nombre);
+    let carritoFiltrado = carrito.filter((pro) => pro.nombre !== nombre);
+    actual.cantidad = cantidad - 1;
+    carritoFiltrado.push(actual);
+    localStorage.setItem("carrito", JSON.stringify(carritoFiltrado));
+    setAumentar(true);
   }
   return (
     <div className="carroBoton-Container">

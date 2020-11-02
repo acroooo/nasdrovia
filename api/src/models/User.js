@@ -1,7 +1,9 @@
 const { DataTypes, Sequelize } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
+// prettier-ignore
 module.exports = (sequelize) => {
+  
   const validations = {
     allowNull: false,
     strType: {
@@ -61,4 +63,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
   });
+},
+{
+  validacion: {
+    Password() {
+      if (!this.googleId && !this.facebookId && !this.password) {
+        throw new Error('Si no iniciaste sesión con un tercero debes incluir una contraseña'); // prettier-ignore
+      }
+    },
+  },
 };

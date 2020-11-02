@@ -46,6 +46,20 @@ server.use((req, res, next) => {
   next();
 });
 
+//-------------------- Serialize-----------------
+passport.serializeUser((usuario, done) => {
+  done(null, usuario.id);
+});
+
+//------------------- Deserialize----------------
+passport.deserializeUser(function (id, done) {
+  Usuario.findByPk(id)
+    .then((usuario) => {
+      done(null, usuario);
+    })
+    .catch((err) => done(err, null));
+});
+
 //------------------------Passport Autenticaciones------------------------
 passport.use(
   new LocalStrategy(
@@ -75,7 +89,7 @@ passport.use(
       clientID: FacebookClientId,
       clientSecret: FacebookClientSecret,
       callbackURL: "http://localhost:3001/auth/facebook/callback",
-      profileFields: ["id", "emails", "displayName"],
+      profileFields: ["id", "email", "displayName"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -129,19 +143,6 @@ passport.use(
     }
   )
 );
-//-------------------- Serialize-----------------
-passport.serializeUser((usuario, done) => {
-  done(null, usuario.id);
-});
-
-//------------------- Deserialize----------------
-passport.deserializeUser(function (id, done) {
-  Usuario.findByPk(id)
-    .then((usuario) => {
-      done(null, usuario);
-    })
-    .catch((err) => done(err, null));
-});
 
 //------------------Passport Sesion---------------
 server.use(passport.initialize());

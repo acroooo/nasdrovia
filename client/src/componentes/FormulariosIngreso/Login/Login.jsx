@@ -11,14 +11,14 @@ const Login = ({ setTipo, cerrar }) => {
   const usuarioLogin = useSelector((state) => state.usuario);
   const rol = usuarioLogin.rol;
 
-  const productoStore = useSelector((state) => state.productos.TodosLosProductos);
- 
-
+  const productoStore = useSelector(
+    (state) => state.productos.TodosLosProductos
+  );
 
   //----Hooks------
 
   const [show, setShow] = useState(false);
-  const [inputValues, setInputValues] = useState({email:'',password:'',});
+  const [inputValues, setInputValues] = useState({ email: "", password: "" });
   const [error, setError] = useState(false);
   const [sac, setSac] = useState("as");
 
@@ -30,7 +30,6 @@ const Login = ({ setTipo, cerrar }) => {
     e.preventDefault();
     let usuarioLog = {};
     try {
-    
       const usuario = await Axios.post(
         "http://localhost:3001/auth/login",
         inputValues
@@ -44,51 +43,55 @@ const Login = ({ setTipo, cerrar }) => {
       if (!error) cerrar("inactivo");
 
       const getId = await Axios.get(
-      `http://localhost:3001/usuario/${usuario.data.id}/cart`
+        `http://localhost:3001/usuario/${usuario.data.id}/cart`
       );
-      
 
-      if (getId.statusText !=="No Content") {
+      if (getId.statusText !== "No Content") {
         usuarioLog.carritoId = getId.data.id;
         dispatch(allActions.login(usuarioLog));
 
-        let productosActual = localStorage['carrito'] ? JSON.parse(localStorage['carrito']):[];
-        getId.data.lineaDeOrdens.forEach((producto)=>{
+        let productosActual = localStorage["carrito"]
+          ? JSON.parse(localStorage["carrito"])
+          : [];
+        getId.data.lineaDeOrdens.forEach((producto) => {
           Axios.get(`http://localhost:3001/producto/${producto.productoId}`)
-          .then((res)=>{
-            let objeto = {
-              nombre:res.data.nombre,
-              precio:res.data.precio,
-              imagen:res.data.images[0][0],
-              cantidad:producto.cantidad,
-              stock:res.data.stock,
-              productoId:producto.productoId
-            }
-            let actual = productosActual.find(prod=>prod.nombre===objeto.nombre);
-            if(actual){
-              let nuevo = productosActual.filter(prod=>prod.nombre!==objeto.nombre);
-              actual.cantidad=actual.cantidad+objeto.cantidad;
-              nuevo.push(actual);
-              productosActual=nuevo;
-            
-            }else{
-              productosActual.push(objeto)
-            }
-            console.log(productosActual)
-          localStorage.setItem('carrito',JSON.stringify(productosActual)); 
-          window.location.reload()
-          })
-          .catch(err=>console.log(err))
-        })  
+            .then((res) => {
+              let objeto = {
+                nombre: res.data.nombre,
+                precio: res.data.precio,
+                imagen: res.data.images[0][0],
+                cantidad: producto.cantidad,
+                stock: res.data.stock,
+                productoId: producto.productoId,
+              };
+              let actual = productosActual.find(
+                (prod) => prod.nombre === objeto.nombre
+              );
+              if (actual) {
+                let nuevo = productosActual.filter(
+                  (prod) => prod.nombre !== objeto.nombre
+                );
+                actual.cantidad = actual.cantidad + objeto.cantidad;
+                nuevo.push(actual);
+                productosActual = nuevo;
+              } else {
+                productosActual.push(objeto);
+              }
+              console.log(productosActual);
+              localStorage.setItem("carrito", JSON.stringify(productosActual));
+              window.location.reload();
+            })
+            .catch((err) => console.log(err));
+        });
       } else {
-        console.log("entre al post!")
+        console.log("entre al post!");
         const carrito = await Axios.post(
           `http://localhost:3001/usuario/${usuario.data.id}/cart`
         );
 
         if (carrito.status === 200) {
           usuarioLog.carritoId = carrito.data.id;
-          window.location.reload()
+          window.location.reload();
         }
         dispatch(allActions.login(usuarioLog));
       }
@@ -96,27 +99,6 @@ const Login = ({ setTipo, cerrar }) => {
     } catch (err) {
       console.log(err);
     }
- 
-  };
-
-  const google = (e) => {
-    e.preventDefault();
-
-    window.open(
-      `http://localhost:3001/auth/google`,
-      "",
-      "height=500, width=500"
-    );
-  };
-  const facebook = (e) => {
-    e.preventDefault();
-
-    window.open(
-      `http://localhost:3001/auth/facebook`,
-
-      "",
-      "height=500, width=500"
-    );
   };
 
   return (
@@ -131,10 +113,7 @@ const Login = ({ setTipo, cerrar }) => {
         {error && <p className="error-login text-white">Datos incorrectos</p>}
       </div>
 
-
-  
       <div className="grupo-formulario">
-
         <input
           type="text"
           name="email"
@@ -142,7 +121,7 @@ const Login = ({ setTipo, cerrar }) => {
           required
           onChange={handleChange}
         />
-        
+
         <label className="etiqueta">Email</label>
         <i className="fas fa-envelope"></i>
       </div>
@@ -159,36 +138,38 @@ const Login = ({ setTipo, cerrar }) => {
         <i className="fas fa-unlock"></i>
       </div>
 
- 
-        <small onClick={()=>setTipo('cambio')}>¿Olvidaste la contraseña?</small>
-     
+      <small onClick={() => setTipo("cambio")}>¿Olvidaste la contraseña?</small>
 
-     <Link to='/'>
-     <button className="mt-3 btn-ingresar" onClick={handleSubmit}>
-        Iniciar sesión
-      </button>
-     </Link> 
+      <Link to="/">
+        <button className="mt-3 btn-ingresar" onClick={handleSubmit}>
+          Iniciar sesión
+        </button>
+      </Link>
 
-      <button
-        className="btn-alternativo btn-fac d-flex align-items-center my-2"
-        id="face"
-        value="facebook"
-        onClick={facebook}
-      >
-        <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
-        <div className="sombra-facebook"></div>
-      </button>
-
-      <button
-        className="btn-alternativo btn-goo d-flex align-items-center my-2"
-        id="goog"
-        value="google"
-        onClick={google}
-      >
-        <i className="fab fa-google mr-3 pl-3"></i>
-        Continuar con Google
-        <div className="sombra-facebook"></div>
-      </button>
+      {/* Boton Facebook  */}
+      <a href="http://localhost:3001/auth/facebook">
+        <div
+          className="btn-alternativo btn-fac d-flex align-items-center my-2 "
+          id="face"
+          value="facebook"
+          onClick={handleSend}
+        >
+          <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
+          <div className="sombra-facebook"></div>
+        </div>
+      </a>
+      {/* Boton Google */}
+      <a href="http://localhost:3001/auth/google">
+        <div
+          className="btn-alternativo btn-goo d-flex align-items-center my-2"
+          id="goog"
+          value="google"
+          onClick={handleSend}
+        >
+          <i className="fab fa-google mr-3 pl-3"></i>Continuar con Google
+          <div className="sombra-facebook"></div>
+        </div>
+      </a>
     </form>
   );
 };
