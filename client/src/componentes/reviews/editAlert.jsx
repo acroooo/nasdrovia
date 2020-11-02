@@ -77,7 +77,7 @@ export default function EditAlert({setDisplayEdit, comentario, calificacion, rev
         value={editedComment}>
         </textarea>
         <div className="button-review-css">
-            <button onClick={submitFunction}>
+            <button className="submitbtn-css" onClick={submitFunction}>
                 Editar comentario
             </button>
         </div>

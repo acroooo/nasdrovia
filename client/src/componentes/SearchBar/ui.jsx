@@ -30,6 +30,7 @@ export default function Icons() {
     Axios.post(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart`,productos)
     .then(()=>console.log('posteado'))
     .catch((err)=>console.log(err))
+  
   }
   //router.put("/:id/cart/status"
  // Axios.put(`http://localhost:3001/ordenes/${usuarioLogin.carroId}/cart/status`,)
@@ -37,11 +38,13 @@ export default function Icons() {
     Axios.post("http://localhost:3001/auth/logout")
       .then(() => {
         dispatch(allActions.logout());
+        window.location.reload()
       })
       .catch((err) => err);
       //limpiar carrito de local storage
       localStorage.removeItem('carrito');
       localStorage.removeItem('subtotal');
+     
   };
   
 

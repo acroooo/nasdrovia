@@ -79,6 +79,7 @@ const Login = ({ setTipo, cerrar }) => {
               }
               console.log(productosActual);
               localStorage.setItem("carrito", JSON.stringify(productosActual));
+              window.location.reload();
             })
             .catch((err) => console.log(err));
         });
@@ -90,6 +91,7 @@ const Login = ({ setTipo, cerrar }) => {
 
         if (carrito.status === 200) {
           usuarioLog.carritoId = carrito.data.id;
+          window.location.reload();
         }
         dispatch(allActions.login(usuarioLog));
       }
@@ -150,6 +152,7 @@ const Login = ({ setTipo, cerrar }) => {
           className="btn-alternativo btn-fac d-flex align-items-center my-2 "
           id="face"
           value="facebook"
+          onClick={handleSend}
         >
           <i className="fab fa-facebook-f mr-3 pl-3"></i>Continuar con Facebook
           <div className="sombra-facebook"></div>
@@ -161,6 +164,7 @@ const Login = ({ setTipo, cerrar }) => {
           className="btn-alternativo btn-goo d-flex align-items-center my-2"
           id="goog"
           value="google"
+          onClick={handleSend}
         >
           <i className="fab fa-google mr-3 pl-3"></i>Continuar con Google
           <div className="sombra-facebook"></div>

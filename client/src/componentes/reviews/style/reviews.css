@@ -1,8 +1,8 @@
 .Reviews-Component-css {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 10fr 1fr;
-      grid-template-columns: 1fr 10fr 1fr;
+  -ms-grid-columns: 3fr 5fr 1fr;
+      grid-template-columns: 3fr 5fr 1fr;
   -ms-grid-columns: 1fr 5fr 1fr;
       grid-template-columns: 1fr 5fr 1fr;
   justify-items: end;

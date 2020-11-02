@@ -10,7 +10,8 @@ export default function Categoria({
   cat,
   setCat,
   setProductos,
-  data
+  data,
+  setSearch
 }) {
   const [filtrar, setFiltrar] = useState(false);
 
@@ -46,6 +47,11 @@ export default function Categoria({
     
   }else{
     setProductos(data);
+  }
+}
+const setSearchClick= ()=>{
+  if(setSearch){
+    setSearch({query:""})
   }
 }
   return (
@@ -86,8 +92,8 @@ export default function Categoria({
         <div className="listaProductos">
           {productos.isLoaded ? productos.res.map((producto, i) => {
             if(producto.stock===0){
-            return <Producto producto={producto} key={i + "k"} stockDisplay={false}/>;}else{
-               return <Producto producto={producto} key={i + "k"} stockDisplay={true}/>;
+            return <Producto setSearchClick={setSearchClick} producto={producto} key={i + "k"} stockDisplay={false} />;}else{
+               return <Producto setSearchClick={setSearchClick} producto={producto} key={i + "k"} stockDisplay={true}/>;
             }
           }):<Loader/>}
         </div>
