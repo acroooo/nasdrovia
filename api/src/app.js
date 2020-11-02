@@ -46,6 +46,20 @@ server.use((req, res, next) => {
   next();
 });
 
+//-------------------- Serialize-----------------
+passport.serializeUser((usuario, done) => {
+  done(null, usuario.id);
+});
+
+//------------------- Deserialize----------------
+passport.deserializeUser(function (id, done) {
+  Usuario.findByPk(id)
+    .then((usuario) => {
+      done(null, usuario);
+    })
+    .catch((err) => done(err, null));
+});
+
 //------------------------Passport Autenticaciones------------------------
 passport.use(
   new LocalStrategy(
@@ -129,19 +143,6 @@ passport.use(
     }
   )
 );
-//-------------------- Serialize-----------------
-passport.serializeUser((usuario, done) => {
-  done(null, usuario.id);
-});
-
-//------------------- Deserialize----------------
-passport.deserializeUser(function (id, done) {
-  Usuario.findByPk(id)
-    .then((usuario) => {
-      done(null, usuario);
-    })
-    .catch((err) => done(err, null));
-});
 
 //------------------Passport Sesion---------------
 server.use(passport.initialize());

@@ -40,7 +40,7 @@ router.post("/revoque/:id", async (req, res) => {
 //--------- Autenticación Facebook-----------
 router.get(
   "/facebook",
-  passport.authenticate("facebook", { scope: ["email"], display: "facebook" })
+  passport.authenticate("facebook", { scope: ["email"] })
 );
 
 router.get(
@@ -56,7 +56,6 @@ router.get(
   "/google",
   passport.authenticate("google", {
     scope: ["email", "profile"],
-    display: "google",
   })
 );
 router.get(
