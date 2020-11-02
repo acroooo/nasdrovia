@@ -6,7 +6,7 @@ import CarroBoton from "../CarritoBoton/CarritoBoton";
 import Stars from "../reviews/stars/stars";
 import Axios from "axios";
 
-export default function Card({ producto, stockDisplay }) {
+export default function Card({ producto, stockDisplay, setSearchClick }) {
   const [stars, setStars] = useState({ res: null, isLoaded: false });
   const { nombre, precio, images, stock, id } = producto;
   console.log(images[0].i1)
@@ -83,7 +83,7 @@ export default function Card({ producto, stockDisplay }) {
         ) : (
           <> </>
         )}
-        <Link to={`/producto/${id}`} className="link">
+        <Link to={`/producto/${id}`} className="link" onClick={setSearchClick}>
           <div>
             <img
               className="img-product-card"

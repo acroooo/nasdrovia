@@ -54,8 +54,10 @@ export default function Menu() {
             />
             <Ui/>
             </Container>
-            {productos.isLoaded?
-            <Resultados productos={productos}
+            {productos.isLoaded && search.query.length!==0?
+            <Resultados 
+            productos={productos}
+            setSearch={setSearch}
             cat={cat}
             setCat={setCat}
             setProductos={setProductos}
