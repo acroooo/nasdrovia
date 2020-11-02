@@ -46,7 +46,7 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "http://localhost:3000/perfil",
+    successRedirect: "http://localhost:3000/",
   })
 );
 
