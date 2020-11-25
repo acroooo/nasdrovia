@@ -32,13 +32,13 @@ Para ver la página, seguí los siguientes pasos:
 - Clona el repositorio
 - Crea un archivo .env en la carpeta api con el siguiente contenido:
 
-DB_HOST:localhost
-DB_USER:postgres
-DB_PASSWORD:postgres o tu contraseña
-googleClientID={Google ID}
-googleClientSecret={Secreto de Google}
-facebookClientID={Facebook ID}
-facebookClientSecret={Secreto de Facebook}
+DB_HOST:localhost<br />
+DB_USER:postgres<br />
+DB_PASSWORD:postgres o tu contraseña<br />
+googleClientID={Google ID}<br />
+googleClientSecret={Secreto de Google}<br />
+facebookClientID={Facebook ID}<br />
+facebookClientSecret={Secreto de Facebook}<br />
 
 - Instala PostgreSQL en la computadora y crea una base de datos llamada "development".
 - En las consolas de Facebook y Google obtene los ID de aplicación y secreto para poder utilizar los accesos en el login.
