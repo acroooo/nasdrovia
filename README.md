@@ -47,3 +47,26 @@ facebookClientSecret={Secreto de Facebook}<br />
 ** Ésta aplicación no posee productos, categorias, usuarios, ni imágenes cargadas. Se deberán agregar todas desde el panel de control.
 
 ## Imágenes del proyecto
+
+<img src="/img/inicio_activa.png" alt="" />
+<img src="/img/producto.png" alt="" />
+<img src="/img/registro.png" alt="" />
+<img src="/img/login.png" alt="" />
+<img src="/img/registroactivo.png" alt="" />
+<img src="/img/carrito.png" alt="" />
+<img src="/img/checkout.png" alt="" />
+<img src="/img/perfil.png" alt="" />
+<img src="/img/productos.png" alt="" />
+<img src="/img/productos_agregar.png" alt="" />
+<img src="/img/categorias.png" alt="" />
+<img src="/img/categoria_agregar.png" alt="" />
+
+## Sobre nosotros
+
+- Hernán Chamorro
+- Alejandro Zdut
+- Lismairy Alejandra Sánchez Hernández
+- Felipe Taboada
+- Hernán Rojas
+- Camilo Andrés
+
